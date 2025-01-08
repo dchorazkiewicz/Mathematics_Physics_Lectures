@@ -1,0 +1,1420 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../Modern_Physics/sp/quantum_harmonic_oscillator/" rel="prev"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.5.48" name="generator"/>
+<title>Problem list - Lecture Notes</title>
+<link href="../../../assets/stylesheets/main.6f8fc17f.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#mechanics">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Lecture Notes" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Lecture Notes">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Lecture Notes
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Problem list
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Przełącz na tryb ciemny" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Przełącz na tryb ciemny">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Przełącz na tryb jasny" class="md-option" data-md-color-accent="deep-purple" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Przełącz na tryb jasny">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Lecture Notes" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Lecture Notes">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Lecture Notes
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    🏠 Home
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Physics
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Physics
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    ⚙️ Mechanics
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+            ⚙️ Mechanics
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_1_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+<span class="md-ellipsis">
+    🎓 Lecture Notes
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_1_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_1">
+<span class="md-nav__icon md-icon"></span>
+            🎓 Lecture Notes
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/Language_of_physics.html">
+<span class="md-ellipsis">
+    Language of Physics
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/Mechanics.html">
+<span class="md-ellipsis">
+    Mechanics
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/Waves.html">
+<span class="md-ellipsis">
+    Waves
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Student Projects
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_1_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_1_2">
+<span class="md-nav__icon md-icon"></span>
+            Student Projects
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/logistic_equation_bifurcation/">
+<span class="md-ellipsis">
+    Logistic Equation
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/double_pendulum_trajectories/">
+<span class="md-ellipsis">
+    Double Pendulum
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/lorenz_system_and_attractor/">
+<span class="md-ellipsis">
+    Lorenz Attractor
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/predator_prey_model/">
+<span class="md-ellipsis">
+    Predator-Prey Model
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/duffing_oscillator/">
+<span class="md-ellipsis">
+    Duffing Oscillator
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/henon_map/">
+<span class="md-ellipsis">
+    Henon Map
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/chuas_circuit/">
+<span class="md-ellipsis">
+    Chua's Circuit
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/pendulum_with_damping_and_forcing/">
+<span class="md-ellipsis">
+    Pendulum with Damping
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Mechanics/sp/three_body_problem/">
+<span class="md-ellipsis">
+    Three Body Problem
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    ⚡ Electromagnetism
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+            ⚡ Electromagnetism
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    🎓 Lecture Notes
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_2_1">
+<span class="md-nav__icon md-icon"></span>
+            🎓 Lecture Notes
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Electromagnetism/Electromagnetism.html">
+<span class="md-ellipsis">
+    Electromagnetism
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Electromagnetism/Circuits.html">
+<span class="md-ellipsis">
+    Circuits
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Student Projects
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Student Projects
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Electromagnetism/sp/Kirchhoff_laws/">
+<span class="md-ellipsis">
+    Kirchhoff Laws
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Electromagnetism/sp/solar_wind/">
+<span class="md-ellipsis">
+    Aurora Borealis
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    🔬 Experiments
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_3">
+<span class="md-nav__icon md-icon"></span>
+            🔬 Experiments
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+<span class="md-ellipsis">
+    🎓 Lecture Notes
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_3_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_1">
+<span class="md-nav__icon md-icon"></span>
+            🎓 Lecture Notes
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Experiments_Statistics/Statistics.html">
+<span class="md-ellipsis">
+    Statistics 101
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Experiments_Statistics/Measurement.html">
+<span class="md-ellipsis">
+    Measurements
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Student Projects
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_3_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_3_2">
+<span class="md-nav__icon md-icon"></span>
+            Student Projects
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Experiments_Statistics/sp/estimation_of_pi/">
+<span class="md-ellipsis">
+    Estiamting Pi
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    ⚛️ Modern Physics
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_4">
+<span class="md-nav__icon md-icon"></span>
+            ⚛️ Modern Physics
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+<span class="md-ellipsis">
+    🎓 Lecture Notes
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_4_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_4_1">
+<span class="md-nav__icon md-icon"></span>
+            🎓 Lecture Notes
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Modern_Physics/Quantum_mechanics.html">
+<span class="md-ellipsis">
+    Quantum Mechanics
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Modern_Physics/Cosmology.html">
+<span class="md-ellipsis">
+    Cosmology
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Student Projects
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_4_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_4_2">
+<span class="md-nav__icon md-icon"></span>
+            Student Projects
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Modern_Physics/sp/quantum_harmonic_oscillator/">
+<span class="md-ellipsis">
+    Quantum Harmonic Oscillator
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    ✏️ Exercises for Students
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+            ✏️ Exercises for Students
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Problem list
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Problem list
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mechanics">
+<span class="md-ellipsis">
+      Mechanics
+    </span>
+</a>
+<nav aria-label="Mechanics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gravity">
+<span class="md-ellipsis">
+      Gravity
+    </span>
+</a>
+<nav aria-label="Gravity" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_1">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2_1">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-3">
+<span class="md-ellipsis">
+      Problem 3
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#waves">
+<span class="md-ellipsis">
+      Waves
+    </span>
+</a>
+<nav aria-label="Waves" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_2">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuits">
+<span class="md-ellipsis">
+      Circuits
+    </span>
+</a>
+<nav aria-label="Circuits" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_3">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#electromangetism">
+<span class="md-ellipsis">
+      Electromangetism
+    </span>
+</a>
+<nav aria-label="Electromangetism" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_4">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#statistics">
+<span class="md-ellipsis">
+      Statistics
+    </span>
+</a>
+<nav aria-label="Statistics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_5">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2_2">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#measurements">
+<span class="md-ellipsis">
+      Measurements
+    </span>
+</a>
+<nav aria-label="Measurements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_6">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mechanics">
+<span class="md-ellipsis">
+      Mechanics
+    </span>
+</a>
+<nav aria-label="Mechanics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gravity">
+<span class="md-ellipsis">
+      Gravity
+    </span>
+</a>
+<nav aria-label="Gravity" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_1">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2_1">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-3">
+<span class="md-ellipsis">
+      Problem 3
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#waves">
+<span class="md-ellipsis">
+      Waves
+    </span>
+</a>
+<nav aria-label="Waves" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_2">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuits">
+<span class="md-ellipsis">
+      Circuits
+    </span>
+</a>
+<nav aria-label="Circuits" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_3">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#electromangetism">
+<span class="md-ellipsis">
+      Electromangetism
+    </span>
+</a>
+<nav aria-label="Electromangetism" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_4">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#statistics">
+<span class="md-ellipsis">
+      Statistics
+    </span>
+</a>
+<nav aria-label="Statistics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_5">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-2_2">
+<span class="md-ellipsis">
+      Problem 2
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#measurements">
+<span class="md-ellipsis">
+      Measurements
+    </span>
+</a>
+<nav aria-label="Measurements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#problem-1_6">
+<span class="md-ellipsis">
+      Problem 1
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Problem list</h1>
+<h2 id="mechanics">Mechanics<a class="headerlink" href="#mechanics" title="Permanent link">¶</a></h2>
+<h3 id="problem-1">Problem 1<a class="headerlink" href="#problem-1" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Investigating the Range as a Function of the Angle of Projection</span></p>
+<h4 id="motivation">Motivation:<a class="headerlink" href="#motivation" title="Permanent link">¶</a></h4>
+<p>Projectile motion, while seemingly simple, offers a rich playground for exploring fundamental principles of physics. The problem is straightforward: analyze how the range of a projectile depends on its angle of projection. Yet, beneath this simplicity lies a complex and versatile framework. The equations governing projectile motion involve both linear and quadratic relationships, making them accessible yet deeply insightful.</p>
+<p>What makes this topic particularly compelling is the number of free parameters involved in these equations, such as initial velocity, gravitational acceleration, and launch height. These parameters give rise to a diverse set of solutions that can describe a wide array of real-world phenomena, from the arc of a soccer ball to the trajectory of a rocket.</p>
+<h4 id="task">Task:<a class="headerlink" href="#task" title="Permanent link">¶</a></h4>
+<p>1 <strong>Theoretical Foundation:</strong></p>
+<ul>
+<li>Begin by deriving the governing equations of motion from fundamental principles. This involves solving a basic differential equation to establish the general form of the motion.</li>
+<li>Highlight how variations in initial conditions lead to a family of solutions.</li>
+</ul>
+<p>2 <strong>Analysis of the Range:</strong></p>
+<ul>
+<li>Investigate how the horizontal range depends on the angle of projection.</li>
+<li>Discuss how changes in other parameters, such as initial velocity and gravitational acceleration, influence the relationship.</li>
+</ul>
+<p>3 <strong>Practical Applications:</strong></p>
+<ul>
+<li>Reflect on how this model can be adapted to describe various real-world situations, such as projectiles launched on uneven terrain or in the presence of air resistance.</li>
+</ul>
+<p>4 <strong>Implementation:</strong></p>
+<ul>
+<li>Develop a computational tool or algorithm to simulate projectile motion.</li>
+<li>Visualize the range as a function of the angle of projection for different sets of initial conditions.</li>
+</ul>
+<hr/>
+<h4 id="deliverables">Deliverables:<a class="headerlink" href="#deliverables" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed description of the family of solutions derived from the governing equations.</li>
+<li>Graphical representations of the range versus angle of projection, highlighting how different parameters influence the curve.</li>
+<li>A discussion on the limitations of the idealized model and suggestions for incorporating more realistic factors, such as drag or wind.</li>
+</ol>
+<hr/>
+<h4 id="hints-and-resources">Hints and Resources:<a class="headerlink" href="#hints-and-resources" title="Permanent link">¶</a></h4>
+<ul>
+<li>Start from the fundamental laws of motion and gradually build the general solution.</li>
+<li>Use numerical methods or simulation tools to explore scenarios that go beyond simple analytical solutions.</li>
+<li>Consider how this model connects to real-world systems, such as sports, engineering, and astrophysics.</li>
+</ul>
+<p>This task encourages a deep understanding of projectile motion while showcasing its versatility and applicability across various domains.</p>
+<h3 id="problem-2">Problem 2<a class="headerlink" href="#problem-2" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;"><strong>Investigating the Dynamics of a Forced Damped Pendulum</strong></span></p>
+<h4 id="motivation_1">Motivation:<a class="headerlink" href="#motivation_1" title="Permanent link">¶</a></h4>
+<p>The forced damped pendulum is a captivating example of a physical system with intricate behavior resulting from the interplay of damping, restoring forces, and external driving forces. By introducing both damping and external periodic forcing, the system demonstrates a transition from simple harmonic motion to a rich spectrum of dynamics, including resonance, chaos, and quasiperiodic behavior. These phenomena serve as a foundation for understanding complex real-world systems, such as driven oscillators, climate systems, and mechanical structures under periodic stress.</p>
+<p>Adding forcing introduces new parameters, such as the amplitude and frequency of the external force, which significantly affect the pendulum's behavior. By systematically varying these parameters, a diverse class of solutions can be observed, including synchronized oscillations, chaotic motion, and resonance phenomena. These behaviors not only highlight fundamental physics principles but also provide insights into engineering applications such as energy harvesting, vibration isolation, and mechanical resonance.</p>
+<h4 id="task_1">Task:<a class="headerlink" href="#task_1" title="Permanent link">¶</a></h4>
+<p>1 <strong>Theoretical Foundation:</strong></p>
+<ul>
+<li>
+<p>Start with the differential equation governing the motion of a forced damped pendulum:</p>
+<p><span class="arithmatex">\(\frac{d^2\theta}{dt^2} + b\frac{d\theta}{dt} + \frac{g}{L}\sin\theta = A\cos(\omega t)\)</span></p>
+</li>
+<li>
+<p>Derive the approximate solutions for small-angle oscillations.</p>
+</li>
+<li>Explore resonance conditions and their implications for the system's energy.</li>
+</ul>
+<p>2 <strong>Analysis of Dynamics:</strong></p>
+<ul>
+<li>Investigate how the damping coefficient, driving amplitude, and driving frequency influence the motion of the pendulum.</li>
+<li>Examine the transition between regular and chaotic motion and their physical interpretations.</li>
+</ul>
+<p>3 <strong>Practical Applications:</strong></p>
+<ul>
+<li>Discuss real-world scenarios where the forced damped pendulum model applies, such as in energy harvesting devices, suspension bridges, and oscillating circuits.</li>
+</ul>
+<p>4 <strong>Implementation:</strong></p>
+<ul>
+<li>Create a computational model to simulate the motion of a forced damped pendulum.</li>
+<li>Visualize the behavior under various damping, driving force, and initial conditions.</li>
+<li>Plot phase diagrams and Poincaré sections to illustrate transitions to chaos.</li>
+</ul>
+<hr/>
+<h4 id="deliverables_1">Deliverables:<a class="headerlink" href="#deliverables_1" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed explanation of the general solutions for the forced damped pendulum.</li>
+<li>Graphical representations of the motion for different damping coefficients, driving amplitudes, and driving frequencies, including resonance and chaotic behavior.</li>
+<li>A discussion on the limitations of the model and potential extensions, such as introducing nonlinear damping or non-periodic driving forces.</li>
+<li>Phase portraits, Poincaré sections, and bifurcation diagrams to analyze transitions to complex dynamics.</li>
+</ol>
+<hr/>
+<h4 id="hints-and-resources_1">Hints and Resources:<a class="headerlink" href="#hints-and-resources_1" title="Permanent link">¶</a></h4>
+<ul>
+<li>For small angles, approximate <span class="arithmatex">\(\sin\theta \approx \theta\)</span> to simplify the differential equation.</li>
+<li>Employ numerical techniques (e.g., Runge-Kutta methods) for exploring the dynamics beyond the small-angle approximation.</li>
+<li>Relate the forced damped pendulum to analogous systems in other fields, such as electrical circuits (driven RLC circuits) or biomechanics (human gait).</li>
+<li>Utilize software tools like Python for simulations and visualizations.</li>
+</ul>
+<p>This task bridges theoretical analysis with computational exploration, fostering a deeper understanding of forced and damped oscillatory phenomena and their implications in both physics and engineering.</p>
+<h2 id="gravity">Gravity<a class="headerlink" href="#gravity" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_1">Problem 1<a class="headerlink" href="#problem-1_1" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Orbital Period and Orbital Radius</span></p>
+<h4 id="motivation_2">Motivation:<a class="headerlink" href="#motivation_2" title="Permanent link">¶</a></h4>
+<p>The relationship between the square of the orbital period and the cube of the orbital radius, known as Kepler's Third Law, is a cornerstone of celestial mechanics. This simple yet profound relationship allows for the determination of planetary motions and has implications for understanding gravitational interactions on both local and cosmic scales. By analyzing this relationship, one can connect fundamental principles of gravity with real-world phenomena such as satellite orbits and planetary systems.</p>
+<h4 id="task_2">Task:<a class="headerlink" href="#task_2" title="Permanent link">¶</a></h4>
+<ol>
+<li>Derive the relationship between the square of the orbital period and the cube of the orbital radius for circular orbits.</li>
+<li>Discuss the implications of this relationship for astronomy, including its role in calculating planetary masses and distances.</li>
+<li>Analyze real-world examples, such as the Moon's orbit around Earth or the orbits of planets in the Solar System.</li>
+<li>Implement a computational model to simulate circular orbits and verify the relationship.</li>
+</ol>
+<hr/>
+<h4 id="deliverables_2">Deliverables:<a class="headerlink" href="#deliverables_2" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed explanation of the subjects.</li>
+<li>Graphical representations of circular orbits and the relationship between orbital period and radius.</li>
+<li>A discussion on how this relationship extends to elliptical orbits and other celestial bodies.</li>
+</ol>
+<h3 id="problem-2_1">Problem 2<a class="headerlink" href="#problem-2_1" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Escape Velocities and Cosmic Velocities</span></p>
+<h4 id="motivation_3">Motivation:<a class="headerlink" href="#motivation_3" title="Permanent link">¶</a></h4>
+<p>The concept of escape velocity is crucial for understanding the conditions required to leave a celestial body's gravitational influence. Extending this concept, the first, second, and third cosmic velocities define the thresholds for orbiting, escaping, and leaving a star system. These principles underpin modern space exploration, from launching satellites to interplanetary missions.</p>
+<h4 id="task_3">Task:<a class="headerlink" href="#task_3" title="Permanent link">¶</a></h4>
+<ol>
+<li>Define the first, second, and third cosmic velocities, explaining their physical meaning.</li>
+<li>Analyze the mathematical derivations and parameters affecting these velocities.</li>
+<li>Calculate and visualize these velocities for different celestial bodies like Earth, Mars adn Jupyter.</li>
+<li>Discuss their importance in space exploration, including launching satellites, missions to other planets, and potential interstellar travel.</li>
+</ol>
+<hr/>
+<h4 id="deliverables_3">Deliverables:<a class="headerlink" href="#deliverables_3" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed explanation of the subjects.</li>
+<li>Graphical representations of escape velocities and cosmic velocities for various celestial bodies.</li>
+</ol>
+<h3 id="problem-3">Problem 3<a class="headerlink" href="#problem-3" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Trajectories of a Freely Released Payload Near Earth</span></p>
+<h4 id="motivation_4">Motivation:<a class="headerlink" href="#motivation_4" title="Permanent link">¶</a></h4>
+<p>When an object is released from a moving rocket near Earth, its trajectory depends on initial conditions and gravitational forces. This scenario presents a rich problem, blending principles of orbital mechanics and numerical methods. Understanding the potential trajectories is vital for space missions, such as deploying payloads or returning objects to Earth.</p>
+<h4 id="task_4">Task:<a class="headerlink" href="#task_4" title="Permanent link">¶</a></h4>
+<ol>
+<li>Analyze the possible trajectories (e.g., parabolic, hyperbolic, elliptical) of a payload released near Earth.</li>
+<li>Perform a numerical analysis to compute the path of the payload based on given initial conditions (position, velocity, and altitude).</li>
+<li>Discuss how these trajectories relate to orbital insertion, reentry, or escape scenarios.</li>
+<li>Develop a computational tool to simulate and visualize the motion of the payload under Earth's gravity, accounting for initial velocities and directions.</li>
+</ol>
+<hr/>
+<h4 id="hints-and-resources_2">Hints and Resources:<a class="headerlink" href="#hints-and-resources_2" title="Permanent link">¶</a></h4>
+<ul>
+<li>Use fundamental gravitational principles, such as Newton's Law of Gravitation and Kepler's Laws, to derive equations and analyze scenarios.</li>
+<li>Leverage numerical methods or software tools (e.g., Python) to simulate orbits and trajectories.</li>
+<li>Explore real-world applications, such as space mission planning, satellite deployment, and planetary exploration.</li>
+</ul>
+<p>These tasks provide a foundation for understanding gravity's influence on motion and its role in celestial mechanics and space exploration.</p>
+<h4 id="deliverables_4">Deliverables:<a class="headerlink" href="#deliverables_4" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed explanation of the subjects.</li>
+<li>Graphical representations of orbital trajectories, escape velocities, and payload trajectories near Earth.</li>
+</ol>
+<h2 id="waves">Waves<a class="headerlink" href="#waves" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_2">Problem 1<a class="headerlink" href="#problem-1_2" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Interference Patterns on a water surface</span></p>
+<h4 id="motivation_5">Motivation:<a class="headerlink" href="#motivation_5" title="Permanent link">¶</a></h4>
+<p>Interference occurs when waves from different sources overlap, creating new patterns. On a water surface, this can be easily observed when ripples from different points meet, forming distinctive interference patterns. These patterns can show us how waves combine in different ways, either reinforcing each other or canceling out.</p>
+<p>Studying these patterns helps us understand wave behavior in a simple, visual way. It also allows us to explore important concepts, like the relationship between wave phase and the effects of multiple sources. This task offers a hands-on approach to learning about wave interactions and their real-world applications, making it an interesting and engaging way to dive into wave physics.</p>
+<h4 id="task_5">Task<a class="headerlink" href="#task_5" title="Permanent link">¶</a></h4>
+<p>A circular wave on the water surface, emanating from a point source located at <span class="arithmatex">\((x_0, y_0)\)</span>, can be described by the Single Disturbance equation:</p>
+<div class="arithmatex">\[
+\eta(x, y, t) = \frac{A}{\sqrt{r}} \cdot \cos\left(kr - \omega t + \phi\right)
+\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(\eta(x, y, t)\)</span> is the displacement of the water surface at point <span class="arithmatex">\((x, y)\)</span> and time <span class="arithmatex">\(t\)</span>,</li>
+<li><span class="arithmatex">\(A\)</span> is the amplitude of the wave,</li>
+<li><span class="arithmatex">\(k = \frac{2\pi}{\lambda}\)</span> is the wave number, related to the wavelength <span class="arithmatex">\(\lambda\)</span>,</li>
+<li><span class="arithmatex">\(\omega = 2\pi f\)</span> is the angular frequency, related to the frequency <span class="arithmatex">\(f\)</span>,</li>
+<li><span class="arithmatex">\(r = \sqrt{(x - x_0)^2 + (y - y_0)^2}\)</span> is the distance from the source to the point <span class="arithmatex">\((x, y)\)</span>,</li>
+<li><span class="arithmatex">\(\phi\)</span> is the initial phase.</li>
+</ul>
+<h4 id="problem-statement">Problem Statement:<a class="headerlink" href="#problem-statement" title="Permanent link">¶</a></h4>
+<p>Your task is to analyze the interference patterns formed on the water surface due to the superposition of waves emitted from point sources placed at the vertices of a chosen regular polygon.</p>
+<h4 id="steps-to-follow">Steps to Follow:<a class="headerlink" href="#steps-to-follow" title="Permanent link">¶</a></h4>
+<ol>
+<li>
+<p><strong>Select a Regular Polygon:</strong> Choose a regular polygon (e.g., equilateral triangle, square, regular pentagon).</p>
+</li>
+<li>
+<p><strong>Position the Sources:</strong> Place point wave sources at the vertices of the selected polygon.</p>
+</li>
+<li>
+<p><strong>Wave Equations:</strong> Write the equations describing the waves emitted from each source, considering their respective positions.</p>
+</li>
+<li>
+<p><strong>Superposition of Waves:</strong> Apply the principle of superposition by summing the wave displacements at each point on the water surface:</p>
+</li>
+</ol>
+<p>$$
+   \eta_{\text{sum}}(x, y, t) = \sum_{i=1}^{N} \eta_i(x, y, t)
+   $$</p>
+<p>where <span class="arithmatex">\(N\)</span> is the number of sources (vertices of the polygon).</p>
+<ol>
+<li>
+<p><strong>Analyze Interference Patterns:</strong> Examine the resulting displacement <span class="arithmatex">\(\eta_{\text{sum}}(x, y, t)\)</span> as a function of position <span class="arithmatex">\((x, y)\)</span> and time <span class="arithmatex">\(t\)</span>. Identify regions of constructive interference (wave amplification) and destructive interference (wave cancellation).</p>
+</li>
+<li>
+<p><strong>Visualization:</strong> Present your findings graphically, illustrating the interference patterns for the chosen regular polygon.</p>
+</li>
+</ol>
+<h4 id="considerations">Considerations:<a class="headerlink" href="#considerations" title="Permanent link">¶</a></h4>
+<ul>
+<li>Assume all sources emit waves with the same amplitude <span class="arithmatex">\(A\)</span>, wavelength <span class="arithmatex">\(\lambda\)</span>, and frequency <span class="arithmatex">\(f\)</span>.</li>
+<li>The waves are coherent, maintaining a constant phase difference.</li>
+<li>You may use simulation and visualization tools such as Python (with libraries like Matplotlib), or other graphical software to aid in your analysis.</li>
+</ul>
+<h4 id="deliverables_5">Deliverables:<a class="headerlink" href="#deliverables_5" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>A detailed explanation of the interference patterns observed for the chosen regular polygon with the goal of understanding wave superposition.</li>
+<li>Graphical representations of the water surface showing constructive and destructive interference regions.</li>
+</ol>
+<h2 id="circuits">Circuits<a class="headerlink" href="#circuits" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_3">Problem 1<a class="headerlink" href="#problem-1_3" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;">Equivalent Resistance Using Graph Theory</span></p>
+<h4 id="motivation_6">Motivation:<a class="headerlink" href="#motivation_6" title="Permanent link">¶</a></h4>
+<p>Calculating equivalent resistance is a fundamental problem in electrical circuits, essential for understanding and designing efficient systems. While traditional methods involve iteratively applying series and parallel resistor rules, these approaches can become cumbersome for complex circuits with many components. Graph theory offers a powerful alternative, providing a structured and algorithmic way to analyze circuits.</p>
+<p>By representing a circuit as a graph—where nodes correspond to junctions and edges represent resistors with weights equal to their resistance values—we can systematically simplify even the most intricate networks. This method not only streamlines calculations but also opens the door to automated analysis, making it particularly useful in modern applications like circuit simulation software, optimization problems, and network design.</p>
+<p>Studying equivalent resistance through graph theory is valuable not only for its practical applications but also for the deeper insights it provides into the interplay between electrical and mathematical concepts. This approach highlights the versatility of graph theory, demonstrating its relevance across physics, engineering, and computer science.</p>
+<hr/>
+<h4 id="task-options">Task Options:<a class="headerlink" href="#task-options" title="Permanent link">¶</a></h4>
+<h5 id="option-1-simplified-task-algorithm-description"><strong>Option 1: Simplified Task – Algorithm Description</strong><a class="headerlink" href="#option-1-simplified-task-algorithm-description" title="Permanent link">¶</a></h5>
+<ol>
+<li>
+<p>Describe the algorithm for calculating the equivalent resistance using graph theory.</p>
+</li>
+<li>
+<p>Provide the pseudocode that:</p>
+<ul>
+<li>Identifies series and parallel connections.</li>
+<li>Iteratively reduces the graph until a single equivalent resistance is obtained.</li>
+</ul>
+</li>
+<li>
+<p>Include a clear explanation of how the algorithm handles nested combinations.</p>
+</li>
+</ol>
+<h5 id="option-2-advanced-task-full-implementation"><strong>Option 2: Advanced Task – Full Implementation</strong><a class="headerlink" href="#option-2-advanced-task-full-implementation" title="Permanent link">¶</a></h5>
+<ol>
+<li>
+<p>Implement the algorithm in a programming language of your choice.</p>
+</li>
+<li>
+<p>Ensure the implementation:</p>
+<ul>
+<li>Accepts a circuit graph as input.</li>
+<li>Handles arbitrary resistor configurations, including nested series and parallel connections.</li>
+<li>Outputs the final equivalent resistance.</li>
+</ul>
+</li>
+<li>
+<p>Test your implementation with examples, such as:</p>
+<ul>
+<li>Simple series and parallel combinations.</li>
+<li>Nested configurations.</li>
+<li>Complex graphs with multiple cycles.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h4 id="deliverables_6">Deliverables:<a class="headerlink" href="#deliverables_6" title="Permanent link">¶</a></h4>
+<ul>
+<li>A detailed pseudocode (but preferably a full implementation) and explanation of the algorithm.</li>
+<li>Description of how it handles complex circuit configurations on three input examples.</li>
+<li>A brief analysis of the algorithm's efficiency and potential improvements.</li>
+</ul>
+<hr/>
+<h4 id="hints-and-resources_3">Hints and Resources:<a class="headerlink" href="#hints-and-resources_3" title="Permanent link">¶</a></h4>
+<ul>
+<li>Focus on iterative graph simplification:<ul>
+<li>Detect linear chains for series reduction.</li>
+<li>Identify cycles for parallel reduction.</li>
+</ul>
+</li>
+<li>Use tools like <code>networkx</code> (Python) or similar for graph manipulation if you choose implementation.</li>
+<li>Depth-first search (DFS) or other traversal methods can help identify patterns in the graph.</li>
+</ul>
+<p>Choose the task that matches your skill level while providing a clear and structured solution to the problem.</p>
+<h2 id="electromangetism">Electromangetism<a class="headerlink" href="#electromangetism" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_4">Problem 1<a class="headerlink" href="#problem-1_4" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;"><strong>Simulating the effects of the Lorentz Force</strong></span></p>
+<h4 id="motivation_7">Motivation:<a class="headerlink" href="#motivation_7" title="Permanent link">¶</a></h4>
+<p>The Lorentz force, expressed as <span class="arithmatex">\(\mathbf{F} = q\mathbf{E} + q\mathbf{v} \times \mathbf{B}\)</span>, governs the motion of charged particles in electric and magnetic fields. It is foundational in fields like plasma physics, particle accelerators, and astrophysics. By focusing on simulations, we can explore the practical applications and visualize the complex trajectories that arise due to this force.</p>
+<h4 id="task_6">Task:<a class="headerlink" href="#task_6" title="Permanent link">¶</a></h4>
+<p>1 <strong>Exploration of Applications:</strong></p>
+<ul>
+<li>Identify systems where the Lorentz force plays a key role (e.g., particle accelerators, mass spectrometers, plasma confinement).</li>
+<li>Discuss the relevance of electric (<span class="arithmatex">\(\mathbf{E}\)</span>) and magnetic (<span class="arithmatex">\(\mathbf{B}\)</span>) fields in controlling the motion of charged particles.</li>
+</ul>
+<p>2 <strong>Simulating Particle Motion:</strong></p>
+<ul>
+<li>Implement a simulation to compute and visualize the trajectory of a charged particle under:<ul>
+<li>A uniform magnetic field.</li>
+<li>Combined uniform electric and magnetic fields.</li>
+<li>Crossed electric and magnetic fields.</li>
+</ul>
+</li>
+<li>Simulate the particle’s circular, helical, or drift motion based on initial conditions and field configurations.</li>
+</ul>
+<p>3 <strong>Parameter Exploration:</strong></p>
+<ul>
+<li>Allow variations in:<ul>
+<li>Field strengths (<span class="arithmatex">\(E\)</span>, <span class="arithmatex">\(B\)</span>).</li>
+<li>Initial particle velocity (<span class="arithmatex">\(\mathbf{v}\)</span>).</li>
+<li>Charge and mass of the particle (<span class="arithmatex">\(q\)</span>, <span class="arithmatex">\(m\)</span>).</li>
+</ul>
+</li>
+<li>Observe how these parameters influence the trajectory.</li>
+</ul>
+<p>4 <strong>Visualization:</strong></p>
+<ul>
+<li>Create clear, labeled plots showing the particle’s path in 2D and 3D for different scenarios.</li>
+<li>Highlight physical phenomena such as the Larmor radius and drift velocity.</li>
+</ul>
+<hr/>
+<h4 id="deliverables_7">Deliverables:<a class="headerlink" href="#deliverables_7" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>Visualizations of particle trajectories for the specified field configurations.</li>
+<li>A discussion on how the results relate to practical systems, such as cyclotrons or magnetic traps.</li>
+</ol>
+<hr/>
+<h4 id="hints-and-resources_4">Hints and Resources:<a class="headerlink" href="#hints-and-resources_4" title="Permanent link">¶</a></h4>
+<ul>
+<li>Use numerical methods like the Euler or Runge-Kutta method to solve the equations of motion</li>
+<li>Employ Python libraries such as NumPy for calculations and Matplotlib for visualizations.</li>
+<li>Start with simple cases (e.g., uniform magnetic field) and gradually add complexity (e.g., crossed fields).</li>
+</ul>
+<p>This task focuses on applying the Lorentz force concept through simulations, enabling an intuitive understanding of its effects in real-world scenarios.</p>
+<h4 id="deliverables_8">Deliverables:<a class="headerlink" href="#deliverables_8" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document with Python script or notebook implementing the simulations.</li>
+<li>Visualizations of particle trajectories for the specified field configurations.</li>
+<li>A discussion on how the results relate to practical systems, such as cyclotrons or magnetic traps.</li>
+<li>Suggestions for extending the simulation to more complex scenarios, such as non-uniform fields.</li>
+</ol>
+<h2 id="statistics">Statistics<a class="headerlink" href="#statistics" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_5">Problem 1<a class="headerlink" href="#problem-1_5" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;"><strong>Exploring the Central Limit Theorem through simulations</strong></span></p>
+<h4 id="motivation_8">Motivation:<a class="headerlink" href="#motivation_8" title="Permanent link">¶</a></h4>
+<p>The Central Limit Theorem (CLT) is a cornerstone of probability and statistics, stating that the sampling distribution of the sample mean approaches a normal distribution as the sample size increases, regardless of the population’s original distribution. Simulations provide an intuitive and hands-on way to observe this phenomenon in action.</p>
+<h4 id="task_7">Task:<a class="headerlink" href="#task_7" title="Permanent link">¶</a></h4>
+<p>1 <strong>Simulating Sampling Distributions:</strong></p>
+<ul>
+<li>Select several types of population distributions, such as:<ul>
+<li>Uniform distribution.</li>
+<li>Exponential distribution.</li>
+<li>Binomial distribution.</li>
+</ul>
+</li>
+<li>For each distribution, generate a large dataset representing the population.</li>
+</ul>
+<p>2 <strong>Sampling and Visualization:</strong></p>
+<ul>
+<li>Randomly sample data from the population and calculate the sample mean for different sample sizes (e.g., 5, 10, 30, 50).</li>
+<li>Repeat the process multiple times to create a sampling distribution of the sample mean.</li>
+<li>Plot histograms of the sample means for each sample size and observe the convergence to a normal distribution.</li>
+</ul>
+<p>3 <strong>Parameter Exploration:</strong></p>
+<ul>
+<li>Investigate how the shape of the original distribution and the sample size influence the rate of convergence to normality.</li>
+<li>Highlight the impact of the population’s variance on the spread of the sampling distribution.</li>
+</ul>
+<p>4 <strong>Practical Applications:</strong></p>
+<ul>
+<li>Reflect on the importance of the CLT in real-world scenarios, such as:<ul>
+<li>Estimating population parameters.</li>
+<li>Quality control in manufacturing.</li>
+<li>Predicting outcomes in financial models.</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h4 id="deliverables_9">Deliverables:<a class="headerlink" href="#deliverables_9" title="Permanent link">¶</a></h4>
+<ol>
+<li>A Markdown document and Python scripts or notebooks implementing the simulations for various population distributions.</li>
+<li>Plots illustrating the sampling distributions and their progression toward normality.</li>
+<li>A discussion on the implications of the results and their connection to theoretical expectations.</li>
+</ol>
+<hr/>
+<h4 id="hints-and-resources_5">Hints and Resources:<a class="headerlink" href="#hints-and-resources_5" title="Permanent link">¶</a></h4>
+<ul>
+<li>Use Python libraries such as NumPy for random number generation and Matplotlib/Seaborn for visualization.</li>
+<li>Begin with simple populations (e.g., uniform or normal) before exploring more complex distributions.</li>
+<li>Ensure students understand how to calculate and interpret the sample mean and variance.</li>
+</ul>
+<p>This task encourages students to explore the Central Limit Theorem through computational experiments, deepening their understanding of its significance in statistics.</p>
+<h3 id="problem-2_2">Problem 2<a class="headerlink" href="#problem-2_2" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;"><strong>Estimating Pi using Monte Carlo Methods</strong></span></p>
+<h4 id="motivation_9">Motivation:<a class="headerlink" href="#motivation_9" title="Permanent link">¶</a></h4>
+<p>Monte Carlo simulations are a powerful class of computational techniques that use randomness to solve problems or estimate values. One of the most elegant applications of Monte Carlo methods is estimating the value of <span class="arithmatex">\(\pi\)</span> through geometric probability. By randomly generating points and analyzing their positions relative to a geometric shape, we can approximate <span class="arithmatex">\(\pi\)</span> in an intuitive and visually engaging way.</p>
+<p>This problem connects fundamental concepts of probability, geometry, and numerical computation. It also provides a gateway to understanding how randomness can be harnessed to solve complex problems in physics, finance, and computer science. The Monte Carlo approach to <span class="arithmatex">\(\pi\)</span> estimation highlights the versatility and simplicity of this method while offering practical insights into convergence rates and computational efficiency.</p>
+<hr/>
+<h4 id="task_8">Task<a class="headerlink" href="#task_8" title="Permanent link">¶</a></h4>
+<h5 id="part-1-estimating-pi-using-a-circle">Part 1: Estimating <span class="arithmatex">\(\pi\)</span> Using a Circle<a class="headerlink" href="#part-1-estimating-pi-using-a-circle" title="Permanent link">¶</a></h5>
+<p>1 <strong>Theoretical Foundation:</strong></p>
+<ul>
+<li>Explain how the ratio of points inside a circle to the total number of points in a square can be used to estimate <span class="arithmatex">\(\pi\)</span>.</li>
+<li>Derive the formula <span class="arithmatex">\(\pi \approx 4 \cdot (\text{points inside the circle} / \text{total points})\)</span> for a unit circle.</li>
+</ul>
+<p>2 <strong>Simulation:</strong></p>
+<ul>
+<li>Generate random points in a 2D square bounding a unit circle.</li>
+<li>Count the number of points falling inside the circle.</li>
+<li>Estimate <span class="arithmatex">\(\pi\)</span> based on the ratio of points inside the circle to the total points.</li>
+</ul>
+<p>3 <strong>Visualization:</strong></p>
+<ul>
+<li>Create a plot showing the randomly generated points, distinguishing those inside and outside the circle.</li>
+</ul>
+<p>4 <strong>Analysis:</strong></p>
+<ul>
+<li>Investigate how the accuracy of the estimate improves as the number of points increases.</li>
+<li>Discuss the convergence rate and computational considerations for this method.</li>
+</ul>
+<hr/>
+<h5 id="part-2-estimating-pi-using-buffons-needle">Part 2: Estimating <span class="arithmatex">\(\pi\)</span> Using Buffon’s Needle<a class="headerlink" href="#part-2-estimating-pi-using-buffons-needle" title="Permanent link">¶</a></h5>
+<p>1 <strong>Theoretical Foundation:</strong></p>
+<ul>
+<li>Describe Buffon’s Needle problem, where <span class="arithmatex">\(\pi\)</span> can be estimated based on the probability of a needle crossing parallel lines on a plane.</li>
+<li>Derive the formula <span class="arithmatex">\(\pi \approx (2 \cdot \text{needle length} \cdot \text{number of throws}) / (\text{distance between lines} \cdot \text{number of crossings})\)</span>.</li>
+</ul>
+<p>2 <strong>Simulation:</strong></p>
+<ul>
+<li>Simulate the random dropping of a needle on a plane with parallel lines.</li>
+<li>Count the number of times the needle crosses a line.</li>
+<li>Estimate <span class="arithmatex">\(\pi\)</span> based on the derived formula.</li>
+</ul>
+<p>3 <strong>Visualization:</strong></p>
+<ul>
+<li>Create a graphical representation of the simulation, showing the needle positions relative to the lines.</li>
+</ul>
+<p>4 <strong>Analysis:</strong></p>
+<ul>
+<li>Explore how the number of needle drops affects the estimate’s accuracy.</li>
+<li>Compare the convergence rate of this method to the circle-based approach.</li>
+</ul>
+<hr/>
+<h4 id="deliverables_10">Deliverables<a class="headerlink" href="#deliverables_10" title="Permanent link">¶</a></h4>
+<p>1 A Markdown document with:</p>
+<ul>
+<li>Clear explanations of the methods and formulas.</li>
+<li>A discussion of theoretical foundations and results.</li>
+</ul>
+<p>2 Python scripts or notebooks implementing the simulations, including:</p>
+<ul>
+<li>Code for the circle-based Monte Carlo method.</li>
+<li>Code for the Buffon’s Needle method.</li>
+</ul>
+<p>3 Graphical outputs:</p>
+<ul>
+<li>Plots showing random points for the circle-based method.</li>
+<li>Visualizations of needle positions for Buffon’s Needle.</li>
+</ul>
+<p>4 Analysis:</p>
+<ul>
+<li>Tables or graphs showing the convergence of estimated <span class="arithmatex">\(\pi\)</span> as a function of the number of iterations for both methods.</li>
+<li>A comparison of the methods in terms of accuracy and computational efficiency.</li>
+</ul>
+<hr/>
+<h4 id="hints-and-resources_6">Hints and Resources<a class="headerlink" href="#hints-and-resources_6" title="Permanent link">¶</a></h4>
+<ul>
+<li>Use Python libraries such as NumPy for random number generation and Matplotlib for visualizations.</li>
+<li>For the circle-based method, ensure the random points are uniformly distributed within the square.</li>
+<li>For Buffon’s Needle, pay attention to geometric constraints, such as the relationship between the needle length and the distance between lines.</li>
+<li>Start with a small number of iterations to validate the implementation, then increase the sample size to observe convergence.</li>
+</ul>
+<h2 id="measurements">Measurements<a class="headerlink" href="#measurements" title="Permanent link">¶</a></h2>
+<h3 id="problem-1_6">Problem 1<a class="headerlink" href="#problem-1_6" title="Permanent link">¶</a></h3>
+<p><span style="font-size: 1.2em; font-weight: bold;"><strong>Measuring Earth's Gravitational Acceleration with a Pendulum</strong></span></p>
+<h4 id="motivation_10">Motivation:<a class="headerlink" href="#motivation_10" title="Permanent link">¶</a></h4>
+<p>The acceleration <span class="arithmatex">\(g\)</span> due to gravity is a fundamental constant that influences a wide range of physical phenomena. Measuring <span class="arithmatex">\(g\)</span> accurately is crucial for understanding gravitational interactions, designing structures, and conducting experiments in various fields. One classic method for determining <span class="arithmatex">\(g\)</span> is through the oscillations of a simple pendulum, where the period of oscillation depends on the local gravitational field.</p>
+<h4 id="task_9">Task:<a class="headerlink" href="#task_9" title="Permanent link">¶</a></h4>
+<p>Measure the acceleration  <span class="arithmatex">\(g\)</span> due to gravity using a pendulum and in details analyze the uncertainties in the measurements.</p>
+<p>This exercise emphasizes rigorous measurement practices, uncertainty analysis, and their role in experimental physics.</p>
+<hr/>
+<h4 id="procedure"><strong>Procedure:</strong><a class="headerlink" href="#procedure" title="Permanent link">¶</a></h4>
+<p>1 <strong>Materials:</strong></p>
+<ul>
+<li>A string (1 or 1.5 meters long).</li>
+<li>A small weight (e.g., bag of coins, bag of sugar, key chain) mounted on the string.</li>
+<li>Stopwatch (or smartphone timer).</li>
+<li>Ruler or measuring tape.</li>
+</ul>
+<p>2 <strong>Setup:</strong></p>
+<ul>
+<li>Attach the weight to the string and fix the other end to a sturdy support.</li>
+<li>Measure the length of the pendulum, <span class="arithmatex">\(L\)</span>, from the suspension point to the center of the weight using a ruler or measuring tape. Record the resolution of the measuring tool and calculate the uncertainty as half the resolution <span class="arithmatex">\(\Delta L=\text{(Ruler Resolution)}/2\)</span>.</li>
+</ul>
+<p>3 <strong>Data Collection:</strong></p>
+<ul>
+<li>Displace the pendulum slightly (&lt;15°) and release it.</li>
+<li>Measure the time for 10 full oscillations (<span class="arithmatex">\(T_{10}\)</span>) and repeat this process 10 times. Record all 10 measurements.</li>
+<li>Calculate the mean time for 10 oscillations (<span class="arithmatex">\(\overline{T}_{10}\)</span>) and the standard deviation (<span class="arithmatex">\(\sigma_T\)</span>).</li>
+<li>Determine the uncertainty in the mean time as:
+     $$ \Delta T_{10} = \frac{\sigma_T}{\sqrt{n}} $$
+     where <span class="arithmatex">\(n = 10\)</span>.</li>
+</ul>
+<hr/>
+<h4 id="calculations"><strong>Calculations:</strong><a class="headerlink" href="#calculations" title="Permanent link">¶</a></h4>
+<p>1 <strong>Calculate the period:</strong></p>
+<p><span class="arithmatex">\(T = \frac{\overline{T}_{10}}{10}\)</span> and <span class="arithmatex">\(\Delta T = \frac{\Delta T_{10}}{10}\)</span></p>
+<p>2 <strong>Determine <span class="arithmatex">\(g\)</span>:</strong></p>
+<p><span class="arithmatex">\(g = \frac{4\pi^2 L}{T^2}\)</span></p>
+<p>3 <strong>Propagate uncertainties:</strong></p>
+<p><span class="arithmatex">\(\Delta g = g \sqrt{\left(\frac{\Delta L}{L}\right)^2 + \left(2\frac{\Delta T}{T}\right)^2}\)</span></p>
+<hr/>
+<h4 id="analysis"><strong>Analysis:</strong><a class="headerlink" href="#analysis" title="Permanent link">¶</a></h4>
+<p>1 Compare your measured <span class="arithmatex">\(g\)</span> with the standard value (<span class="arithmatex">\(9.81 \, \text{m/s}^2\)</span>).</p>
+<p>2 Discuss:</p>
+<ul>
+<li>The effect of measurement resolution on <span class="arithmatex">\(\Delta L\)</span>.</li>
+<li>Variability in timing and its impact on <span class="arithmatex">\(\Delta T\)</span>.</li>
+<li>Any assumptions or experimental limitations.</li>
+</ul>
+<hr/>
+<h4 id="deliverables_11"><strong>Deliverables:</strong><a class="headerlink" href="#deliverables_11" title="Permanent link">¶</a></h4>
+<p>1 Tabulated data in markdown:</p>
+<ul>
+<li><span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(\Delta L\)</span>, <span class="arithmatex">\(T_{10}\)</span> measurements, <span class="arithmatex">\(\overline{T}_{10}\)</span>, <span class="arithmatex">\(\sigma_T\)</span>, <span class="arithmatex">\(\Delta T\)</span>.</li>
+<li>Calculated <span class="arithmatex">\(g\)</span> and <span class="arithmatex">\(\Delta g\)</span>.</li>
+</ul>
+<p>2 The discussion on sources of uncertainty and their impact on the results.</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</body>
+</html>
