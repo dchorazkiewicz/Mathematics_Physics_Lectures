@@ -3430,8 +3430,8 @@ margin-bottom: 0;
 T(x, y) = 5 \sin(x) \cos(y)
 \]</span></p>
 <p>Below is a Python code of this scalar field:</p>
-<div id="91658e50" class="cell" data-execution_count="1">
-<details open class="code-fold">
+<div id="6c6cbdce" class="cell" data-execution_count="1">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3478,8 +3478,8 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </ul>
 </div>
 <p>Or we can use the following Python code to grasp 4 time steps:</p>
-<div id="3eaa4fe6" class="cell" data-execution_count="2">
-<details open class="code-fold">
+<div id="5d285b63" class="cell" data-execution_count="2">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3545,8 +3545,8 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 \vec{F}(x, y) = (\sin(y), \sqrt{\frac{|x|}{5}})
 \]</span></p>
 <p>This field might represent the velocity of a fluid at each point <span class="math inline">\((x, y)\)</span> in a 2D space. Below is a Python code to visualize this vector field:</p>
-<div id="64ce5d72" class="cell" data-execution_count="3">
-<details open class="code-fold">
+<div id="4ebef7b1" class="cell" data-execution_count="3">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3591,8 +3591,8 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </div>
 </div>
 <p>Stream plot</p>
-<div id="3cfce9df" class="cell" data-execution_count="4">
-<details open class="code-fold">
+<div id="753292d9" class="cell" data-execution_count="4">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3688,8 +3688,8 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 y(x) = x^2 + C
 \]</span></p>
 <p>where <span class="math inline">\(C\)</span> is an integration constant. This is the general solution of the differential equation. The solution is not unique because the constant <span class="math inline">\(C\)</span> can take any value.</p>
-<div id="4bac3549" class="cell" data-execution_count="5">
-<details open class="code-fold">
+<div id="c49dc964" class="cell" data-execution_count="5">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3743,8 +3743,8 @@ y(x + h) = y(x) + 2xh
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="9bf4a560" class="cell" data-execution_count="6">
-<details open class="code-fold">
+<div id="53874cc1" class="cell" data-execution_count="6">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3849,8 +3849,8 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and <span class="math inline">\(y(x - h)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="8ba6f75b" class="cell" data-execution_count="7">
-<details open class="code-fold">
+<div id="ad139b7a" class="cell" data-execution_count="7">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3933,8 +3933,8 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 f&#39;(x) = \cos(x).
 \]</span></p>
 <p>Below is a Python example that illustrates how to compute these derivatives at a few sample points. We then represent them as small vectors placed at <span class="math inline">\(y = 2\)</span> in a plot, pointing upward if <span class="math inline">\(f&#39;(x)\)</span> is positive and downward if <span class="math inline">\(f&#39;(x)\)</span> is negative, with a scaled magnitude.</p>
-<div id="07cf5093" class="cell" data-execution_count="8">
-<details open class="code-fold">
+<div id="eac0043f" class="cell" data-execution_count="8">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -4003,8 +4003,8 @@ f(x, y) = \sin(x)\cos(y).
 =
 \bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).
 \]</span></p>
-<div id="c6856edd" class="cell" data-execution_count="9">
-<details open class="code-fold">
+<div id="72570217" class="cell" data-execution_count="9">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -4048,8 +4048,8 @@ f(x, y) = \sin(x)\cos(y).
 </div>
 </div>
 <p>Below is a Python example that: 1. Plots a heatmap of <span class="math inline">\(f(x, y)\)</span>. 2. Overlays gradient vectors (arrows) on a grid of points.</p>
-<div id="3466b6cf" class="cell" data-execution_count="10">
-<details open class="code-fold">
+<div id="e7e8b5eb" class="cell" data-execution_count="10">
+<details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -4605,7 +4605,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-7"><a href="#cb11-7"></a><span class="co">    toc-depth: 3</span></span>
 <span id="cb11-8"><a href="#cb11-8"></a><span class="co">    highlight-style: tango</span></span>
 <span id="cb11-9"><a href="#cb11-9"></a><span class="co">    code-line-numbers: true</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">    code-fold: show</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">    code-fold: true</span></span>
 <span id="cb11-11"><a href="#cb11-11"></a><span class="co">    code-summary: &quot;Show the code&quot;</span></span>
 <span id="cb11-12"><a href="#cb11-12"></a><span class="co">    code-tools: true</span></span>
 <span id="cb11-13"><a href="#cb11-13"></a><span class="co">    code-block-bg: &quot;rgba(42, 174, 42, 0.02)&quot;</span></span>
