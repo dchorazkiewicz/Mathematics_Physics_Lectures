@@ -3383,7 +3383,7 @@ margin-bottom: 0;
   <li><a href="#d-example-1" id="toc-d-example-1" class="nav-link" data-scroll-target="#d-example-1">2D Example</a></li>
   </ul></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://dchorazkiewicz.github.io/Physics-2024-25-Summer/"><i class="bi bi-link-45deg"></i>Main page</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures"><i class="bi bi-link-45deg"></i>Main page</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -3430,7 +3430,7 @@ margin-bottom: 0;
 T(x, y) = 5 \sin(x) \cos(y)
 \]</span></p>
 <p>Below is a Python code of this scalar field:</p>
-<div id="7a9ff04c" class="cell" data-execution_count="1">
+<div id="3e1dea53" class="cell" data-execution_count="1">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3478,7 +3478,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </ul>
 </div>
 <p>Or we can use the following Python code to grasp 4 time steps:</p>
-<div id="40d0e796" class="cell" data-execution_count="2">
+<div id="8565ce3e" class="cell" data-execution_count="2">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3545,7 +3545,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 \vec{F}(x, y) = (\sin(y), \sqrt{\frac{|x|}{5}})
 \]</span></p>
 <p>This field might represent the velocity of a fluid at each point <span class="math inline">\((x, y)\)</span> in a 2D space. Below is a Python code to visualize this vector field:</p>
-<div id="378004b8" class="cell" data-execution_count="3">
+<div id="346f491a" class="cell" data-execution_count="3">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3591,7 +3591,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </div>
 </div>
 <p>Stream plot</p>
-<div id="1791b1b5" class="cell" data-execution_count="4">
+<div id="dc2a4611" class="cell" data-execution_count="4">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3688,7 +3688,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 y(x) = x^2 + C
 \]</span></p>
 <p>where <span class="math inline">\(C\)</span> is an integration constant. This is the general solution of the differential equation. The solution is not unique because the constant <span class="math inline">\(C\)</span> can take any value.</p>
-<div id="d73b8a88" class="cell" data-execution_count="5">
+<div id="0ee3a093" class="cell" data-execution_count="5">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3743,7 +3743,7 @@ y(x + h) = y(x) + 2xh
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="2f1bf1b2" class="cell" data-execution_count="6">
+<div id="10a0b940" class="cell" data-execution_count="6">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3849,7 +3849,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and <span class="math inline">\(y(x - h)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="7ef6df89" class="cell" data-execution_count="7">
+<div id="6568bed2" class="cell" data-execution_count="7">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3933,7 +3933,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 f&#39;(x) = \cos(x).
 \]</span></p>
 <p>Below is a Python example that illustrates how to compute these derivatives at a few sample points. We then represent them as small vectors placed at <span class="math inline">\(y = 2\)</span> in a plot, pointing upward if <span class="math inline">\(f&#39;(x)\)</span> is positive and downward if <span class="math inline">\(f&#39;(x)\)</span> is negative, with a scaled magnitude.</p>
-<div id="fd9f4d91" class="cell" data-execution_count="8">
+<div id="8239e571" class="cell" data-execution_count="8">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4003,7 +4003,7 @@ f(x, y) = \sin(x)\cos(y).
 =
 \bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).
 \]</span></p>
-<div id="67adb8ec" class="cell" data-execution_count="9">
+<div id="cd61ba5a" class="cell" data-execution_count="9">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4048,7 +4048,7 @@ f(x, y) = \sin(x)\cos(y).
 </div>
 </div>
 <p>Below is a Python example that: 1. Plots a heatmap of <span class="math inline">\(f(x, y)\)</span>. 2. Overlays gradient vectors (arrows) on a grid of points.</p>
-<div id="6f13ab21" class="cell" data-execution_count="10">
+<div id="459cf594" class="cell" data-execution_count="10">
 <details open class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4616,7 +4616,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-18"><a href="#cb11-18"></a><span class="co">    self-contained: true</span></span>
 <span id="cb11-19"><a href="#cb11-19"></a><span class="co">    other-links:</span></span>
 <span id="cb11-20"><a href="#cb11-20"></a><span class="co">      - text: Main page</span></span>
-<span id="cb11-21"><a href="#cb11-21"></a><span class="co">        href: https://dchorazkiewicz.github.io/Physics-2024-25-Summer/       </span></span>
+<span id="cb11-21"><a href="#cb11-21"></a><span class="co">        href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures</span></span>
 <span id="cb11-22"><a href="#cb11-22"></a><span class="co">---</span></span>
 <span id="cb11-23"><a href="#cb11-23"></a></span>
 <span id="cb11-24"><a href="#cb11-24"></a><span class="fu">## Introduction</span></span>
