@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
 <link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css" rel="stylesheet"/>
+<link href="../../extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 </head>
 <body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
@@ -55,10 +55,7 @@
 </div>
 </div>
 <form class="md-header__option" data-md-component="palette">
-<input aria-label="Przełącz na tryb ciemny" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
-<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Przełącz na tryb ciemny">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
-</label>
+<input aria-hidden="true" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
 <input aria-label="Przełącz na tryb jasny" class="md-option" data-md-color-accent="deep-purple" data-md-color-media="" data-md-color-primary="deep-purple" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_0" hidden="" title="Przełącz na tryb jasny">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
@@ -813,7 +810,7 @@
 <li><a href="https://pyvis.readthedocs.io/en/latest/index.html">https://pyvis.readthedocs.io/en/latest/index.html</a></li>
 </ul>
 <h2 id="graph-representation">Graph representation<a class="headerlink" href="#graph-representation" title="Permanent link">¶</a></h2>
-<h3 id="task-1"><strong>Task 1</strong><a class="headerlink" href="#task-1" title="Permanent link">¶</a></h3>
+<h3 id="task-1">Task 1<a class="headerlink" href="#task-1" title="Permanent link">¶</a></h3>
 <p>We have 3 ways to represent a graph:</p>
 <ul>
 <li>Edge list plus vertex set</li>
@@ -844,18 +841,19 @@
 </code></pre></div>
 <h4 id="graph-5">Graph 5<a class="headerlink" href="#graph-5" title="Permanent link">¶</a></h4>
 <p>Directed graph</p>
-<div class="highlight"><pre><span></span><code><span class="p">[[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<p><div class="highlight"><pre><span></span><code><span class="p">[[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]]</span>
 </code></pre></div>
+*Task</p>
 <h4 id="graph-6">Graph 6<a class="headerlink" href="#graph-6" title="Permanent link">¶</a></h4>
 <p>Directed graph</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">6</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
 </code></pre></div>
-<h3 id="task-2"><strong>Task 2</strong><a class="headerlink" href="#task-2" title="Permanent link">¶</a></h3>
+<h3 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Permanent link">¶</a></h3>
 <p>For the following undirected graph:</p>
 <div class="highlight"><pre><span></span><code>    <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span>
     <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
@@ -879,7 +877,7 @@
 <li>What is the length of the shortest path from vertex 5 to vertex 8?</li>
 <li>Does the graph contain a cycle? If yes, what is the length of one cycle?</li>
 </ol>
-<h3 id="task-3"><strong>Task 3</strong><a class="headerlink" href="#task-3" title="Permanent link">¶</a></h3>
+<h3 id="task-3">Task 3<a class="headerlink" href="#task-3" title="Permanent link">¶</a></h3>
 <p>Consider above graph again, but this time, consider the graph as a directed graph.</p>
 </article>
 </div>

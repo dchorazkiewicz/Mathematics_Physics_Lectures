@@ -1,0 +1,57 @@
+/* Ujednolicony styl dla sekcji nagłówków w Material for MkDocs */
+
+.md-typeset h1 {
+    color: #041623;
+    background-color: transparent;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.md-typeset h2::before {
+    content: "";
+    color: #007ACC;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.md-typeset h2 {
+    background-color: #e6f7ff;
+    padding: 0.6rem;
+    border-radius: 5px;
+    border-left: 5px solid #007ACC;
+    margin-bottom: 1.2rem;
+    color: #041623;
+}
+
+.md-typeset h3::before {
+    content: "📌 ";
+    color: #007ACC;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.md-typeset h3 {
+    background-color: #f1f8ff;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border-left: 4px solid #007ACC;
+    margin-bottom: 1rem;
+    color: #041623;
+}
+
+.md-typeset h4::before {
+    content: "🔹 ";
+    color: #007ACC;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.md-typeset h4 {
+    background-color: #f9fbff;
+    padding: 0.1rem;
+    border-radius: 5px;
+    border-left: 3px solid #007ACC;
+    margin-bottom: .5rem;
+    color: #041623;
+}
