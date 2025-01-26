@@ -773,6 +773,7 @@
 <li><span class="arithmatex">\(b_0 = 2\)</span>, <span class="arithmatex">\(b_{n+1} = b_n^2 - 1\)</span> for <span class="arithmatex">\(n \in \mathbb{N}\setminus\{0\}\)</span>.</li>
 <li><span class="arithmatex">\(c_0 = 2,\ c_1 = 3\)</span>, <span class="arithmatex">\(c_{n+2} = c_{n+1} \cdot c_n\)</span> for <span class="arithmatex">\(n \in \mathbb{N}\setminus\{0,1\}\)</span>.</li>
 <li><span class="arithmatex">\(d_0 = 1,\ d_1 = 2\)</span>, <span class="arithmatex">\(d_{n+2} = d_{n+1}/d_n\)</span> for <span class="arithmatex">\(n \in \mathbb{N}\setminus\{0,1\}\)</span>.</li>
+<li><span class="arithmatex">\(e_0 = 1,\ e_1 = 2\)</span>, <span class="arithmatex">\(e_{n+2} = e_{n+1} - e_n\)</span> for <span class="arithmatex">\(n \in \mathbb{N}\setminus\{0,1\}\)</span>.</li>
 </ol>
 <h3 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Permanent link">¶</a></h3>
 <p>Define folowing formulas and sequences using recurence:</p>
@@ -803,8 +804,8 @@
 <p>Calculate:</p>
 <ol>
 <li><span class="arithmatex">\(\sum_{k=1}^{n} 3^k\)</span> for <span class="arithmatex">\(n = 1, 2, 3, 4\)</span></li>
-<li><span class="arithmatex">\(\sum_{k=n}^{3} k^3\)</span> for <span class="arithmatex">\(n = 3, 4, 5\)</span></li>
-<li><span class="arithmatex">\(\sum_{j=1}^{z} j\)</span> for <span class="arithmatex">\(n = 1, 2, 5\)</span></li>
+<li><span class="arithmatex">\(\sum_{k=n}^{10} k^3\)</span> for <span class="arithmatex">\(n = 3, 4, 5\)</span></li>
+<li><span class="arithmatex">\(\sum_{j=1}^{n} j\)</span> for <span class="arithmatex">\(n = 1, 2, 5\)</span></li>
 </ol>
 <h3 id="task-4">Task 4<a class="headerlink" href="#task-4" title="Permanent link">¶</a></h3>
 <p>Calculate:</p>
@@ -821,17 +822,16 @@
 <li><span class="arithmatex">\(\prod_{m=1}^{k} \frac{k+1}{k}\)</span> for <span class="arithmatex">\(m = 1, 2, 3\)</span>. Provide a general formula for the product for all <span class="arithmatex">\(k \in \mathbb{P}\)</span>.</li>
 </ol>
 <h3 id="task-6">Task 6<a class="headerlink" href="#task-6" title="Permanent link">¶</a></h3>
-<p>Calculate:</p>
+<p>Calculate and find the general formula for:</p>
 <ol>
 <li><span class="arithmatex">\(\sum_{k=0}^{2} k^2\)</span> for <span class="arithmatex">\(n = 1, 2, 3, 4, 5\)</span></li>
-<li>Use your answer to part (1) to deduce a general formula for this sum.</li>
 </ol>
 <h3 id="task-7">Task 7<a class="headerlink" href="#task-7" title="Permanent link">¶</a></h3>
-<p>Consider the sequence defined by <span class="arithmatex">\(a_n = \frac{n - 1}{n + 1}\)</span> for <span class="arithmatex">\(n \in \mathbb{P}\)</span>.</p>
+<p>Consider the sequence defined by <span class="arithmatex">\(a_n = \frac{n - 1}{n + 1}\)</span> for <span class="arithmatex">\(n \in \mathbb{N}_{+}\)</span>.</p>
 <ol>
 <li>Write the first six terms of this sequence.</li>
 <li>Calculate <span class="arithmatex">\(a_{n+1} - a_n\)</span> for <span class="arithmatex">\(n = 1, 2, 3\)</span>.</li>
-<li>Prove that <span class="arithmatex">\(a_{n+1} + a_n = \frac{n(n+1)}{(n+1)(n+2)}\)</span> for <span class="arithmatex">\(n \in \mathbb{P}\)</span>.</li>
+<li>Prove that <span class="arithmatex">\(a_{n+1} + a_n = \frac{n(n+1)}{(n+1)(n+2)}\)</span> for <span class="arithmatex">\(n \in \mathbb{N}_{+}\)</span>.</li>
 </ol>
 <h3 id="task-8">Task 8<a class="headerlink" href="#task-8" title="Permanent link">¶</a></h3>
 <p>Consider the sequence defined by <span class="arithmatex">\(b_n = \frac{1}{2} \left(1 + (-1)^n\right)\)</span> for <span class="arithmatex">\(n \in \mathbb{N}\)</span>.</p>
@@ -840,8 +840,54 @@
 <li>What is the set of all values of this sequence?</li>
 </ol>
 <h2 id="combinatorics">Combinatorics<a class="headerlink" href="#combinatorics" title="Permanent link">¶</a></h2>
-<h3 id="task-1_2">Task 1<a class="headerlink" href="#task-1_2" title="Permanent link">¶</a></h3>
-<p>How many numbers...</p>
+<h3 id="variations-without-repetition">Variations without repetition<a class="headerlink" href="#variations-without-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>From five different balls, choose two and arrange them in a specific order. How many arrangements are possible?  </li>
+<li>You have four different books. Choose two and arrange them on a shelf in a specific order. How many such arrangements are there?  </li>
+<li>In a competition with 10 participants, how many ways can 3 finalists be selected and arranged in order?  </li>
+<li>You have seven different keys. Choose three and arrange them in a specific order on a table. How many possible arrangements are there?  </li>
+<li>At school, three people are chosen as leaders, and their roles (chairperson, deputy, and treasurer) are significant. How many different arrangements can be made for 8 candidates?</li>
+</ol>
+<h3 id="variations-with-repetition">Variations with repetition<a class="headerlink" href="#variations-with-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>You have three different colors of paint. How many different sequences of two colors can you create if colors can repeat?  </li>
+<li>The menu includes four different types of drinks. How many different two-drink combinations can you create, allowing repetition?  </li>
+<li>A lock code consists of three digits, each ranging from 1 to 5. How many different codes can be created if digits can repeat?  </li>
+<li>In a class, you have 6 different pens. How many different combinations of two pens in a specific order can be made, allowing repetition of the same pen?  </li>
+<li>A shop offers three types of candies. How many different sets of two candies can be created if you are allowed to pick the same candy multiple times?</li>
+</ol>
+<h3 id="permutations-without-repetition">Permutations without repetition<a class="headerlink" href="#permutations-without-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>How many different three-digit numbers can be formed using the digits 1, 2, 3, 4 if no digit repeats?  </li>
+<li>You have 5 different letters: A, B, C, D, E. How many different words can you form using all of them?  </li>
+<li>In a group of 6 people, how many different ways can they be arranged in a line?  </li>
+<li>You have four different pictures. In how many different ways can they be hung on a wall in a row?  </li>
+<li>At school, there is a contest where 7 students need to line up in a specific order. How many different arrangements are possible?</li>
+</ol>
+<h3 id="permutations-with-repetition">Permutations with repetition<a class="headerlink" href="#permutations-with-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>How many different words can be formed using the letters in the word "ANNA"?  </li>
+<li>You have a box with three red balls and two green balls. How many different orders can these balls be arranged in?  </li>
+<li>In the word "COCONUT," there are three "O"s. How many distinct words can be formed by permuting the letters of this word?  </li>
+<li>In a group, there are 3 people named "Adam" and 2 people named "Eve." How many different arrangements of this group are possible?  </li>
+<li>How many different numbers can be formed using the digits: 1, 1, 2, 2, 2?</li>
+</ol>
+<h3 id="combinations-without-repetition">Combinations without repetition<a class="headerlink" href="#combinations-without-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>You have 10 books and want to choose 4, but the order of selection doesn’t matter. How many possible selections are there?  </li>
+<li>In a class of 15 students, how many ways can you select three for a trip?  </li>
+<li>From a standard 52-card deck, you choose 5 cards. How many different hands can be formed?  </li>
+<li>From 8 different fruits, choose 3 without considering the order. How many such selections are there?  </li>
+<li>A company has 20 employees. How many ways can a 5-person team be chosen?</li>
+</ol>
+<h3 id="combinations-with-repetition">Combinations with repetition<a class="headerlink" href="#combinations-with-repetition" title="Permanent link">¶</a></h3>
+<ol>
+<li>A shop offers 4 different types of fruit. How many different sets of 3 fruits can you buy, if the same fruit can be selected multiple times?  </li>
+<li>You have 5 different types of candies. How many different sets of 4 candies can you choose if candies can repeat?  </li>
+<li>In a restaurant, there are 6 different desserts to choose from. How many different two-dessert sets can you create if you can choose the same dessert twice?  </li>
+<li>A flower shop offers 3 different types of flowers. How many bouquets of 5 flowers can be made if flowers can repeat?  </li>
+<li>You have 7 different ice cream flavors. How many different 4-flavor combinations can you create if flavors can repeat?  </li>
+</ol>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
