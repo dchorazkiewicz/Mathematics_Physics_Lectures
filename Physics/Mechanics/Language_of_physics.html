@@ -3430,7 +3430,7 @@ margin-bottom: 0;
 T(x, y) = 5 \sin(x) \cos(y)
 \]</span></p>
 <p>Below is a Python code of this scalar field:</p>
-<div id="a6542c73" class="cell" data-execution_count="1">
+<div id="0973957c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3478,7 +3478,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </ul>
 </div>
 <p>Or we can use the following Python code to grasp 4 time steps:</p>
-<div id="bcaab6aa" class="cell" data-execution_count="2">
+<div id="4781b054" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3545,7 +3545,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 \vec{F}(x, y) = (\sin(y), \sqrt{\frac{|x|}{5}})
 \]</span></p>
 <p>This field might represent the velocity of a fluid at each point <span class="math inline">\((x, y)\)</span> in a 2D space. Below is a Python code to visualize this vector field:</p>
-<div id="5c516ffd" class="cell" data-execution_count="3">
+<div id="5752afca" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3591,7 +3591,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </div>
 </div>
 <p>Stream plot</p>
-<div id="7207cee6" class="cell" data-execution_count="4">
+<div id="6933ab8d" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3686,7 +3686,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 y(x) = x^2 + C
 \]</span></p>
 <p>where <span class="math inline">\(C\)</span> is an integration constant. This is the general solution of the differential equation. The solution is not unique because the constant <span class="math inline">\(C\)</span> can take any value.</p>
-<div id="cb98ecaa" class="cell" data-execution_count="5">
+<div id="af15a9f9" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3753,7 +3753,7 @@ y(x + h) = y(x) + 2xh
 <li>and so on</li>
 </ul>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="f08d1d9a" class="cell" data-execution_count="6">
+<div id="7dbf37c3" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3858,7 +3858,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and <span class="math inline">\(y(x - h)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="032b848f" class="cell" data-execution_count="7">
+<div id="b4697f46" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3942,7 +3942,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 f&#39;(x) = \cos(x).
 \]</span></p>
 <p>Below is a Python example that illustrates how to compute these derivatives at a few sample points. We then represent them as small vectors placed at <span class="math inline">\(y = 2\)</span> in a plot, pointing upward if <span class="math inline">\(f&#39;(x)\)</span> is positive and downward if <span class="math inline">\(f&#39;(x)\)</span> is negative, with a scaled magnitude.</p>
-<div id="3990fd56" class="cell" data-execution_count="8">
+<div id="379b2124" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4002,17 +4002,20 @@ f&#39;(x) = \cos(x).
 <p><span class="math display">\[
 f(x, y) = \sin(x)\cos(y).
 \]</span></p>
-<p>Its gradient is:</p>
+<p>Let us compute partial derivatives of this function. Derivative with respect to <span class="math inline">\(x\)</span> is:</p>
+<p><span class="math display">\[
+\frac{\partial f(x,y)}{\partial x} = frac{\partial}{\partial x}[\sin(x)\cos(y)] = \cos(x)\cos(y).
+\]</span></p>
+<p>Derivative with respect to <span class="math inline">\(y\)</span> is:</p>
+<p><span class="math display">\[
+\frac{\partial f(x,y)}{\partial y} = frac{\partial}{\partial y}[\sin(x)\cos(y)] = -\sin(x)\sin(y).
+\]</span></p>
+<p>so the gradient of the function <span class="math inline">\(f(x, y)\)</span> is:</p>
 <p><span class="math display">\[
 \nabla f(x, y) =
-\Bigl(
-\frac{\partial}{\partial x}[\sin(x)\cos(y)],\;
-\frac{\partial}{\partial y}[\sin(x)\cos(y)]
-\Bigr)
-=
 \bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).
 \]</span></p>
-<div id="cd395fcf" class="cell" data-execution_count="9">
+<div id="fd95b1a3" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4057,7 +4060,7 @@ f(x, y) = \sin(x)\cos(y).
 </div>
 </div>
 <p>Below is a Python example that: 1. Plots a heatmap of <span class="math inline">\(f(x, y)\)</span>. 2. Overlays gradient vectors (arrows) on a grid of points.</p>
-<div id="dd455359" class="cell" data-execution_count="10">
+<div id="9f9cf801" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -5235,118 +5238,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-644"><a href="#cb11-644"></a>f(x, y) = \sin(x)\cos(y).</span>
 <span id="cb11-645"><a href="#cb11-645"></a>$$</span>
 <span id="cb11-646"><a href="#cb11-646"></a></span>
-<span id="cb11-647"><a href="#cb11-647"></a>Its gradient is:</span>
+<span id="cb11-647"><a href="#cb11-647"></a>Let us compute partial derivatives of this function. Derivative with respect to $x$ is:</span>
 <span id="cb11-648"><a href="#cb11-648"></a></span>
 <span id="cb11-649"><a href="#cb11-649"></a>$$</span>
-<span id="cb11-650"><a href="#cb11-650"></a>\nabla f(x, y) = </span>
-<span id="cb11-651"><a href="#cb11-651"></a>\Bigl(</span>
-<span id="cb11-652"><a href="#cb11-652"></a>\frac{\partial}{\partial x}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span>,\; </span>
-<span id="cb11-653"><a href="#cb11-653"></a>\frac{\partial}{\partial y}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span></span>
-<span id="cb11-654"><a href="#cb11-654"></a>\Bigr)</span>
-<span id="cb11-655"><a href="#cb11-655"></a>=</span>
-<span id="cb11-656"><a href="#cb11-656"></a>\bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).</span>
+<span id="cb11-650"><a href="#cb11-650"></a>\frac{\partial f(x,y)}{\partial x} = frac{\partial}{\partial x}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = \cos(x)\cos(y).</span>
+<span id="cb11-651"><a href="#cb11-651"></a>$$</span>
+<span id="cb11-652"><a href="#cb11-652"></a></span>
+<span id="cb11-653"><a href="#cb11-653"></a>Derivative with respect to $y$ is:</span>
+<span id="cb11-654"><a href="#cb11-654"></a></span>
+<span id="cb11-655"><a href="#cb11-655"></a>$$</span>
+<span id="cb11-656"><a href="#cb11-656"></a>\frac{\partial f(x,y)}{\partial y} = frac{\partial}{\partial y}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = -\sin(x)\sin(y).</span>
 <span id="cb11-657"><a href="#cb11-657"></a>$$</span>
 <span id="cb11-658"><a href="#cb11-658"></a></span>
-<span id="cb11-661"><a href="#cb11-661"></a><span class="in">```{python}</span></span>
-<span id="cb11-662"><a href="#cb11-662"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-663"><a href="#cb11-663"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-664"><a href="#cb11-664"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb11-659"><a href="#cb11-659"></a>so the gradient of the function $f(x, y)$ is:</span>
+<span id="cb11-660"><a href="#cb11-660"></a></span>
+<span id="cb11-661"><a href="#cb11-661"></a>$$</span>
+<span id="cb11-662"><a href="#cb11-662"></a>\nabla f(x, y) = </span>
+<span id="cb11-663"><a href="#cb11-663"></a>\bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).</span>
+<span id="cb11-664"><a href="#cb11-664"></a>$$</span>
 <span id="cb11-665"><a href="#cb11-665"></a></span>
-<span id="cb11-666"><a href="#cb11-666"></a><span class="co"># Define the 2D scalar field</span></span>
-<span id="cb11-667"><a href="#cb11-667"></a><span class="kw">def</span> f2d(x, y):</span>
-<span id="cb11-668"><a href="#cb11-668"></a>    <span class="cf">return</span> np.sin(x) <span class="op">*</span> np.cos(y)</span>
-<span id="cb11-669"><a href="#cb11-669"></a></span>
-<span id="cb11-670"><a href="#cb11-670"></a><span class="co"># Create a grid for plotting</span></span>
-<span id="cb11-671"><a href="#cb11-671"></a>nx, ny <span class="op">=</span> <span class="dv">60</span>, <span class="dv">60</span></span>
-<span id="cb11-672"><a href="#cb11-672"></a>x_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, nx)</span>
-<span id="cb11-673"><a href="#cb11-673"></a>y_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, ny)</span>
-<span id="cb11-674"><a href="#cb11-674"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
-<span id="cb11-675"><a href="#cb11-675"></a>Z <span class="op">=</span> f2d(X, Y)</span>
+<span id="cb11-668"><a href="#cb11-668"></a><span class="in">```{python}</span></span>
+<span id="cb11-669"><a href="#cb11-669"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-670"><a href="#cb11-670"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-671"><a href="#cb11-671"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb11-672"><a href="#cb11-672"></a></span>
+<span id="cb11-673"><a href="#cb11-673"></a><span class="co"># Define the 2D scalar field</span></span>
+<span id="cb11-674"><a href="#cb11-674"></a><span class="kw">def</span> f2d(x, y):</span>
+<span id="cb11-675"><a href="#cb11-675"></a>    <span class="cf">return</span> np.sin(x) <span class="op">*</span> np.cos(y)</span>
 <span id="cb11-676"><a href="#cb11-676"></a></span>
-<span id="cb11-677"><a href="#cb11-677"></a><span class="co"># --- 3D Surface Plot ---</span></span>
-<span id="cb11-678"><a href="#cb11-678"></a>fig3d <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb11-679"><a href="#cb11-679"></a>ax3d <span class="op">=</span> fig3d.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">&#39;3d&#39;</span>)</span>
-<span id="cb11-680"><a href="#cb11-680"></a></span>
-<span id="cb11-681"><a href="#cb11-681"></a><span class="co"># Create a surface plot</span></span>
-<span id="cb11-682"><a href="#cb11-682"></a>surf <span class="op">=</span> ax3d.plot_surface(</span>
-<span id="cb11-683"><a href="#cb11-683"></a>    X, Y, Z, </span>
-<span id="cb11-684"><a href="#cb11-684"></a>    cmap<span class="op">=</span><span class="st">&#39;coolwarm&#39;</span>, </span>
-<span id="cb11-685"><a href="#cb11-685"></a>    edgecolor<span class="op">=</span><span class="st">&#39;none&#39;</span>,</span>
-<span id="cb11-686"><a href="#cb11-686"></a>    alpha<span class="op">=</span><span class="fl">0.9</span></span>
-<span id="cb11-687"><a href="#cb11-687"></a>)</span>
-<span id="cb11-688"><a href="#cb11-688"></a>fig3d.colorbar(surf, ax<span class="op">=</span>ax3d, shrink<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">&#39;f(x,y) = sin(x)*cos(y)&#39;</span>)</span>
-<span id="cb11-689"><a href="#cb11-689"></a>ax3d.set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
-<span id="cb11-690"><a href="#cb11-690"></a>ax3d.set_ylabel(<span class="st">&#39;y&#39;</span>)</span>
-<span id="cb11-691"><a href="#cb11-691"></a><span class="co"># ax3d.set_zlabel(&#39;f(x,y)&#39;)</span></span>
-<span id="cb11-692"><a href="#cb11-692"></a>ax3d.set_title(<span class="st">&#39;3D Surface of f(x, y) = sin(x)*cos(y)&#39;</span>)</span>
-<span id="cb11-693"><a href="#cb11-693"></a>plt.show()</span>
-<span id="cb11-694"><a href="#cb11-694"></a><span class="in">```</span></span>
-<span id="cb11-695"><a href="#cb11-695"></a></span>
-<span id="cb11-696"><a href="#cb11-696"></a></span>
-<span id="cb11-697"><a href="#cb11-697"></a>Below is a Python example that:</span>
-<span id="cb11-698"><a href="#cb11-698"></a><span class="ss">1. </span>Plots a heatmap of $f(x, y)$.</span>
-<span id="cb11-699"><a href="#cb11-699"></a><span class="ss">2. </span>Overlays gradient vectors (arrows) on a grid of points.</span>
-<span id="cb11-700"><a href="#cb11-700"></a></span>
-<span id="cb11-703"><a href="#cb11-703"></a><span class="in">```{python}</span></span>
-<span id="cb11-704"><a href="#cb11-704"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-705"><a href="#cb11-705"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-706"><a href="#cb11-706"></a></span>
-<span id="cb11-707"><a href="#cb11-707"></a><span class="co"># Define the 2D scalar field</span></span>
-<span id="cb11-708"><a href="#cb11-708"></a><span class="kw">def</span> f2d(x, y):</span>
-<span id="cb11-709"><a href="#cb11-709"></a>    <span class="cf">return</span> np.sin(x) <span class="op">*</span> np.cos(y)</span>
-<span id="cb11-710"><a href="#cb11-710"></a></span>
-<span id="cb11-711"><a href="#cb11-711"></a><span class="co"># Define partial derivatives (gradient)</span></span>
-<span id="cb11-712"><a href="#cb11-712"></a><span class="kw">def</span> grad_f2d(x, y):</span>
-<span id="cb11-713"><a href="#cb11-713"></a>    <span class="co"># df/dx = cos(x)*cos(y)</span></span>
-<span id="cb11-714"><a href="#cb11-714"></a>    <span class="co"># df/dy = -sin(x)*sin(y)</span></span>
-<span id="cb11-715"><a href="#cb11-715"></a>    <span class="cf">return</span> np.cos(x)<span class="op">*</span>np.cos(y), <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.sin(x)<span class="op">*</span>np.sin(y)</span>
-<span id="cb11-716"><a href="#cb11-716"></a></span>
-<span id="cb11-717"><a href="#cb11-717"></a><span class="co"># Create a grid for plotting</span></span>
-<span id="cb11-718"><a href="#cb11-718"></a>nx, ny <span class="op">=</span> <span class="dv">60</span>, <span class="dv">60</span></span>
-<span id="cb11-719"><a href="#cb11-719"></a>x_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, nx)</span>
-<span id="cb11-720"><a href="#cb11-720"></a>y_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, ny)</span>
-<span id="cb11-721"><a href="#cb11-721"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
-<span id="cb11-722"><a href="#cb11-722"></a>Z <span class="op">=</span> f2d(X, Y)</span>
+<span id="cb11-677"><a href="#cb11-677"></a><span class="co"># Create a grid for plotting</span></span>
+<span id="cb11-678"><a href="#cb11-678"></a>nx, ny <span class="op">=</span> <span class="dv">60</span>, <span class="dv">60</span></span>
+<span id="cb11-679"><a href="#cb11-679"></a>x_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, nx)</span>
+<span id="cb11-680"><a href="#cb11-680"></a>y_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, ny)</span>
+<span id="cb11-681"><a href="#cb11-681"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
+<span id="cb11-682"><a href="#cb11-682"></a>Z <span class="op">=</span> f2d(X, Y)</span>
+<span id="cb11-683"><a href="#cb11-683"></a></span>
+<span id="cb11-684"><a href="#cb11-684"></a><span class="co"># --- 3D Surface Plot ---</span></span>
+<span id="cb11-685"><a href="#cb11-685"></a>fig3d <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb11-686"><a href="#cb11-686"></a>ax3d <span class="op">=</span> fig3d.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">&#39;3d&#39;</span>)</span>
+<span id="cb11-687"><a href="#cb11-687"></a></span>
+<span id="cb11-688"><a href="#cb11-688"></a><span class="co"># Create a surface plot</span></span>
+<span id="cb11-689"><a href="#cb11-689"></a>surf <span class="op">=</span> ax3d.plot_surface(</span>
+<span id="cb11-690"><a href="#cb11-690"></a>    X, Y, Z, </span>
+<span id="cb11-691"><a href="#cb11-691"></a>    cmap<span class="op">=</span><span class="st">&#39;coolwarm&#39;</span>, </span>
+<span id="cb11-692"><a href="#cb11-692"></a>    edgecolor<span class="op">=</span><span class="st">&#39;none&#39;</span>,</span>
+<span id="cb11-693"><a href="#cb11-693"></a>    alpha<span class="op">=</span><span class="fl">0.9</span></span>
+<span id="cb11-694"><a href="#cb11-694"></a>)</span>
+<span id="cb11-695"><a href="#cb11-695"></a>fig3d.colorbar(surf, ax<span class="op">=</span>ax3d, shrink<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">&#39;f(x,y) = sin(x)*cos(y)&#39;</span>)</span>
+<span id="cb11-696"><a href="#cb11-696"></a>ax3d.set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
+<span id="cb11-697"><a href="#cb11-697"></a>ax3d.set_ylabel(<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb11-698"><a href="#cb11-698"></a><span class="co"># ax3d.set_zlabel(&#39;f(x,y)&#39;)</span></span>
+<span id="cb11-699"><a href="#cb11-699"></a>ax3d.set_title(<span class="st">&#39;3D Surface of f(x, y) = sin(x)*cos(y)&#39;</span>)</span>
+<span id="cb11-700"><a href="#cb11-700"></a>plt.show()</span>
+<span id="cb11-701"><a href="#cb11-701"></a><span class="in">```</span></span>
+<span id="cb11-702"><a href="#cb11-702"></a></span>
+<span id="cb11-703"><a href="#cb11-703"></a></span>
+<span id="cb11-704"><a href="#cb11-704"></a>Below is a Python example that:</span>
+<span id="cb11-705"><a href="#cb11-705"></a><span class="ss">1. </span>Plots a heatmap of $f(x, y)$.</span>
+<span id="cb11-706"><a href="#cb11-706"></a><span class="ss">2. </span>Overlays gradient vectors (arrows) on a grid of points.</span>
+<span id="cb11-707"><a href="#cb11-707"></a></span>
+<span id="cb11-710"><a href="#cb11-710"></a><span class="in">```{python}</span></span>
+<span id="cb11-711"><a href="#cb11-711"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-712"><a href="#cb11-712"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-713"><a href="#cb11-713"></a></span>
+<span id="cb11-714"><a href="#cb11-714"></a><span class="co"># Define the 2D scalar field</span></span>
+<span id="cb11-715"><a href="#cb11-715"></a><span class="kw">def</span> f2d(x, y):</span>
+<span id="cb11-716"><a href="#cb11-716"></a>    <span class="cf">return</span> np.sin(x) <span class="op">*</span> np.cos(y)</span>
+<span id="cb11-717"><a href="#cb11-717"></a></span>
+<span id="cb11-718"><a href="#cb11-718"></a><span class="co"># Define partial derivatives (gradient)</span></span>
+<span id="cb11-719"><a href="#cb11-719"></a><span class="kw">def</span> grad_f2d(x, y):</span>
+<span id="cb11-720"><a href="#cb11-720"></a>    <span class="co"># df/dx = cos(x)*cos(y)</span></span>
+<span id="cb11-721"><a href="#cb11-721"></a>    <span class="co"># df/dy = -sin(x)*sin(y)</span></span>
+<span id="cb11-722"><a href="#cb11-722"></a>    <span class="cf">return</span> np.cos(x)<span class="op">*</span>np.cos(y), <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.sin(x)<span class="op">*</span>np.sin(y)</span>
 <span id="cb11-723"><a href="#cb11-723"></a></span>
-<span id="cb11-724"><a href="#cb11-724"></a><span class="co"># Compute gradient on a coarser grid for quiver plot</span></span>
-<span id="cb11-725"><a href="#cb11-725"></a>skip <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb11-726"><a href="#cb11-726"></a>x_quiv <span class="op">=</span> X[::skip, ::skip]</span>
-<span id="cb11-727"><a href="#cb11-727"></a>y_quiv <span class="op">=</span> Y[::skip, ::skip]</span>
-<span id="cb11-728"><a href="#cb11-728"></a>Fx, Fy <span class="op">=</span> grad_f2d(x_quiv, y_quiv)</span>
-<span id="cb11-729"><a href="#cb11-729"></a></span>
-<span id="cb11-730"><a href="#cb11-730"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb11-731"><a href="#cb11-731"></a></span>
-<span id="cb11-732"><a href="#cb11-732"></a><span class="co"># Heatmap of f(x,y)</span></span>
-<span id="cb11-733"><a href="#cb11-733"></a>c <span class="op">=</span> ax.imshow(</span>
-<span id="cb11-734"><a href="#cb11-734"></a>    Z, </span>
-<span id="cb11-735"><a href="#cb11-735"></a>    extent<span class="op">=</span>[x_vals.<span class="bu">min</span>(), x_vals.<span class="bu">max</span>(), y_vals.<span class="bu">min</span>(), y_vals.<span class="bu">max</span>()],</span>
-<span id="cb11-736"><a href="#cb11-736"></a>    origin<span class="op">=</span><span class="st">&#39;lower&#39;</span>,</span>
-<span id="cb11-737"><a href="#cb11-737"></a>    cmap<span class="op">=</span><span class="st">&#39;coolwarm&#39;</span></span>
-<span id="cb11-738"><a href="#cb11-738"></a>)</span>
-<span id="cb11-739"><a href="#cb11-739"></a>fig.colorbar(c, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">&#39;f(x,y) = sin(x)*cos(y)&#39;</span>)</span>
-<span id="cb11-740"><a href="#cb11-740"></a></span>
-<span id="cb11-741"><a href="#cb11-741"></a><span class="co"># Quiver plot of gradient vectors</span></span>
-<span id="cb11-742"><a href="#cb11-742"></a>ax.quiver(</span>
-<span id="cb11-743"><a href="#cb11-743"></a>    x_quiv, y_quiv, Fx, Fy, </span>
-<span id="cb11-744"><a href="#cb11-744"></a>    color<span class="op">=</span><span class="st">&#39;black&#39;</span>, </span>
-<span id="cb11-745"><a href="#cb11-745"></a>    pivot<span class="op">=</span><span class="st">&#39;mid&#39;</span>, </span>
-<span id="cb11-746"><a href="#cb11-746"></a>    alpha<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb11-747"><a href="#cb11-747"></a>    width<span class="op">=</span><span class="fl">0.003</span>,</span>
-<span id="cb11-748"><a href="#cb11-748"></a>    scale<span class="op">=</span><span class="dv">50</span></span>
-<span id="cb11-749"><a href="#cb11-749"></a>)</span>
-<span id="cb11-750"><a href="#cb11-750"></a></span>
-<span id="cb11-751"><a href="#cb11-751"></a>ax.set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
-<span id="cb11-752"><a href="#cb11-752"></a>ax.set_ylabel(<span class="st">&#39;y&#39;</span>)</span>
-<span id="cb11-753"><a href="#cb11-753"></a>ax.set_title(<span class="st">&#39;Gradient of f(x, y) = sin(x)*cos(y)&#39;</span>)</span>
-<span id="cb11-754"><a href="#cb11-754"></a>plt.show()</span>
-<span id="cb11-755"><a href="#cb11-755"></a><span class="in">```</span></span>
-<span id="cb11-756"><a href="#cb11-756"></a></span>
-<span id="cb11-757"><a href="#cb11-757"></a>**Interpretation**:</span>
-<span id="cb11-758"><a href="#cb11-758"></a></span>
-<span id="cb11-759"><a href="#cb11-759"></a><span class="ss">- </span>The **heatmap** shows the values of $f(x,y)$. Red/blue corresponds to high/low values of the scalar field.</span>
-<span id="cb11-760"><a href="#cb11-760"></a><span class="ss">- </span>The **arrows** show the local direction and magnitude of the gradient, i.e., where $f(x, y)$ increases the most and how quickly.</span>
-<span id="cb11-761"><a href="#cb11-761"></a></span>
-<span id="cb11-762"><a href="#cb11-762"></a>This demonstrates how any scalar field (like temperature, potential, or pressure) naturally defines a vector field via its gradient. However, **not every vector field arises as a gradient** of a scalar field—certain mathematical conditions (like having zero curl in a simply connected domain) must be satisfied for a vector field to be the gradient of some scalar field.</span>
+<span id="cb11-724"><a href="#cb11-724"></a><span class="co"># Create a grid for plotting</span></span>
+<span id="cb11-725"><a href="#cb11-725"></a>nx, ny <span class="op">=</span> <span class="dv">60</span>, <span class="dv">60</span></span>
+<span id="cb11-726"><a href="#cb11-726"></a>x_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, nx)</span>
+<span id="cb11-727"><a href="#cb11-727"></a>y_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, ny)</span>
+<span id="cb11-728"><a href="#cb11-728"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
+<span id="cb11-729"><a href="#cb11-729"></a>Z <span class="op">=</span> f2d(X, Y)</span>
+<span id="cb11-730"><a href="#cb11-730"></a></span>
+<span id="cb11-731"><a href="#cb11-731"></a><span class="co"># Compute gradient on a coarser grid for quiver plot</span></span>
+<span id="cb11-732"><a href="#cb11-732"></a>skip <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb11-733"><a href="#cb11-733"></a>x_quiv <span class="op">=</span> X[::skip, ::skip]</span>
+<span id="cb11-734"><a href="#cb11-734"></a>y_quiv <span class="op">=</span> Y[::skip, ::skip]</span>
+<span id="cb11-735"><a href="#cb11-735"></a>Fx, Fy <span class="op">=</span> grad_f2d(x_quiv, y_quiv)</span>
+<span id="cb11-736"><a href="#cb11-736"></a></span>
+<span id="cb11-737"><a href="#cb11-737"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb11-738"><a href="#cb11-738"></a></span>
+<span id="cb11-739"><a href="#cb11-739"></a><span class="co"># Heatmap of f(x,y)</span></span>
+<span id="cb11-740"><a href="#cb11-740"></a>c <span class="op">=</span> ax.imshow(</span>
+<span id="cb11-741"><a href="#cb11-741"></a>    Z, </span>
+<span id="cb11-742"><a href="#cb11-742"></a>    extent<span class="op">=</span>[x_vals.<span class="bu">min</span>(), x_vals.<span class="bu">max</span>(), y_vals.<span class="bu">min</span>(), y_vals.<span class="bu">max</span>()],</span>
+<span id="cb11-743"><a href="#cb11-743"></a>    origin<span class="op">=</span><span class="st">&#39;lower&#39;</span>,</span>
+<span id="cb11-744"><a href="#cb11-744"></a>    cmap<span class="op">=</span><span class="st">&#39;coolwarm&#39;</span></span>
+<span id="cb11-745"><a href="#cb11-745"></a>)</span>
+<span id="cb11-746"><a href="#cb11-746"></a>fig.colorbar(c, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">&#39;f(x,y) = sin(x)*cos(y)&#39;</span>)</span>
+<span id="cb11-747"><a href="#cb11-747"></a></span>
+<span id="cb11-748"><a href="#cb11-748"></a><span class="co"># Quiver plot of gradient vectors</span></span>
+<span id="cb11-749"><a href="#cb11-749"></a>ax.quiver(</span>
+<span id="cb11-750"><a href="#cb11-750"></a>    x_quiv, y_quiv, Fx, Fy, </span>
+<span id="cb11-751"><a href="#cb11-751"></a>    color<span class="op">=</span><span class="st">&#39;black&#39;</span>, </span>
+<span id="cb11-752"><a href="#cb11-752"></a>    pivot<span class="op">=</span><span class="st">&#39;mid&#39;</span>, </span>
+<span id="cb11-753"><a href="#cb11-753"></a>    alpha<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb11-754"><a href="#cb11-754"></a>    width<span class="op">=</span><span class="fl">0.003</span>,</span>
+<span id="cb11-755"><a href="#cb11-755"></a>    scale<span class="op">=</span><span class="dv">50</span></span>
+<span id="cb11-756"><a href="#cb11-756"></a>)</span>
+<span id="cb11-757"><a href="#cb11-757"></a></span>
+<span id="cb11-758"><a href="#cb11-758"></a>ax.set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
+<span id="cb11-759"><a href="#cb11-759"></a>ax.set_ylabel(<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb11-760"><a href="#cb11-760"></a>ax.set_title(<span class="st">&#39;Gradient of f(x, y) = sin(x)*cos(y)&#39;</span>)</span>
+<span id="cb11-761"><a href="#cb11-761"></a>plt.show()</span>
+<span id="cb11-762"><a href="#cb11-762"></a><span class="in">```</span></span>
+<span id="cb11-763"><a href="#cb11-763"></a></span>
+<span id="cb11-764"><a href="#cb11-764"></a>**Interpretation**:</span>
+<span id="cb11-765"><a href="#cb11-765"></a></span>
+<span id="cb11-766"><a href="#cb11-766"></a><span class="ss">- </span>The **heatmap** shows the values of $f(x,y)$. Red/blue corresponds to high/low values of the scalar field.</span>
+<span id="cb11-767"><a href="#cb11-767"></a><span class="ss">- </span>The **arrows** show the local direction and magnitude of the gradient, i.e., where $f(x, y)$ increases the most and how quickly.</span>
+<span id="cb11-768"><a href="#cb11-768"></a></span>
+<span id="cb11-769"><a href="#cb11-769"></a>This demonstrates how any scalar field (like temperature, potential, or pressure) naturally defines a vector field via its gradient. However, **not every vector field arises as a gradient** of a scalar field—certain mathematical conditions (like having zero curl in a simply connected domain) must be satisfied for a vector field to be the gradient of some scalar field.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
