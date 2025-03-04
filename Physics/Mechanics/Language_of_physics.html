@@ -3430,7 +3430,7 @@ margin-bottom: 0;
 T(x, y) = 5 \sin(x) \cos(y)
 \]</span></p>
 <p>Below is a Python code of this scalar field:</p>
-<div id="939be517" class="cell" data-execution_count="1">
+<div id="a5ad860b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3478,7 +3478,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </ul>
 </div>
 <p>Or we can use the following Python code to grasp 4 time steps:</p>
-<div id="69c468d7" class="cell" data-execution_count="2">
+<div id="b08bafe7" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3545,7 +3545,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 \vec{F}(x, y) = (\sin(y), \sqrt{\frac{|x|}{5}})
 \]</span></p>
 <p>This field might represent the velocity of a fluid at each point <span class="math inline">\((x, y)\)</span> in a 2D space. Below is a Python code to visualize this vector field:</p>
-<div id="f4140f71" class="cell" data-execution_count="3">
+<div id="9a884fda" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3591,7 +3591,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 </div>
 </div>
 <p>Stream plot</p>
-<div id="f3167170" class="cell" data-execution_count="4">
+<div id="28256347" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3686,7 +3686,7 @@ T(x, y, t) = 5 \sin(x) \cos(y) e^{-t}
 y(x) = x^2 + C
 \]</span></p>
 <p>where <span class="math inline">\(C\)</span> is an integration constant. This is the general solution of the differential equation. The solution is not unique because the constant <span class="math inline">\(C\)</span> can take any value.</p>
-<div id="5adce304" class="cell" data-execution_count="5">
+<div id="c83cef15" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3753,7 +3753,7 @@ y(x + h) = y(x) + 2xh
 <li>and so on</li>
 </ul>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="63feb755" class="cell" data-execution_count="6">
+<div id="baa385f1" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3858,7 +3858,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 \]</span></p>
 <p>This equation can be used to solve the differential equation numerically. We can start from an initial value of <span class="math inline">\(y(x)\)</span> and <span class="math inline">\(y(x - h)\)</span> and use the equation above to calculate the value of <span class="math inline">\(y(x + h)\)</span>. This value can be used to calculate the next value of <span class="math inline">\(y(x + 2h)\)</span> and so on. This is a simple numerical method to solve differential equations.</p>
 <p>Let us compare the numerical solution with the analytical solution.</p>
-<div id="0fb124cf" class="cell" data-execution_count="7">
+<div id="feb3ff58" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3942,7 +3942,7 @@ y(x + h) = 2 y(x) - y(x - h) - h^2 y(x)
 f&#39;(x) = \cos(x).
 \]</span></p>
 <p>Below is a Python example that illustrates how to compute these derivatives at a few sample points. We then represent them as small vectors placed at <span class="math inline">\(y = 2\)</span> in a plot, pointing upward if <span class="math inline">\(f&#39;(x)\)</span> is positive and downward if <span class="math inline">\(f&#39;(x)\)</span> is negative, with a scaled magnitude.</p>
-<div id="596e6649" class="cell" data-execution_count="8">
+<div id="4dcac8ba" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4004,18 +4004,18 @@ f(x, y) = \sin(x)\cos(y).
 \]</span></p>
 <p>Let us compute partial derivatives of this function. Derivative with respect to <span class="math inline">\(x\)</span> is:</p>
 <p><span class="math display">\[
-\frac{\partial f(x,y)}{\partial x} = frac{\partial}{\partial x}[\sin(x)\cos(y)] = \cos(x)\cos(y).
+\frac{\partial f(x,y)}{\partial x} = \frac{\partial}{\partial x}[\sin(x)\cos(y)] = \cos(x)\cos(y).
 \]</span></p>
 <p>Derivative with respect to <span class="math inline">\(y\)</span> is:</p>
 <p><span class="math display">\[
-\frac{\partial f(x,y)}{\partial y} = frac{\partial}{\partial y}[\sin(x)\cos(y)] = -\sin(x)\sin(y).
+\frac{\partial f(x,y)}{\partial y} = \frac{\partial}{\partial y}[\sin(x)\cos(y)] = -\sin(x)\sin(y).
 \]</span></p>
 <p>so the gradient of the function <span class="math inline">\(f(x, y)\)</span> is:</p>
 <p><span class="math display">\[
 \nabla f(x, y) =
 \bigl(\cos(x)\cos(y),\; -\sin(x)\sin(y)\bigr).
 \]</span></p>
-<div id="2c148317" class="cell" data-execution_count="9">
+<div id="a889d4d4" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4060,7 +4060,7 @@ f(x, y) = \sin(x)\cos(y).
 </div>
 </div>
 <p>Below is a Python example that: 1. Plots a heatmap of <span class="math inline">\(f(x, y)\)</span>. 2. Overlays gradient vectors (arrows) on a grid of points.</p>
-<div id="bad80b91" class="cell" data-execution_count="10">
+<div id="00ab8666" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -5241,13 +5241,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-647"><a href="#cb11-647"></a>Let us compute partial derivatives of this function. Derivative with respect to $x$ is:</span>
 <span id="cb11-648"><a href="#cb11-648"></a></span>
 <span id="cb11-649"><a href="#cb11-649"></a>$$</span>
-<span id="cb11-650"><a href="#cb11-650"></a>\frac{\partial f(x,y)}{\partial x} = frac{\partial}{\partial x}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = \cos(x)\cos(y).</span>
+<span id="cb11-650"><a href="#cb11-650"></a>\frac{\partial f(x,y)}{\partial x} = \frac{\partial}{\partial x}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = \cos(x)\cos(y).</span>
 <span id="cb11-651"><a href="#cb11-651"></a>$$</span>
 <span id="cb11-652"><a href="#cb11-652"></a></span>
 <span id="cb11-653"><a href="#cb11-653"></a>Derivative with respect to $y$ is:</span>
 <span id="cb11-654"><a href="#cb11-654"></a></span>
 <span id="cb11-655"><a href="#cb11-655"></a>$$</span>
-<span id="cb11-656"><a href="#cb11-656"></a>\frac{\partial f(x,y)}{\partial y} = frac{\partial}{\partial y}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = -\sin(x)\sin(y).</span>
+<span id="cb11-656"><a href="#cb11-656"></a>\frac{\partial f(x,y)}{\partial y} = \frac{\partial}{\partial y}<span class="co">[</span><span class="ot">\sin(x)\cos(y)</span><span class="co">]</span> = -\sin(x)\sin(y).</span>
 <span id="cb11-657"><a href="#cb11-657"></a>$$</span>
 <span id="cb11-658"><a href="#cb11-658"></a></span>
 <span id="cb11-659"><a href="#cb11-659"></a>so the gradient of the function $f(x, y)$ is:</span>
