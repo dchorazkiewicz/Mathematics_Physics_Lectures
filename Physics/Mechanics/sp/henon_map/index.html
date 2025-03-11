@@ -793,11 +793,11 @@ y_{n+1} &amp;= b x_n
 <p>For the classic values <span class="arithmatex">\(a = 1.4\)</span> and <span class="arithmatex">\(b = 0.3\)</span>, the map exhibits chaotic behavior and forms a strange attractor.</p>
 <hr/>
 <h2 id="python-code-example-simulating-and-visualizing-the-henon-map">Python Code Example: Simulating and Visualizing the Hénon Map<a class="headerlink" href="#python-code-example-simulating-and-visualizing-the-henon-map" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Define the Hénon map</span>
-<span class="k">def</span> <span class="nf">henon_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">henon_map</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">x_next</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span>
     <span class="n">y_next</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span>
     <span class="k">return</span> <span class="n">x_next</span><span class="p">,</span> <span class="n">y_next</span>

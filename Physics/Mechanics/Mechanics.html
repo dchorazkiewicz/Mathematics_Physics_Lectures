@@ -3420,7 +3420,7 @@ margin-bottom: 0;
 <h3 class="anchored" data-anchor-id="movement-in-2d-cartesian-coordinates">Movement in 2D Cartesian coordinates</h3>
 <p>We could start considering moving particle in 1D but 2D examples are more interesting. First we have to define the position of the particle in 2D Cartesian coordinates. The position of the particle is given by the vector <span class="math inline">\(\mathbf{r} = (x, y)\)</span>, where <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are the coordinates of the particle in the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes, respectively. If these coordinates are functions of time, we can write the position vector as <span class="math inline">\(\mathbf{r}(t) = (x(t), y(t))\)</span>. This function describes the trajectory of the particle in the <span class="math inline">\(xy\)</span> plane.</p>
 <p><span class="math display">\[
-[a,b]\rightarrow \mathcal{R}^2:
+[a,b]\rightarrow \mathbb{R}^2:
 t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \]</span></p>
 <section id="explanation-of-symbols" class="level4">
@@ -3431,7 +3431,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 <li><span class="math inline">\(\mathbf{r}(t)\)</span>: Position vector as a function of time, describing the particle’s motion.</li>
 <li><span class="math inline">\(x(t), y(t)\)</span>: Time-dependent functions representing the particle’s coordinates in the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes.</li>
 <li><span class="math inline">\([a, b]\)</span>: Interval of time during which the particle’s motion is considered.</li>
-<li><span class="math inline">\(\mathcal{R}^2\)</span>: Two-dimensional Cartesian coordinate space.</li>
+<li><span class="math inline">\(\mathbb{R}^2\)</span>: Two-dimensional Cartesian coordinate space.</li>
 <li><span class="math inline">\(t\)</span>: Time variable, used as a parameter for the position function.</li>
 </ul>
 </section>
@@ -3439,8 +3439,8 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 <h4 class="anchored" data-anchor-id="how-mathematicians-read-this-notation">How Mathematicians Read This Notation:</h4>
 <p>Mathematicians interpret the notation as follows:</p>
 <ul>
-<li>“<span class="math inline">\([a,b] \rightarrow \mathcal{R}^2\)</span>” means “a mapping (or function) is defined from the interval <span class="math inline">\([a, b]\)</span> in time to the two-dimensional Cartesian space <span class="math inline">\(\mathcal{R}^2\)</span>.”</li>
-<li>“<span class="math inline">\(t \rightarrow \mathbf{r}(t) = (x(t), y(t))\)</span>” specifies that for each time <span class="math inline">\(t\)</span> within the interval <span class="math inline">\([a, b]\)</span>, there exists a corresponding position vector <span class="math inline">\(\mathbf{r}(t)\)</span> in <span class="math inline">\(\mathcal{R}^2\)</span>, which consists of the time-dependent coordinates <span class="math inline">\(x(t)\)</span> and <span class="math inline">\(y(t)\)</span>.</li>
+<li>“<span class="math inline">\([a,b] \rightarrow \mathbb{R}^2\)</span>” means “a mapping (or function) is defined from the interval <span class="math inline">\([a, b]\)</span> in time to the two-dimensional Cartesian space <span class="math inline">\(\mathbb{R}^2\)</span>.”</li>
+<li>“<span class="math inline">\(t \rightarrow \mathbf{r}(t) = (x(t), y(t))\)</span>” specifies that for each time <span class="math inline">\(t\)</span> within the interval <span class="math inline">\([a, b]\)</span>, there exists a corresponding position vector <span class="math inline">\(\mathbf{r}(t)\)</span> in <span class="math inline">\(\mathbb{R}^2\)</span>, which consists of the time-dependent coordinates <span class="math inline">\(x(t)\)</span> and <span class="math inline">\(y(t)\)</span>.</li>
 <li>The overall expression describes a trajectory as a continuous function of time, mapping the progression of time to the corresponding locations in 2D space.</li>
 </ul>
 </section>
@@ -3455,7 +3455,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \]</span></p>
 <section id="python-implementation" class="level5">
 <h5 class="anchored" data-anchor-id="python-implementation">Python implementation</h5>
-<div id="45eee755" class="cell" data-execution_count="1">
+<div id="641c76f0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3550,7 +3550,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \mathbf{v}(t) = \frac{d\mathbf{r}(t)}{dt} = \left(\frac{dx(t)}{dt}, \frac{dy(t)}{dt}\right)
 \]</span></p>
 <p>The velocity vector describes the speed and direction of the particle at any time <span class="math inline">\(t\)</span>. The magnitude of the velocity vector is the speed of the particle. The direction of the velocity vector is the direction of motion of the particle.</p>
-<div id="3970beed" class="cell" data-execution_count="2">
+<div id="566f1f9c" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3616,7 +3616,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \left(\frac{d^2x(t)}{dt^2}, \frac{d^2y(t)}{dt^2}\right)
 \]</span></p>
 <p>The acceleration vector describes the rate of change of the velocity of the particle at any time <span class="math inline">\(t\)</span>. The magnitude of the acceleration vector is the rate of change of the speed of the particle. The direction of the acceleration vector is the direction of the change of the velocity of the particle.</p>
-<div id="f2f41b57" class="cell" data-execution_count="3">
+<div id="4e10bd2b" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3766,7 +3766,7 @@ v_{x,n+1} &amp;= v_{x,n} + \frac{F_x(x_n, y_n, z_n, t_n)}{m} \Delta t.
 <section id="numerical-implementation" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-implementation">4. Numerical Implementation</h4>
 <p>Here’s how we can implement this:</p>
-<div id="5f327bc8" class="cell" data-execution_count="4">
+<div id="4c3709a2" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3846,7 +3846,7 @@ y(t) &amp;= -\frac{1}{2} g t^2 + v_{0y} t + y_0
 </section>
 <section id="numerical-solution" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution">Numerical solution</h4>
-<div id="cfc06448" class="cell" data-execution_count="5">
+<div id="c40a57e6" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3940,7 +3940,7 @@ y(t) &amp;= -\frac{1}{2} g t^2 + v_{0y} t + y_0
 \frac{d^2 x(t)}{dt^2} = -\frac{k}{m} x(t)
 \]</span></p>
 <p>where <span class="math inline">\(k\)</span> is the spring constant and <span class="math inline">\(m\)</span> is the mass of the particle. The acceleration of the particle is proportional to its position, and the force acting on the particle is the force of a spring, equal to the spring constant times the position of the particle.</p>
-<div id="774926b6" class="cell" data-execution_count="6">
+<div id="360fc3ff" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4008,7 +4008,7 @@ x(t) = A \sin(\omega t) + B \cos(\omega t)
 </section>
 <section id="numerical-solution-1" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution-1">Numerical solution</h4>
-<div id="b5a24c32" class="cell" data-execution_count="7">
+<div id="f32a319f" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4074,7 +4074,7 @@ x(t) = A \sin(\omega t) + B \cos(\omega t)
 <p><span class="math display">\[
 F = -mg \sin(\theta)
 \]</span></p>
-<div id="8e5dfd91" class="cell" data-execution_count="8">
+<div id="747fbe32" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4183,7 +4183,7 @@ L \frac{d^2 \theta}{dt^2} = -g \sin(\theta)
 <section id="numerical-solution-2" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution-2">Numerical Solution</h4>
 <p>For larger angles, the small-angle approximation does not hold, and we need to solve the original nonlinear equation numerically. We can use the finite difference method to approximate the solution.</p>
-<div id="efc75d70" class="cell" data-execution_count="9">
+<div id="01931958" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4265,7 +4265,7 @@ v = L \frac{d\theta}{dt}, \quad h = L (1 - \cos\theta)
 E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 \]</span></p>
 <p>The energy remains constant over time, which can be verified numerically.</p>
-<div id="e499f43d" class="cell" data-execution_count="10">
+<div id="12f4db68" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Calculate energies</span></span>
@@ -4353,7 +4353,7 @@ E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 <section id="numerical-example" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-example">Numerical Example</h4>
 <p>We will visualize the position, velocity, and acceleration at two distinct points along the circular path.</p>
-<div id="dba949e9" class="cell" data-execution_count="11">
+<div id="6a11bdd6" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4439,7 +4439,7 @@ E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 <section id="visualization-gravitational-field" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-gravitational-field">Visualization: Gravitational Field</h4>
 <p>We visualize the gravitational field of a central mass <span class="math inline">\(M\)</span> in 2D slice.</p>
-<div id="460b5a74" class="cell" data-execution_count="12">
+<div id="e4727a26" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4512,7 +4512,7 @@ v_\text{escape} = \sqrt{2G \frac{M}{R}}
 <li>Mass of Earth (<span class="math inline">\(M_\text{Earth}\)</span>): <span class="math inline">\(5.972 \times 10^{24} \ \mathrm{kg}\)</span></li>
 <li>Radius of Earth (<span class="math inline">\(R_\text{Earth}\)</span>): <span class="math inline">\(6.371 \times 10^6 \ \mathrm{m}\)</span></li>
 </ul>
-<div id="143a0b3b" class="cell" data-execution_count="13">
+<div id="61785f08" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Constants</span></span>
@@ -4548,7 +4548,7 @@ U = -G \frac{m_1 m_2}{r}
 </section>
 <section id="small-body-around-the-earth" class="level3">
 <h3 class="anchored" data-anchor-id="small-body-around-the-earth">Small body around the Earth</h3>
-<div id="1b17db6c" class="cell" data-execution_count="14">
+<div id="8aa7e9a6" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4618,7 +4618,7 @@ U = -G \frac{m_1 m_2}{r}
 </section>
 <section id="earth-moon-system-with-small-body" class="level3">
 <h3 class="anchored" data-anchor-id="earth-moon-system-with-small-body">Earth-Moon System with small body</h3>
-<div id="d441baa6" class="cell" data-execution_count="15">
+<div id="70dec08f" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -5224,7 +5224,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-31"><a href="#cb17-31"></a>The position of the particle is given by the vector $\mathbf{r} = (x, y)$, where $x$ and $y$ are the coordinates of the particle in the $x$ and $y$ axes, respectively. If these coordinates are functions of time, we can write the position vector as $\mathbf{r}(t) = (x(t), y(t))$. This function describes the trajectory of the particle in the $xy$ plane.</span>
 <span id="cb17-32"><a href="#cb17-32"></a></span>
 <span id="cb17-33"><a href="#cb17-33"></a>$$</span>
-<span id="cb17-34"><a href="#cb17-34"></a><span class="co">[</span><span class="ot">a,b</span><span class="co">]</span>\rightarrow \mathcal{R}^2:</span>
+<span id="cb17-34"><a href="#cb17-34"></a><span class="co">[</span><span class="ot">a,b</span><span class="co">]</span>\rightarrow \mathbb{R}^2:</span>
 <span id="cb17-35"><a href="#cb17-35"></a>t\rightarrow \mathbf{r}(t) = (x(t), y(t))</span>
 <span id="cb17-36"><a href="#cb17-36"></a>$$</span>
 <span id="cb17-37"><a href="#cb17-37"></a></span>
@@ -5235,15 +5235,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-42"><a href="#cb17-42"></a><span class="ss">- </span>$\mathbf{r}(t)$: Position vector as a function of time, describing the particle&#39;s motion.</span>
 <span id="cb17-43"><a href="#cb17-43"></a><span class="ss">- </span>$x(t), y(t)$: Time-dependent functions representing the particle&#39;s coordinates in the $x$ and $y$ axes.</span>
 <span id="cb17-44"><a href="#cb17-44"></a><span class="ss">- </span>$<span class="co">[</span><span class="ot">a, b</span><span class="co">]</span>$: Interval of time during which the particle&#39;s motion is considered.</span>
-<span id="cb17-45"><a href="#cb17-45"></a><span class="ss">- </span>$\mathcal{R}^2$: Two-dimensional Cartesian coordinate space.</span>
+<span id="cb17-45"><a href="#cb17-45"></a><span class="ss">- </span>$\mathbb{R}^2$: Two-dimensional Cartesian coordinate space.</span>
 <span id="cb17-46"><a href="#cb17-46"></a><span class="ss">- </span>$t$: Time variable, used as a parameter for the position function.</span>
 <span id="cb17-47"><a href="#cb17-47"></a></span>
 <span id="cb17-48"><a href="#cb17-48"></a><span class="fu">#### How Mathematicians Read This Notation:</span></span>
 <span id="cb17-49"><a href="#cb17-49"></a></span>
 <span id="cb17-50"><a href="#cb17-50"></a>Mathematicians interpret the notation as follows:</span>
 <span id="cb17-51"><a href="#cb17-51"></a></span>
-<span id="cb17-52"><a href="#cb17-52"></a><span class="ss">- </span>&quot;$<span class="co">[</span><span class="ot">a,b</span><span class="co">]</span> \rightarrow \mathcal{R}^2$&quot; means &quot;a mapping (or function) is defined from the interval $<span class="co">[</span><span class="ot">a, b</span><span class="co">]</span>$ in time to the two-dimensional Cartesian space $\mathcal{R}^2$.&quot;</span>
-<span id="cb17-53"><a href="#cb17-53"></a><span class="ss">- </span>&quot;$t \rightarrow \mathbf{r}(t) = (x(t), y(t))$&quot; specifies that for each time $t$ within the interval $<span class="co">[</span><span class="ot">a, b</span><span class="co">]</span>$, there exists a corresponding position vector $\mathbf{r}(t)$ in $\mathcal{R}^2$, which consists of the time-dependent coordinates $x(t)$ and $y(t)$. </span>
+<span id="cb17-52"><a href="#cb17-52"></a><span class="ss">- </span>&quot;$<span class="co">[</span><span class="ot">a,b</span><span class="co">]</span> \rightarrow \mathbb{R}^2$&quot; means &quot;a mapping (or function) is defined from the interval $<span class="co">[</span><span class="ot">a, b</span><span class="co">]</span>$ in time to the two-dimensional Cartesian space $\mathbb{R}^2$.&quot;</span>
+<span id="cb17-53"><a href="#cb17-53"></a><span class="ss">- </span>&quot;$t \rightarrow \mathbf{r}(t) = (x(t), y(t))$&quot; specifies that for each time $t$ within the interval $<span class="co">[</span><span class="ot">a, b</span><span class="co">]</span>$, there exists a corresponding position vector $\mathbf{r}(t)$ in $\mathbb{R}^2$, which consists of the time-dependent coordinates $x(t)$ and $y(t)$. </span>
 <span id="cb17-54"><a href="#cb17-54"></a><span class="ss">- </span>The overall expression describes a trajectory as a continuous function of time, mapping the progression of time to the corresponding locations in 2D space.</span>
 <span id="cb17-55"><a href="#cb17-55"></a></span>
 <span id="cb17-56"><a href="#cb17-56"></a><span class="fu">#### Examples </span></span>
