@@ -3390,6 +3390,13 @@ margin-bottom: 0;
   <li><a href="#small-body-around-the-earth" id="toc-small-body-around-the-earth" class="nav-link" data-scroll-target="#small-body-around-the-earth">Small body around the Earth</a></li>
   <li><a href="#earth-moon-system-with-small-body" id="toc-earth-moon-system-with-small-body" class="nav-link" data-scroll-target="#earth-moon-system-with-small-body">Earth-Moon System with small body</a></li>
   </ul></li>
+  <li><a href="#work-and-kinetic-energy-relation" id="toc-work-and-kinetic-energy-relation" class="nav-link" data-scroll-target="#work-and-kinetic-energy-relation">Work and Kinetic Energy Relation</a>
+  <ul class="collapse">
+  <li><a href="#work" id="toc-work" class="nav-link" data-scroll-target="#work">Work</a></li>
+  <li><a href="#kinetic-energy" id="toc-kinetic-energy" class="nav-link" data-scroll-target="#kinetic-energy">Kinetic Energy</a></li>
+  <li><a href="#energy-conservation" id="toc-energy-conservation" class="nav-link" data-scroll-target="#energy-conservation">Energy Conservation</a></li>
+  <li><a href="#energy-conservation-1" id="toc-energy-conservation-1" class="nav-link" data-scroll-target="#energy-conservation-1">Energy Conservation</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures"><i class="bi bi-link-45deg"></i>Main page</a></li></ul></div></nav>
 </div>
@@ -3455,7 +3462,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \]</span></p>
 <section id="python-implementation" class="level5">
 <h5 class="anchored" data-anchor-id="python-implementation">Python implementation</h5>
-<div id="641c76f0" class="cell" data-execution_count="1">
+<div id="6fc1e7bc" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3550,7 +3557,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \mathbf{v}(t) = \frac{d\mathbf{r}(t)}{dt} = \left(\frac{dx(t)}{dt}, \frac{dy(t)}{dt}\right)
 \]</span></p>
 <p>The velocity vector describes the speed and direction of the particle at any time <span class="math inline">\(t\)</span>. The magnitude of the velocity vector is the speed of the particle. The direction of the velocity vector is the direction of motion of the particle.</p>
-<div id="566f1f9c" class="cell" data-execution_count="2">
+<div id="199af020" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3616,7 +3623,7 @@ t\rightarrow \mathbf{r}(t) = (x(t), y(t))
 \left(\frac{d^2x(t)}{dt^2}, \frac{d^2y(t)}{dt^2}\right)
 \]</span></p>
 <p>The acceleration vector describes the rate of change of the velocity of the particle at any time <span class="math inline">\(t\)</span>. The magnitude of the acceleration vector is the rate of change of the speed of the particle. The direction of the acceleration vector is the direction of the change of the velocity of the particle.</p>
-<div id="4e10bd2b" class="cell" data-execution_count="3">
+<div id="955e93e6" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3766,7 +3773,7 @@ v_{x,n+1} &amp;= v_{x,n} + \frac{F_x(x_n, y_n, z_n, t_n)}{m} \Delta t.
 <section id="numerical-implementation" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-implementation">4. Numerical Implementation</h4>
 <p>Here’s how we can implement this:</p>
-<div id="4c3709a2" class="cell" data-execution_count="4">
+<div id="8e67d903" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3846,7 +3853,7 @@ y(t) &amp;= -\frac{1}{2} g t^2 + v_{0y} t + y_0
 </section>
 <section id="numerical-solution" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution">Numerical solution</h4>
-<div id="c40a57e6" class="cell" data-execution_count="5">
+<div id="ea0f2454" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3940,7 +3947,7 @@ y(t) &amp;= -\frac{1}{2} g t^2 + v_{0y} t + y_0
 \frac{d^2 x(t)}{dt^2} = -\frac{k}{m} x(t)
 \]</span></p>
 <p>where <span class="math inline">\(k\)</span> is the spring constant and <span class="math inline">\(m\)</span> is the mass of the particle. The acceleration of the particle is proportional to its position, and the force acting on the particle is the force of a spring, equal to the spring constant times the position of the particle.</p>
-<div id="360fc3ff" class="cell" data-execution_count="6">
+<div id="156f792e" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4008,7 +4015,7 @@ x(t) = A \sin(\omega t) + B \cos(\omega t)
 </section>
 <section id="numerical-solution-1" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution-1">Numerical solution</h4>
-<div id="f32a319f" class="cell" data-execution_count="7">
+<div id="fca0a8d7" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4074,7 +4081,7 @@ x(t) = A \sin(\omega t) + B \cos(\omega t)
 <p><span class="math display">\[
 F = -mg \sin(\theta)
 \]</span></p>
-<div id="747fbe32" class="cell" data-execution_count="8">
+<div id="75ebf472" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4183,7 +4190,7 @@ L \frac{d^2 \theta}{dt^2} = -g \sin(\theta)
 <section id="numerical-solution-2" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-solution-2">Numerical Solution</h4>
 <p>For larger angles, the small-angle approximation does not hold, and we need to solve the original nonlinear equation numerically. We can use the finite difference method to approximate the solution.</p>
-<div id="01931958" class="cell" data-execution_count="9">
+<div id="e3114a2f" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4265,7 +4272,7 @@ v = L \frac{d\theta}{dt}, \quad h = L (1 - \cos\theta)
 E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 \]</span></p>
 <p>The energy remains constant over time, which can be verified numerically.</p>
-<div id="12f4db68" class="cell" data-execution_count="10">
+<div id="5a27a161" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Calculate energies</span></span>
@@ -4353,7 +4360,7 @@ E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 <section id="numerical-example" class="level4">
 <h4 class="anchored" data-anchor-id="numerical-example">Numerical Example</h4>
 <p>We will visualize the position, velocity, and acceleration at two distinct points along the circular path.</p>
-<div id="6a11bdd6" class="cell" data-execution_count="11">
+<div id="79d440be" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4439,7 +4446,7 @@ E = \frac{1}{2} m L^2 \left(\frac{d\theta}{dt}\right)^2 + m g L (1 - \cos\theta)
 <section id="visualization-gravitational-field" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-gravitational-field">Visualization: Gravitational Field</h4>
 <p>We visualize the gravitational field of a central mass <span class="math inline">\(M\)</span> in 2D slice.</p>
-<div id="e4727a26" class="cell" data-execution_count="12">
+<div id="e46614c6" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4512,7 +4519,7 @@ v_\text{escape} = \sqrt{2G \frac{M}{R}}
 <li>Mass of Earth (<span class="math inline">\(M_\text{Earth}\)</span>): <span class="math inline">\(5.972 \times 10^{24} \ \mathrm{kg}\)</span></li>
 <li>Radius of Earth (<span class="math inline">\(R_\text{Earth}\)</span>): <span class="math inline">\(6.371 \times 10^6 \ \mathrm{m}\)</span></li>
 </ul>
-<div id="61785f08" class="cell" data-execution_count="13">
+<div id="028d1281" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Constants</span></span>
@@ -4548,7 +4555,7 @@ U = -G \frac{m_1 m_2}{r}
 </section>
 <section id="small-body-around-the-earth" class="level3">
 <h3 class="anchored" data-anchor-id="small-body-around-the-earth">Small body around the Earth</h3>
-<div id="8aa7e9a6" class="cell" data-execution_count="14">
+<div id="49fd96d0" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4618,7 +4625,7 @@ U = -G \frac{m_1 m_2}{r}
 </section>
 <section id="earth-moon-system-with-small-body" class="level3">
 <h3 class="anchored" data-anchor-id="earth-moon-system-with-small-body">Earth-Moon System with small body</h3>
-<div id="70dec08f" class="cell" data-execution_count="15">
+<div id="587ea415" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4712,9 +4719,111 @@ U = -G \frac{m_1 m_2}{r}
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="work-and-kinetic-energy-relation" class="level2">
+<h2 class="anchored" data-anchor-id="work-and-kinetic-energy-relation">Work and Kinetic Energy Relation</h2>
+<section id="work" class="level3">
+<h3 class="anchored" data-anchor-id="work">Work</h3>
+<p>In three-dimensional motion, the work done by a force <span class="math inline">\(\mathbf{F}\)</span> acting on an object as it moves along a displacement <span class="math inline">\(d\mathbf{r}\)</span> is given by the <strong>dot product</strong>:</p>
+<p><span class="math display">\[
+dW = \mathbf{F} \cdot d\mathbf{r}
+\]</span></p>
+<p>Expanding in component form:</p>
+<p><span class="math display">\[
+dW = F_x dx + F_y dy + F_z dz
+\]</span></p>
+<p>Using <strong>Newton’s second law</strong> <span class="math inline">\(\mathbf{F} = m \mathbf{a}\)</span>:</p>
+<p><span class="math display">\[
+dW = (m a_x dx + m a_y dy + m a_z dz)
+\]</span></p>
+<p>Since acceleration is the derivative of velocity:</p>
+<p><span class="math display">\[
+a_x = \frac{dv_x}{dt}, \quad a_y = \frac{dv_y}{dt}, \quad a_z = \frac{dv_z}{dt}
+\]</span></p>
+<p>And velocity components are:</p>
+<p><span class="math display">\[
+v_x = \frac{dx}{dt}, \quad v_y = \frac{dy}{dt}, \quad v_z = \frac{dz}{dt}
+\]</span></p>
+<p>Rewriting work in terms of velocity:</p>
+<p><span class="math display">\[
+dW = m v_x dv_x + m v_y dv_y + m v_z dv_z
+\]</span></p>
+</section>
+<section id="kinetic-energy" class="level3">
+<h3 class="anchored" data-anchor-id="kinetic-energy">Kinetic Energy</h3>
+<p>To determine the total work done from an initial velocity <span class="math inline">\(\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})\)</span> to a final velocity <span class="math inline">\(\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})\)</span>:</p>
+<p><span class="math display">\[
+W = \int_{v_{1x}}^{v_{2x}} m v_x dv_x + \int_{v_{1y}}^{v_{2y}} m v_y dv_y + \int_{v_{1z}}^{v_{2z}} m v_z dv_z
+\]</span></p>
+<p>Solving each integral:</p>
+<p><span class="math display">\[
+W = m \left( \frac{v_{2x}^2}{2} - \frac{v_{1x}^2}{2} \right) + m \left( \frac{v_{2y}^2}{2} - \frac{v_{1y}^2}{2} \right) + m \left( \frac{v_{2z}^2}{2} - \frac{v_{1z}^2}{2} \right)
+\]</span></p>
+<p>Rewriting:</p>
+<p><span class="math display">\[
+W = \frac{1}{2} m \left( v_{2x}^2 + v_{2y}^2 + v_{2z}^2 \right) - \frac{1}{2} m \left( v_{1x}^2 + v_{1y}^2 + v_{1z}^2 \right)
+\]</span></p>
+<p>Since kinetic energy in 3D is defined as:</p>
+<p><span class="math display">\[
+KE = \frac{1}{2} m (v_x^2 + v_y^2 + v_z^2)
+\]</span></p>
+<p>we obtain:</p>
+<p><span class="math display">\[
+W = KE_2 - KE_1 = \Delta KE
+\]</span></p>
+</section>
+<section id="energy-conservation" class="level3">
+<h3 class="anchored" data-anchor-id="energy-conservation">Energy Conservation</h3>
+<p>In many physical situations, forces can be described by a <strong>potential energy function</strong>. A force <span class="math inline">\(\mathbf{F}\)</span> is called <strong>conservative</strong> if the work it does on an object moving from point <span class="math inline">\(A\)</span> to point <span class="math inline">\(B\)</span> is <strong>independent of the path taken</strong> and depends only on the initial and final positions. This allows us to define a scalar function, the <strong>potential energy</strong> <span class="math inline">\(U\)</span>, such that:</p>
+<p><span class="math display">\[
+\mathbf{F} = - \nabla U
+\]</span></p>
+<p>This relation means that the force is the negative gradient of the potential energy function.</p>
+<section id="examples-of-potential-forces" class="level4">
+<h4 class="anchored" data-anchor-id="examples-of-potential-forces">Examples of Potential Forces</h4>
+<p>There are several important cases of conservative forces where the <strong>work-energy theorem</strong> and <strong>energy conservation</strong> provide quick solutions to problems:</p>
+<ol type="1">
+<li><p><strong>Constant Force (Projectile Motion)</strong>:<br>
+In uniform gravitational fields (e.g., near Earth’s surface), the force is constant:<br>
+<span class="math display">\[
+\mathbf{F} = -mg \hat{j}
+\]</span> The associated potential energy is given by: <span class="math display">\[
+U = mg y
+\]</span> This simplifies projectile motion calculations using energy conservation.</p></li>
+<li><p><strong>Harmonic Oscillator (Spring Force)</strong>:<br>
+A restoring force proportional to displacement, such as Hooke’s Law: <span class="math display">\[
+\mathbf{F} = - k x \hat{i}
+\]</span> The corresponding potential energy function is: <span class="math display">\[
+U = \frac{1}{2} k x^2
+\]</span> This is essential in analyzing oscillatory motion.</p></li>
+<li><p><strong>Gravitational Force (Newtonian Gravity)</strong>:<br>
+In a central gravitational field, the force obeys an inverse-square law: <span class="math display">\[
+\mathbf{F} = - \frac{G m M}{r^2} \hat{r}
+\]</span> The potential energy function is: <span class="math display">\[
+U = -\frac{G m M}{r}
+\]</span> This form is crucial for planetary motion and orbital mechanics.</p></li>
+</ol>
+</section>
+</section>
+<section id="energy-conservation-1" class="level3">
+<h3 class="anchored" data-anchor-id="energy-conservation-1">Energy Conservation</h3>
+<p>Since conservative forces allow potential energy to be defined, the <strong>total mechanical energy</strong> is conserved:</p>
+<p><span class="math display">\[
+E = KE + U = \text{constant}
+\]</span></p>
+<p>This principle allows for elegant solutions to motion problems without explicitly solving Newton’s second law.</p>
+<section id="gravity-example" class="level4">
+<h4 class="anchored" data-anchor-id="gravity-example">Gravity example</h4>
+<p><span class="math display">\[
+m\frac{m v_1^2}{2}-\frac{G m M}{r_1}
+=
+m\frac{m v_2^2}{2}-\frac{G m M}{r_2}
+\]</span></p>
 
 <!-- -->
 
+</section>
 </section>
 </section>
 
@@ -6469,6 +6578,145 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-1306"><a href="#cb17-1306"></a>plt.show()</span>
 <span id="cb17-1307"><a href="#cb17-1307"></a></span>
 <span id="cb17-1308"><a href="#cb17-1308"></a><span class="in">```</span></span>
+<span id="cb17-1309"><a href="#cb17-1309"></a></span>
+<span id="cb17-1310"><a href="#cb17-1310"></a><span class="fu">## Work and Kinetic Energy Relation</span></span>
+<span id="cb17-1311"><a href="#cb17-1311"></a></span>
+<span id="cb17-1312"><a href="#cb17-1312"></a><span class="fu">### Work</span></span>
+<span id="cb17-1313"><a href="#cb17-1313"></a></span>
+<span id="cb17-1314"><a href="#cb17-1314"></a>In three-dimensional motion, the work done by a force $\mathbf{F}$ acting on an object as it moves along a displacement $d\mathbf{r}$ is given by the **dot product**:</span>
+<span id="cb17-1315"><a href="#cb17-1315"></a></span>
+<span id="cb17-1316"><a href="#cb17-1316"></a>$$</span>
+<span id="cb17-1317"><a href="#cb17-1317"></a>dW = \mathbf{F} \cdot d\mathbf{r}</span>
+<span id="cb17-1318"><a href="#cb17-1318"></a>$$</span>
+<span id="cb17-1319"><a href="#cb17-1319"></a></span>
+<span id="cb17-1320"><a href="#cb17-1320"></a>Expanding in component form:</span>
+<span id="cb17-1321"><a href="#cb17-1321"></a></span>
+<span id="cb17-1322"><a href="#cb17-1322"></a>$$</span>
+<span id="cb17-1323"><a href="#cb17-1323"></a>dW = F_x dx + F_y dy + F_z dz</span>
+<span id="cb17-1324"><a href="#cb17-1324"></a>$$</span>
+<span id="cb17-1325"><a href="#cb17-1325"></a></span>
+<span id="cb17-1326"><a href="#cb17-1326"></a>Using **Newton’s second law** $\mathbf{F} = m \mathbf{a}$:</span>
+<span id="cb17-1327"><a href="#cb17-1327"></a></span>
+<span id="cb17-1328"><a href="#cb17-1328"></a>$$</span>
+<span id="cb17-1329"><a href="#cb17-1329"></a>dW = (m a_x dx + m a_y dy + m a_z dz)</span>
+<span id="cb17-1330"><a href="#cb17-1330"></a>$$</span>
+<span id="cb17-1331"><a href="#cb17-1331"></a></span>
+<span id="cb17-1332"><a href="#cb17-1332"></a>Since acceleration is the derivative of velocity:</span>
+<span id="cb17-1333"><a href="#cb17-1333"></a></span>
+<span id="cb17-1334"><a href="#cb17-1334"></a>$$</span>
+<span id="cb17-1335"><a href="#cb17-1335"></a>a_x = \frac{dv_x}{dt}, \quad a_y = \frac{dv_y}{dt}, \quad a_z = \frac{dv_z}{dt}</span>
+<span id="cb17-1336"><a href="#cb17-1336"></a>$$</span>
+<span id="cb17-1337"><a href="#cb17-1337"></a></span>
+<span id="cb17-1338"><a href="#cb17-1338"></a>And velocity components are:</span>
+<span id="cb17-1339"><a href="#cb17-1339"></a></span>
+<span id="cb17-1340"><a href="#cb17-1340"></a>$$</span>
+<span id="cb17-1341"><a href="#cb17-1341"></a>v_x = \frac{dx}{dt}, \quad v_y = \frac{dy}{dt}, \quad v_z = \frac{dz}{dt}</span>
+<span id="cb17-1342"><a href="#cb17-1342"></a>$$</span>
+<span id="cb17-1343"><a href="#cb17-1343"></a></span>
+<span id="cb17-1344"><a href="#cb17-1344"></a>Rewriting work in terms of velocity:</span>
+<span id="cb17-1345"><a href="#cb17-1345"></a></span>
+<span id="cb17-1346"><a href="#cb17-1346"></a>$$</span>
+<span id="cb17-1347"><a href="#cb17-1347"></a>dW = m v_x dv_x + m v_y dv_y + m v_z dv_z</span>
+<span id="cb17-1348"><a href="#cb17-1348"></a>$$</span>
+<span id="cb17-1349"><a href="#cb17-1349"></a></span>
+<span id="cb17-1350"><a href="#cb17-1350"></a><span class="fu">### Kinetic Energy</span></span>
+<span id="cb17-1351"><a href="#cb17-1351"></a>To determine the total work done from an initial velocity $\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})$ to a final velocity $\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})$:</span>
+<span id="cb17-1352"><a href="#cb17-1352"></a></span>
+<span id="cb17-1353"><a href="#cb17-1353"></a>$$</span>
+<span id="cb17-1354"><a href="#cb17-1354"></a>W = \int_{v_{1x}}^{v_{2x}} m v_x dv_x + \int_{v_{1y}}^{v_{2y}} m v_y dv_y + \int_{v_{1z}}^{v_{2z}} m v_z dv_z</span>
+<span id="cb17-1355"><a href="#cb17-1355"></a>$$</span>
+<span id="cb17-1356"><a href="#cb17-1356"></a></span>
+<span id="cb17-1357"><a href="#cb17-1357"></a>Solving each integral:</span>
+<span id="cb17-1358"><a href="#cb17-1358"></a></span>
+<span id="cb17-1359"><a href="#cb17-1359"></a>$$</span>
+<span id="cb17-1360"><a href="#cb17-1360"></a>W = m \left( \frac{v_{2x}^2}{2} - \frac{v_{1x}^2}{2} \right) + m \left( \frac{v_{2y}^2}{2} - \frac{v_{1y}^2}{2} \right) + m \left( \frac{v_{2z}^2}{2} - \frac{v_{1z}^2}{2} \right)</span>
+<span id="cb17-1361"><a href="#cb17-1361"></a>$$</span>
+<span id="cb17-1362"><a href="#cb17-1362"></a></span>
+<span id="cb17-1363"><a href="#cb17-1363"></a>Rewriting:</span>
+<span id="cb17-1364"><a href="#cb17-1364"></a></span>
+<span id="cb17-1365"><a href="#cb17-1365"></a>$$</span>
+<span id="cb17-1366"><a href="#cb17-1366"></a>W = \frac{1}{2} m \left( v_{2x}^2 + v_{2y}^2 + v_{2z}^2 \right) - \frac{1}{2} m \left( v_{1x}^2 + v_{1y}^2 + v_{1z}^2 \right)</span>
+<span id="cb17-1367"><a href="#cb17-1367"></a>$$</span>
+<span id="cb17-1368"><a href="#cb17-1368"></a></span>
+<span id="cb17-1369"><a href="#cb17-1369"></a>Since kinetic energy in 3D is defined as:</span>
+<span id="cb17-1370"><a href="#cb17-1370"></a></span>
+<span id="cb17-1371"><a href="#cb17-1371"></a>$$</span>
+<span id="cb17-1372"><a href="#cb17-1372"></a>KE = \frac{1}{2} m (v_x^2 + v_y^2 + v_z^2)</span>
+<span id="cb17-1373"><a href="#cb17-1373"></a>$$</span>
+<span id="cb17-1374"><a href="#cb17-1374"></a></span>
+<span id="cb17-1375"><a href="#cb17-1375"></a>we obtain:</span>
+<span id="cb17-1376"><a href="#cb17-1376"></a></span>
+<span id="cb17-1377"><a href="#cb17-1377"></a>$$</span>
+<span id="cb17-1378"><a href="#cb17-1378"></a>W = KE_2 - KE_1 = \Delta KE</span>
+<span id="cb17-1379"><a href="#cb17-1379"></a>$$</span>
+<span id="cb17-1380"><a href="#cb17-1380"></a></span>
+<span id="cb17-1381"><a href="#cb17-1381"></a><span class="fu">### Energy Conservation</span></span>
+<span id="cb17-1382"><a href="#cb17-1382"></a></span>
+<span id="cb17-1383"><a href="#cb17-1383"></a>In many physical situations, forces can be described by a **potential energy function**. A force $\mathbf{F}$ is called **conservative** if the work it does on an object moving from point $A$ to point $B$ is **independent of the path taken** and depends only on the initial and final positions. This allows us to define a scalar function, the **potential energy** $U$, such that:</span>
+<span id="cb17-1384"><a href="#cb17-1384"></a></span>
+<span id="cb17-1385"><a href="#cb17-1385"></a>$$</span>
+<span id="cb17-1386"><a href="#cb17-1386"></a>\mathbf{F} = - \nabla U</span>
+<span id="cb17-1387"><a href="#cb17-1387"></a>$$</span>
+<span id="cb17-1388"><a href="#cb17-1388"></a></span>
+<span id="cb17-1389"><a href="#cb17-1389"></a>This relation means that the force is the negative gradient of the potential energy function.</span>
+<span id="cb17-1390"><a href="#cb17-1390"></a></span>
+<span id="cb17-1391"><a href="#cb17-1391"></a><span class="fu">#### Examples of Potential Forces</span></span>
+<span id="cb17-1392"><a href="#cb17-1392"></a></span>
+<span id="cb17-1393"><a href="#cb17-1393"></a>There are several important cases of conservative forces where the **work-energy theorem** and **energy conservation** provide quick solutions to problems:</span>
+<span id="cb17-1394"><a href="#cb17-1394"></a></span>
+<span id="cb17-1395"><a href="#cb17-1395"></a><span class="ss">1. </span>**Constant Force (Projectile Motion)**:  </span>
+<span id="cb17-1396"><a href="#cb17-1396"></a>   In uniform gravitational fields (e.g., near Earth&#39;s surface), the force is constant:  </span>
+<span id="cb17-1397"><a href="#cb17-1397"></a>   $$</span>
+<span id="cb17-1398"><a href="#cb17-1398"></a>   \mathbf{F} = -mg \hat{j}</span>
+<span id="cb17-1399"><a href="#cb17-1399"></a>   $$</span>
+<span id="cb17-1400"><a href="#cb17-1400"></a>   The associated potential energy is given by:</span>
+<span id="cb17-1401"><a href="#cb17-1401"></a>   $$</span>
+<span id="cb17-1402"><a href="#cb17-1402"></a>   U = mg y</span>
+<span id="cb17-1403"><a href="#cb17-1403"></a>   $$</span>
+<span id="cb17-1404"><a href="#cb17-1404"></a>   This simplifies projectile motion calculations using energy conservation.</span>
+<span id="cb17-1405"><a href="#cb17-1405"></a></span>
+<span id="cb17-1406"><a href="#cb17-1406"></a><span class="ss">2. </span>**Harmonic Oscillator (Spring Force)**:  </span>
+<span id="cb17-1407"><a href="#cb17-1407"></a>   A restoring force proportional to displacement, such as Hooke’s Law:</span>
+<span id="cb17-1408"><a href="#cb17-1408"></a>   $$</span>
+<span id="cb17-1409"><a href="#cb17-1409"></a>   \mathbf{F} = - k x \hat{i}</span>
+<span id="cb17-1410"><a href="#cb17-1410"></a>   $$</span>
+<span id="cb17-1411"><a href="#cb17-1411"></a>   The corresponding potential energy function is:</span>
+<span id="cb17-1412"><a href="#cb17-1412"></a>   $$</span>
+<span id="cb17-1413"><a href="#cb17-1413"></a>   U = \frac{1}{2} k x^2</span>
+<span id="cb17-1414"><a href="#cb17-1414"></a>   $$</span>
+<span id="cb17-1415"><a href="#cb17-1415"></a>   This is essential in analyzing oscillatory motion.</span>
+<span id="cb17-1416"><a href="#cb17-1416"></a></span>
+<span id="cb17-1417"><a href="#cb17-1417"></a><span class="ss">3. </span>**Gravitational Force (Newtonian Gravity)**:  </span>
+<span id="cb17-1418"><a href="#cb17-1418"></a>   In a central gravitational field, the force obeys an inverse-square law:</span>
+<span id="cb17-1419"><a href="#cb17-1419"></a>   $$</span>
+<span id="cb17-1420"><a href="#cb17-1420"></a>   \mathbf{F} = - \frac{G m M}{r^2} \hat{r}</span>
+<span id="cb17-1421"><a href="#cb17-1421"></a>   $$</span>
+<span id="cb17-1422"><a href="#cb17-1422"></a>   The potential energy function is:</span>
+<span id="cb17-1423"><a href="#cb17-1423"></a>   $$</span>
+<span id="cb17-1424"><a href="#cb17-1424"></a>   U = -\frac{G m M}{r}</span>
+<span id="cb17-1425"><a href="#cb17-1425"></a>   $$</span>
+<span id="cb17-1426"><a href="#cb17-1426"></a>   This form is crucial for planetary motion and orbital mechanics.</span>
+<span id="cb17-1427"><a href="#cb17-1427"></a></span>
+<span id="cb17-1428"><a href="#cb17-1428"></a><span class="fu">### Energy Conservation</span></span>
+<span id="cb17-1429"><a href="#cb17-1429"></a></span>
+<span id="cb17-1430"><a href="#cb17-1430"></a>Since conservative forces allow potential energy to be defined, the **total mechanical energy** is conserved:</span>
+<span id="cb17-1431"><a href="#cb17-1431"></a></span>
+<span id="cb17-1432"><a href="#cb17-1432"></a>$$</span>
+<span id="cb17-1433"><a href="#cb17-1433"></a>E = KE + U = \text{constant}</span>
+<span id="cb17-1434"><a href="#cb17-1434"></a>$$</span>
+<span id="cb17-1435"><a href="#cb17-1435"></a></span>
+<span id="cb17-1436"><a href="#cb17-1436"></a>This principle allows for elegant solutions to motion problems without explicitly solving Newton’s second law.</span>
+<span id="cb17-1437"><a href="#cb17-1437"></a></span>
+<span id="cb17-1438"><a href="#cb17-1438"></a><span class="fu">#### Gravity example</span></span>
+<span id="cb17-1439"><a href="#cb17-1439"></a></span>
+<span id="cb17-1440"><a href="#cb17-1440"></a>$$</span>
+<span id="cb17-1441"><a href="#cb17-1441"></a>m\frac{m v_1^2}{2}-\frac{G m M}{r_1} </span>
+<span id="cb17-1442"><a href="#cb17-1442"></a>=</span>
+<span id="cb17-1443"><a href="#cb17-1443"></a>m\frac{m v_2^2}{2}-\frac{G m M}{r_2}</span>
+<span id="cb17-1444"><a href="#cb17-1444"></a>$$</span>
+<span id="cb17-1445"><a href="#cb17-1445"></a></span>
+<span id="cb17-1446"><a href="#cb17-1446"></a></span>
+<span id="cb17-1447"><a href="#cb17-1447"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
