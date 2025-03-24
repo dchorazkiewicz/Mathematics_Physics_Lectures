@@ -3421,7 +3421,7 @@ margin-bottom: 0;
 <section id="experiment-with-a-die" class="level3">
 <h3 class="anchored" data-anchor-id="experiment-with-a-die">Experiment with a Die</h3>
 <p>Let us perform an experiment with a die. We will roll a die 5 times and record the outcomes. The outcomes are the numbers from 1 to 6. We will record the number of times each number appears. The experiment is repeated 10 times. The results are shown in the table below.</p>
-<div id="4ccafa14" class="cell" data-execution_count="1">
+<div id="5c99f1e6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -3541,7 +3541,7 @@ margin-bottom: 0;
 <section id="question-1" class="level4">
 <h4 class="anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>Let us compute the sum of the outcomes in each experiment. Next, we will count the number of times each sum appears in the 10,000 experiments and plot the results.</strong></p>
-<div id="a08e3dff" class="cell" data-execution_count="2">
+<div id="fca5e8bb" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">7</span>, (<span class="dv">10000</span>, <span class="dv">5</span>))</span>
@@ -3562,7 +3562,7 @@ margin-bottom: 0;
 <section id="question-2" class="level4">
 <h4 class="anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>Maybe we can change the number of times we roll the die. Let us repeat the experiment with 42 rolls. We will simulate the experiment 10,000 times and plot the results.</strong></p>
-<div id="853c2fa0" class="cell" data-execution_count="3">
+<div id="f38b1f95" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>df <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">7</span>, (<span class="dv">10000</span>, <span class="dv">42</span>))</span>
@@ -3579,7 +3579,7 @@ margin-bottom: 0;
 </div>
 </div>
 <p>The plot is not ideal. Let us try running 100,000 experiments.</p>
-<div id="2dd27a10" class="cell" data-execution_count="4">
+<div id="75133ed6" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>df <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">7</span>, (<span class="dv">100000</span>, <span class="dv">42</span>))</span>
@@ -3601,7 +3601,7 @@ margin-bottom: 0;
 <section id="question-3" class="level4">
 <h4 class="anchored" data-anchor-id="question-3">Question 3</h4>
 <p><strong>Let us compute how many times outcomes 1, 2, 3, 4, 5, and 6 appear in the 10,000 experiments. We will plot the results.</strong></p>
-<div id="68912373" class="cell" data-execution_count="5">
+<div id="8993f07a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>df <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">7</span>, (<span class="dv">10000</span>, <span class="dv">42</span>))</span>
@@ -3622,7 +3622,7 @@ margin-bottom: 0;
 <section id="question-4" class="level4">
 <h4 class="anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>Let us compute the chances of getting each outcome in the first, second, third, …, 42nd roll. We will plot the results.</strong></p>
-<div id="a3134aec" class="cell" data-execution_count="6">
+<div id="7972e8ae" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>df <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">7</span>, (<span class="dv">10000</span>, <span class="dv">42</span>))</span>
@@ -3656,7 +3656,7 @@ P(A) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible
 <section id="analytical-solution" class="level4">
 <h4 class="anchored" data-anchor-id="analytical-solution">Analytical Solution</h4>
 <p>The total number of outcomes when rolling two dice can be calculated programmatically. The favorable outcomes for a sum greater than 8 can also be determined directly:</p>
-<div id="6ca44233" class="cell" data-execution_count="7">
+<div id="adbc103d" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
@@ -3685,7 +3685,7 @@ P(A) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible
 <section id="monte-carlo-simulation" class="level4">
 <h4 class="anchored" data-anchor-id="monte-carlo-simulation">Monte Carlo Simulation</h4>
 <p>We can estimate this probability by simulating the rolls of two dice many times:</p>
-<div id="82b2ec3e" class="cell" data-execution_count="8">
+<div id="e0cdcac4" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3734,7 +3734,7 @@ P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k},
 <section id="analytical-solution-1" class="level4">
 <h4 class="anchored" data-anchor-id="analytical-solution-1">Analytical Solution</h4>
 <p>We can calculate the analytical probability using Python:</p>
-<div id="80553e25" class="cell" data-execution_count="9">
+<div id="b594786b" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">from</span> math <span class="im">import</span> comb</span>
@@ -3757,7 +3757,7 @@ P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k},
 <section id="monte-carlo-simulation-1" class="level4">
 <h4 class="anchored" data-anchor-id="monte-carlo-simulation-1">Monte Carlo Simulation</h4>
 <p>We can estimate the probability using a Monte Carlo simulation:</p>
-<div id="698ea839" class="cell" data-execution_count="10">
+<div id="446f6f3c" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3808,7 +3808,7 @@ P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k},
 <p><span class="math display">\[
 P(X = k) = \begin{cases} 1 - p &amp; \text{if } k = 0 \\ p &amp; \text{if } k = 1 \end{cases}
 \]</span></p>
-<div id="c1df66ed" class="cell" data-execution_count="11">
+<div id="8d04901a" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -3850,7 +3850,7 @@ P(X = k) = \begin{cases} 1 - p &amp; \text{if } k = 0 \\ p &amp; \text{if } k = 
 P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}
 \]</span></p>
 <p>Monte Carlo simulations can also be used to generate above distributions. Let us simulate the Binomial distribution with <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(p = 0.3\)</span>:</p>
-<div id="b5ea1718" class="cell" data-execution_count="12">
+<div id="65ca8725" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3908,7 +3908,7 @@ P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}
 P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}
 \]</span></p>
 <p>Let us visualize the Poisson distribution with <span class="math inline">\(\lambda = 3\)</span>:</p>
-<div id="e29d54c5" class="cell" data-execution_count="13">
+<div id="d04c7f11" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -3957,7 +3957,7 @@ P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
 \]</span></p>
 <p>Let us visualize the Normal distribution with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span>. We will generate random samples from a standard Normal distribution and compare the histogram to the theoretical PDF:</p>
-<div id="57267c3b" class="cell" data-execution_count="14">
+<div id="5ba4a27a" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4002,7 +4002,7 @@ f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
 f(x) = \lambda e^{-\lambda x}
 \]</span></p>
 <p>Let us visualize the Exponential distribution with <span class="math inline">\(\lambda = 0.5\)</span>:</p>
-<div id="0c193e79" class="cell" data-execution_count="15">
+<div id="5ee30339" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4046,7 +4046,7 @@ f(x) = \lambda e^{-\lambda x}
 f(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)}
 \]</span></p>
 <p>where <span class="math inline">\(B(\alpha, \beta)\)</span> is the Beta function. Let us visualize the Beta distribution with <span class="math inline">\(\alpha = 2\)</span> and <span class="math inline">\(\beta = 2\)</span>:</p>
-<div id="ef800db7" class="cell" data-execution_count="16">
+<div id="baae8fa4" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4084,7 +4084,7 @@ f(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)}
 </div>
 </div>
 <p>The Beta distribution is commonly used in Bayesian statistics and modeling proportions or probabilities. It can simulate a wide range of shapes, from uniform to U-shaped to J-shaped distributions, depending on the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. Below are some examples of Beta distributions with different shape parameters:</p>
-<div id="e58c9cf8" class="cell" data-execution_count="17">
+<div id="d09c6f0e" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4158,7 +4158,7 @@ f(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)}
 <section id="example-mean-and-variance-of-the-beta-distribution" class="level4">
 <h4 class="anchored" data-anchor-id="example-mean-and-variance-of-the-beta-distribution">Example: Mean and Variance of the Beta Distribution</h4>
 <p>Let us assume a Beta distribution with shape parameters <span class="math inline">\(\alpha = 2\)</span> and <span class="math inline">\(\beta = 3\)</span>. We can calculate the mean and variance of this distribution using the formulae for the Beta distribution:</p>
-<div id="ac3f28dd" class="cell" data-execution_count="18">
+<div id="faeab628" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4262,7 +4262,7 @@ f(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)}
 \]</span></p>
 <p>Simplify each term to compute <span class="math inline">\(\Delta g\)</span>. This approach provides a linear estimate of the uncertainty in <span class="math inline">\(g\)</span>.</p>
 <p>Let us use python to calculate the uncertainty in <span class="math inline">\(g\)</span>:</p>
-<div id="71278a22" class="cell" data-execution_count="19">
+<div id="97f542a4" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -4292,7 +4292,7 @@ f(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{B(\alpha, \beta)}
 <p>Monte Carlo simulation can also be used to estimate the uncertainty in a calculated result by sampling from the distributions of input variables. This approach provides a more comprehensive view of the uncertainty by considering the joint distribution of variables.</p>
 <p>Supose we measure the period of a pendulum to be <span class="math inline">\(T = 2.1 \pm 0.1\)</span> seconds. Anlogusly, we measure the length of the pendulum to be <span class="math inline">\(L = 1.0 \pm 0.05\)</span> meters.</p>
 <p>Let us use Monte Carlo simulation to estimate the acceleration due to gravity and its uncertainty:</p>
-<div id="065862fc" class="cell" data-execution_count="20">
+<div id="f6d9d3ce" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
