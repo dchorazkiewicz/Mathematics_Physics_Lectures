@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave simulation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+        .controls {
+            margin: 20px;
+        }
+        .controls button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wave simulation</h1>
+    <div class="controls">
+        <button onclick="resetSimulation()">Reset</button>
+        <button onclick="togglePlayPause()" id="playPauseButton">▶</button>
+    </div>
+    <script>
+        // Parametry układu
+        const N = 20; // liczba kulek
+        const m = 1.0; // masa kulki
+        const k = 20.0; // stała sprężystości
+        const d = 0.0001; // tłumienie
+        const L = 50; // długość naturalna sprężyn (w pikselach)
+        const offsetX = 100; // przesunięcie animacji w prawo
+
+        let positions = [];
+        let velocities = [];
+        let isPaused = true;
+
+        // Parametry symulacji
+        const dt = 0.016; // krok czasowy (w sekundach)
+
+        function resetSimulation() {
+            positions = Array.from({ length: N }, (_, i) => offsetX + i * L);
+            velocities = Array(N).fill(0);
+            positions[0] -= 40; // Zaburzenie pierwszej kulki
+
+            // Zwiększ rozmiar canvas, jeśli kulki się nie mieszczą
+            resizeCanvas(offsetX + (N * L) + 100, 200);
+
+            // Po resecie symulacja jest wstrzymana
+            isPaused = true;
+            document.getElementById('playPauseButton').textContent = '▶';
+        }
+
+        function togglePlayPause() {
+            isPaused = !isPaused;
+            document.getElementById('playPauseButton').textContent = isPaused ? '▶' : '⏸';
+        }
+
+        function setup() {
+            createCanvas(offsetX + (N * L) + 100, 200);
+            resetSimulation();
+        }
+
+        function draw() {
+            if (isPaused) return;
+
+            background(220);
+
+            // Rysowanie linii położenia równowagi dla każdej kulki
+            stroke(200, 0, 0);
+            strokeWeight(1);
+            for (let i = 0; i < N; i++) {
+                let equilibriumX = offsetX + i * L;
+                line(equilibriumX, height / 2 - 10, equilibriumX, height / 2 + 10);
+            }
+
+            // Aktualizacja pozycji i prędkości
+            let accelerations = Array(N).fill(0);
+
+            for (let i = 0; i < N; i++) {
+                let leftForce = 0;
+                let rightForce = 0;
+
+                // Siła od lewej sprężyny lub ściany
+                if (i === 0) {
+                    leftForce = -k * (positions[i] - offsetX);
+                } else {
+                    leftForce = -k * ((positions[i] - positions[i - 1]) - L);
+                }
+
+                // Siła od prawej sprężyny lub ściany
+                if (i === N - 1) {
+                    rightForce = -k * (positions[i] - (offsetX + (N - 1) * L));
+                } else {
+                    rightForce = -k * ((positions[i] - positions[i + 1]) + L);
+                }
+
+                // Tłumienie
+                let damping = -d * velocities[i];
+
+                // Całkowita siła / masa = przyspieszenie
+                accelerations[i] = (leftForce + rightForce + damping) / m;
+            }
+
+            // Aktualizacja prędkości i pozycji
+            for (let i = 0; i < N; i++) {
+                velocities[i] += accelerations[i] * dt;
+                positions[i] += velocities[i] * dt;
+            }
+
+            // Rysowanie kulek
+            for (let i = 0; i < N; i++) {
+                fill(0, 100, 255);
+                circle(positions[i], height / 2, 20);
+
+                // Rysowanie sprężyn
+                if (i > 0) {
+                    stroke(100);
+                    line(positions[i - 1], height / 2, positions[i], height / 2);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

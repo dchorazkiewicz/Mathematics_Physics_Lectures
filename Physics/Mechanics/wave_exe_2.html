@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Symulacja Fali Poprzecznej - Kulki na Sprężynkach</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #222;
+    }
+    canvas {
+      display: block;
+      background: #000;
+    }
+    /* Stylizacja kontrolek */
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+      font-family: sans-serif;
+    }
+    #controls button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <!-- Panel z przyciskami i sliderem -->
+  <div id="controls">
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+    <button id="restartBtn">Restart</button>
+    <br>
+    <label for="amplitudeSlider">Początkowe wychylenie:</label>
+    <input type="range" id="amplitudeSlider" min="0" max="200" value="100">
+    <span id="amplitudeValue">100</span>
+  </div>
+
+  <script>
+    // Pobranie canvas i ustawienie kontekstu
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ustawienie canvas na pełny rozmiar okna
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Parametry symulacji
+    const numBalls = 50;   // liczba kulek
+    let balls = [];        // tablica kulek
+    const k = 0.1;         // stała sprężystości
+    const damping = 0.02;  // współczynnik tłumienia
+    const mass = 1;        // masa kulki
+    const dt = 0.1;        // krok czasowy
+
+    // Zmienna do przechowywania ID animacji oraz flagi stanu symulacji
+    let animationId;
+    let running = false;
+
+    // Pobranie elementów sterujących
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const amplitudeSlider = document.getElementById('amplitudeSlider');
+    const amplitudeValue = document.getElementById('amplitudeValue');
+
+    // Aktualizacja wartości wyświetlanej przy sliderze
+    amplitudeSlider.addEventListener('input', function() {
+      amplitudeValue.textContent = amplitudeSlider.value;
+    });
+
+    // Funkcja inicjalizująca symulację
+    function initSimulation() {
+      balls = [];
+      // Rozmieszczamy kulki równomiernie na szerokość canvasu, w pozycji równowagi (środek)
+      for (let i = 0; i < numBalls; i++) {
+        balls.push({
+          x: i * (canvas.width / (numBalls - 1)),
+          y: canvas.height / 2,
+          vy: 0,
+          ay: 0
+        });
+      }
+      // Zaburzenie – wychylenie środkowej kulki zgodnie z wartością slidera
+      const mid = Math.floor(numBalls / 2);
+      const amplitude = parseFloat(amplitudeSlider.value);
+      balls[mid].y -= amplitude;
+    }
+
+    // Inicjalizacja symulacji przy starcie
+    initSimulation();
+
+    // Funkcja aktualizująca stany fizyczne symulacji
+    function update() {
+      // Obliczamy siły działające na każdą kulkę z uwzględnieniem sąsiadów
+      const forces = new Array(numBalls).fill(0);
+      for (let i = 0; i < numBalls; i++) {
+        let force = 0;
+        if (i > 0) {
+          force += k * (balls[i - 1].y - balls[i].y);
+        }
+        if (i < numBalls - 1) {
+          force += k * (balls[i + 1].y - balls[i].y);
+        }
+        // Dodajemy tłumienie proporcjonalne do prędkości
+        force -= damping * balls[i].vy;
+        forces[i] = force;
+      }
+      // Aktualizacja przyspieszenia, prędkości i pozycji kulki
+      for (let i = 0; i < numBalls; i++) {
+        balls[i].ay = forces[i] / mass;
+        balls[i].vy += balls[i].ay * dt;
+        balls[i].y += balls[i].vy * dt;
+      }
+    }
+
+    // Funkcja rysująca stan symulacji
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Rysujemy linie łączące kulki (sprężyny)
+      ctx.beginPath();
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.moveTo(balls[0].x, balls[0].y);
+      for (let i = 1; i < numBalls; i++) {
+        ctx.lineTo(balls[i].x, balls[i].y);
+      }
+      ctx.stroke();
+
+      // Rysujemy kulki jako czerwone kółka
+      for (let i = 0; i < numBalls; i++) {
+        ctx.beginPath();
+        ctx.arc(balls[i].x, balls[i].y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+      }
+    }
+
+    // Główna pętla animacji
+    function loop() {
+      update();
+      draw();
+      animationId = requestAnimationFrame(loop);
+    }
+
+    // Obsługa przycisków
+    startBtn.addEventListener('click', function() {
+      if (!running) {
+        running = true;
+        loop();
+      }
+    });
+
+    stopBtn.addEventListener('click', function() {
+      if (running) {
+        cancelAnimationFrame(animationId);
+        running = false;
+      }
+    });
+
+    restartBtn.addEventListener('click', function() {
+      // Jeśli symulacja jest w trakcie, zatrzymujemy animację
+      if (running) {
+        cancelAnimationFrame(animationId);
+        running = false;
+      }
+      // Reset symulacji do stanu początkowego z aktualną wartością slidera
+      initSimulation();
+      draw(); // natychmiastowy rysunek nowego stanu
+      // Po restarcie symulacja czeka na kliknięcie przycisku Start
+    });
+  </script>
+</body>
+</html>
