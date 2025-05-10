@@ -785,16 +785,16 @@
 <hr/>
 <h2 id="python-code-example-simulating-and-plotting-trajectories">Python Code Example: Simulating and Plotting Trajectories<a class="headerlink" href="#python-code-example-simulating-and-plotting-trajectories" title="Permanent link">¶</a></h2>
 <p>Here is a Python code snippet to simulate and visualize the trajectories of a double pendulum for two slightly different initial conditions:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
 
 <span class="c1"># Constants for the double pendulum</span>
 <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>  <span class="c1"># lengths of the pendulum arms</span>
 <span class="n">M1</span><span class="p">,</span> <span class="n">M2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>  <span class="c1"># masses of the pendulums</span>
 <span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>  <span class="c1"># acceleration due to gravity</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">double_pendulum_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">double_pendulum_ode</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Defines the equations of motion for the double pendulum."""</span>
     <span class="n">theta1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">z2</span> <span class="o">=</span> <span class="n">y</span>  <span class="c1"># Unpack the state vector</span>
 

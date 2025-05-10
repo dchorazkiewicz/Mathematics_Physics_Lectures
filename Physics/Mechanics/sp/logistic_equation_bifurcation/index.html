@@ -805,16 +805,16 @@
 <hr/>
 <h2 id="python-code-example-simulating-and-plotting-bifurcations">Python Code Example: Simulating and Plotting Bifurcations<a class="headerlink" href="#python-code-example-simulating-and-plotting-bifurcations" title="Permanent link">¶</a></h2>
 <p>Here is a Python code snippet to simulate and visualize the bifurcation diagram of the logistic equation:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Define the logistic map function, which calculates the next population value</span>
 <span class="c1"># given the current population (x) and the growth rate (r).</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">logistic_map</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">logistic_map</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">r</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>  <span class="c1"># Core equation of the logistic map</span>
 
 <span class="c1"># Function to generate and plot the bifurcation diagram</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">bifurcation_diagram</span><span class="p">(</span><span class="n">r_min</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">r_max</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">plot_points</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">bifurcation_diagram</span><span class="p">(</span><span class="n">r_min</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">r_max</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">plot_points</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
     <span class="c1"># Generate a range of r values between r_min and r_max.</span>
     <span class="n">r_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">r_min</span><span class="p">,</span> <span class="n">r_max</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
 
