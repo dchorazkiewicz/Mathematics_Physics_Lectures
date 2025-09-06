@@ -21,7 +21,9 @@ Zanim zaczniemy, ustalmy prosty sposób zapisu obiektów matematycznych w czacie
 ##### **Zapis wektorów**
 
 Wektory zapisuj jako listę liczb w nawiasach kwadratowych. Przykładowo, wektor:
+
 $$\mathbf{v} = [1, 2, 3]$$
+
 zapisz w czacie jako `v = [1, 2, 3]`.
 
 ##### **Zapis macierzy**
