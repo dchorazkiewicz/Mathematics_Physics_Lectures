@@ -25,10 +25,15 @@ $$\mathbf{v} = [1, 2, 3]$$
 zapisz w czacie jako `v = [1, 2, 3]`.
 
 ##### **Zapis macierzy**
+
 Macierze zapisuj jako listę list, gdzie każda wewnętrzna lista to jeden wiersz macierzy. Na przykład macierz:
+
 $$\mathbf{A} = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
+
 zapisz jako `A = [[1, 2], [3, 4]]`. Inny przykład to macierz:
+
 $$\mathbf{D} = \begin{pmatrix} -1 & 2 & 3 \\ 4 & 0 & 6 \end{pmatrix}$$
+
 którą zapiszesz jako `D = [[-1, 2, 3], [4, 0, 6]]`.
 
 Ten prosty system pozwoli nam się bez problemu komunikować.
