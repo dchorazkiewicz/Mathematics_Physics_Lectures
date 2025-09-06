@@ -1,7 +1,3 @@
-Jasne, rozumiem. Poniżej znajduje się dokument poprawiony zgodnie z nowymi wytycznymi – każda macierz i formuła znajduje się w osobnym bloku `$$...$$`, a wszystkie elementy ozdobne, takie jak emotikony, zostały usunięte.
-
-***
-
 ### **Przewodnik Interaktywny 1.1: Wprowadzenie do Macierzy i Podstawowe Operacje**
 
 ---
