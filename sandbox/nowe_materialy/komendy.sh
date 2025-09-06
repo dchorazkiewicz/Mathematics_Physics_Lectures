@@ -1,0 +1,1 @@
+pandoc -V geometry:"margin=2.5cm" temapate_dokumentu.md -o temapate_dokumentu.pdf

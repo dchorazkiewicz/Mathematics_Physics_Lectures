@@ -1,8 +1,8 @@
-### **Przewodnik Interaktywny 1.1: Wprowadzenie do Macierzy i Podstawowe Operacje**
+# **Przewodnik Interaktywny 1.1: Wprowadzenie do Macierzy i Podstawowe Operacje**
 
 ---
 
-#### **Cel tego modułu**
+## **Cel tego modułu**
 
 Witaj w pierwszym module naszej podróży przez algebrę liniową! Celem tej sesji jest zrozumienie, czym jest macierz i opanowanie fundamentalnych operacji: **dodawania, odejmowania, mnożenia przez skalar** oraz **mnożenia macierzy**. Ten przewodnik to Twoja mapa. Używaj jej, aby prowadzić dialog z AI, które będzie Twoim osobistym tutorem.
 
@@ -10,11 +10,11 @@ Pamiętaj o zasadzie **odwróconej klasy**: ten materiał przerabiasz samodzieln
 
 ---
 
-### **Krok 1: Jak Komunikować się z AI? Prosty Zapis Matematyczny**
+## **Krok 1: Jak Komunikować się z AI? Prosty Zapis Matematyczny**
 
 Zanim zaczniemy, ustalmy prosty sposób zapisu obiektów matematycznych w czacie. Ja będę pokazywać Ci macierze i wektory w sformatowanej, "książkowej" formie. Ty, aby mi odpowiedzieć, nie musisz używać skomplikowanych narzędzi. Wystarczy prosta konwencja tekstowa.
 
-##### **Zapis wektorów**
+### **Zapis wektorów**
 
 Wektory zapisuj jako listę liczb w nawiasach kwadratowych. Przykładowo, wektor:
 
@@ -22,7 +22,7 @@ $$\mathbf{v} = [1, 2, 3]$$
 
 zapisz w czacie jako `v = [1, 2, 3]`.
 
-##### **Zapis macierzy**
+### **Zapis macierzy**
 
 Macierze zapisuj jako listę list, gdzie każda wewnętrzna lista to jeden wiersz macierzy. Na przykład macierz:
 
@@ -42,35 +42,41 @@ Ten prosty system pozwoli nam się bez problemu komunikować.
 
 ---
 
-### **Krok 2: Czym jest Macierz? Budowanie Intuicji**
+## Krok 2: Czym jest Macierz? 
+
+### **Krok 2.1: Budowanie Intuicji**
 
 Zanim zaczniemy cokolwiek liczyć, musimy zrozumieć, z czym pracujemy. Macierz to jedno z centralnych pojęć w matematyce i informatyce.
 
-> **➡️ Twoje zadanie (Dialog z AI):**
+> **Twoje zadanie (Dialog z AI):**
 > Poproś AI, aby wyjaśniło Ci w prostych słowach, **czym jest macierz**. Zadaj serię pytań, aby zgłębić temat. Zacznij od: *"Co to jest macierz i do czego służy? Podaj mi jakąś intuicyjną analogię z życia codziennego."* Następnie zapytaj: *"Jak opisuje się rozmiar macierzy (wymiary)? Co to znaczy, że macierz jest rozmiaru 3x5?"* Na koniec poproś o przykłady: *"Co to jest macierz kwadratowa, diagonalna, jednostkowa i zerowa? Pokaż mi przykłady."*
 
 ---
 
-### **Krok 3: Interaktywna Weryfikacja Wiedzy**
+### **Krok 2.2: Interaktywna Weryfikacja Wiedzy**
 
 Świetnie! Masz już podstawy teoretyczne. Czas sprawdzić, czy kluczowe pojęcia są dla Ciebie jasne.
 
-> **➡️ Twoje zadanie (Dialog z AI):**
+> **Twoje zadanie (Dialog z AI):**
 > Poproś AI o przygotowanie krótkiego testu. Powiedz: *"Przygotuj mi 3 proste pytania testowe, które sprawdzą, czy rozumiem pojęcia rozmiaru macierzy, elementu a_ij oraz macierzy kwadratowej. Chcę samodzielnie odpowiedzieć, a Ty sprawdzisz moje odpowiedzi."*
 
 ---
 
-### **Krok 4: Podstawowe Operacje – Dodawanie, Odejmowanie i Mnożenie przez Skalar**
+## **Krok 3: Podstawowe Operacje – Dodawanie, Odejmowanie i Mnożenie przez Skalar**
+
+### **Krok 3.1: Teoria i Zasady**
 
 Te operacje są bardzo intuicyjne. Opierają się na działaniach na poszczególnych elementach macierzy.
 
-> **➡️ Twoje zadanie (Dialog z AI):**
+> **Twoje zadanie (Dialog z AI):**
 > Najpierw poproś o teorię, a potem przejdź do praktyki. Zapytaj AI o zasady: *"Jakie są zasady dodawania i odejmowania macierzy? Kiedy można wykonać te działania?"* oraz *"Jak działa mnożenie macierzy przez liczbę (skalar)?"*
 
-#### **Ćwiczenia praktyczne**
+### **Krok 3.2: Weryfikacja Poprzez Przykłady**
+
+## **Ćwiczenia praktyczne**
 Teraz czas na zadania z Twojej listy ćwiczeń. Spróbuj rozwiązać je najpierw samodzielnie na kartce. Jeśli utkniesz, poproś AI o **wskazówkę**, a nie o gotowe rozwiązanie. Pamiętaj, uczymy się krytycznego korzystania z technologii!
 
-##### **Zadanie 1.1**
+### **Zadanie 1.1**
 Oblicz sumę oraz różnicę macierzy:
 $$\mathbf{A}+\mathbf{B}$$
 $$\mathbf{B}-\mathbf{A}$$
@@ -90,7 +96,7 @@ $$
 \end{pmatrix}
 $$
 
-##### **Zadanie 1.2**
+### **Zadanie 1.2**
 Oblicz iloczyny macierzy przez skalar:
 
 $$2\mathbf{B}$$
@@ -117,21 +123,23 @@ $$
 
 ---
 
-### **Krok 5: Mnożenie Macierzy – Kluczowa i Mniej Oczywista Operacja**
+# **Krok 4: Mnożenie Macierzy – Kluczowa i Mniej Oczywista Operacja**
+
+
 
 Mnożenie macierzy jest mniej intuicyjne niż dodawanie, ale to jedna z najważniejszych operacji w całej algebrze liniowej. Zrozumienie tej zasady jest absolutnie kluczowe.
 
-> **➡️ Twoje zadanie (Dialog z AI):**
+> **Twoje zadanie (Dialog z AI):**
 > Poproś AI o dokładne wyjaśnienie: *"Wyjaśnij mi krok po kroku, na czym polega mnożenie macierzy. Użyj schematu 'wiersz razy kolumna'."* Następnie dopytaj o warunek konieczny: *"Jaki warunek muszą spełniać wymiary macierzy, żeby można było je pomnożyć?"* Na koniec, poproś o kluczowy wniosek: *"Pokaż mi na prostym przykładzie, że mnożenie macierzy na ogół nie jest przemienne"*, czyli:
 > $$
 > \mathbf{A} \cdot \mathbf{B} \neq \mathbf{B} \cdot \mathbf{A}
 > $$
 
-#### **Ćwiczenia praktyczne**
+## **Ćwiczenia praktyczne**
 
 Przeanalizujmy wspólnie jeden przykład, a resztę spróbujesz samodzielnie.
 
-##### **Zadanie 1.3 (wspólne)**
+### **Zadanie 1.3 (wspólne)**
 Obliczmy iloczyn macierzy:
 
 $$\mathbf{A}\cdot \mathbf{B}$$
@@ -162,7 +170,7 @@ $$
 
 Teraz samodzielnie oblicz pozostałe trzy elementy. Zweryfikuj wynik z AI.
 
-##### **Zadanie 1.4 (samodzielne)**
+### **Zadanie 1.4 (samodzielne)**
 Oblicz iloczyny:
 
 $$\mathbf{A} \cdot \mathbf{D}$$
@@ -200,11 +208,11 @@ $$
 
 ---
 
-### **Krok 6: Podsumowanie i Przygotowanie do Zajęć**
+# **Krok 6: Podsumowanie i Przygotowanie do Zajęć**
 
 Gratulacje! Przeszedłeś przez fundamenty operacji na macierzach. To solidna baza do dalszej nauki.
 
-#### **Zadanie z Gwiazdką (do prezentacji na zajęciach)**
+## **Zadanie z Gwiazdką (do prezentacji na zajęciach)**
 
 Rozważ dwie ogólne macierze 2x2:
 
@@ -226,7 +234,7 @@ $$
 
 Oblicz iloczyny $\mathbf{A} \cdot \mathbf{B}$ oraz $\mathbf{B} \cdot \mathbf{A}$. Porównaj wyniki i na tej podstawie sformułuj wniosek, jaki warunek musiałyby spełniać elementy obu macierzy, aby ich mnożenie było przemienne. Przygotuj się, aby przedstawić swój tok rozumowania na zajęciach.
 
-#### **Pytania do Refleksji (przygotuj się do dyskusji)**
+## **Pytania do Refleksji (przygotuj się do dyskusji)**
 
 **1. Pytanie o trudność:** Która koncepcja z dzisiejszego materiału była dla Ciebie najbardziej zaskakująca lub najtrudniejsza do zrozumienia?
 
@@ -234,6 +242,6 @@ Oblicz iloczyny $\mathbf{A} \cdot \mathbf{B}$ oraz $\mathbf{B} \cdot \mathbf{A}$
 
 **3. Pytanie o narzędzia:** Czy AI pomogło Ci zrozumieć materiał? W którym momencie jego pomoc była najbardziej wartościowa, a gdzie wolałbyś inne wyjaśnienie?
 
-#### **Co dalej?**
+## **Co dalej?**
 
 W następnym module zajmiemy się **wyznacznikami macierzy**. To potężne narzędzie, które powie nam wiele o właściwościach macierzy i układów równań. Do zobaczenia na zajęciach!
