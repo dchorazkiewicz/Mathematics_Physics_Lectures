@@ -68,33 +68,36 @@ Te operacje są bardzo intuicyjne. Opierają się na działaniach na poszczegól
 Teraz czas na zadania z Twojej listy ćwiczeń. Spróbuj rozwiązać je najpierw samodzielnie na kartce. Jeśli utkniesz, poproś AI o **wskazówkę**, a nie o gotowe rozwiązanie. Pamiętaj, uczymy się krytycznego korzystania z technologii!
 
 * **Zadanie 1.1:** Oblicz: $\mathbf{A}+\mathbf{B}$ oraz $\mathbf{B}-\mathbf{A}$ dla:
-    $$
-    \mathbf{A}=
-    \begin{pmatrix}
-    1 & 2 \\
-    3 & 4
-    \end{pmatrix}
-    \qquad
-    \mathbf{B}=
-    \begin{pmatrix}
-    5 & 6 \\
-    7 & 8
-    \end{pmatrix}
-    $$
+
+$$
+\mathbf{A}=
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix}
+\qquad
+\mathbf{B}=
+\begin{pmatrix}
+5 & 6 \\
+7 & 8
+\end{pmatrix}
+$$
+
 * **Zadanie 1.2:** Oblicz: $2\mathbf{B}$ oraz $-3\mathbf{C}$ dla:
-    $$
-    \mathbf{B}=
-    \begin{pmatrix}
-    5 & 6 \\
-    7 & 8
-    \end{pmatrix}
-    \quad
-    \mathbf{C}=
-    \begin{pmatrix}
-    -1 & 2 \\
-    3 & 0
-    \end{pmatrix}
-    $$
+
+$$
+\mathbf{B}=
+\begin{pmatrix}
+5 & 6 \\
+7 & 8
+\end{pmatrix}
+\quad
+\mathbf{C}=
+\begin{pmatrix}
+-1 & 2 \\
+3 & 0
+\end{pmatrix}
+$$
 
 ---
 
@@ -111,19 +114,21 @@ Mnożenie macierzy jest mniej intuicyjne niż dodawanie, ale to jedna z najważn
 Przeanalizujmy wspólnie jeden przykład, a resztę spróbujesz samodzielnie.
 
 * **Zadanie 1.3 (wspólne):** Obliczmy iloczyn $\mathbf{A}\cdot \mathbf{B}$.
-    $$
-    \mathbf{A}=
-    \begin{pmatrix}
-    \color{red}1 & \color{red}2 \\
-    3 & 4
-    \end{pmatrix}
-    \qquad
-    \mathbf{B}=
-    \begin{pmatrix}
-    \color{blue}5 & 6 \\
-    \color{blue}7 & 8
-    \end{pmatrix}
-    $$
+
+$$
+\mathbf{A}=
+\begin{pmatrix}
+\color{red}1 & \color{red}2 \\
+3 & 4
+\end{pmatrix}
+\qquad
+\mathbf{B}=
+\begin{pmatrix}
+\color{blue}5 & 6 \\
+\color{blue}7 & 8
+\end{pmatrix}
+$$
+
     Element w pierwszym wierszu i pierwszej kolumnie macierzy wynikowej to: $(\color{red}{\text{wiersz 1 z A}}) \cdot (\color{blue}{\text{kolumna 1 z B}}) = \color{red}1 \cdot \color{blue}5 + \color{red}2 \cdot \color{blue}7 = 5 + 14 = 19$.
     Teraz samodzielnie oblicz pozostałe trzy elementy. Zweryfikuj wynik z AI.
 
