@@ -3,14 +3,6 @@
 *.log
 *.pyc
 .idea/
-sandbox/Circuite_files/libs/bootstrap/bootstrap-icons.css
-sandbox/Circuite_files/libs/bootstrap/bootstrap-icons.woff
-sandbox/Circuite_files/libs/bootstrap/bootstrap.min.css
-sandbox/Circuite_files/libs/bootstrap/bootstrap.min.js
-sandbox/Circuite_files/libs/clipboard/clipboard.min.js
-sandbox/Circuite_files/libs/quarto-html/anchor.min.js
-sandbox/Circuite_files/libs/quarto-html/popper.min.js
-sandbox/Circuite_files/libs/quarto-html/quarto-syntax-highlighting.css
-sandbox/Circuite_files/libs/quarto-html/quarto.js
-sandbox/Circuite_files/libs/quarto-html/tippy.css
-sandbox/Circuite_files/libs/quarto-html/tippy.umd.min.js
+sandbox/Circuite_files/*
+.venv
+.python-version
