@@ -33,7 +33,7 @@ To wszystko! Ten prosty system pozwoli nam się bez problemu komunikować.
 
 ---
 
-#### **Krok 2: Czym jest Macierz? Budowanie Intuicji 🧠**
+#### **Krok 2: Czym jest Macierz? Budowanie Intuicji**
 
 Zanim zaczniemy cokolwiek liczyć, musimy zrozumieć, z czym pracujemy. Macierz to jedno z centralnych pojęć w matematyce i informatyce.
 
@@ -129,30 +129,31 @@ $$
 \end{pmatrix}
 $$
 
-    Element w pierwszym wierszu i pierwszej kolumnie macierzy wynikowej to: $(\color{red}{\text{wiersz 1 z A}}) \cdot (\color{blue}{\text{kolumna 1 z B}}) = \color{red}1 \cdot \color{blue}5 + \color{red}2 \cdot \color{blue}7 = 5 + 14 = 19$.
-    Teraz samodzielnie oblicz pozostałe trzy elementy. Zweryfikuj wynik z AI.
+Element w pierwszym wierszu i pierwszej kolumnie macierzy wynikowej to: $(\color{red}{\text{wiersz 1 z A}}) \cdot (\color{blue}{\text{kolumna 1 z B}}) = \color{red}1 \cdot \color{blue}5 + \color{red}2 \cdot \color{blue}7 = 5 + 14 = 19$.
+Teraz samodzielnie oblicz pozostałe trzy elementy. Zweryfikuj wynik z AI.
 
 * **Zadanie 1.4 (samodzielne):** Oblicz iloczyny $\mathbf{A} \cdot \mathbf{D}$ oraz $\mathbf{D} \cdot \mathbf{E}$. Zastanów się, dlaczego nie można obliczyć iloczynu $\mathbf{A} \cdot \mathbf{E}$.
-    $$
-    \mathbf{A}=
-    \begin{pmatrix}
-    1 & 2 \\
-    3 & 4
-    \end{pmatrix}
-    \quad
-    \mathbf{D}=
-    \begin{pmatrix}
-    -1 & 2 & 3 \\
-    4 & 0 & 6
-    \end{pmatrix}
-    \qquad
-    \mathbf{E}=
-    \begin{pmatrix}
-    1 & 2\\
-    4 & 5\\
-    7 & 8
-    \end{pmatrix}
-    $$
+
+$$
+\mathbf{A}=
+\begin{pmatrix}
+1 & 2 \\
+3 & 4
+\end{pmatrix}
+\quad
+\mathbf{D}=
+\begin{pmatrix}
+-1 & 2 & 3 \\
+4 & 0 & 6
+\end{pmatrix}
+\qquad
+\mathbf{E}=
+\begin{pmatrix}
+1 & 2\\
+4 & 5\\
+7 & 8
+\end{pmatrix}
+$$
 
 ---
 
@@ -162,6 +163,7 @@ Gratulacje! Przeszedłeś przez fundamenty operacji na macierzach. To solidna ba
 
 **⭐ Zadanie z Gwiazdką (do prezentacji na zajęciach):**
 Rozważ dwie ogólne macierze 2x2:
+
 $$
 \mathbf{A}=
 \begin{pmatrix}
@@ -175,6 +177,7 @@ e & f \\
 g & h
 \end{pmatrix}
 $$
+
 Oblicz iloczyny $\mathbf{A} \cdot \mathbf{B}$ oraz $\mathbf{B} \cdot \mathbf{A}$. Porównaj wyniki i na tej podstawie sformułuj wniosek, jaki warunek musiałyby spełniać elementy obu macierzy, aby ich mnożenie było przemienne. Przygotuj się, aby przedstawić swój tok rozumowania na zajęciach.
 
 **Pytania do Refleksji (przygotuj się do dyskusji):**
@@ -183,4 +186,4 @@ Oblicz iloczyny $\mathbf{A} \cdot \mathbf{B}$ oraz $\mathbf{B} \cdot \mathbf{A}$
 3.  Czy AI pomogło Ci zrozumieć materiał? W którym momencie jego pomoc była najbardziej wartościowa, a gdzie wolałbyś inne wyjaśnienie?
 
 **Co dalej?**
-W następnym module zajmiemy się **wyznacznikami macierzy**. To potężne narzędzie, które powie nam wiele o właściwościach macierzy i układów równań. Do zobaczenia na zajęciach! 🚀
+W następnym module zajmiemy się **wyznacznikami macierzy**. To potężne narzędzie, które powie nam wiele o właściwościach macierzy i układów równań. Do zobaczenia na zajęciach! 
