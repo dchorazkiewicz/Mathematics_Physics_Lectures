@@ -134,7 +134,7 @@ Mnożenie macierzy jest mniej intuicyjne niż dodawanie, ale to jedna z najważn
 > Poproś AI o dokładne wyjaśnienie: *"Wyjaśnij mi krok po kroku, na czym polega mnożenie macierzy. Użyj schematu 'wiersz razy kolumna'."* Następnie dopytaj o warunek konieczny: "Jaki warunek muszą spełniać wymiary macierzy, żeby można było je pomnożyć?
 
 **Twoje zadanie (Dialog z AI):**
-> *" Czy mnożenie macierzy jest przemienne? Jeśli nie, to dlaczego?"* Poproś o prosty przykład: *"Pokaż mi na prostym przykładzie, że mnożenie macierzy na ogół nie jest przemienne"*, czyli:
+> Zapytaj AI: *"Czy mnożenie macierzy jest przemienne? Jeśli nie, to dlaczego?"* Poproś o prosty przykład: *"Pokaż mi na prostym przykładzie, że mnożenie macierzy na ogół nie jest przemienne"*, czyli:
 > $$
 > \mathbf{A} \cdot \mathbf{B} \neq \mathbf{B} \cdot \mathbf{A}
 > $$
@@ -142,6 +142,8 @@ Mnożenie macierzy jest mniej intuicyjne niż dodawanie, ale to jedna z najważn
 ### **Krok 4.2: Praktyka z Wskazówkami**
 
 Przeanalizujmy wspólnie jeden przykład, a resztę spróbujesz samodzielnie.
+
+#### **Zadanie**
 
 Obliczmy iloczyn macierzy:
 
@@ -168,12 +170,12 @@ $$
 Element w pierwszym wierszu i pierwszej kolumnie macierzy wynikowej to iloczyn skalarny pierwszego wiersza macierzy A i pierwszej kolumny macierzy B:
 
 $$
-({\color{red}{\text{wiersz 1 z A}}}) \cdot ({\color{blue}{\text{kolumna 1 z B}}}) = \color{red}1 \cdot \color{blue}5 + \color{red}2 \cdot \color{blue}7 = 5 + 14 = 19
+({\color{red}{\text{wiersz 1 z A}}}) \cdot ({\color{blue}{\text{kolumna 1 z B}}}) = {\color{red}1} \cdot {\color{blue}5} + {\color{red}2} \cdot {\color{blue}7} = 5 + 14 = 19
 $$
 
-Teraz samodzielnie oblicz pozostałe trzy elementy. Zweryfikuj wynik z AI.
+Teraz samodzielnie oblicz pozostałe trzy wynikowe elementy. Zweryfikuj wynik z AI.
 
-#### **Zadanie(samodzielne)**
+#### **Zadanie**
 
 Dla macierzy:
 
@@ -212,6 +214,11 @@ $$\mathbf{D} \cdot \mathbf{E}$$
 
 Zastanów się, dlaczego nie można obliczyć iloczynu $\mathbf{A} \cdot \mathbf{E}$.
 
+#### **Zadanie**
+
+**Twoje zadanie (Dialog z AI):**
+> Zapytaj: *"Pokaż mi jak wygląda podniesienie macierzy 3x3 do potęgi 3."*
+
 ---
 
 ## **Krok 5: Podsumowanie i Przygotowanie do Zajęć**
@@ -224,7 +231,7 @@ Możesz teraz kompleksowo sprawdzić swoją wiedzę pod egzamin z przedmiotu. Za
 
 > *"Przygotuj mi quiz z 10 trudnymi pytaniami, które sprawdzą pod egzamin moją wiedzę na temat dodawania, odejmowania, mnożenia przez skalar oraz mnożenia macierzy. Chcę samodzielnie odpowiedzieć, a Ty sprawdzisz moje odpowiedzi."*
 
-### **5.2 Opcjonalnie**
+### **5.2 Opcjonalne zadania**
 
 #### **Zadanie z gwiazdką (do opcjonalnej prezentacji na zajęciach)**
 
@@ -248,7 +255,7 @@ $$
 
 Oblicz iloczyny $\mathbf{A} \cdot \mathbf{B}$ oraz $\mathbf{B} \cdot \mathbf{A}$. Porównaj wyniki i na tej podstawie sformułuj wniosek, jaki warunek musiałyby spełniać elementy obu macierzy, aby ich mnożenie było przemienne. Przygotuj się, aby przedstawić swój tok rozumowania na zajęciach.
 
-#### **Pytania do opcjonalnej dyskusji**
+### **5.3 Opcjonalne pytania do dyskusji na zajęciach**
 
 **1. Pytanie o zastosowania:** Gdzie w realnym świecie (np. w grafice komputerowej, analizie danych) mogą być wykorzystywane operacje na macierzach, których się dziś nauczyłeś?
 
