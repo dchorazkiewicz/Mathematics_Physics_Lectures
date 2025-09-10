@@ -173,3 +173,5 @@ Na koniec MS FORMS (gdzie na każde pytanie należy odpowiedzieć TAK by być do
 3. Czy jesteś świadomy/a, że brak zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem kursu?
 4. Czy rozumiesz, że aby uzyskać ocenę wyższą niż 3.0, musisz wykazać się głębokim zrozumieniem materiału podczas rozmowy ustnej?
 5. Czy rozumiesz, że jako prowadzący jesteśmy dostępni WYŁĄCZNIE podczas godzin zajęć i konsultacji?
+
+---
