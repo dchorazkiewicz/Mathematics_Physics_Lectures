@@ -63,3 +63,5 @@ W tym modelu rola wykładowcy nie jest marginalizowana – wręcz przeciwnie, st
 * **Strażnik Jakości Merytorycznej i Etyki:** Wykładowca jest ostatecznym autorytetem weryfikującym poprawność i wyznaczającym standardy akademickie.
 
 Podsumowując, w tym modelu praca wykładowcy staje się mniej odtwórcza, a bardziej kreatywna, skoncentrowana na człowieku i rozwijaniu kompetencji wyższego rzędu.
+
+---
