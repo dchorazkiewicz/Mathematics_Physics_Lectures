@@ -1,23 +1,34 @@
 # Zasady Uczestnictwa i Przebiegu Kursu (Code of Conduct)
 Witaj na kursie matematyki, który dostosowujemy do wyzwań i możliwości XXI wieku. Prosimy o dokładne zapoznanie się z poniższymi zasadami – ich przestrzeganie jest warunkiem zaliczenia przedmiotu.
 
-## **1. Filozofia Kursu: Uczysz się Ty, a nie Sztuczna Inteligencja**
+## **1. Filozofia Kursu: Dlaczego zmieniamy zasady gry?**
 
-W erze AI odchodzimy od pasywnego słuchania wykładów i odtwarzania gotowych rozwiązań. Zamiast tego stawiamy na **aktywną naukę i krytyczne myślenie**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**. W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym partnerem w nauce** – spersonalizowanym tutorem dostępnym 24/7.
+Zanim przedstawimy zasady, chcemy, abyś zrozumiał, *dlaczego* je wprowadzamy. Tradycyjny model nauczania, oparty na pasywnym słuchaniu wykładów, przestał być skuteczny. Zdiagnozowaliśmy kilka kluczowych problemów, które być może zauważyłeś również u siebie:
+
+*   **Ogromne różnice w poziomie:** Do grupy dołączają osoby z bardzo różnym przygotowaniem matematycznym i językowym. W standardowym wykładzie część osób nudzi się, a inna gubi już na starcie.
+*   **Problem z systematycznością:** Pasywne oglądanie nagrań z wykładów jest mało efektywne. Zaległości nawarstwiają się, a próba nadrobienia materiału tuż przed kolokwium kończy się stresem i powierzchowną nauką.
+*   **Pokusa "drogi na skróty":** W dobie AI łatwo jest uzyskać gotowe rozwiązanie, nie rozumiejąc, co się za nim kryje. Takie podejście prowadzi donikąd – to iluzja nauki, która nie buduje realnych kompetencji.
+
+W odpowiedzi na te wyzwania, w erze AI odchodzimy od pasywnego słuchania na rzecz **aktywnej nauki i krytycznego myślenia**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**.
+
+W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym, spersonalizowanym partnerem w nauce** – tutorem dostępnym 24/7, który dostosowuje się do Twojego tempa. To rozwiązanie pozwala na **indywidualizację nauki** – jeśli coś już umiesz, możesz iść dalej, a jeśli potrzebujesz więcej czasu na zrozumienie podstaw, AI cierpliwie Ci w tym pomoże.
+
 ### Twoja rola jako studenta
 
-*   **Aktywna nauka:** Jesteś odpowiedzialny za swój proces edukacyjny. Oczekujemy, że będziesz samodzielnie przepracowywać materiał *przed* zajęciami, korzystając z przygotowanych przewodników i dialogu z AI.
-*   **Systematyczność:** Nauka matematyki to proces ciągły. Regularna praca z udostępnionymi zestawami jest kluczowa, aby unikać nawarstwiania się zaległości.
-*   **Krytyczne myślenie:** Uczysz się weryfikować informacje uzyskane od AI. Pamiętaj, że modele językowe mogą popełniać błędy. Twoim zadaniem jest ocena poprawności i zrozumienie logiki rozwiązania.
+Jesteś teraz **aktywnym uczestnikiem, a nie pasywnym odbiorcą**. Twoja odpowiedzialność za proces edukacyjny wzrasta, ale wraz z nią rosną Twoje możliwości. Oczekujemy, że będziesz:
+
+*   **Uczyć się aktywnie:** Samodzielnie przepracowywać materiał *przed* zajęciami, korzystając z przygotowanych przewodników i prowadząc dialog z AI.
+*   **Pracować systematycznie:** Nauka matematyki to proces ciągły. Regularna praca z udostępnionymi zestawami jest jedynym sposobem, aby unikać nawarstwiania się zaległości i prawdziwie zrozumieć materiał.
+*   **Myśleć krytycznie:** Uczyć się weryfikować informacje uzyskane od AI. Pamiętaj, że modele językowe mogą popełniać błędy. Twoim zadaniem jest ocena poprawności i zrozumienie logiki rozwiązania, a nie bezmyślne kopiowanie odpowiedzi.
 
 ### Nasza rola jako prowadzących
 
-W tym modelu prowadzący przestaje być jedynie przekaźnikiem wiedzy. Staje się **mentorem i architektem Twojej ścieżki edukacyjnej**. Nasze zadania to:
+W tym modelu prowadzący przestaje być jedynie przekaźnikiem wiedzy. Staje się **mentorem i architektem Twojej ścieżki edukacyjnej**. Nasze zadania ewoluują:
 
-*   Projektowanie materiałów dydaktycznych i wyznaczanie celów.
-*   Inspirowanie, motywowanie i pokazywanie praktycznych zastosowań wiedzy.
-*   Moderowanie dyskusji na zajęciach, które przenoszą naukę na wyższy, koncepcyjny poziom.
-*   Diagnozowanie problemów w Twoim procesie rozumowania i oferowanie ukierunkowanej pomocy.
+*   **Architekt Ścieżek Dydaktycznych:** Projektujemy cały proces nauki, tworzymy interaktywne przewodniki i wyznaczamy cele. Dajemy Ci mapę, a AI pomaga w nawigacji.
+*   **Inspirator i Mentor:** AI nie ma pasji. My budujemy kontekst, motywujemy, inspirujemy i odpowiadamy na pytanie: "Dlaczego to jest ważne?".
+*   **Moderator Dyskusji:** Czas na zajęciach wykorzystujemy na dyskusje, które przenoszą naukę na wyższy, koncepcyjny poziom i uczą argumentacji.
+*   **Diagnosta Problemów:** Jako doświadczeni dydaktycy potrafimy zdiagnozować *źródło* problemu w Twoim rozumowaniu i zaoferować ukierunkowaną pomoc, czego AI często nie potrafi.
 
 ## **2. Struktura i Materiały Dydaktyczne**
 
