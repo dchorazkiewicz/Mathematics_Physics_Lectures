@@ -85,6 +85,8 @@ Warunkiem koniecznym zaliczenia ćwiczeń C(number) jest:
 * **Kolokwium 2:** xx.xx.2025 (xx:xx - xx:xx) - [Link do spotkania na Teams]
 * **Kolokwium 3:** xx.xx.2025 (xx:xx - xx:xx) - [Link do spotkania na Teams]
 
+Naturalnie wcześniej zostanie zrealizowane "kolokwium testowe", aby każdy mógł się zapoznać z formą i sposobem realizacji testu online. Użyty zostanie system MS FORMS poprzez platformę MS Teams.
+
 - Aby uzyskać ocenę wyższą niż 3.0, należy dodatkowo (bliżej końca semestru) zaliczyć rozmowę ustną, podczas której zostanie ocenione zrozumienie materiału oraz umiejętność logicznego myślenia i argumentacji. (pokazanie zrealizowanych rozmów zgodnie z wytycznymi 12tu interaktywnych przewodników to za mało! Trzeba umieć pokazać głębokie zrozumienie materiału).
 
 
