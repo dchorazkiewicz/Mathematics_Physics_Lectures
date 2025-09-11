@@ -22,7 +22,7 @@ for md_file in "$SOURCE_DIR"/*.md; do
 
     echo "Przetwarzanie: $md_file -> $pdf_file"
     # Uruchomienie pandoc z opcjami formatowania
-    pandoc -V geometry:"margin=2cm" --pdf-engine=pdflatex "$md_file" -o "$pdf_file"
+    pandoc -V geometry:"margin=3cm" --pdf-engine=pdflatex "$md_file" -o "$pdf_file"
   fi
 done
 
