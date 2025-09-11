@@ -140,15 +140,19 @@ Używaj AI, aby:
 
 #### **2. Co jeśli nie rozumiem jakiegoś zagadnienia lub mam trudności z materiałem?**
 
-Jeśli napotkasz trudności zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości by próbować się usprawiedliwiać brakiem zrozumienia materiału.
+Jeśli napotkasz trudności, zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości, by próbować się usprawiedliwiać brakiem zrozumienia materiału.
 
-#### **3. Jakie są konsekwencje nie podejścia do któregokolwiek z kolokwiów?**
+#### **3. Zajęcia są po angielsku. Czy mogę uczyć się w swoim języku ojczystym?**
+
+Absolutnie tak, a nawet jest to zalecane! Kluczem do sukcesu jest zrozumienie **idei i koncepcji**, a to najłatwiej osiągnąć w języku ojczystym. Gdy już zrozumiesz podstawy, przejdź na język angielski, aby opanować terminologię i przećwiczyć komunikację w języku wykładowym. Narzędzia AI doskonale się do tego nadają – możesz prosić o wyjaśnienia w dowolnym języku, a następnie przełączać się między nimi.
+
+#### **4. Jakie są konsekwencje nie podejścia do któregokolwiek z kolokwiów?**
 
 Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 48h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
 
 Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutek], więc oznacza de facto podwójne niezaliczenie.
 
-#### **4. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
+#### **5. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
 
 Przypadki losowe, takie jak późniejsze uzyskanie wizy czy choroba, muszą być udokumentowane oficjalnymi pismami.
 
@@ -157,12 +161,14 @@ Kolokwia będą miały charakter testów online na platformie MS Teams z wykorzy
 Sytuacja, w której rozpocząłeś test na 5 minut przed końcem terminu i nie zdążyłeś go ukończyć, nie jest traktowana jako przypadek losowy. Jest to Twoja odpowiedzialność i nie stanowi podstawy do odwołania. Podobnie jak spóźnienie na samolot – po zamknięciu bramki nie ma możliwości wejścia na pokład.
 
 #### **5. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
+#### **6. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
 
 Maksymalna ocena z kolokwiów została ustalona na poziomie 3.0, ponieważ mają one na celu jedynie sprawdzenie podstawowego zrozumienia materiału. Testy online, przy wszystkich dostępnych dziś narzędziach, nie pozwalają na pełną ocenę zrozumienia i umiejętności krytycznego myślenia. Ocena 3.0 potwierdza jedynie, że jesteś w stanie technicznie ogarnąć i uzupełnić test w wyznaczonym czasie.
 
 Chcesz uzyskać ocenę wyższą niż 3.0? Absolutnie nie ma problemu! Po prostu musisz wykazać się zrozumieniem materiału podczas rozmowy ustnej, gdzie będziesz musiał wyjaśnić swoje rozumowanie i obronić swoje odpowiedzi.
 
 #### **6. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
+#### **7. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
 
 Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodziewać.
 
