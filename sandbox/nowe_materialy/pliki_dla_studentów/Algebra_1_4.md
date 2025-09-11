@@ -37,7 +37,7 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 **Pojęcia kluczowe:** W tej sekcji nauczysz się: rozwiązywania układu metodą macierzy odwrotnej, układu cramerowskiego, wzorów Cramera.
 
 * **Krok 1: Budowanie intuicji**
-    * **Prompt 2.1:** "Wyjaśnij, jak możemy rozwiązać równanie macierzowe A*x = b przy użyciu macierzy odwrotnej A⁻¹. Pokaż krok po kroku, jak z A*x = b otrzymujemy x = A⁻¹*b. Jaki warunek musi spełniać macierz A, aby ta metoda zadziałała?"
+    * **Prompt 2.1:** "Wyjaśnij, jak możemy rozwiązać równanie macierzowe A*x = b przy użyciu macierzy odwrotnej $A^{-1}$. Pokaż krok po kroku, jak z A*x = b otrzymujemy x = $A^{-1}$*b. Jaki warunek musi spełniać macierz A, aby ta metoda zadziałała?"
     * **Prompt 2.2:** "Na czym polega metoda wzorów Cramera? Jak obliczamy wyznacznik główny (W) i wyznaczniki dla poszczególnych niewiadomych (Wx, Wy, itd.)? Jak z tych wartości obliczyć rozwiązanie? Kiedy ta metoda ma zastosowanie?"
 
 * **Krok 2: Praktyka i interaktywne zadania**

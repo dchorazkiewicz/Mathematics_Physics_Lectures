@@ -69,7 +69,7 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 **Pojęcia kluczowe:** W tej sekcji zobaczysz, jak równania różniczkowe modelują świat.
 
 * **Krok 1: Budowanie intuicji**
-    * **Prompt 4.1:** "Pokaż mi, jak równanie oscylatora harmonicznego (y'' + ω²y = 0) opisuje ruch wahadła lub ciężarka na sprężynie. Jakie fizyczne znaczenie mają parametry w rozwiązaniu (amplituda, faza, częstość)?"
+    * **Prompt 4.1:** "Pokaż mi, jak równanie oscylatora harmonicznego (y'' + $\omega^2$y = 0) opisuje ruch wahadła lub ciężarka na sprężynie. Jakie fizyczne znaczenie mają parametry w rozwiązaniu (amplituda, faza, częstość)?"
     * **Prompt 4.2:** "Podaj inne przykłady zastosowań równań różniczkowych w fizyce, technice, biologii lub ekonomii."
 
 * **Krok 2: Praktyka i interaktywne zadania**

@@ -54,7 +54,7 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 
 * **Krok 1: Budowanie intuicji**
     * **Prompt 3.1:** "Jakie są podstawowe 'arytmetyczne' reguły liczenia granic? Wyjaśnij mi twierdzenia o granicy sumy, iloczynu i ilorazu funkcji na prostych przykładach."
-    * **Prompt 3.2:** "Co to są symbole nieoznaczone, takie jak [0/0], [∞/∞] czy [∞ - ∞]? Dlaczego nie możemy po prostu stwierdzić, ile wynoszą? Podaj przykłady różnych granic, które prowadzą do symbolu [0/0], ale dają różne wyniki."
+    * **Prompt 3.2:** "Co to są symbole nieoznaczone, takie jak [0/0], [$\infty$/$\infty$] czy [$\infty$ - $\infty$]? Dlaczego nie możemy po prostu stwierdzić, ile wynoszą? Podaj przykłady różnych granic, które prowadzą do symbolu [0/0], ale dają różne wyniki."
 
 * **Krok 2: Praktyka i interaktywne zadania**
     * **Prompt 3.3:** "Mam do policzenia granicę funkcji f(x) = (2x² - 2)/(x - 1) przy x dążącym do 1. Poprowadź mnie krok po kroku przez jej obliczenie, pokazując, jak najpierw dochodzimy do symbolu nieoznaczonego [0/0], a potem jak możemy sobie z nim poradzić przez uproszczenie wyrażenia."

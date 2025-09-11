@@ -22,7 +22,7 @@ Podejdź do tego zadania rzetelnie. Asystent AI to Twój osobisty, interaktywny 
 
 * **Krok 1: Budowanie intuicji**
     * **Prompt 1.1:** "Wyjaśnij mi, czym jest macierz odwrotna. Użyj analogii do odwrotności liczby w mnożeniu (np. 5 i 1/5). Jaką rolę w tym kontekście pełni macierz jednostkowa (I)?"
-    * **Prompt 1.2:** "Co to znaczy, że A * A⁻¹ = A⁻¹ * A = I? Dlaczego to jest ważne? Co to jest macierz osobliwa i nieosobliwa i jak to się ma do istnienia macierzy odwrotnej?"
+    * **Prompt 1.2:** "Co to znaczy, że A * $A^{-1}$ = $A^{-1}$ * A = I? Dlaczego to jest ważne? Co to jest macierz osobliwa i nieosobliwa i jak to się ma do istnienia macierzy odwrotnej?"
 
 * **Krok 2: Praktyka i interaktywne zadania**
     * **Prompt 1.3:** "Mam macierz A = [[2, 1], [5, 3]] i macierz B = [[3, -1], [-5, 2]]. Sprawdźmy razem, czy B jest macierzą odwrotną do A. Poprowadź mnie przez obliczenie A * B i sprawdź, czy wynik to macierz jednostkowa."
@@ -34,7 +34,7 @@ Podejdź do tego zadania rzetelnie. Asystent AI to Twój osobisty, interaktywny 
 
 ## Temat 2: Metoda dopełnień algebraicznych (metoda wyznacznikowa)
 
-**Pojęcia kluczowe:** W tej sekcji nauczysz się: warunku istnienia macierzy odwrotnej (det(A) ≠ 0), macierzy dopełnień algebraicznych, macierzy dołączonej (transponowanej macierzy dopełnień), wzoru na macierz odwrotną.
+**Pojęcia kluczowe:** W tej sekcji nauczysz się: warunku istnienia macierzy odwrotnej (det(A) $\neq$ 0), macierzy dopełnień algebraicznych, macierzy dołączonej (transponowanej macierzy dopełnień), wzoru na macierz odwrotną.
 
 * **Krok 1: Budowanie intuicji**
     * **Prompt 2.1:** "Wyjaśnij mi krok po kroku, jak znaleźć macierz odwrotną metodą wyznacznikową (dopełnień algebraicznych). Omów każdy etap: 1. Obliczenie wyznacznika, 2. Stworzenie macierzy minorów, 3. Stworzenie macierzy dopełnień algebraicznych, 4. Transpozycja do macierzy dołączonej, 5. Pomnożenie przez 1/det(A)."
@@ -53,7 +53,7 @@ Podejdź do tego zadania rzetelnie. Asystent AI to Twój osobisty, interaktywny 
 **Pojęcia kluczowe:** W tej sekcji nauczysz się: metody Gaussa-Jordana, macierzy rozszerzonej [A | I], operacji elementarnych na wierszach.
 
 * **Krok 1: Budowanie intuicji**
-    * **Prompt 3.1:** "Wyjaśnij, na czym polega metoda eliminacji Gaussa-Jordana do znajdowania macierzy odwrotnej. Jak tworzymy macierz rozszerzoną [A | I] i do jakiej postaci [I | A⁻¹] dążymy? Jakie trzy operacje elementarne na wierszach są dozwolone?"
+    * **Prompt 3.1:** "Wyjaśnij, na czym polega metoda eliminacji Gaussa-Jordana do znajdowania macierzy odwrotnej. Jak tworzymy macierz rozszerzoną [A | I] i do jakiej postaci [I | $A^{-1}$] dążymy? Jakie trzy operacje elementarne na wierszach są dozwolone?"
     * **Prompt 3.2:** "Która metoda jest według Ciebie lepsza lub szybsza dla obliczeń ręcznych: dopełnień algebraicznych czy Gaussa-Jordana? A która jest częściej implementowana w komputerach i dlaczego?"
 
 * **Krok 2: Praktyka i interaktywne zadania**

@@ -37,13 +37,13 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 **Pojęcia kluczowe:** W tej sekcji nauczysz się: wzorów na pochodne podstawowych funkcji (stałej, potęgowej, trygonometrycznych), reguł różniczkowania (suma, iloczyn, iloraz), reguły łańcuchowej.
 
 * **Krok 1: Budowanie intuicji**
-    * **Prompt 2.1:** "Pokaż mi tabelę z wzorami na pochodne podstawowych funkcji, takich jak f(x)=c, f(x)=xⁿ, f(x)=sin(x), f(x)=cos(x), f(x)=eˣ, f(x)=ln(x)."
+    * **Prompt 2.1:** "Pokaż mi tabelę z wzorami na pochodne podstawowych funkcji, takich jak f(x)=c, f(x)=$x^n$, f(x)=sin(x), f(x)=cos(x), f(x)=$e^x$, f(x)=ln(x)."
     * **Prompt 2.2:** "Wyjaśnij mi na prostych przykładach, jak działają reguły różniczkowania: pochodna sumy, iloczynu i ilorazu."
     * **Prompt 2.3:** "Czym jest reguła łańcuchowa dla funkcji złożonych? Wyjaśnij jej działanie na przykładzie funkcji f(x) = sin(x²)."
 
 * **Krok 2: Praktyka i interaktywne zadania**
     * **Prompt 2.4:** "Obliczmy razem pochodną funkcji f(x) = x² * sin(x). Poprowadź mnie krok po kroku, stosując regułę pochodnej iloczynu."
-    * **Prompt 2.5:** "Teraz spróbujmy czegoś trudniejszego: f(x) = (e^(3x)). Poprowadź mnie przez zastosowanie reguły łańcuchowej."
+    * **Prompt 2.5:** "Teraz spróbujmy czegoś trudniejszego: f(x) = ($e^{3x}$). Poprowadź mnie przez zastosowanie reguły łańcuchowej."
 
 * **Krok 3: Mini-sprawdzian**
     * **Prompt 2.6:** "Daj mi 3 funkcje do zróżniczkowania, każda wymagająca zastosowania innej reguły (iloczyn, iloraz, łańcuchowa). Sprawdź moje wyniki."
