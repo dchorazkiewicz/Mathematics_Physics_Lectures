@@ -135,7 +135,7 @@ Jeśli napotkasz trudności, skorzystaj z konsultacji online lub zaplanuj sesję
 
 Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 24h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
 
-Niezaliczenie ćwiczeń C1/C2/C3 skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutek], więc oznacza de facto podwójne niezaliczenie.
+Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutek], więc oznacza de facto podwójne niezaliczenie.
 
 #### **4. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
 
