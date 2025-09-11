@@ -81,6 +81,7 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 **Krok 1: Ostateczny sprawdzian**
 
 To ostatni temat z działu algebry liniowej w tym cyklu. Sprawdźmy, czy wszystko jest jasne.
+
 * **Prompt 5.1:** "Przygotuj dla mnie zbiorczy test z rozwiązywania układów równań. Chcę, żeby zawierał 3 zadania, każde do rozwiązania inną metodą: jedno wzorami Cramera, jedno metodą macierzy odwrotnej i jedno eliminacją Gaussa."
 
 **Krok 2: Po co się tego uczę? Zastosowania układów równań**
@@ -91,6 +92,7 @@ To ostatni temat z działu algebry liniowej w tym cyklu. Sprawdźmy, czy wszystk
 **Krok 3: Co dalej? Zapowiedź kolejnej części**
 
 Gratulacje! Ukończyłeś/aś pierwszą, fundamentalną część kursu: Algebrę Liniową.
+
 * **Prompt 7.1 (Zapowiedź):** "Umiem już operować na macierzach i rozwiązywać układy równań. Jaki jest następny duży dział matematyki, który będziemy eksplorować? Daj mi krótką, jednozdaniową zapowiedź tego, czym jest 'Geometria Analityczna' i jak łączy się z algebrą, której właśnie się nauczyłem/am."
 
 Powodzenia w Twojej podróży po świecie matematyki!

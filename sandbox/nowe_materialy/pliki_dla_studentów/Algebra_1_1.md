@@ -22,6 +22,7 @@ Podejdź do tego zadania rzetelnie. Asystent AI to Twój osobisty, interaktywny 
 **Jak korzystać z tego przewodnika?**
 
 Poniżej znajdziesz serię tematów. Każdy z nich podzielony jest na trzy sekcje:
+
 * **Budowanie intuicji:** Gotowe polecenia (prompty), które możesz zadać AI, aby wyjaśniło Ci kluczowe koncepcje.
 * **Praktyka i interaktywne zadania:** Polecenia, które zamienią AI w Twojego partnera do ćwiczeń.
 * **Mini-sprawdzian:** Krótkie testy weryfikujące zdobytą wiedzę.
@@ -118,9 +119,11 @@ Zanim zaczniemy skomplikowane operacje, musimy zrozumieć, czym w ogóle jest ma
 **Krok 1: Ostateczny sprawdzian – Ty wyznaczasz koniec nauki!**
 
 Kiedy czujesz, że rozumiesz już wszystkie powyższe tematy, czas na generalny test.
+
 * **Prompt 5.1:** "Przygotuj dla mnie zbiorczy test z podstawowych operacji na macierzach. Chcę, żeby zawierał 5 zadań o różnym stopniu trudności, obejmujących definicje, macierze specjalne, dodawanie, odejmowanie, mnożenie przez skalar i mnożenie macierzy."
 
 Po rozwiązaniu testu dokładnie przeanalizuj swoje odpowiedzi z AI. Jeśli popełniłeś/aś błędy, to świetnie! To najlepszy moment na naukę. Wróć do problematycznych zagadnień.
+
 * **Prompt 5.2 (przykład):** "W teście miałem/am problem z mnożeniem macierzy. Możemy przećwiczyć to jeszcze raz? Daj mi dwa nowe przykłady i poprowadź mnie krok po kroku."
 
 Pamiętaj, koniec nauki wyznacza Twoje pełne zrozumienie tematu, a nie dotarcie do końca tego dokumentu. Bądź wobec siebie szczery/a – wracaj do materiału tak długo, aż poczujesz się pewnie.
@@ -128,6 +131,7 @@ Pamiętaj, koniec nauki wyznacza Twoje pełne zrozumienie tematu, a nie dotarcie
 **Krok 2: Po co się tego uczę? Odkryj zastosowania macierzy**
 
 Abstrakcyjna wiedza jest ciekawa, ale staje się potężna, gdy widzisz jej praktyczne zastosowanie. Poświęć chwilę na odkrycie, gdzie na co dzień "ukrywają się" macierze.
+
 * **Prompt 6.1 (Computer Science):** "Wyjaśnij mi w prosty sposób, jak macierze są wykorzystywane w grafice komputerowej do obracania i skalowania obiektów 3D. Możesz podać prosty przykład?"
 * **Prompt 6.2 (Nauka i Technika):** "Podaj mi przykłady wykorzystania macierzy w innych dziedzinach, takich jak fizyka, inżynieria, ekonomia czy analiza danych. Chcę zrozumieć, jakie realne problemy pomagają rozwiązywać."
 * **Prompt 6.3 (Od matematyki do kodu):** `"Właśnie obliczyłem/am mnożenie macierzy ręcznie. Pokaż mi teraz, jak wykonać tę samą operację w języku Python z użyciem biblioteki NumPy. Chcę zobaczyć, jak kod odzwierciedla to, co robiłem/am na papierze."`
@@ -137,6 +141,7 @@ Zrozumienie, dlaczego uczysz się danego zagadnienia, jest najlepszą motywacją
 **Krok 3: Co dalej? Zapowiedź kolejnego modułu**
 
 Dobrze zaprojektowana ścieżka edukacyjna tworzy poczucie ciągłości. Wzbudź swoją ciekawość i zobacz, dokąd zmierza nauka.
+
 * **Prompt 7.1 (Zapowiedź):** `"Opanowałem/am podstawowe operacje na macierzach. Jaki jest następny logiczny krok w nauce algebry liniowej? Daj mi krótką, jednozdaniową zapowiedź tego, czym są 'wyznaczniki' i dlaczego są ważne, bez wchodzenia w szczegóły."`
 
 Powodzenia w Twojej podróży po świecie algebry liniowej!

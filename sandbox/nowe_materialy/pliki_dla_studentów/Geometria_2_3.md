@@ -79,6 +79,7 @@ Podejdź do tego zadania rzetelnie. Celem jest zrozumienie. Twoja porażka w opa
 **Krok 3: Co dalej? Zapowiedź kolejnej części**
 
 Gratulacje! Ukończyłeś/aś drugi duży dział: Geometrię Analityczną.
+
 * **Prompt 6.1 (Zapowiedź):** "Umiem już opisywać obiekty w przestrzeni za pomocą algebry. Jaki jest następny wielki dział matematyki, który będziemy badać? Daj mi krótką, jednozdaniową zapowiedź tego, czym jest 'Rachunek Różniczkowy i Całkowy' i dlaczego jest on kluczowy do opisu zmiany."
 
 Powodzenia w Twojej podróży po świecie matematyki!
