@@ -9,6 +9,7 @@ Zanim zaczniemy, pamiętaj o najważniejszym: to narzędzie ma służyć Tobie. 
 **To Ty kierujesz nauką!**
 
 Ten przewodnik i zawarte w nim polecenia (prompty) to tylko punkty startowe. Prawdziwa nauka zaczyna się wtedy, gdy zaczynasz zadawać własne pytania.
+
 * Nie rozumiesz jakiegoś terminu? Poproś AI: "Wyjaśnij mi, czym jest 'dopełnienie algebraiczne' w najprostszy możliwy sposób."
 * Przykład jest niejasny? Poproś o inny: "Czy możesz pokazać mi, jak zastosować regułę Sarrusa na innej macierzy 3x3?"
 * Chcesz się upewnić? Sprawdź swoje myślenie: "Jeśli dobrze rozumiem, wyznacznik równy zero oznacza, że macierz jest w jakiś sposób 'szczególna', tak?"
