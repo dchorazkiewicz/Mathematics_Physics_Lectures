@@ -11,7 +11,8 @@ Zanim przedstawimy zasady, chcemy, abyś zrozumiał, *dlaczego* je wprowadzamy. 
 
 W odpowiedzi na te wyzwania, w erze AI odchodzimy od pasywnego słuchania na rzecz **aktywnej nauki i krytycznego myślenia**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**.
 
-W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym, spersonalizowanym partnerem w nauce** – tutorem dostępnym 24/7, który dostosowuje się do Twojego tempa. To rozwiązanie pozwala na **indywidualizację nauki** – jeśli coś już umiesz, możesz iść dalej, a jeśli potrzebujesz więcej czasu na zrozumienie podstaw, AI cierpliwie Ci w tym pomoże.
+W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym, spersonalizowanym partnerem w nauce** – tutorem dostępnym 24/7, który dostosowuje się do Twojego tempa. Uczyć można się też na przystanku autobusowym, mając jedynie telefon i aplikację. Praktycznie nie ma barier czasowych i technologicznych, istnieje tylko bariera chęci do nauki. To rozwiązanie pozwala na **indywidualizację nauki** – jeśli coś już umiesz, możesz iść dalej, a jeśli potrzebujesz więcej czasu na zrozumienie podstaw, AI cierpliwie Ci w tym pomoże.
+
 
 ### Twoja rola jako studenta
 
@@ -65,15 +66,15 @@ To nie tylko wydawanie poleceń, ale też korzystanie z wbudowanych funkcji, kt�
 
 Ćwiczenia (C1, C2, ...) są obowiązkowe i muszą być zaliczone do końca semestru. Ich zaliczenie jest warunkiem koniecznym do przystąpienia do egzaminu z wykładu (KW1).
 
-* **Ocena dostateczna (3.0):** Warunkiem uzyskania oceny dostatecznej jest zaliczenie **3 kolokwiów** online (wymagane minimum 80% punktów z każdego). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0.
+* **Ocena dostateczna (3.0):** Warunkiem uzyskania oceny dostatecznej jest zaliczenie **3 kolokwiów** online (wymagane minimum 80% punktów z każdego). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0. Bo wiemy, że będziecie korzystać z AI, a testy online nie pozwalają na pełną ocenę zrozumienia materiału.
 
-* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań. Dodatkowym, lecz kluczowym elementem pozwalającym na podwyższenie oceny, jest stworzenie **portfolio nauki**.
+* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań. Dodatkowym, lecz kluczowym elementem pozwalającym na podwyższenie oceny, jest stworzenie **archiwum procesu nauki**.
 
-### **Portfolio Nauki – Co to jest i jak będzie oceniane?**
-Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać w formie pojedynczego pliku (np. używając rozszerzenia SingleFile do przeglądarki). Takie portfolio będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
+### **Archiwum Procesu Nauki – Co to jest i jak będzie oceniane?**
+Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać w formie pojedynczego pliku (np. używając rozszerzenia SingleFile do przeglądarki). Takie archiwum będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
 
-**Czego oczekujemy od Twojego portfolio?**
-Portfolio to nie tylko dowód Twojej pracy, ale przede wszystkim zapis Twojego procesu myślowego. Ocenie podlegać będzie:
+**Czego oczekujemy od Twojego archiwum?**
+Archiwum to nie tylko dowód Twojej pracy, ale przede wszystkim zapis Twojego procesu myślowego. Ocenie podlegać będzie:
 * **Jakość interakcji:** Czy zadajesz pytania pogłębiające, prosisz o przykłady i alternatywne wyjaśnienia, a nie tylko o gotowe rozwiązania?
 * **Krytyczna analiza:** Czy weryfikujesz odpowiedzi AI, dopytujesz o niejasne fragmenty lub próbujesz znaleźć błędy w rozumowaniu modelu?
 * **Samodzielność:** Czy z rozmowy wynika, że najpierw próbowałeś/aś samodzielnie zmierzyć się z problemem, a AI posłużyło jako wsparcie w momencie, gdy utknąłeś/ęłaś?
@@ -91,11 +92,6 @@ Użyty zostanie system MS FORMS poprzez platformę MS Teams. Naturalnie wcześni
 
 ## **Informacje**
 
-### **Repozytorium Kursu**
-
-Wszystkie materiały, w tym notatki z wykładów, zestawy i przykłady, znajdują się w publicznym repozytorium na GitHub:
-
-* [https://github.com/dchorazkiewicz/Math-2024-25-Winter](https://github.com/dchorazkiewicz/Math-2024-25-Winter)
 
 ### **Narzędzia Pracy i Komunikacja**
 
@@ -105,8 +101,6 @@ Wszystkie materiały, w tym notatki z wykładów, zestawy i przykłady, znajduj�
     * Grok (XAI): [https://x.ai/](https://x.ai/)
     * QWEN (Alibaba): [https://www.alibabagroup.com/en/global/home](https://www.alibabagroup.com/en/global/home)
     * Claude (Anthropic): [https://www.anthropic.com/](https://www.anthropic.com/)
-* **Komunikacja i Wsparcie:**
-    * **Kanał Pomocy Koleżeńskiej (MS Teams):** [Link do kanału zostanie udostępniony] - Zapraszamy do zadawania pytań, wspólnego rozwiązywania problemów i dyskusji. Pamiętajcie o zasadzie: pomagamy, naprowadzamy, ale nie dajemy gotowych rozwiązań.
 * **Inne:**
     * SingleFile (do zapisu notatek jako HTML): [https://singlefile.com/](https://singlefile.com/)
 * Książki (opcjonalne):
@@ -146,11 +140,11 @@ Używaj AI, aby:
 
 #### **2. Co jeśli nie rozumiem jakiegoś zagadnienia lub mam trudności z materiałem?**
 
-Jeśli napotkasz trudności, skorzystaj z konsultacji online, zapytaj na kanale pomocy koleżeńskiej na Teams lub zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości by próbować się usprawiedliwiać brakiem zrozumienia materiału.
+Jeśli napotkasz trudności zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości by próbować się usprawiedliwiać brakiem zrozumienia materiału.
 
 #### **3. Jakie są konsekwencje nie podejścia do któregokolwiek z kolokwiów?**
 
-Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 24h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
+Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 48h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
 
 Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutek], więc oznacza de facto podwójne niezaliczenie.
 
@@ -174,7 +168,7 @@ Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodzie
 
 **Struktura rozmowy:**
 * Rozmowa potrwa około 15-20 minut.
-* Zaczniemy od omówienia wybranego przez Ciebie zagadnienia z Twojego portfolio nauki. Będzie to punkt wyjścia do głębszej dyskusji.
+* Zaczniemy od omówienia wybranego przez Ciebie zagadnienia z Twojego archiwum procesu nauki. Będzie to punkt wyjścia do głębszej dyskusji.
 * Następnie zadam 1-2 pytania weryfikujące Twoje ogólne zrozumienie kluczowych koncepcji z kursu.
 
 **Jakie pytania mogą paść?**
