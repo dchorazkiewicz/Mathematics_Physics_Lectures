@@ -124,12 +124,14 @@ $2^3 = 2^{S(2)}$
 
 Teraz musimy obliczyć $2^2$:
 $2^2 = 2^{S(1)}$
+
 *   Zgodnie z regułą 2: $2^{S(1)} = (2^1) \cdot 2$
 *   Musimy obliczyć $2^1 = 2^{S(0)} = (2^0) \cdot 2 = 1 \cdot 2 = 2$.
 *   Więc $2^2 = 2 \cdot 2 = 4$.
 
 Wracając do naszego pierwotnego problemu:
-$2^3 = (2^2) \cdot 2 = 4 \cdot 2 = 8$.
+
+$$2^3 = (2^2) \cdot 2 = 4 \cdot 2 = 8$$.
 
 W ten sposób, zaczynając od pięciu prostych aksjomatów, zdefiniowaliśmy rekurencyjnie trzy podstawowe działania arytmetyczne. To pokazuje potęgę formalizmu matematycznego!
 
@@ -242,16 +244,15 @@ Aby zrozumieć, na czym polega siła systemu pozycyjnego, możemy przeprowadzić
 
 **Krok 1: Drzewo o głębokości 1**
 
-Aby zwizualizować ten proces, użyjemy diagramów Mermaid. To nowoczesne narzędzie, które pozwala rysować grafy bezpośrednio w Markdown, a wiele platform (np. GitHub) potrafi je poprawnie wyświetlić.
+Poniższe diagramy są przedstawione w środowisku `verbatim` z LaTeX, które gwarantuje, że ich tekstowa reprezentacja zostanie poprawnie przeniesiona do pliku PDF. Istnieją bardziej zaawansowane pakiety graficzne w LaTeX (jak `tikz`), które pozwalają na generowanie diagramów, ale `verbatim` jest najbezpieczniejszym sposobem w naszym przypadku.
 
-Zaczynamy od korzenia (Root), z którego wyrastają 3 gałęzie, a każda prowadzi do "słowa" o długości 1.
+Zaczynamy od korzenia (Root), z którego wyrastają 3 gałęzie, a każda kończy się liściem oznaczonym inną literą z naszego alfabetu.
 
-```mermaid
-graph TD;
-    Root --> a;
-    Root --> b;
-    Root --> c;
-```
+\begin{verbatim}
+      /-- a
+Root--|-- b
+      \-- c
+\end{verbatim}
 
 Przechodząc od korzenia do każdego liścia, tworzymy "słowa". Na tym etapie mamy 3 unikalne słowa: `a`, `b`, `c`. Możemy umówić się, że będą one reprezentować trzy pierwsze liczby:
 
@@ -261,26 +262,21 @@ Przechodząc od korzenia do każdego liścia, tworzymy "słowa". Na tym etapie m
 
 **Krok 2: Drzewo o głębokości 2**
 
-Teraz rozbudowujemy nasze drzewo. Z każdego liścia z poprzedniego kroku (`a`, `b`, `c`) wyprowadzamy kolejne 3 gałęzie. Ścieżka od korzenia do nowego liścia tworzy słowo o długości 2.
+Teraz rozbudowujemy nasze drzewo. Z każdego liścia (`a`, `b`, `c`) wyprowadzamy kolejne 3 gałęzie, które znów kończą się liśćmi `a`, `b`, `c`.
 
-```mermaid
-graph TD
-    Root --> a;
-    Root --> b;
-    Root --> c;
-
-    a --"a"--> aa;
-    a --"b"--> ab;
-    a --"c"--> ac;
-
-    b --"a"--> ba;
-    b --"b"--> bb;
-    b --"c"--> bc;
-
-    c --"a"--> ca;
-    c --"b"--> cb;
-    c --"c"--> cc;
-```
+\begin{verbatim}
+          /-- a  (aa)
+      /-- a --|-- b  (ab)
+     /      \-- c  (ac)
+    /
+   /          /-- a  (ba)
+Root --|-- b --|-- b  (bb)
+   \          \-- c  (bc)
+    \
+     \      /-- a  (ca)
+      \-- c --|-- b  (cb)
+            \-- c  (cc)
+\end{verbatim}
 
 Ścieżki od korzenia do nowych liści tworzą nam teraz 9 nowych, dwuliterowych słów:
 
@@ -298,29 +294,25 @@ Mamy więc nowe, dłuższe słowa, które mogą reprezentować kolejne liczby.
 
 **Krok 3: Drzewo o głębokości 3**
 
-Gdybyśmy powtórzyli ten proces jeszcze raz, pełne drzewo stałoby się bardzo duże i nieczytelne. Możemy jednak pokazać, jak rozwija się jedna z gałęzi (np. gałąź `a`), aby zilustrować zasadę. Z każdego słowa o długości 2 (`aa`, `ab`, `ac`, itd.) wyrastają kolejne 3 gałęzie, tworząc słowa o długości 3.
+Gdybyśmy powtórzyli ten proces jeszcze raz, pełne drzewo stałoby się bardzo duże i nieczytelne. Możemy jednak pokazać, jak rozwija się jedna z gałęzi (np. gałąź `a`), aby zilustrować zasadę. Z każdego liścia z kroku 2 (`aa`, `ab`, `ac`, itd.) wyrastają kolejne 3 gałęzie.
 
-```mermaid
-graph TD
-    subgraph "Rozwinięcie gałęzi 'a'"
-        Root --> a;
-        a --> aa;
-        a --> ab;
-        a --> ac;
-
-        aa --"a"--> aaa;
-        aa --"b"--> aab;
-        aa --"c"--> aac;
-
-        ab --"a"--> aba;
-        ab --"b"--> abb;
-        ab --"c"--> abc;
-
-        ac --"a"--> aca;
-        ac --"b"--> acb;
-        ac --"c"--> acc;
-    end
-```
+\begin{verbatim}
+                      /-- a  (aaa)
+                  /-- a --|-- b  (aab)
+                 /      \-- c  (aac)
+                /
+               /          /-- a  (aba)
+           /-- a --|-- b --|-- b  (abb)
+          /      \       \-- c  (abc)
+         /        \
+        /          \     /-- a  (aca)
+       /            \-- c--|-- b  (acb)
+      /                   \-- c  (acc)
+     /
+Root --|-- ... (gałąź 'b' rozwija się analogicznie, tworząc słowa od 'baa' do 'bcc')
+     \
+      \-- ... (gałąź 'c' rozwija się analogicznie, tworząc słowa od 'caa' do 'ccc')
+\end{verbatim}
 
 W ten sposób, dokładając kolejną literę, tworzymy $3 \times 9 = 27$ unikalnych, trzyliterowych słów. Oto one, wypisane w systematycznej kolejności, która odpowiada przechodzeniu przez drzewo:
 
