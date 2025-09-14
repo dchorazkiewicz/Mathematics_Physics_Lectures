@@ -248,7 +248,7 @@ Poniższe diagramy są przedstawione w środowisku `verbatim` z LaTeX, które gw
 
 Zaczynamy od korzenia (Root), z którego wyrastają 3 gałęzie, a każda kończy się liściem oznaczonym inną literą z naszego alfabetu.
 
-\begin{verbatim}
+\newpage\begin{verbatim}
       /-- a
 Root--|-- b
       \-- c
@@ -264,7 +264,7 @@ Przechodząc od korzenia do każdego liścia, tworzymy "słowa". Na tym etapie m
 
 Teraz rozbudowujemy nasze drzewo. Z każdego liścia (`a`, `b`, `c`) wyprowadzamy kolejne 3 gałęzie, które znów kończą się liśćmi `a`, `b`, `c`.
 
-\begin{verbatim}
+\newpage\begin{verbatim}
           /-- a  (aa)
       /-- a --|-- b  (ab)
      /      \-- c  (ac)
@@ -296,7 +296,7 @@ Mamy więc nowe, dłuższe słowa, które mogą reprezentować kolejne liczby.
 
 Gdybyśmy powtórzyli ten proces jeszcze raz, pełne drzewo stałoby się bardzo duże i nieczytelne. Możemy jednak pokazać, jak rozwija się jedna z gałęzi (np. gałąź `a`), aby zilustrować zasadę. Z każdego liścia z kroku 2 (`aa`, `ab`, `ac`, itd.) wyrastają kolejne 3 gałęzie.
 
-\begin{verbatim}
+\newpage\begin{verbatim}
                       /-- a  (aaa)
                   /-- a --|-- b  (aab)
                  /      \-- c  (aac)
