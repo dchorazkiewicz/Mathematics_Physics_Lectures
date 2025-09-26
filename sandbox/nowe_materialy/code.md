@@ -36,11 +36,13 @@ W tym modelu prowadzący przestaje być jedynie przekaźnikiem wiedzy. Staje si�
 Kurs opiera się na modelu **"odwróconej klasy" (Flipped Classroom)**. Oznacza to, że wiedzę teoretyczną zdobywasz samodzielnie w domu, a czas na zajęciach wykorzystujemy na warsztaty, dyskusje i opcjonalne rozwiązywanie złożonych problemów.
 
 ### **Sesja Wprowadzająca (Sesja "Zero")**
-Pierwsze zajęcia (lub ich część) poświęcimy na omówienie technicznych aspektów kursu. Celem jest upewnienie się, że każdy student czuje się komfortowo z wymaganymi narzędziami. Pokażemy m.in.: jak efektywnie korzystać z trybów nauki w AI, jak zapisywać pracę za pomocą wtyczki SingleFile oraz jak nawigować po repozytorium kursu. To czas na zadawanie pytań technicznych, aby bariera technologiczna nie stanowiła problemu w dalszej nauce.
+Pierwsze zajęcia (lub ich część) poświęcimy na omówienie technicznych aspektów kursu. Celem jest upewnienie się, że każdy student czuje się komfortowo z wymaganymi narzędziami. Pokażemy m.in.: jak efektywnie korzystać z trybów nauki w AI, jak zapisywać pracę np. za pomocą wtyczki SingleFile oraz jak nawigować po całości repozytorium kursu. To czas na zadawanie pytań technicznych, aby bariera technologiczna nie stanowiła problemu w dalszej nauce.
 
-### **Zestawy Dydaktyczne:** Przygotowaliśmy dla Ciebie **12 kompleksowych zestawów dydaktycznych**. 
+### **Zestawy Dydaktyczne:** 
 
-Obejmują one trzy podstawowe działy: 
+Przygotowaliśmy dla Ciebie **12 kompleksowych zestawów dydaktycznych**. 
+
+Obejmują one **trzy podstawowe dział**y: 
 * algebra liniowa, 
 * geometria analityczna, 
 * rachunek różniczkowy. 
@@ -64,11 +66,11 @@ To nie tylko wydawanie poleceń, ale też korzystanie z wbudowanych funkcji, kt�
 
 ### **Warunki Zaliczenia:**
 
-Ćwiczenia (C1, C2, ...) są obowiązkowe i muszą być zaliczone do końca semestru. Ich zaliczenie jest warunkiem koniecznym do przystąpienia do egzaminu z wykładu (KW1).
+Ćwiczenia (C1, C2, ...) są obowiązkowe i muszą być zaliczone do końca semestru. Ich zaliczenie jest warunkiem koniecznym do przystąpienia do egzaminu z wykładu (KW1), który jest realizowany z prof. P. Gutech.
 
-* **Ocena dostateczna (3.0):** Warunkiem uzyskania oceny dostatecznej jest zaliczenie **3 kolokwiów** online (wymagane minimum 80% punktów z każdego). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0. Bo wiemy, że będziecie korzystać z AI, a testy online nie pozwalają na pełną ocenę zrozumienia materiału.
+* **Ocena dostateczna (3.0):** Warunkiem uzyskania z C1, C2,... oceny dostatecznej jest zaliczenie **3 kolokwiów** online (gdzie wymagane minimum 80% punktów). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0. Bo wiemy, że będziecie korzystać z AI, a testy online nie pozwalają na pełną ocenę zrozumienia materiału.
 
-* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań. Dodatkowym, lecz kluczowym elementem pozwalającym na podwyższenie oceny, jest stworzenie **archiwum procesu nauki**.
+* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań.
 
 ### **Archiwum Procesu Nauki – Co to jest i jak będzie oceniane?**
 Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać w formie pojedynczego pliku (np. używając rozszerzenia SingleFile do przeglądarki). Takie archiwum będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
@@ -117,6 +119,7 @@ W semestrze przewidziane są **3 terminy konsultacji online** na platformie MS T
 * **Konsultacja 3:** (termin podany później) - [Link do spotkania na Teams]
 
 ### **Wasza Opinia Jest Ważna**
+
 W połowie semestru udostępnimy krótką, anonimową ankietę. Chcemy poznać Wasze opinie na temat struktury kursu, materiałów i wykorzystania narzędzi. Wasze sugestie pomogą nam na bieżąco ulepszać ten kurs.
 
 ### **Ważne**
@@ -150,7 +153,7 @@ Absolutnie tak, a nawet jest to zalecane! Kluczem do sukcesu jest zrozumienie **
 
 Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 48h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
 
-Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutek], więc oznacza de facto podwójne niezaliczenie.
+Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutech], więc oznacza de facto podwójne niezaliczenie.
 
 #### **5. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
 
@@ -161,14 +164,12 @@ Kolokwia będą miały charakter testów online na platformie MS Teams z wykorzy
 Sytuacja, w której rozpocząłeś test na 5 minut przed końcem terminu i nie zdążyłeś go ukończyć, nie jest traktowana jako przypadek losowy. Jest to Twoja odpowiedzialność i nie stanowi podstawy do odwołania. Podobnie jak spóźnienie na samolot – po zamknięciu bramki nie ma możliwości wejścia na pokład.
 
 #### **5. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
-#### **6. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
 
 Maksymalna ocena z kolokwiów została ustalona na poziomie 3.0, ponieważ mają one na celu jedynie sprawdzenie podstawowego zrozumienia materiału. Testy online, przy wszystkich dostępnych dziś narzędziach, nie pozwalają na pełną ocenę zrozumienia i umiejętności krytycznego myślenia. Ocena 3.0 potwierdza jedynie, że jesteś w stanie technicznie ogarnąć i uzupełnić test w wyznaczonym czasie.
 
 Chcesz uzyskać ocenę wyższą niż 3.0? Absolutnie nie ma problemu! Po prostu musisz wykazać się zrozumieniem materiału podczas rozmowy ustnej, gdzie będziesz musiał wyjaśnić swoje rozumowanie i obronić swoje odpowiedzi.
 
 #### **6. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
-#### **7. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
 
 Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodziewać.
 
@@ -195,7 +196,7 @@ Traktuj ten kurs jako trening krytycznego myślenia i rozwiązywania problemów.
 
 ## Dodatkowe Potwierdzenie
 
-Na koniec MS FORMS (gdzie na każde pytanie należy odpowiedzieć TAK by być dopuszczonym do kursu):
+Aby formalnie potwierdzić zapoznanie się z zasadami i zaakceptowanie warunków kursu, każdy student jest zobowiązany do wypełnienia krótkiego formularza w MS Forms. Warunkiem dopuszczenia do kursu jest udzielenie odpowiedzi "TAK" na każde z poniższych pytań.
 
 1. Czy zapoznałeś/aś się z zasadami uczestnictwa i przebiegu kursu?
 2. Czy rozumiesz, że Twoja aktywna rola w procesie nauki jest kluczowa dla zaliczenia kursu?
