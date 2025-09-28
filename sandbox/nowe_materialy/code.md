@@ -1,4 +1,4 @@
-# Zasady Uczestnictwa i Przebiegu Kursu (Code of Conduct)
+# Matematyka - Zasady Uczestnictwa i Przebiegu Kursu (Code of Conduct)
 Witaj na kursie matematyki, który dostosowujemy do wyzwań i możliwości XXI wieku. Prosimy o dokładne zapoznanie się z poniższymi zasadami – ich przestrzeganie jest warunkiem zaliczenia przedmiotu.
 
 ## **1. Filozofia Kursu: Dlaczego zmieniamy zasady gry?**
@@ -12,7 +12,6 @@ Zanim przedstawimy zasady, chcemy, abyś zrozumiał, *dlaczego* je wprowadzamy. 
 W odpowiedzi na te wyzwania, w erze AI odchodzimy od pasywnego słuchania na rzecz **aktywnej nauki i krytycznego myślenia**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**.
 
 W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym, spersonalizowanym partnerem w nauce** – tutorem dostępnym 24/7, który dostosowuje się do Twojego tempa. Uczyć można się też na przystanku autobusowym, mając jedynie telefon i aplikację. Praktycznie nie ma barier czasowych i technologicznych, istnieje tylko bariera chęci do nauki. To rozwiązanie pozwala na **indywidualizację nauki** – jeśli coś już umiesz, możesz iść dalej, a jeśli potrzebujesz więcej czasu na zrozumienie podstaw, AI cierpliwie Ci w tym pomoże.
-
 
 ### Twoja rola jako studenta
 
@@ -33,10 +32,7 @@ W tym modelu prowadzący przestaje być jedynie przekaźnikiem wiedzy. Staje si�
 
 ## **2. Struktura i Materiały Dydaktyczne**
 
-Kurs opiera się na modelu **"odwróconej klasy" (Flipped Classroom)**. Oznacza to, że wiedzę teoretyczną zdobywasz samodzielnie w domu, a czas na zajęciach wykorzystujemy na warsztaty, dyskusje i opcjonalne rozwiązywanie złożonych problemów.
-
-### **Sesja Wprowadzająca (Sesja "Zero")**
-Pierwsze zajęcia (lub ich część) poświęcimy na omówienie technicznych aspektów kursu. Celem jest upewnienie się, że każdy student czuje się komfortowo z wymaganymi narzędziami. Pokażemy m.in.: jak efektywnie korzystać z trybów nauki w AI, jak zapisywać pracę np. za pomocą wtyczki SingleFile oraz jak nawigować po całości repozytorium kursu. To czas na zadawanie pytań technicznych, aby bariera technologiczna nie stanowiła problemu w dalszej nauce.
+Kurs opiera się na modelu **"odwróconej klasy" (Flipped Classroom)**. Oznacza to, że wiedzę teoretyczną zdobywasz samodzielnie w domu/poza zajęciami, a czas na zajęciach wykorzystujemy na warsztaty, dyskusje i opcjonalne rozwiązywanie bardziej złożonych problemów.
 
 ### **Zestawy Dydaktyczne:** 
 
@@ -48,6 +44,43 @@ Obejmują one **trzy podstawowe dział**y:
 * rachunek różniczkowy. 
 
 Nie są to "suche" listy zadań, lecz interaktywne przewodniki, które krok po kroku przeprowadzą Cię przez proces nauki w dialogu z AI.
+
+### **Zakres materiału:**
+
+Algebra liniowa
+
+- **Macierze:** wprowadzenie, działania arytmetyczne, rodzaje, wyznaczniki (Laplace, Gauss–Jordan), własności, dopełnienia algebraiczne, minory, rząd, metody wyznaczania macierzy odwrotnej.  
+- **Równania liniowe:** układy równań, reguła Cramera, metoda macierzowa, eliminacja Gaussa.
+
+Geometria analityczna
+   
+- **Algebra wektorowa:** układy współrzędnych na płaszczyźnie i w przestrzeni, wektory i ich działania, bazy, współrzędne w nowej bazie, rzuty wektorów, iloczyn skalarny, wektorowy i mieszany – własności i zastosowania.  
+- **Krzywe i powierzchnie:** opis w przestrzeniach kartezjańskich, parametryzacja, równania jawne i niejawne.  
+
+Analiza matematyczna
+   
+- **Rachunek różniczkowy:** ciągi, funkcje, granice; pochodne (definicja, reguły, wyższe rzędy); zastosowania: ekstrema, punkty przegięcia, optymalizacja; interpretacje geometryczne: styczne, szybkość zmian; szeregi Taylora, różniczki.  
+- **Całki:** całki oznaczone i nieoznaczone, twierdzenie podstawowe, metody: podstawienie, całkowanie przez części; zastosowania: pola, objętości brył obrotowych, długości łuków, funkcje akumulacji, rozkłady prawdopodobieństwa; interpretacja geometryczna: akumulacja pod krzywą.  
+- **Równania różniczkowe:** zwyczajne równania różniczkowe (ODE), modelowanie układów fizycznych, dynamika populacji, procesy wzrostu i zaniku, łączenie rachunku całkowego z opisem zjawisk rzeczywistych.
+
+### **Sesja Wprowadzająca (Sesja "Zero")**
+
+Zanim zaczniemym pierwsze zajęcia (lub ich część) poświęcimy na omówienie technicznych aspektów kursu. Celem jest upewnienie się, że każdy student czuje się komfortowo z wymaganymi narzędziami. Pokażemy m.in.: jak efektywnie korzystać z trybów nauki w AI, jak zapisywać pracę np. za pomocą wtyczki SingleFile oraz jak nawigować po całości repozytorium kursu. To czas na zadawanie pytań technicznych, aby bariera technologiczna nie stanowiła problemu w dalszej nauce.
+
+### **Narzędzia Pracy i Komunikacja**
+
+* **Modele Językowe (LLM):**
+    * ChatGPT: [https://chat.openai.com/](https://chat.openai.com/)
+    * Gemini (Google): [https://gemini.google.com/](https://gemini.google.com/)
+    * Grok (XAI): [https://x.ai/](https://x.ai/)
+    * QWEN (Alibaba): [https://www.alibabagroup.com/en/global/home](https://www.alibabagroup.com/en/global/home)
+    * Claude (Anthropic): [https://www.anthropic.com/](https://www.anthropic.com/)
+* **Inne:**
+    * SingleFile (do zapisu notatek jako HTML): [https://singlefile.com/](https://singlefile.com/)
+* **Książki** (opcjonalne):
+    * **Linear Algebra Done Right** (Undergraduate Texts in Mathematics) by Sheldon Axler
+    * **Essential Calculus Skills Practice Workbook with Full Solutions** by Chris McMullen
+    * **Modern Calculus and Analytic Geometry** by Richard A. Silverman
 
 ### **Dedykowane tryby nauki w AI**
 
@@ -62,6 +95,17 @@ To nie tylko wydawanie poleceń, ale też korzystanie z wbudowanych funkcji, kt�
 
 * **Inne LLM (Qwen, Claude):** Choć nie mają dedykowanego trybu nauki, możesz w normalnej rozmowie prosić o wyjaśnienia, przykłady i quizy.
 
+### **Archiwizacja Procesu Nauki**
+Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać np. w formie pojedynczego pliku (rozszerzenie SingleFile do przeglądarki). Takie archiwum będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
+
+Czego oczekujemy od Twojego archiwum? Archiwum to nie tylko dowód Twojej pracy, ale przede wszystkim zapis Twojego procesu myślowego:
+* **Jakość interakcji:** Czy zadajesz pytania pogłębiające, prosisz o przykłady i alternatywne wyjaśnienia, a nie tylko o gotowe rozwiązania?
+* **Krytyczna analiza:** Czy weryfikujesz odpowiedzi AI, dopytujesz o niejasne fragmenty lub próbujesz znaleźć błędy w rozumowaniu modelu?
+* **Samodzielność:** Czy z rozmowy wynika, że najpierw próbowałeś/aś samodzielnie zmierzyć się z problemem, a AI posłużyło jako wsparcie w momencie, gdy utknąłeś/ęłaś?
+
+*Na pierwszych zajęciach pokażemy przykładową, wzorcowo udokumentowaną interakcję z AI.*
+
+
 ## **3. Ocena i Warunki Zaliczenia**
 
 ### **Warunki Zaliczenia:**
@@ -72,17 +116,6 @@ To nie tylko wydawanie poleceń, ale też korzystanie z wbudowanych funkcji, kt�
 
 * **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań.
 
-### **Archiwum Procesu Nauki – Co to jest i jak będzie oceniane?**
-Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać w formie pojedynczego pliku (np. używając rozszerzenia SingleFile do przeglądarki). Takie archiwum będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
-
-**Czego oczekujemy od Twojego archiwum?**
-Archiwum to nie tylko dowód Twojej pracy, ale przede wszystkim zapis Twojego procesu myślowego. Ocenie podlegać będzie:
-* **Jakość interakcji:** Czy zadajesz pytania pogłębiające, prosisz o przykłady i alternatywne wyjaśnienia, a nie tylko o gotowe rozwiązania?
-* **Krytyczna analiza:** Czy weryfikujesz odpowiedzi AI, dopytujesz o niejasne fragmenty lub próbujesz znaleźć błędy w rozumowaniu modelu?
-* **Samodzielność:** Czy z rozmowy wynika, że najpierw próbowałeś/aś samodzielnie zmierzyć się z problemem, a AI posłużyło jako wsparcie w momencie, gdy utknąłeś/ęłaś?
-
-*Na pierwszych zajęciach pokażemy przykładową, wzorcowo udokumentowaną interakcję z AI.*
-
 ### **Terminy Kolokwiów:**
 Kolokwia będą przeprowadzane online na platformie MS Teams z przynajmniej 24h oknem na realizację testu. - 
 
@@ -90,25 +123,7 @@ Kolokwia będą przeprowadzane online na platformie MS Teams z przynajmniej 24h 
 * **Kolokwium 2:** (termin ogłoszony później)
 * **Kolokwium 3:** (termin ogłoszony później)
 
-Użyty zostanie system MS FORMS poprzez platformę MS Teams. Naturalnie wcześniej zostanie zrealizowane "**kolokwium testowe**", aby każdy mógł się zapoznać na spokojnie z formą i sposobem realizacji testu online.
-
-## **Informacje**
-
-
-### **Narzędzia Pracy i Komunikacja**
-
-* **Modele Językowe (LLM):**
-    * ChatGPT: [https://chat.openai.com/](https://chat.openai.com/)
-    * Gemini (Google): [https://gemini.google.com/](https://gemini.google.com/)
-    * Grok (XAI): [https://x.ai/](https://x.ai/)
-    * QWEN (Alibaba): [https://www.alibabagroup.com/en/global/home](https://www.alibabagroup.com/en/global/home)
-    * Claude (Anthropic): [https://www.anthropic.com/](https://www.anthropic.com/)
-* **Inne:**
-    * SingleFile (do zapisu notatek jako HTML): [https://singlefile.com/](https://singlefile.com/)
-* Książki (opcjonalne):
-    * **Algebra Liniowa:** "Linear Algebra and Its Applications" - Gilbert Strang
-    * **Geometria Analityczna:** "Geometry and the Imagination" - David Hilbert, S. Cohn-Vossen
-    * **Rachunek Różniczkowy:** "Calculus" - Michael Spivak
+Użyty zostanie system MS FORMS poprzez platformę MS Teams. Naturalnie wcześniej zostanie zrealizowane "**Kolokwium Testowe**", aby każdy mógł się zapoznać na spokojnie z formą i sposobem realizacji testu online.
 
 ### **Konsultacje**
 
@@ -118,13 +133,11 @@ W semestrze przewidziane są **3 terminy konsultacji online** na platformie MS T
 * **Konsultacja 2:** (termin podany później) - [Link do spotkania na Teams]
 * **Konsultacja 3:** (termin podany później) - [Link do spotkania na Teams]
 
+Jako prowadząccy jesteśmy dostępni wyłącznie podczas godzin zajęć i wskazanych konsultacji. Semestr składa się z 15 tygodni, co daje dużą liczbę godzin rozłożonych przez wiele miesięcy. Jeśli w tym czasie nie zadbałeś o swój proces edukacyjny, możesz winić tylko siebie. Odkrycie na kilka tygodni przed końcem semestru, że nie zapoznałeś się z wytycznymi, nie będzie podstawą do odwołania. Odpowiedzialność za śledzenie wymagań kursu spoczywa na Tobie.
+
 ### **Wasza Opinia Jest Ważna**
 
 W połowie semestru udostępnimy krótką, anonimową ankietę. Chcemy poznać Wasze opinie na temat struktury kursu, materiałów i wykorzystania narzędzi. Wasze sugestie pomogą nam na bieżąco ulepszać ten kurs.
-
-### **Ważne**
-
-Jako prowadząccy jesteśmy dostępni WYŁĄCZNIE podczas godzin zajęć i wskazanych konsultacji. Semestr składa się z 15 tygodni, co daje dużą liczbę godzin rozłożonych przez wiele miesięcy. Jeśli w tym czasie nie zadbałeś o swój proces edukacyjny, możesz winić tylko siebie. Odkrycie na kilka tygodni przed końcem semestru, że nie zapoznałeś się z wytycznymi, nie będzie podstawą do odwołania. Odpowiedzialność za śledzenie wymagań kursu spoczywa na Tobie.
 
 ---
 
@@ -203,5 +216,3 @@ Aby formalnie potwierdzić zapoznanie się z zasadami i zaakceptowanie warunków
 3. Czy jesteś świadomy/a, że brak zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem kursu?
 4. Czy rozumiesz, że aby uzyskać ocenę wyższą niż 3.0, musisz wykazać się głębokim zrozumieniem materiału podczas rozmowy ustnej?
 5. Czy rozumiesz, że jako prowadzący jesteśmy dostępni WYŁĄCZNIE podczas godzin zajęć i konsultacji?
-
----
