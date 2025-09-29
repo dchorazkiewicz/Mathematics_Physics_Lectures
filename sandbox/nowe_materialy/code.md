@@ -9,13 +9,13 @@ Zanim przedstawimy zasady, chcemy, abyś zrozumiał, *dlaczego* je wprowadzamy. 
 * **Problem z systematycznością:** Pasywne oglądanie nagrań z wykładów jest mało efektywne. Zaległości nawarstwiają się, a próba nadrobienia materiału tuż przed kolokwium kończy się stresem i powierzchowną nauką.
 * **Pokusa "drogi na skróty":** W dobie AI łatwo jest uzyskać gotowe rozwiązanie, nie rozumiejąc, co się za nim kryje. Takie podejście prowadzi donikąd – to iluzja nauki, która nie buduje realnych kompetencji.
 
-W odpowiedzi na te wyzwania, w erze AI odchodzimy od pasywnego słuchania na rzecz **aktywnej nauki i krytycznego myślenia**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**.
+W odpowiedzi na te wyzwania, odchodzimy od pasywnego słuchania na rzecz **aktywnej nauki i krytycznego myślenia**. Naszym celem nie jest nauczenie Cię, jak znaleźć odpowiedź, ale jak **samodzielnie dojść do zrozumienia problemu**.
 
 W tym modelu sztuczna inteligencja (AI) nie jest maszyną do odrabiania zadań, lecz Twoim **interaktywnym, spersonalizowanym partnerem w nauce** – tutorem dostępnym 24/7, który dostosowuje się do Twojego tempa. Uczyć można się też na przystanku autobusowym, mając jedynie telefon i aplikację. Praktycznie nie ma barier czasowych i technologicznych, istnieje tylko bariera chęci do nauki. To rozwiązanie pozwala na **indywidualizację nauki** – jeśli coś już umiesz, możesz iść dalej, a jeśli potrzebujesz więcej czasu na zrozumienie podstaw, AI cierpliwie Ci w tym pomoże.
 
 ### Twoja rola jako studenta
 
-Jesteś teraz **aktywnym uczestnikiem, a nie pasywnym odbiorcą**. Twoja odpowiedzialność za proces edukacyjny wzrasta, ale wraz z nią rosną Twoje możliwości. Oczekujemy, że będziesz:
+Jesteś teraz **aktywnym uczestnikiem, a nie pasywnym odbiorcą**. Twoja odpowiedzialność za proces edukacyjny wzrasta, ale wraz z nią rosną twoje możliwości. Oczekujemy, że będziesz:
 
 * **Uczyć się aktywnie:** Samodzielnie przepracowywać materiał *przed* zajęciami, korzystając z przygotowanych przewodników i prowadząc dialog z AI.
 * **Pracować systematycznie:** Nauka matematyki to proces ciągły. Regularna praca z udostępnionymi zestawami jest jedynym sposobem, aby unikać nawarstwiania się zaległości i prawdziwie zrozumieć materiał.
@@ -38,7 +38,7 @@ Kurs opiera się na modelu **"odwróconej klasy" (Flipped Classroom)**. Oznacza 
 
 Przygotowaliśmy dla Ciebie **12 kompleksowych zestawów dydaktycznych**. 
 
-Obejmują one **trzy podstawowe dział**y: 
+Obejmują one **trzy podstawowe działy**: 
 * algebra liniowa, 
 * geometria analityczna, 
 * rachunek różniczkowy. 
@@ -70,8 +70,8 @@ Zanim zaczniemym pierwsze zajęcia (lub ich część) poświęcimy na omówienie
 ### **Narzędzia Pracy i Komunikacja**
 
 * **Modele Językowe (LLM):**
-    * ChatGPT: [https://chat.openai.com/](https://chat.openai.com/)
     * Gemini (Google): [https://gemini.google.com/](https://gemini.google.com/)
+    * ChatGPT: [https://chat.openai.com/](https://chat.openai.com/)
     * Grok (XAI): [https://x.ai/](https://x.ai/)
     * QWEN (Alibaba): [https://www.alibabagroup.com/en/global/home](https://www.alibabagroup.com/en/global/home)
     * Claude (Anthropic): [https://www.anthropic.com/](https://www.anthropic.com/)
@@ -110,14 +110,14 @@ Czego oczekujemy od Twojego archiwum? Archiwum to nie tylko dowód Twojej pracy,
 
 ### **Warunki Zaliczenia:**
 
-Ćwiczenia (C1, C2, ...) są obowiązkowe i muszą być zaliczone do końca semestru. Ich zaliczenie jest warunkiem koniecznym do przystąpienia do egzaminu z wykładu (KW1), który jest realizowany z prof. P. Gutech.
+Ćwiczenia są obowiązkowe. Ich zaliczenie jest warunkiem koniecznym do przystąpienia do egzaminu z wykładu (KW1), który jest realizowany z prof. P. Gutech.
 
-* **Ocena dostateczna (3.0):** Warunkiem uzyskania z C1, C2,... oceny dostatecznej jest zaliczenie **3 kolokwiów** online (gdzie wymagane minimum 80% punktów). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0. Bo wiemy, że będziecie korzystać z AI, a testy online nie pozwalają na pełną ocenę zrozumienia materiału.
+* **Ocena dostateczna (3.0):** Warunkiem uzyskania oceny dostatecznej jest zaliczenie **3 kolokwiów** online (gdzie wymagane minimum 80% punktów). Kolokwia pozwalają uzyskać maksymalnie ocenę 3.0. Wiemy, że będziecie korzystać z AI, a testy online nie pozwalają na pełną ocenę zrozumienia materiału.
 
-* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań.
+* **Oceny wyższe (3.5-5.0):** Aby uzyskać ocenę wyższą, należy dodatkowo zaliczyć **rozmowę ustną** pod koniec semestru. Podstawą do jej przeprowadzenia jest udokumentowanie swojej pracy poprzez zrealizowanie co najmniej 12 interaktywnych przewodników. Podczas rozmowy oceniane będzie głębokie zrozumienie materiału, umiejętność wyjaśniania koncepcji i obrony zaproponowanych rozwiązań. Podobnie jak w przypadku rozmów kwalifikacyjnych, będziesz musiał/a wykazać się umiejętnością argumentacji i krytycznego myślenia.
 
 ### **Terminy Kolokwiów:**
-Kolokwia będą przeprowadzane online na platformie MS Teams z przynajmniej 24h oknem na realizację testu. - 
+Kolokwia będą przeprowadzane online na platformie MS Teams z przynajmniej 48h oknem na realizację testu. Pozwoli to na uniknięcie problemów czasowych i technicznych. Terminy kolokwiów zostaną podane z odpowiednim wyprzedzeniem, aby każdy miał czas na przygotowanie się. Czas trwania każdego kolokwium to 48 godzin od momentu otwarcia więc usprawiedliwienia typu "nie zdążyłem/am zrobić bo byłem/am zajęty/a" nie będą brane pod uwagę. Jedynie przypadki losowe np ciężka choroba (szpital!) lub inne oficjalnie udokumentowane sytuacje będą rozpatrywane indywidualnie. Zwykłe przeziębienie, skręcenie kostki i inne drobne dolegliwości pozwalające na normalne rozwiązywanie testów online nie będą uznawane za przypadek usprawiedliwiający niepodejście do kolokwium. A niepodejście do któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu.
 
 * **Kolokwium 1:** (termin ogłoszony później)
 * **Kolokwium 2:** (termin ogłoszony później)
@@ -133,7 +133,7 @@ W semestrze przewidziane są **3 terminy konsultacji online** na platformie MS T
 * **Konsultacja 2:** (termin podany później) - [Link do spotkania na Teams]
 * **Konsultacja 3:** (termin podany później) - [Link do spotkania na Teams]
 
-Jako prowadząccy jesteśmy dostępni wyłącznie podczas godzin zajęć i wskazanych konsultacji. Semestr składa się z 15 tygodni, co daje dużą liczbę godzin rozłożonych przez wiele miesięcy. Jeśli w tym czasie nie zadbałeś o swój proces edukacyjny, możesz winić tylko siebie. Odkrycie na kilka tygodni przed końcem semestru, że nie zapoznałeś się z wytycznymi, nie będzie podstawą do odwołania. Odpowiedzialność za śledzenie wymagań kursu spoczywa na Tobie.
+Jako prowadzący jesteśmy dostępni wyłącznie podczas godzin zajęć i wskazanych konsultacji. Semestr składa się z 15 tygodni, co daje dużą liczbę godzin rozłożonych przez wiele miesięcy. Jeśli w tym czasie nie zadbałeś o swój proces edukacyjny, możesz winić tylko siebie. Odkrycie na kilka tygodni przed końcem semestru, że nie zapoznałeś się z wytycznymi, nie będzie podstawą do odwołania. Odpowiedzialność za śledzenie wymagań kursu spoczywa na studencie.
 
 ### **Wasza Opinia Jest Ważna**
 
@@ -156,7 +156,7 @@ Używaj AI, aby:
 
 #### **2. Co jeśli nie rozumiem jakiegoś zagadnienia lub mam trudności z materiałem?**
 
-Jeśli napotkasz trudności, zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości, by próbować się usprawiedliwiać brakiem zrozumienia materiału.
+Jeśli napotkasz trudności, zaplanuj sesję z AI, aby uzyskać dodatkowe wyjaśnienia. Pamiętaj, że aktywne samodzielne poszukiwanie pomocy jest częścią procesu nauki. W dzisiejszych czasach masz do dyspozycji wiele narzędzi, które mogą Ci pomóc. Nie ma możliwości, by próbować się usprawiedliwiać brakiem zrozumienia materiału. AI jest dostępne 24/7 i może dostosować się do Twojego tempa nauki oraz posługuje się językiem naturalnym, więc pytania zadaje się tak samo łatwo, jakbyś pytał kolegę z grupy lub prowadzącego.
 
 #### **3. Zajęcia są po angielsku. Czy mogę uczyć się w swoim języku ojczystym?**
 
@@ -170,9 +170,9 @@ Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpie
 
 #### **5. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
 
-Przypadki losowe, takie jak późniejsze uzyskanie wizy czy choroba, muszą być udokumentowane oficjalnymi pismami.
+Przypadki losowe, takie jak późniejsze uzyskanie wizy czy choroba (szpital!), muszą być udokumentowane oficjalnymi pismami.
 
-Kolokwia będą miały charakter testów online na platformie MS Teams z wykorzystaniem MS FORMS przy długim oknie czasowym (przynajmniej 24-48h) na ich realizację. 
+Kolokwia będą miały charakter testów online na platformie MS Teams z wykorzystaniem MS FORMS przy długim oknie czasowym (przynajmniej 48h) na ich realizację. 
 
 Sytuacja, w której rozpocząłeś test na 5 minut przed końcem terminu i nie zdążyłeś go ukończyć, nie jest traktowana jako przypadek losowy. Jest to Twoja odpowiedzialność i nie stanowi podstawy do odwołania. Podobnie jak spóźnienie na samolot – po zamknięciu bramki nie ma możliwości wejścia na pokład.
 
@@ -198,12 +198,12 @@ Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodzie
 
 **Jak się przygotować?**
 * **Głębokie zrozumienie materiału:** Pracuj nad zrozumieniem koncepcji, a nie tylko zapamiętywaniem faktów.
-* **Praktyka argumentacji:** Ćwicz głośne wyjaśnianie kluczowych pojęć i kroków rozwiązania, tak jakbyś tłumaczył je komuś innemu.
-* **Samodzielne rozwiązywanie problemów:** Staraj się rozwiązywać różnorodne zadania, aby być przygotowanym na różne typy pytań.
+* **Praktyka argumentacji:** Ćwicz głośne wyjaśnianie kluczowych pojęć i kroków rozwiązania, tak jakbyś tłumaczył je komuś innemu. Dobrą praktyką jest pisanie argumentacji w chatbotach AI, które mogą pomóc w sprawdzeniu jasności i logiki Twojego wywodu!
+* **Samodzielne rozwiązywanie problemów:** Staraj się rozwiązywać różnorodne zadania, aby być przygotowanym na różne typy pytań. Kartka i długopis są Twoimi przyjaciółmi! Zawsze możesz zrobić zdjęcie notatek i wysłać je do AI, aby uzyskać dodatkowe wskazówki.
 * **Symulacje z AI:** Używaj AI do symulowania rozmowy. Poproś o zadawanie pytań dotyczących konkretnego tematu i oceniaj swoje odpowiedzi.
 * **Dokumentacja pracy:** Prowadź uporządkowane notatki z interakcji z AI i zrealizowanych przewodników. Będą one cennym materiałem do powtórek.
   
-Traktuj ten kurs jako trening krytycznego myślenia i rozwiązywania problemów. Umiejętności, które tu zdobędziesz, wykroczą daleko poza samą matematykę. Powodzenia!
+Traktuj ten kurs jako trening krytycznego myślenia i rozwiązywania problemów. Umiejętności, które tu zdobędziesz, wykroczą daleko poza samą matematykę. Zauważcie, że stawiamy przed wami wyzwania, które wymagają aktywnego zaangażowania i samodzielnego myślenia. Analogiczne sytuacje spotkacie w życiu zawodowym, gdzie nie zawsze będziecie mieli gotowe odpowiedzi, a umiejętność samodzielnego rozwiązywania problemów będzie kluczowa. Rozwiązanie problemu to zawsze pierwszy krok, zawsze po tym następuje jego przedstawienie i obrona swojego stanowiska. Te dwa elementy są nierozłączne i zawsze idą w parze. Nieumiejętność obrony swojego stanowiska, nawet jeśli rozwiązanie jest poprawne, może skutkować odrzuceniem Twojej propozycji.
 
 ----
 
