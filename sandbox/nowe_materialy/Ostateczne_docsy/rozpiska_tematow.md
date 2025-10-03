@@ -24,7 +24,7 @@
         * Definicja wektora
         * Dodawanie, odejmowanie i mnożenie przez skalar
         * Iloczyn skalarny i wektorowy
-        * Zastosowania w computer sciences (CS)S i fizyce
+        * Zastosowania w computer sciences (CS) i fizyce
     * Proste
         * Równanie ogólne i kierunkowe prostej
         * Równanie parametryczne prostej
