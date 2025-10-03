@@ -39,9 +39,9 @@
 * **Dział 3: Rachunek Różniczkowy i Całkowy (Calculus)**
     * Funkcje
         * Definicja relacji i funkcji
-        * Funkcje rzeczywiste (R -> R)
-        * Ciągi jako funkcje (N -> R)
-        * Inne przykłady funkcji (np. wyznacznik M -> R)
+        * Funkcje rzeczywiste ($\mathbb{R} \to \mathbb{R}$)
+        * Ciągi jako funkcje ($\mathbb{N} \to \mathbb{R}$)
+        * Inne przykłady funkcji (np. wyznacznik $M \to \mathbb{R}$)
     * Granice
         * Granice ciągów
         * Granice funkcji

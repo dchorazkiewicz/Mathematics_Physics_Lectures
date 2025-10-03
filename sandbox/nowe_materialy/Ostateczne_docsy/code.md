@@ -1,4 +1,5 @@
 # Matematyka - Zasady Uczestnictwa i Przebiegu Kursu (Code of Conduct)
+
 Witaj na kursie matematyki, który dostosowujemy do wyzwań i możliwości XXI wieku. Prosimy o dokładne zapoznanie się z poniższymi zasadami – ich przestrzeganie jest warunkiem zaliczenia przedmiotu.
 
 ## **1. Filozofia Kursu: Dlaczego zmieniamy zasady gry?**
@@ -73,7 +74,7 @@ Zanim zaczniemym pierwsze zajęcia (lub ich część) poświęcimy na omówienie
     * Gemini (Google): [https://gemini.google.com/](https://gemini.google.com/)
     * ChatGPT: [https://chat.openai.com/](https://chat.openai.com/)
     * Grok (XAI): [https://x.ai/](https://x.ai/)
-    * QWEN (Alibaba): [https://www.alibabagroup.com/en/global/home](https://www.alibabagroup.com/en/global/home)
+    * QWEN (Alibaba): [https://chat.qwen.ai/](https://chat.qwen.ai/)
     * Claude (Anthropic): [https://www.anthropic.com/](https://www.anthropic.com/)
 * **Inne:**
     * SingleFile (do zapisu notatek jako HTML): [https://singlefile.com/](https://singlefile.com/)
@@ -166,7 +167,7 @@ Absolutnie tak, a nawet jest to zalecane! Kluczem do sukcesu jest zrozumienie **
 
 Przegapienie zaliczenia któregokolwiek z kolokwiów skutkuje niezaliczeniem całego kursu, niezależnie od wyników z pozostałych kolokwiów. Kolokwia są kluczowym elementem oceny Twojego zrozumienia materiału. Długie okno realizacji testu (przynajmniej 48h) daje Ci elastyczność, ale nie zwalnia z obowiązku przygotowania się i podejścia do każdego z nich.
 
-Niezaliczenie jakiegokolwiek kolokwium skutkuje brakiem możliwości przystąpienia do egzaminu z WYKŁADU KW1 [z prof. Gutech], więc oznacza de facto podwójne niezaliczenie.
+Niezaliczenie któregokolwiek kolokwium uniemożliwia zaliczenie ćwiczeń, co jest warunkiem koniecznym do przystąpienia do egzaminu końcowego. W praktyce oznacza to brak możliwości zaliczenia przedmiotu w danym semestrze.
 
 #### **5. Nie byłem w stanie napisać kolokwium z racji późnego uzyskania wizy lub choroby. Co wtedy?**
 
@@ -176,13 +177,13 @@ Kolokwia będą miały charakter testów online na platformie MS Teams z wykorzy
 
 Sytuacja, w której rozpocząłeś test na 5 minut przed końcem terminu i nie zdążyłeś go ukończyć, nie jest traktowana jako przypadek losowy. Jest to Twoja odpowiedzialność i nie stanowi podstawy do odwołania. Podobnie jak spóźnienie na samolot – po zamknięciu bramki nie ma możliwości wejścia na pokład.
 
-#### **5. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
+#### **6. Dlaczego maksymalna ocena z pomyślnie, a nawet bardzo dobrze, napisanych kolokwiów to tylko 3.0?**
 
 Maksymalna ocena z kolokwiów została ustalona na poziomie 3.0, ponieważ mają one na celu jedynie sprawdzenie podstawowego zrozumienia materiału. Testy online, przy wszystkich dostępnych dziś narzędziach, nie pozwalają na pełną ocenę zrozumienia i umiejętności krytycznego myślenia. Ocena 3.0 potwierdza jedynie, że jesteś w stanie technicznie ogarnąć i uzupełnić test w wyznaczonym czasie.
 
 Chcesz uzyskać ocenę wyższą niż 3.0? Absolutnie nie ma problemu! Po prostu musisz wykazać się zrozumieniem materiału podczas rozmowy ustnej, gdzie będziesz musiał wyjaśnić swoje rozumowanie i obronić swoje odpowiedzi.
 
-#### **6. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
+#### **7. Jak przygotować się do rozmowy ustnej na ocenę wyższą niż 3.0?**
 
 Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodziewać.
 
