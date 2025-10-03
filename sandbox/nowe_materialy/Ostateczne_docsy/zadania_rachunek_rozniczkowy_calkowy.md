@@ -16,15 +16,15 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 ## Granice
 
-1. Oblicz granicę \(\lim_{x\to 0} \frac{\sin x}{x}\).
+1. Oblicz granicę $\lim_{x\to 0} \frac{\sin x}{x}$.
 
-2. Oblicz \(\lim_{x\to\infty} \frac{2x^3+3x}{x^3-1}\).
+2. Oblicz $\lim_{x\to\infty} \frac{2x^3+3x}{x^3-1}$.
 
-3. Oblicz \(\lim_{x\to 0} \frac{e^{2x}-1}{x}\).
+3. Oblicz $\lim_{x\to 0} \frac{e^{2x}-1}{x}$.
 
-4. Dla ciągu \(a_n=\frac{n+1}{2n+3}\) oblicz \(\lim_{n\to\infty} a_n\).
+4. Dla ciągu $a_n=\frac{n+1}{2n+3}$ oblicz $\lim_{n\to\infty} a_n$.
 
-5. Zbadaj granicę jednostronną \(\lim_{x\to 0^{+}} x^{\alpha} \ln x\) w zależności od parametru $\alpha\in\mathbb{R}$.
+5. Zbadaj granicę jednostronną $\lim_{x\to 0^{+}} x^{\alpha} \ln x$ w zależności od parametru $\alpha\in\mathbb{R}$.
 
 ## Pochodne
 
