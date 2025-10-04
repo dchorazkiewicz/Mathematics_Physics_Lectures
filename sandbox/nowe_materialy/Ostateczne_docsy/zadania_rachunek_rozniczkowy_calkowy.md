@@ -4,7 +4,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 ## Funkcje
 
-1. Rozważ funkcję $f:\mathbb{R}\to\mathbb{R}$ dana wzorem $f(x)=\frac{x^2-1}{x-1}$ dla $x\neq1$ i $f(1)=2$. Zbadaj, czy $f$ jest dobrze określona w $x=1$ (czy istnieje granica i czy równa się wartości funkcji).
+1. Rozważ funkcję $f:\mathbb{R}\to\mathbb{R}$ dana wzorem $f(x)=\frac{x^2-1}{x-1}$ dla $x\neq1$ i $f(1)=2$. Zbadaj, czy $f$ jest dobrze określona w $x=1$ 
 
 2. Zdefiniuj funkcję $g:\mathbb{N}\to\mathbb{R}$ przez $g(n)=\sum_{k=1}^{n} \frac{1}{k}$. Oblicz $g(1),g(2),g(3)$ i opisz, czy ciąg $g(n)$ jest zbieżny.
 
@@ -12,7 +12,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Zbadaj, czy funkcja $p(x)=\ln(x^2+1)$ jest parzysta, nieparzysta czy żadna z nich.
 
-5. Zaproponuj przykład funkcji wielowymiarowej $F:\mathbb{R}^2\to\mathbb{R}$ i podaj jej interpretację (np. w kontekście pola skalarnego lub wyznacznika macierzy 2x2 jako funkcji macierzy).
+5. Zaproponuj przykład funkcji wielowymiarowej $F:\mathbb{R}^4\to\mathbb{R}$ i podaj jej interpretację (np. w kontekście pola skalarnego lub wyznacznika macierzy 2x2 jako funkcji macierzy).
 
 ## Granice
 
