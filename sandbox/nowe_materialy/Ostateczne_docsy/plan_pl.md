@@ -35,7 +35,7 @@
         * Równanie parametryczne płaszczyzny
         * Równanie płaszczyzny przechodzącej przez trzy punkty
         * Wzajemne położenie płaszczyzn
-    * Prosta i płaszczyzna w przestrzeni
+        * Prosta i płaszczyzna w przestrzeni
 * **Dział 3: Rachunek Różniczkowy i Całkowy (Calculus)**
     * Funkcje
         * Definicja relacji i funkcji
