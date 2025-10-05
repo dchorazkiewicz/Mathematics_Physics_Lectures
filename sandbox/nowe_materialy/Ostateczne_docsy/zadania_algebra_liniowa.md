@@ -20,11 +20,11 @@
 2. Dla macierzy
 
    $$
-   A=\begin{pmatrix}1 & 0\\ 0 & 2\end{pmatrix} 
+   A=\begin{pmatrix}1 & 0\\ 0 & 2\end{pmatrix}, 
    \quad
-   B =\begin{pmatrix}2 & 0\\ 0 & 4\end{pmatrix} 
+   B =\begin{pmatrix}2 & 0\\ 0 & 4\end{pmatrix}, 
    \quad
-   C=\begin{pmatrix}4 & 0\\ 0 & 8\end{pmatrix}
+   C=\begin{pmatrix}4 & 0\\ 0 & 8\end{pmatrix},
    \quad
    D=\begin{pmatrix}8 & 0\\ 0 & 16\end{pmatrix}
    $$
@@ -72,6 +72,42 @@
       $$
 
       Sprawdź, że $R(\theta_1)R(\theta_2) = R(\theta_1 + \theta_2)$.
+
+8. $\star$ Wiedząc, że
+
+   $$
+   \begin{aligned}
+   \sin(x)&=1-\frac{x^{2}}{2!}+\frac{x^{4}}{4!}-\frac{x^{6}}{6!}+\ldots\\
+   \cos(x)&=x-\frac{x^{3}}{3!}+\frac{x^{5}}{5!}-\frac{x^{7}}{7!}+\ldots
+   \end{aligned}
+   $$
+
+   pokaż, że macierz rotacji $R(\theta)$ może być zapisana jako
+
+   $$
+   R(\theta) = I +  A + \frac{1}{2!} A^{2} + \frac{1}{3!} A^{3} + \ldots 
+   $$
+
+   gdzie
+
+   $$
+   A = \begin{pmatrix}0 & -\theta\\ \theta & 0\end{pmatrix}
+   $$
+
+9. $\star\star$ Macierze Pauliego są zdefiniowane jako:
+
+   $$
+   \sigma_x = \begin{pmatrix}0 & 1\\ 1 & 0\end{pmatrix}, \quad
+   \sigma_y = \begin{pmatrix}0 & -i\\ i & 0\end{pmatrix}, \quad
+   \sigma_z = \begin{pmatrix}1 & 0\\ 0 & -1\end{pmatrix}
+   $$
+
+   gdzie $i$ to jednostka urojona. Sprawdź, że:
+
+   - $\sigma_x^2 = \sigma_y^2 = \sigma_z^2 = I$ (macierz jednostkowa)
+   - $\sigma_x\sigma_y = i\sigma_z$, $\sigma_y\sigma_z = i\sigma_x$, $\sigma_z\sigma_x = i\sigma_y$
+   - $\{\sigma_i, \sigma_j\} = 2\delta_{ij}I$ (antykomutator)
+
 
 ## Wyznaczniki
 
@@ -124,7 +160,7 @@
 
 4. Oblicz wyznacznik macierzy trójkątnej $T$ o elementach diagonalnych $(3,-2,5,1)$.
 
-5. $\star$ Dla macierzy zależnej od parametru $t$:
+5. Dla macierzy zależnej od parametru $t$:
 
    $$
    M(t)=\begin{pmatrix}
@@ -135,7 +171,7 @@
 
    oblicz $\det(M(t))$ i znajdź wartości $t$, dla których macierz jest singularna.
 
-6. $\star$ Rozwiąż równanie
+6. Rozwiąż równanie
 
    $$
    \det\begin{pmatrix}
@@ -165,12 +201,16 @@
    $$
 
 
-2. $\star$ Dla macierzy
+2. Dla macierzy
 
    $$
    A=\begin{pmatrix}1 & 2\\ 2 & 4\end{pmatrix}
    \quad
-   B=\begin{pmatrix}1 & 2 & 3\\ 0 & 1 & 4\\ 5 & 6 & 0\end{pmatrix}
+   B=\begin{pmatrix}12& 5\\ 7 & 3\end{pmatrix}
+   \quad
+   C=\begin{pmatrix}1 & 2 & 3\\ 0 & 1 & 4\\ 5 & 6 & 0\end{pmatrix}
+   \quad
+   D=\begin{pmatrix}2 & 0 & 1\\ 1 & 3 & 0\\ 0 & 4 & 5\end{pmatrix}
    $$
 
    oblicz macierz odwrotną za pomocą metody Gaussa–Jordana (dołącz macierz jednostkową i wykonaj eliminację).
