@@ -62,10 +62,6 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
    oraz
 
-   $$\pi: x-(\lambda-1)y+z-3=0.$$ 
+   $$\pi: x - (\lambda-1) y + z - 3 = 0$$
 
    Określ wartości $\lambda$, dla których prosta jest równoległa do płaszczyzny, zawarta w płaszczyźnie lub przecina ją w jednym punkcie.
-
----
-
-Plik przygotowany jako przykładowy zestaw zadań. Jeżeli chcesz, mogę dodać rozwiązania krok po kroku lub sformatować go jako arkusz egzaminacyjny (punktacja, czas).
