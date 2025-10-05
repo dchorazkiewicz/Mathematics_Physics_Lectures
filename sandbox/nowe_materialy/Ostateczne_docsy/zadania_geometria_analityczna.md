@@ -16,7 +16,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Dla wektorów jednorodnych w płaszczyźnie: $\mathbf{a}=(3,4)$ i $\mathbf{b}=(-4,3)$ oblicz ich iloczyn skalarny i sprawdź, czy są prostopadłe. Wyznacz rzut wektora $\mathbf{a}$ na $\mathbf{b}$.
 
-5. Dla wektorów $\mathbf{p}=(1,2,3)$, $\mathbf{q}=(2,4,6)$ oraz $\mathbf{r}=(0,1,-1)$ określ liniową zależność/zależności między nimi oraz rangi zbioru.
+5. ⭐ Dla wektorów $\mathbf{p}=(1,2,3)$, $\mathbf{q}=(2,4,6)$ oraz $\mathbf{r}=(0,1,-1)$ określ liniową zależność/zależności między nimi oraz rangi zbioru.
 
 ## Proste
 
@@ -28,7 +28,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Znajdź odległość punktu $S(2,3)$ od prostej $l: 3x-4y+5=0$.
 
-5. Napisz równanie prostej przechodzącej przez punkt $T(1,1)$ i tworzącej z osią OX kąt $\pi/6$. Podaj też punkt przecięcia z osią OY.
+5. ⭐ Napisz równanie prostej przechodzącej przez punkt $T(1,1)$ i tworzącej z osią OX kąt $\pi/6$. Podaj też punkt przecięcia z osią OY.
 
 ## Płaszczyzny
 
@@ -40,7 +40,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Dla płaszczyzny $\pi: x-2y+2z-4=0$ oblicz odległość punktu $P(3,0,1)$ od tej płaszczyzny.
 
-5. Znajdź równanie płaszczyzny przechodzącej przez punkt $D(1,1,1)$ i zawierającej prostą przechodzącą przez punkty $E(0,0,0)$ i $F(1,2,3)$.
+5. ⭐ Znajdź równanie płaszczyzny przechodzącej przez punkt $D(1,1,1)$ i zawierającej prostą przechodzącą przez punkty $E(0,0,0)$ i $F(1,2,3)$.
 
 ## Prosta i płaszczyzna w przestrzeni
 
@@ -52,11 +52,11 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 2. Znajdź rzut prostej z zadania 1 na oś OX (współrzędne punktów przecięcia z tą osią, jeżeli istnieją).
 
-3. Oblicz odległość punktu $G(2,-1,0)$ od prostej przechodzącej przez punkty $H(0,0,0)$ i $I(1,1,1)$.
+3. ⭐ Oblicz odległość punktu $G(2,-1,0)$ od prostej przechodzącej przez punkty $H(0,0,0)$ i $I(1,1,1)$.
 
 4. Dla prostej $\ell$ o równaniu parametrycznym $x=2+s,\ y=3-2s,\ z=1+4s$ znajdź prostopadłą do niej płaszczyznę przechodzącą przez punkt $M(1,0,0)$ (tzn. płaszczyznę, której normalna jest równoległa do wektora kierunkowego prostej $\ell$).
 
-5. Rozważ układ prostej i płaszczyzny zależny od parametru $\lambda$:
+5. ⭐ Rozważ układ prostej i płaszczyzny zależny od parametru $\lambda$:
 
    $$\ell(\lambda): x=\lambda+t,\; y=1+2t,\; z=2-t$$
 
