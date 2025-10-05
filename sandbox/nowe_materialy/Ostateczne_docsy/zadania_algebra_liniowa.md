@@ -17,8 +17,26 @@
    - $A\cdot B$
    - sprawdź, czy $A\cdot B = B\cdot A$.
 
+2. Dla macierzy
 
-2. Dana jest macierz
+   $$
+   A=\begin{pmatrix}1 & 0\\ 0 & 2\end{pmatrix} 
+   \quad
+   B =\begin{pmatrix}2 & 0\\ 0 & 4\end{pmatrix} 
+   \quad
+   C=\begin{pmatrix}4 & 0\\ 0 & 8\end{pmatrix}
+   \quad
+   D=\begin{pmatrix}8 & 0\\ 0 & 16\end{pmatrix}
+   $$
+
+   sprawdź, czy
+
+   $$
+   A\cdot B\cdot C\cdot D = B\cdot A\cdot D\cdot C = D\cdot C\cdot B\cdot A.
+   $$
+
+
+3. Dana jest macierz
 
    $$
    C=\begin{pmatrix}
@@ -30,11 +48,11 @@
 
    Wyznacz macierz otrzymaną po przestawieniu wierszy: zamień 1. i 3. wiersz, a następnie dodaj do 2. wiersza dwukrotność nowego 1. wiersza. Zapisz wszystkie kroki dla każdej operacji.
 
-3. Dla wektorów kolumnowych $u=(1,-2,3)^{\top}$ oraz $v=(2,0,-1)^{\top}$ zapisz je jako macierze i oblicz $u+v$, $u-v$ oraz iloczyny macierzowe $u\,v^{\top}$ i $v\,u^{\top}$. Jaka jest rząd macierzy $u\,v^{\top}$?
+4. Dla wektorów kolumnowych $u=(1,-2,3)^{\top}$ oraz $v=(2,0,-1)^{\top}$ zapisz je jako macierze i oblicz $u+v$, $u-v$ oraz iloczyny macierzowe $u\,v^{\top}$ i $v\,u^{\top}$. Jaka jest rząd macierzy $u\,v^{\top}$?
 
-4. Pokaż, że macierz diagonalna $D=\operatorname{diag}(2,-3,5)$ jest przemienna z dowolną macierzą diagonalną $E=\operatorname{diag}(a,b,c)$. Dodatkowo oblicz $D^{3}$ oraz, jeśli istnieje, $D^{-1}$.
+5. Pokaż, że macierz diagonalna $D=\operatorname{diag}(2,-3,5)$ jest przemienna z dowolną macierzą diagonalną $E=\operatorname{diag}(a,b,c)$. Dodatkowo oblicz $D^{3}$ oraz, jeśli istnieje, $D^{-1}$.
 
-5. ⭐ Dla macierzy
+6. $\star$ Dla macierzy
  
    $$
    P=\begin{pmatrix}1 & 1 & 0\\ 0 & 1 & 1\\ 1 & 0 & 1\end{pmatrix}
@@ -42,7 +60,7 @@
 
    oblicz $P^{2}$ i $P^{3}$. Czy ciąg $P^{n}$ ma zauważalny wzorzec dla $n=1,2,3$?
 
-6. ⭐ Przykład kodowania rotacji
+7. $\star$ Przykład kodowania rotacji
 
    Policz iloczyn macierzy rotacji o kącie $\theta$ w przestrzeni 2D:
 
@@ -81,7 +99,7 @@
 
    używając metody Sarrusa.
 
-2. ⭐ Wyznacz wyznaczniki używając rozwinięcia Laplace\'a:
+2. $\star$ Wyznacz wyznaczniki używając rozwinięcia Laplace\'a:
 
    $$
    A=\begin{pmatrix}
@@ -106,7 +124,7 @@
 
 4. Oblicz wyznacznik macierzy trójkątnej $T$ o elementach diagonalnych $(3,-2,5,1)$.
 
-5. ⭐ Dla macierzy zależnej od parametru $t$:
+5. $\star$ Dla macierzy zależnej od parametru $t$:
 
    $$
    M(t)=\begin{pmatrix}
@@ -117,7 +135,7 @@
 
    oblicz $\det(M(t))$ i znajdź wartości $t$, dla których macierz jest singularna.
 
-6. ⭐ Rozwiąż równanie
+6. $\star$ Rozwiąż równanie
 
    $$
    \det\begin{pmatrix}
@@ -126,7 +144,7 @@
    \end{pmatrix} = 0
    $$
 
-6. ⭐ Rozwiąż równanie
+7. $\star$ Rozwiąż równanie
 
    $$
    \det\begin{pmatrix}
@@ -147,7 +165,7 @@
    $$
 
 
-2. ⭐ Dla macierzy
+2. $\star$ Dla macierzy
 
    $$
    A=\begin{pmatrix}1 & 2\\ 2 & 4\end{pmatrix}
@@ -196,7 +214,7 @@
 
    Pokaż kroki i obliczenia macierzy wyznacznikowych.
 
-4. ⭐ Rozważ układ parametryczny zależny od $\lambda$:
+4. $\star$ Rozważ układ parametryczny zależny od $\lambda$:
 
    $$
    \begin{aligned} x+\lambda y&=1,\\ 2x+(1+\lambda)y&=3. \end{aligned}
