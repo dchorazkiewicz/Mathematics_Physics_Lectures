@@ -62,6 +62,3 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 5. $\star$ Omów warunki istnienia i jednoznaczności rozwiązania dla równań zwyczajnych (twierdzenie Picarda-Lindelöfa) w skrócie i podaj przykład układu, gdzie warunek Lipschitza jest istotny.
 
----
-
-Plik przygotowany jako przykładowy zestaw zadań. Jeżeli chcesz, mogę dodać rozwiązania krok po kroku lub sformatować go jako arkusz egzaminacyjny (punktacja, czas).
