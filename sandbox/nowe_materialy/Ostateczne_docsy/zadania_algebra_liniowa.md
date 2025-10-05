@@ -204,7 +204,7 @@
 2. Dla macierzy
 
    $$
-   A=\begin{pmatrix}1 & 2\\ 2 & 4\end{pmatrix}
+   A=\begin{pmatrix}1 & 2\\ 2 & 5\end{pmatrix}
    \quad
    B=\begin{pmatrix}12& 5\\ 7 & 3\end{pmatrix}
    \quad
@@ -241,7 +241,7 @@
    \begin{aligned} 2x+3y&=5,\\ x-4y&=-2. \end{aligned}
    $$
 
-   Użyj metody eliminacji Gaussa.
+   używając metod: Cramera, eliminacji Gaussa i macierzy odwrotnej.
 
 2. Rozwiąż układ trzech równań z trzema niewiadomymi:
 
@@ -249,17 +249,9 @@
    \begin{aligned} x+y+z&=6,\\ 2x-y+3z&=14,\\ -x+2y-z&=-2. \end{aligned}
    $$
 
-   Użyj metody macierzy odwrotnej (jeżeli macierz współczynników jest odwracalna).
+   używając metod: Cramera, eliminacji Gaussa i macierzy odwrotnej.
 
-3. Zastosuj regułę Cramera, aby rozwiązać układ:
-
-   $$
-   \begin{aligned} x+2y&=3,\\ 3x-y&=5. \end{aligned}
-   $$
-
-   Pokaż kroki i obliczenia macierzy wyznacznikowych.
-
-4. $\star$ Rozważ układ parametryczny zależny od $\lambda$:
+3. $\star$ Rozważ układ parametryczny zależny od $\lambda$:
 
    $$
    \begin{aligned} x+\lambda y&=1,\\ 2x+(1+\lambda)y&=3. \end{aligned}
@@ -267,7 +259,7 @@
 
    Określ wartości $\lambda$, dla których układ ma jedno rozwiązanie, nieskończenie wiele rozwiązań lub brak rozwiązań.
 
-5. Dla macierzy współczynników
+4. Dla macierzy współczynników
 
    $$
    A=\begin{pmatrix}1 & 1 & 1\\ 0 & 2 & -1\\ 2 & -1 & 3\end{pmatrix}
