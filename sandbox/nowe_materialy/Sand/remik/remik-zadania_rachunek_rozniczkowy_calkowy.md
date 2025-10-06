@@ -10,7 +10,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 3. Dla funkcji $h(x)=|x^2-4|$ podaj dziedzinę, zbiór wartości oraz narysuj szkic kształtu funkcji (wystarczy opisać punkty charakterystyczne).
 
-4. $\star$ Zbadaj, czy funkcja $p(x)=\ln(x^2+1)$ jest parzysta, nieparzysta czy żadna z nich.
+4. Zbadaj, czy funkcja $p(x)=\ln(x^2+1)$ jest parzysta, nieparzysta czy żadna z nich.
 
 5. Zaproponuj przykład funkcji wielowymiarowej $F:\mathbb{R}^4\to\mathbb{R}$ i podaj jej interpretację (np. w kontekście pola skalarnego lub wyznacznika macierzy 2x2 jako funkcji macierzy).
 
@@ -24,7 +24,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Dla ciągu $a_n=\frac{n+1}{2n+3}$ oblicz $\lim_{n\to\infty} a_n$.
 
-5. $\star$ Zbadaj granicę jednostronną $\lim_{x\to 0^{+}} x^{\alpha} \ln x$ w zależności od parametru $\alpha\in\mathbb{R}$.
+5. Zbadaj granicę jednostronną $\lim_{x\to 0^{+}} x^{\alpha} \ln x$ w zależności od parametru $\alpha\in\mathbb{R}$.
 
 ## Pochodne
 
@@ -32,11 +32,11 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 2. Dla $f(x)=\sin x\cdot e^{x}$ oblicz $f'(x)$.
 
-3. $\star$ Zastosuj regułę łańcuchową do funkcji $F(x)=\ln(\cos(x^2))$ i oblicz $F'(x)$ (tam gdzie istnieje).
+3. Zastosuj regułę łańcuchową do funkcji $F(x)=\ln(\cos(x^2))$ i oblicz $F'(x)$ (tam gdzie istnieje).
 
 4. Znajdź pochodną funkcji $f(x)=x^{\alpha}$ dla $\alpha\in\mathbb{R}$ i omów definicję dla $x>0$.
 
-5. $\star$ Dla funkcji dwóch zmiennych $F(x,y)=x^2y+\sin(xy)$ oblicz pochodne cząstkowe $\frac{\partial F}{\partial x}$ i $\frac{\partial F}{\partial y}$.
+5. Dla funkcji dwóch zmiennych $F(x,y)=x^2y+\sin(xy)$ oblicz pochodne cząstkowe $\frac{\partial F}{\partial x}$ i $\frac{\partial F}{\partial y}$.
 
 ## Całki
 
@@ -48,7 +48,7 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Oblicz $\int \frac{1}{x^2+1}\,dx$ oraz wyjaśnij związek z funkcją arctan.
 
-5. $\star$ Oblicz objętość bryły otrzymanej przez obrót wykresu $y=\sqrt{x}$ dla $x\in[0,1]$ wokół osi OX (metoda pierścieni).
+5. Oblicz objętość bryły otrzymanej przez obrót wykresu $y=\sqrt{x}$ dla $x\in[0,1]$ wokół osi OX (metoda pierścieni).
 
 ## Równania różniczkowe
 
@@ -60,5 +60,8 @@ Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla 
 
 4. Dla równania $y''+y=\sin x$ znajdź szczególne rozwiązanie metodą operatorów lub wariacji stałych.
 
-5. $\star$ Omów warunki istnienia i jednoznaczności rozwiązania dla równań zwyczajnych (twierdzenie Picarda-Lindelöfa) w skrócie i podaj przykład układu, gdzie warunek Lipschitza jest istotny.
+5. Omów warunki istnienia i jednoznaczności rozwiązania dla równań zwyczajnych (twierdzenie Picarda-Lindelöfa) w skrócie i podaj przykład układu, gdzie warunek Lipschitza jest istotny.
 
+---
+
+Plik przygotowany jako przykładowy zestaw zadań. Jeżeli chcesz, mogę dodać rozwiązania krok po kroku lub sformatować go jako arkusz egzaminacyjny (punktacja, czas).
