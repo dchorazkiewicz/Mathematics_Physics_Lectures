@@ -135,7 +135,7 @@
 
    używając metody Sarrusa.
 
-2. $\star$ Wyznacz wyznaczniki używając rozwinięcia Laplace\'a:
+2. Wyznacz wyznaczniki używając rozwinięcia Laplace\'a:
 
    $$
    A=\begin{pmatrix}
@@ -189,6 +189,86 @@
    \end{pmatrix} = 0
    $$
 
+
+8. Oblicz wyznacznik macierzy
+
+
+   $$
+   \begin{vmatrix}
+   x & y & x+y \\
+   y & x+y & x \\
+   x+y & x & y
+   \end{vmatrix}
+   $$
+
+9. Wykaż, że zachodzi równość
+
+   $$
+   \begin{vmatrix}
+   1 & 1 & 1 \\
+   x & y & z \\
+   x^2 & y^2 & z^2
+   \end{vmatrix}
+   = (z-x)(z-y)(y-x)
+   $$
+
+   Udowodnij podobną równość dla wyznacznika
+   $$
+   \begin{vmatrix}
+   1 & 1 & 1 & 1 \\
+   x & y & z & u \\
+   x^2 & y^2 & z^2 & u^2 \\
+   x^3 & y^3 & z^3 & u^3
+   \end{vmatrix}
+   $$
+
+10. Oblicz wyznacznik macierzy
+   $$
+   \begin{vmatrix}
+   a & a & a \\
+   -a & a & a \\
+   -a & -a & a
+   \end{vmatrix}
+   \quad
+   \text{\&}
+   \quad
+   \begin{vmatrix}
+   a & 0 & b \\
+   0 & c & 0 \\
+   d & 0 & a
+   \end{vmatrix}
+   $$
+
+11. Sprawdź słuszność następujących związków:
+
+   a)
+
+   $$
+   \begin{vmatrix}
+   a+b & b \\
+   c+d & d
+   \end{vmatrix}
+   =
+   \begin{vmatrix}
+   a & b \\
+   c & d
+   \end{vmatrix}
+   $$
+
+   b)
+
+   $$
+   \begin{vmatrix}
+   a+bx & b \\
+   c+dx & d
+   \end{vmatrix}
+   =
+   \begin{vmatrix}
+   a & b \\
+   c & d
+   \end{vmatrix}
+   $$
+
 ## Odwracanie macierzy
 
 1. Znajdź macierz odwrotną używając wzoru dla macierzy $2\times2$
@@ -232,6 +312,15 @@
 
 5. Oblicz macierz odwrotną macierzy diagonalnej $D=\operatorname{diag}(2,5,-3,1)$, jeżeli istnieje. Omów warunek istnienia odwrotności dla macierzy diagonalnej.
 
+6. Rozwiąż równania macierzowe:
+
+   a) $$\begin{bmatrix} 2 & 5 \\\ 1 & 3 \end{bmatrix} \cdot X = \begin{bmatrix} 4 & -6 \\\ 2 & 1 \end{bmatrix}$$
+
+   b) $$\begin{bmatrix} 2 & 1 \\\ 5 & 3 \end{bmatrix} \cdot X = \begin{bmatrix} 1 & 2 \\\ 3 & 4 \end{bmatrix}$$
+
+   c) $$X \cdot \begin{bmatrix} 1 & 1 & -1 \\\ 2 & 1 & 0 \\\ 1 & -1 & 1 \end{bmatrix} = \begin{bmatrix} 1 & -3 & 3 \\\ 4 & 3 & 2 \\\ 1 & -2 & 5 \end{bmatrix}$$
+
+   d) $$\begin{bmatrix} 3 & 2 & 3 \\\ 1 & 1 & 2 \\\ 3 & 2 & 4 \end{bmatrix} \cdot X = \begin{bmatrix} 1 & 2 & 3 \\\ 1 & -1 & 2 \\\ 2 & 2 & 4 \end{bmatrix}$$
 
 ## Układy równań liniowych
 
@@ -267,3 +356,114 @@
 
    i wektora prawych stron $b=(4,1,3)^{\top}$ rozwiąż $Ax=b$ i sprawdź wynik przez podstawienie.
 
+
+5. Rozwiąż układy równań:
+
+   a)
+
+   $$
+   \begin{cases}
+   x_1 + 4x_2 + 3x_3 = 1, \\
+   2x_1 + 5x_2 + 4x_3 = 4, \\
+   x_1 - 3x_2 - 2x_3 = 5;
+   \end{cases}
+   $$
+
+   b)
+   $$
+   \begin{cases}
+   x_1 - 2x_2 - 3x_3 = 2, \\
+   x_1 - 4x_2 - 13x_3 = 14, \\
+   -3x_1 + 5x_2 + 4x_3 = 0;
+   \end{cases}
+   $$
+
+   c)
+   $$
+   \begin{cases}
+   x_1 - 2x_2 - 3x_3 = 2, \\
+   x_1 - 4x_2 - 13x_3 = 14, \\
+   -3x_1 + 5x_2 + 4x_3 = 2;
+   \end{cases}
+   $$
+
+   d)
+   $$
+   \begin{cases}
+   -4x_1 + 3x_2 + 2x_3 = -2, \\
+   5x_1 - 4x_2 + x_3 = 3;
+   \end{cases}
+   $$
+
+   e)
+   $$
+   \begin{cases}
+   -4x_1 + 3x_2 = 2, \\
+   5x_1 - 4x_2 = 0, \\
+   2x_1 - x_2 = a;
+   \end{cases}
+   $$
+
+   f)
+   $$
+   \begin{cases}
+   4x_1 + 5x_3 = 6, \\
+   x_2 - 6x_3 = -2, \\
+   3x_1 + 4x_3 = 3;
+   \end{cases}
+   $$
+
+   g)
+   $$
+   \begin{cases}
+   3x_1 - x_2 - 2x_3 = 2, \\
+   2x_2 - x_3 = -1, \\
+   3x_1 - 5x_2 = 3;
+   \end{cases}
+   $$
+
+   h)
+   $$
+   \begin{cases}
+   -x_1 + 2x_2 + 3x_3 = 0, \\
+   x_1 - 4x_2 - 13x_3 = 0, \\
+   -3x_1 + 5x_2 + 4x_3 = 0;
+   \end{cases}
+   $$
+
+
+   i)
+   $$
+   \begin{cases}
+   x_1 + x_2 + x_3 = 0, \\
+   2x_1 + 4x_2 + 3x_3 = 0, \\
+   4x_2 + 4x_3 = 0;
+   \end{cases}
+   $$
+
+   j)
+   $$
+   \begin{cases}
+   x_1 + x_2 + x_3 = -2, \\
+   2x_1 + 4x_2 - 3x_3 = 3, \\
+   4x_2 + 2x_3 = 2;
+   \end{cases}
+   $$
+
+   k)
+   $$
+   \begin{cases}
+   4x_1 + 4x_3 = 8, \\
+   x_2 - 6x_3 = -3, \\
+   3x_1 + x_2 - 3x_3 = 3;
+   \end{cases}
+   $$
+
+   l)
+   $$
+   \begin{cases}
+   5x_1 - 3x_2 = -7, \\
+   -2x_1 + 9x_2 = 4, \\
+   2x_1 + 4x_2 = -2;
+   \end{cases}
+   $$
