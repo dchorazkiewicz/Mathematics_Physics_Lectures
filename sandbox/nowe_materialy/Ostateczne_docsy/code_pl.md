@@ -188,9 +188,8 @@ Chcesz uzyskać ocenę wyższą niż 3.0? Absolutnie nie ma problemu! Po prostu 
 Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodziewać.
 
 **Struktura rozmowy:**
-* Rozmowa potrwa około 15-20 minut.
-* Zaczniemy od omówienia wybranego przez Ciebie zagadnienia z Twojego archiwum procesu nauki. Będzie to punkt wyjścia do głębszej dyskusji.
-* Następnie zadam 1-2 pytania weryfikujące Twoje ogólne zrozumienie kluczowych koncepcji z kursu.
+* Rozmowa zacznie się od omówienia wybranego przez Ciebie zagadnienia z Twojego archiwum procesu nauki. Będzie to punkt wyjścia do głębszej dyskusji.
+* Następnie zadam 2-3 pytania weryfikujące Twoje ogólne zrozumienie kluczowych koncepcji z całego kursu.
 
 **Jakie pytania mogą paść?**
 * **Pytania koncepcyjne:** *np. "Proszę wyjaśnić, czym jest baza przestrzeni wektorowej i dlaczego jest to ważne pojęcie?"*

@@ -117,7 +117,7 @@ The exercises are mandatory. Passing them is a necessary condition to be eligibl
 
 * **Sufficient Grade (3.0):** The condition for receiving a sufficient grade is passing **3 online colloquia** (where a minimum of 80% of points is required). The colloquia allow for a maximum grade of 3.0. We know you will use AI, and online tests do not allow for a full assessment of understanding.
 
-* **Higher Grades (3.5-5.0):** To obtain a higher grade, you must also pass an **oral interview** at the end of the semester. The basis for this interview is the documentation of your work by completing at least 12 interactive guides. During the interview, your deep understanding of the material, ability to explain concepts, and defend your proposed solutions will be assessed. Just like in job interviews, you will need to demonstrate your ability to argue and think critically.
+* **Higher Grades (3.5-5.0):** To obtain a higher grade, you must also pass an **oral exam** at the end of the semester. The basis for this interview is the documentation of your work by completing at least 12 interactive guides. During the interview, your deep understanding of the material, ability to explain concepts, and defend your proposed solutions will be assessed. Just like in job interviews, you will need to demonstrate your ability to argue and think critically.
 
 ### **Colloquium Dates:**
 The colloquia will be conducted online on the MS Teams platform with at least a 48-hour window to complete the test. This will help avoid time and technical issues. The dates of the colloquia will be announced well in advance to give everyone time to prepare. The duration of each colloquium is 48 hours from the moment it opens, so excuses like "I didn't have time to do it because I was busy" will not be considered. Only unforeseen circumstances, such as serious illness (hospitalization!) or other officially documented situations, will be considered individually. A common cold, a sprained ankle, and other minor ailments that allow for normal online test-taking will not be considered a valid excuse for not taking the colloquium. And not taking any of the colloquia will result in failing the entire course.
@@ -185,14 +185,13 @@ The maximum grade from the colloquia has been set at 3.0 because they are only i
 
 Do you want to get a grade higher than 3.0? Absolutely no problem! You just have to demonstrate your understanding of the material during an oral interview, where you will have to explain your reasoning and defend your answers.
 
-#### **7. How should I prepare for the oral interview for a grade higher than 3.0?**
+#### **7. How should I prepare for the oral exam for a grade higher than 3.0?**
 
-To effectively prepare for the interview, it's good to know what to expect.
+To effectively prepare for the exam interview, it's good to know what to expect.
 
 **Interview Structure:**
-* The interview will last about 15-20 minutes.
-* We will start by discussing a topic you have chosen from your learning process archive. This will be the starting point for a deeper discussion.
-* Then I will ask 1-2 questions to verify your general understanding of the key concepts from the course.
+* The interview will start by discussing a topic you have chosen from your learning process archive. This will be the starting point for a deeper discussion.
+* Then I will ask 2-3 questions to verify your general understanding of the key concepts from the whole course.
 
 **What questions might be asked?**
 * **Conceptual questions:** *e.g., "Please explain what a basis of a vector space is and why it is an important concept."*
