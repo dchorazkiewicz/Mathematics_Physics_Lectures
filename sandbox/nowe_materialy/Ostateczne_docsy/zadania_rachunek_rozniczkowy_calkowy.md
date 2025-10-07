@@ -1,64 +1,49 @@
 # Dział 3 — Rachunek Różniczkowy i Całkowy: Zadania
 
-Poniżej znajdują się przykładowe zadania do samodzielnego rozwiązania. Dla każdego podrozdziału przygotowano 5 zadań o zróżnicowanym stopniu trudności. Niektóre zadania zawierają podpowiedzi lub sugestie metod rozwiązania.
+## Granice ciągów
 
-## Funkcje
+1. Oblicz granicę ciągów
 
-1. Rozważ funkcję $f:\mathbb{R}\to\mathbb{R}$ dana wzorem $f(x)=\frac{x^2-1}{x-1}$ dla $x\neq1$ i $f(1)=2$. Zbadaj, czy $f$ jest dobrze określona w $x=1$ 
-
-2. Zdefiniuj funkcję $g:\mathbb{N}\to\mathbb{R}$ przez $g(n)=\sum_{k=1}^{n} \frac{1}{k}$. Oblicz $g(1),g(2),g(3)$ i opisz, czy ciąg $g(n)$ jest zbieżny.
-
-3. Dla funkcji $h(x)=|x^2-4|$ podaj dziedzinę, zbiór wartości oraz narysuj szkic kształtu funkcji (wystarczy opisać punkty charakterystyczne).
-
-4. $\star$ Zbadaj, czy funkcja $p(x)=\ln(x^2+1)$ jest parzysta, nieparzysta czy żadna z nich.
-
-5. Zaproponuj przykład funkcji wielowymiarowej $F:\mathbb{R}^4\to\mathbb{R}$ i podaj jej interpretację (np. w kontekście pola skalarnego lub wyznacznika macierzy 2x2 jako funkcji macierzy).
-
-## Granice
-
-1. Oblicz granicę $\lim_{x\to 0} \frac{\sin x}{x}$.
-
-2. Oblicz $\lim_{x\to\infty} \frac{2x^3+3x}{x^3-1}$.
-
-3. Oblicz $\lim_{x\to 0} \frac{e^{2x}-1}{x}$.
-
-4. Dla ciągu $a_n=\frac{n+1}{2n+3}$ oblicz $\lim_{n\to\infty} a_n$.
-
-5. $\star$ Zbadaj granicę jednostronną $\lim_{x\to 0^{+}} x^{\alpha} \ln x$ w zależności od parametru $\alpha\in\mathbb{R}$.
-
-## Pochodne
-
-1. Oblicz pochodną funkcji $f(x)=x^3-5x^2+2x-1$ i znajdź miejsca zerowe pochodnej. Zinterpretuj je jako kandydatów na ekstrema.
-
-2. Dla $f(x)=\sin x\cdot e^{x}$ oblicz $f'(x)$.
-
-3. $\star$ Zastosuj regułę łańcuchową do funkcji $F(x)=\ln(\cos(x^2))$ i oblicz $F'(x)$ (tam gdzie istnieje).
-
-4. Znajdź pochodną funkcji $f(x)=x^{\alpha}$ dla $\alpha\in\mathbb{R}$ i omów definicję dla $x>0$.
-
-5. $\star$ Dla funkcji dwóch zmiennych $F(x,y)=x^2y+\sin(xy)$ oblicz pochodne cząstkowe $\frac{\partial F}{\partial x}$ i $\frac{\partial F}{\partial y}$.
-
-## Całki
-
-1. Oblicz całkę nieoznaczoną $\int (3x^2-2x+1)\,dx$.
-
-2. Oblicz całkę oznaczoną $\int_{0}^{1} (2x+1)\,dx$.
-
-3. Oblicz $\int x e^{x}\,dx$ (całkowanie przez części).
-
-4. Oblicz $\int \frac{1}{x^2+1}\,dx$ oraz wyjaśnij związek z funkcją arctan.
-
-5. $\star$ Oblicz objętość bryły otrzymanej przez obrót wykresu $y=\sqrt{x}$ dla $x\in[0,1]$ wokół osi OX (metoda pierścieni).
-
-## Równania różniczkowe
-
-1. Rozwiąż równanie różniczkowe zwyczajne pierwszego rzędu o rozdzielnych zmiennych: $\frac{dy}{dx}=\frac{2x}{1+y^2}$, $y(0)=0$.
-
-2. Znajdź ogólne rozwiązanie równania liniowego pierwszego rzędu $\frac{dy}{dx}+y= e^{2x}$.
-
-3. Rozwiąż równanie różniczkowe drugiego rzędu o stałych współczynnikach: $y''-3y'+2y=0$.
-
-4. Dla równania $y''+y=\sin x$ znajdź szczególne rozwiązanie metodą operatorów lub wariacji stałych.
-
-5. $\star$ Omów warunki istnienia i jednoznaczności rozwiązania dla równań zwyczajnych (twierdzenie Picarda-Lindelöfa) w skrócie i podaj przykład układu, gdzie warunek Lipschitza jest istotny.
-
+    1)  $u_n = \frac{n}{n+1}$
+    2)  $u_n = \frac{4n-3}{6-5n}$
+    3)  $u_n = \frac{n^2-1}{3-n^3}$
+    4)  $u_n = \frac{2n^3-4n-1}{6n+3n^2-n^3}$
+    5)  $u_n = \frac{(n-1)(n+3)}{3n^2+5}$
+    6)  $u_n = \frac{(2n-1)^2}{(4n-1)(3n+2)}$
+    7)  $u_n = \frac{(2n-1)^3}{(4n-1)^2(1-5n)}$
+    8)  $u_n = \frac{3}{n} - \frac{10}{\sqrt{n}}$
+    9)  $u_n = \frac{(-1)^n}{2n-1}$
+    10) $u_n = (\frac{2n-3}{3n+1})^2$
+    11) $u_n = (\frac{5n-2}{3n-1})^3$
+    12) $u_n = \frac{(\sqrt{n}+3)^2}{n+1}$
+    13) $u_n = \frac{\sqrt{n}-2}{3n+5}$
+    14) $u_n = \frac{n-10}{3}$
+    15) $u_n = \frac{(-0,8)^n}{2n-5}$
+    16) $u_n = \frac{2-5n-10n^2}{3n+15}$
+    17) $u_n = \frac{2n+(-1)^n}{n}$
+    18) $u_n = \frac{\sqrt{1+2n^2}-\sqrt{1+4n^2}}{n}$
+    19) $u_n = \sqrt{\frac{3n-2}{n+10}}$
+    20) $u_n = \sqrt[3]{\frac{n-1}{8n+10}}$
+    21) $u_n = \frac{\sqrt{n^2+4}}{3n-2}$
+    22) $u_n = \frac{n}{\sqrt[3]{n^3+1}}$
+    23) $u_n = \frac{n}{\sqrt[3]{8n^3-n}-n}$
+    24) $u_n = \frac{1}{\sqrt{4n^2+7n}-2n}$
+    25) $u_n = \sqrt{n+2}-\sqrt{n}$
+    26) $u_n = \sqrt{n^2+n}-n$
+    27) $u_n = n-\sqrt{n^2+5n}$
+    28) $u_n = \sqrt{3n^2+2n-5}-n\sqrt{3}$
+    29) $u_n = 3n-\sqrt{9n^2+6n-15}$
+    30) $u_n = \sqrt[3]{n^3+4n^2}-n$
+    31) $u_n = \sqrt[3]{n^2(2-\sqrt[3]{2n^3+5n^2-7})}$
+    32) $u_n = \frac{4^{n}-1}{2^{2n}-7}$
+    33) $u_n = \frac{5 \cdot 3^{2n}-1}{4 \cdot 9^n+7}$
+    34) $u_n = \frac{3 \cdot 2^{2n+2}-10}{5 \cdot 4^{n-1}+3}$
+    35) $u_n = \frac{-8^n-1}{7^{n+1}}$
+    36) $u_n = \frac{2^{n+1}-3^{n+2}}{3^{n+2}}$
+    37) $u_n = (\frac{3}{2})^{n} \frac{2^{n+1}-1}{3^{n+1}-1}$
+    38) $u_n = \sqrt[n]{3^n+2^n}$
+    39) $u_n = \sqrt[n]{10^n+9^n+8^n}$
+    40) $u_n = \sqrt[n]{10^{100}-\frac{1}{10^{100}}}$
+    41) $u_n = \sqrt[n]{(\frac{2}{3})^n+(\frac{3}{4})^n}$
+    42) $u_n = \frac{1+2+...+n}{n^2}$
+    43) $u_n = \frac{1^2+2^2+...+n^2}{n^3}$
