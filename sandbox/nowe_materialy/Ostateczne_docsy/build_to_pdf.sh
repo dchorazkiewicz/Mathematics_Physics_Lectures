@@ -11,6 +11,8 @@ cd "$SCRIPT_DIR"
 FILES=(
 	"code_en.md"
 	"code_pl.md"
+	"plan_en.md"
+	"plan_pl.md"
 	"zadania_algebra_liniowa.md"
 	"zadania_geometria_analityczna.md"
 	"zadania_rachunek_rozniczkowy_calkowy.md"

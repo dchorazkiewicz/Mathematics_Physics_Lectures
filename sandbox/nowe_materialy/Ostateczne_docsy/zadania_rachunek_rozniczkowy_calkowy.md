@@ -1,8 +1,8 @@
-# Dział 3 — Rachunek Różniczkowy i Całkowy: Zadania
+# Dział 3 — Rachunek Różniczkowy i Całkowy: Zadania / *Chapter 3 — Differential and Integral Calculus: Problems*
 
-## Granice ciągów
+## Granice ciągów / *Limits of sequences*
 
-1. Oblicz granicę ciągów
+1. Oblicz granicę ciągów / *Calculate the limits of the sequences*
 
     1)  $u_n = \frac{n}{n+1}$
     2)  $u_n = \frac{4n-3}{6-5n}$
@@ -48,9 +48,9 @@
     42) $u_n = \frac{1+2+...+n}{n^2}$
     43) $u_n = \frac{1^2+2^2+...+n^2}{n^3}$
 
-## Granice funkcji
+## Granice funkcji / *Limits of functions*
 
-1. Oblicz granice funkcji
+1. Oblicz granice funkcji / *Calculate the limits of the functions*
 
     1) $\lim\limits_{x \to 3} \frac{27-x^3}{x-3}$
     2) $\lim\limits_{x \to 3} \frac{x^2-4x+3}{2x-6}$
@@ -84,7 +84,7 @@
     30) $\lim\limits_{x \to 0} (1-3x)^{\frac{1}{x}}$
     31) $\lim\limits_{x \to 0} (1+kx)^{\frac{n}{x}}$
 
-2. Dla podanych funkcji określ, czy są ciągłe w podanych punktach. Jeśli nie są, to czy można je tak zdefiniować, aby były ciągłe.
+2. Dla podanych funkcji określ, czy są ciągłe w podanych punktach. Jeśli nie są, to czy można je tak zdefiniować, aby były ciągłe. / *For the given functions, determine if they are continuous at the given points. If they are not, can they be redefined to be continuous?*
 
     1) $f(x) = \frac{x^2-25}{x+5}$ dla $x \neq -5$ i $f(-5)=-10$.
     2) $f(x) = \frac{\sin x}{x}$ dla $x \neq 0$ i $f(0)=1$.
@@ -103,9 +103,9 @@
     15) $x e^{\frac{1}{x}}$ w punkcie $x=0$.
     16) $\frac{x}{2x+e^{\frac{1}{x-1}}}$ w punkcie $x=1$.
 
-## Pochodne funkcji
+## Pochodne funkcji / *Derivatives of functions*
 
-1. Oblicz pochodne funkcji
+1. Oblicz pochodne funkcji / *Calculate the derivatives of the functions*
 
     1) $y = \frac{1}{3}x^3 - \frac{3}{2}x^4 + \frac{13}{5}x^5 - 2x^6$
     2) $y = 5x^{15} - x^2 + \frac{1}{3}x - 2$
@@ -262,7 +262,7 @@
     153) $y = x^{\sqrt{\frac{1}{x}}}$
 
 
-1. Zbadaj przebieg funkcji
+1. Zbadaj przebieg funkcji / *Analyze the course of the function*
 
     1) $y = x^2 \ln x$
     2) $y = (\ln x)^3 - 3 \ln x$
@@ -295,7 +295,7 @@
     29) $y = e^{\arcsin \sqrt{x}}$
     30) $y = \text{arctg}(\ln x)$
 
-1. Oblicz całki
+1. Oblicz całki / *Calculate the integrals*
     1) $\int \frac{x\sqrt{x} - x\sqrt[4]{x}}{\sqrt[3]{x}} dx$
     2) $\int (3+2\sqrt[4]{x})^3 dx$
     3) $\int \frac{\sqrt{x}-2\sqrt[3]{x^2}+4\sqrt[6]{x^3}}{6\sqrt[3]{x}} dx$
