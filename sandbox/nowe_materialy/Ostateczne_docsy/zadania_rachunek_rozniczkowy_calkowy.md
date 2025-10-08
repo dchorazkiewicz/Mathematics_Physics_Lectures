@@ -261,6 +261,7 @@
     152) $y = (1+\frac{1}{x})^x$
     153) $y = x^{\sqrt{\frac{1}{x}}}$
 
+## Badanie przebiegu funkcji
 
 1. Zbadaj przebieg funkcji
 
