@@ -9,13 +9,30 @@ cd "$SCRIPT_DIR"
 
 # Simple list of files to convert (new prefixed names)
 FILES=(
-	"code_en.md"
-	"code_pl.md"
-	"plan_en.md"
-	"plan_pl.md"
-	"zadania_algebra_liniowa.md"
-	"zadania_geometria_analityczna.md"
-	"zadania_rachunek_rozniczkowy_calkowy.md"
+	1_1_Algebra_en.md
+	1_1_Algebra.md
+	1_2_Algebra_en.md
+	1_2_Algebra.md
+	1_3_Algebra_en.md
+	1_3_Algebra.md
+	1_4_Algebra_en.md
+	1_4_Algebra.md
+	2_1_Geometria.md
+	2_1_Geometry_en.md
+	2_2_Geometria.md
+	2_2_Geometry_en.md
+	2_3_Geometria.md
+	2_3_Geometry_en.md
+	3_1_Calculus_en.md
+	3_1_Rachunek.md
+	3_2_Calculus_en.md
+	3_2_Rachunek.md
+	3_3_Calculus_en.md
+	3_3_Rachunek.md
+	3_4_Calculus_en.md
+	3_4_Rachunek.md
+	3_5_Calculus_en.md
+	3_5_Rachunek.md
 )
 
 MARGIN="3cm"

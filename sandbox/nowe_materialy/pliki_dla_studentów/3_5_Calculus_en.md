@@ -69,7 +69,7 @@ Approach this task diligently. The goal is understanding. Failure to master the 
 **Key concepts:** In this section you'll see how differential equations model the world.
 
 * **Step 1: Building intuition**
-    * **Prompt 4.1:** "Show how the harmonic oscillator equation (y'' + ω² y = 0) models the motion of a pendulum or a mass-spring system. What physical meaning do the parameters in the solution have (amplitude, phase, frequency)?"
+    * **Prompt 4.1:** "Show how the harmonic oscillator equation ($y'' + $\omega^2$ y = 0) models the motion of a pendulum or a mass-spring system. What physical meaning do the parameters in the solution have (amplitude, phase, frequency)?"
     * **Prompt 4.2:** "Give other examples of differential equations used in physics, engineering, biology or economics."
 
 * **Step 2: Practice and interactive tasks**

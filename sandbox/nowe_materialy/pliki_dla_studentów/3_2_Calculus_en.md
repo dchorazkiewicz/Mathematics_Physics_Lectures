@@ -54,7 +54,7 @@ Approach this task diligently. The goal is understanding. Failure to master the 
 
 * **Step 1: Building intuition**
     * **Prompt 3.1:** "What are the basic 'arithmetic' rules for computing limits? Explain the limit theorems for the sum, product and quotient of functions with simple examples."
-    * **Prompt 3.2:** "What are indeterminate forms such as [0/0], [∞/∞] or [∞ - ∞]? Why can't we just evaluate them directly? Give examples of different limits that lead to [0/0] but yield different results."
+    * **Prompt 3.2:** "What are indeterminate forms such as [0/0], [$\infty$/$\infty$] czy [$\infty$ - $\infty$]? Why can't we just evaluate them directly? Give examples of different limits that lead to [0/0] but yield different results."
 
 * **Step 2: Practice and interactive tasks**
     * **Prompt 3.3:** "I need to compute the limit of f(x) = (2x² - 2)/(x - 1) as x approaches 1. Guide me step by step through the calculation, showing how we first get the indeterminate form [0/0] and then deal with it by simplifying the expression."
