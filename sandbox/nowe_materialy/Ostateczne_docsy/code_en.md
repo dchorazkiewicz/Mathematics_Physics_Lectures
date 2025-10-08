@@ -42,6 +42,7 @@ The course is based on the **"Flipped Classroom"** model. This means you acquire
 We have prepared **12 comprehensive didactic sets** for you.
 
 They cover **three basic areas**:
+
 * Linear Algebra,
 * Analytic Geometry,
 * Differential Calculus.
@@ -101,6 +102,7 @@ To fully leverage the potential of modern language models, it's worth knowing ho
 If you use AI tools in your learning process, it is your responsibility to document these interactions. Every conversation with AI regarding course material must be saved, for example, as a single file (using the SingleFile extension for your browser). Such an archive will be the basis for discussion during the final oral interview.
 
 What do we expect from your archive? The archive is not just proof of your work, but above all, a record of your thought process:
+
 * **Quality of interaction:** Do you ask in-depth questions, request examples and alternative explanations, rather than just asking for ready-made solutions?
 * **Critical analysis:** Do you verify the AI's answers, ask about unclear parts, or try to find errors in the model's reasoning?
 * **Independence:** Does the conversation show that you first tried to tackle the problem on your own, and AI served as support when you got stuck?
@@ -151,6 +153,7 @@ In the middle of the semester, we will provide a short, anonymous survey. We wan
 Yes! Using AI is not only allowed but even recommended as a tool to support learning. However, it is important that you independently understand and can explain the solutions you get with AI and use it to deepen your knowledge, not just to get ready-made answers.
 
 Use AI to:
+
 * Explain difficult concepts.
 * Get hints when you get stuck.
 * Verify your own line of thinking.
@@ -190,10 +193,12 @@ Do you want to get a grade higher than 3.0? Absolutely no problem! You just have
 To effectively prepare for the exam interview, it's good to know what to expect.
 
 **Interview Structure:**
+
 * The interview will start by discussing a topic you have chosen from your learning process archive. This will be the starting point for a deeper discussion.
 * Then I will ask 2-3 questions to verify your general understanding of the key concepts from the whole course.
 
 **What questions might be asked?**
+
 * **Conceptual questions:** *e.g., "Please explain what a basis of a vector space is and why it is an important concept."*
 * **Problem-solving questions:** *e.g., "How would the solution to this problem change if we removed one of the assumptions?"*
 * **Questions about your learning process (metacognitive):** *e.g., "Analyzing your conversation with AI about limits, what was the most difficult part for you and how did you finally understand it?"*

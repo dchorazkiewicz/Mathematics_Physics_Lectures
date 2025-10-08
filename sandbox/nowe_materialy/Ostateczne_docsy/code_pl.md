@@ -40,6 +40,7 @@ Kurs opiera się na modelu **"odwróconej klasy" (Flipped Classroom)**. Oznacza 
 Przygotowaliśmy dla Ciebie **12 kompleksowych zestawów dydaktycznych**. 
 
 Obejmują one **trzy podstawowe działy**: 
+
 * algebra liniowa, 
 * geometria analityczna, 
 * rachunek różniczkowy. 
@@ -100,6 +101,7 @@ To nie tylko wydawanie poleceń, ale też korzystanie z wbudowanych funkcji, kt�
 Jeśli w procesie nauki korzystasz z narzędzi AI, Twoim obowiązkiem jest dokumentowanie tych interakcji. Każdą rozmowę z AI, dotyczącą materiału z kursu, należy zapisać np. w formie pojedynczego pliku (rozszerzenie SingleFile do przeglądarki). Takie archiwum będzie podstawą do dyskusji podczas rozmowy zaliczeniowej.
 
 Czego oczekujemy od Twojego archiwum? Archiwum to nie tylko dowód Twojej pracy, ale przede wszystkim zapis Twojego procesu myślowego:
+
 * **Jakość interakcji:** Czy zadajesz pytania pogłębiające, prosisz o przykłady i alternatywne wyjaśnienia, a nie tylko o gotowe rozwiązania?
 * **Krytyczna analiza:** Czy weryfikujesz odpowiedzi AI, dopytujesz o niejasne fragmenty lub próbujesz znaleźć błędy w rozumowaniu modelu?
 * **Samodzielność:** Czy z rozmowy wynika, że najpierw próbowałeś/aś samodzielnie zmierzyć się z problemem, a AI posłużyło jako wsparcie w momencie, gdy utknąłeś/ęłaś?
@@ -149,6 +151,7 @@ W połowie semestru udostępnimy krótką, anonimową ankietę. Chcemy poznać W
 Tak! Korzystanie z AI jest nie tylko dozwolone, ale wręcz zalecane jako narzędzie wspomagające naukę. Jednak ważne jest, abyś samodzielnie rozumiał i potrafił wyjaśnić rozwiązania, które otrzymujesz za pomocą AI i używał jej do pogłębiania swojej wiedzy, a nie tylko do uzyskiwania gotowych odpowiedzi.
 
 Używaj AI, aby:
+
 * Wyjaśniać trudne pojęcia.
 * Otrzymywać wskazówki, gdy utkniesz.
 * Weryfikować własny tok myślenia.
@@ -188,6 +191,7 @@ Chcesz uzyskać ocenę wyższą niż 3.0? Absolutnie nie ma problemu! Po prostu 
 Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodziewać.
 
 **Struktura rozmowy:**
+
 * Rozmowa zacznie się od omówienia wybranego przez Ciebie zagadnienia z Twojego archiwum procesu nauki. Będzie to punkt wyjścia do głębszej dyskusji.
 * Następnie zadam 2-3 pytania weryfikujące Twoje ogólne zrozumienie kluczowych koncepcji z całego kursu.
 
@@ -197,6 +201,7 @@ Aby skutecznie przygotować się do rozmowy, warto wiedzieć, czego się spodzie
 * **Pytania dotyczące Twojego procesu nauki (metapoznawcze):** *np. "Analizując Twoją rozmowę z AI na temat granic, co sprawiło Ci największą trudność i jak ostatecznie to zrozumiałeś/aś?"*
 
 **Jak się przygotować?**
+
 * **Głębokie zrozumienie materiału:** Pracuj nad zrozumieniem koncepcji, a nie tylko zapamiętywaniem faktów.
 * **Praktyka argumentacji:** Ćwicz głośne wyjaśnianie kluczowych pojęć i kroków rozwiązania, tak jakbyś tłumaczył je komuś innemu. Dobrą praktyką jest pisanie argumentacji w chatbotach AI, które mogą pomóc w sprawdzeniu jasności i logiki Twojego wywodu!
 * **Samodzielne rozwiązywanie problemów:** Staraj się rozwiązywać różnorodne zadania, aby być przygotowanym na różne typy pytań. Kartka i długopis są Twoimi przyjaciółmi! Zawsze możesz zrobić zdjęcie notatek i wysłać je do AI, aby uzyskać dodatkowe wskazówki.

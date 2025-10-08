@@ -9,6 +9,8 @@ cd "$SCRIPT_DIR"
 
 # Simple list of files to convert (new prefixed names)
 FILES=(
+	"code_en.md"
+	"code_pl.md"
 	"zadania_algebra_liniowa.md"
 	"zadania_geometria_analityczna.md"
 	"zadania_rachunek_rozniczkowy_calkowy.md"
