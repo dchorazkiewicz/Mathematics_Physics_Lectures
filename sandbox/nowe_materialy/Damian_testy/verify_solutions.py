@@ -34,7 +34,7 @@ logger = logging.getLogger()
 
 def log_task(section, task_num, description=""):
     """Loguje nagłówek nowego zadania."""
-    header = f" Dział {section} — Zadanie {task_num} "
+    header = f"\n Dział {section} — Zadanie {task_num} "
     separator = "=" * (80 - len(header))
     logger.info(f"\n{separator}{header}")
     if description:
@@ -51,10 +51,11 @@ def log_info(message):
 
 def log_check(label, value1, value2, result):
     """Loguje sprawdzenie równości."""
-    logger.info(f"Sprawdzenie: {label}")
+    logger.info(f"\n\nSprawdzenie: {label}")
     logger.info(f"  LHS:\n{sp.pretty(value1, use_unicode=True)}")
     logger.info(f"  RHS:\n{sp.pretty(value2, use_unicode=True)}")
-    logger.info(f"  Wynik: {result}")
+    logger.info(f"  Wynik: {result}\n")
+    logger.info(f"\n======================\n\n")
 
 # --- Główna funkcja rozwiązująca ---
 
