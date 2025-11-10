@@ -72,15 +72,10 @@ Let $A$ be a $2 \times 2$ matrix with a determinant equal to $5$. Calculate the 
 
 The vector $\mathbf{v} = [\sqrt{2},-\sqrt{2}]$ is rotated by an angle of $\frac{\pi}{2}$. What is the new value of the vector $\mathbf{v'}$?
 
-* A) $[
-e{\sqrt{2}},
-e{\sqrt{3}}]$
-* B) $[-\sqrt{2},
-e{\sqrt{2}}]$
+* A) $[{\sqrt{2}},{\sqrt{3}}]$
+* B) $[-\sqrt{2},{\sqrt{2}}]$
 * C) $[-\sqrt{2},-\sqrt{2}]$
-* D) $[
-e{\sqrt{2}},
-e{\sqrt{2}}]$
+* D) $[{\sqrt{2}},{\sqrt{2}}]$
 
 ## Problem 6
 
