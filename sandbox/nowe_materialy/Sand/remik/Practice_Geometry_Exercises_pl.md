@@ -42,7 +42,7 @@ $$\mathbf{v}=[-1,3,0]\qquad oraz \qquad \mathbf{u}=[0,1,1]$$
 
 14.  Udowodnij, że dwa wektory muszą mieć równe długości, jeśli ich suma jest prostopadła do ich różnicy.
 
-15.  Mamy 2 osoby (A i B) idące sobie zgodnie z wzorami:
+15.  $\star$ Mamy 2 osoby (A i B) idące sobie zgodnie z wzorami:
 
     A: $(4,5)+(1,-2) t$
     
@@ -102,4 +102,34 @@ $$\ell(\lambda): x=\lambda+t,\; y=1+2t,\; z=2-t$$
 
 $$\pi: x - (\lambda-1) y + z - 3 = 0$$
 
-   Określ wartości $\lambda$, dla których prosta jest równoległa do płaszczyzny, zawarta w płaszczyźnie lub przecina ją w jednym punkcie.
+Określ wartości $\lambda$, dla których prosta jest równoległa do płaszczyzny, zawarta w płaszczyźnie lub przecina ją w jednym punkcie.
+
+## $\star$ Krzywe Drugiego Rodzaju (Krzywe Stożkowe) w 2D
+
+1. Napisz równania krzywych stożkowych (okrąg, elipsa, hiperbola, parabola) dla poniższych środków $S$ (lub wierzchołków $W$ dla paraboli):
+
+| Rodzaj | Środek $S_1$ / Wierzchołek $W_1$ | Środek $S_2$ / Wierzchołek $W_2$ |
+| :--- | :--- | :--- |
+| **Okrąg** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Elipsa** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Hiperbola** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Parabola** | $W=(0,0)$ | $W=(1,-2)$ |
+
+$\star$ Sprawdź wszystkie powyższe przypadki w **GeoGebrze**, podstawiając konkretne wartości parametrów.
+
+2. Napisz **Ogólne Równanie Krzywej Drugiego Rodzaju**.
+
+## $\star$ Powierzchnie Drugiego Rodzaju w 3D
+
+1. Napisz równania kwadryk (sfera, elipsoida, hiperboloida, paraboloida) dla poniższych środków $S$ (lub wierzchołków $W$ dla paraboloidy):
+
+| Rodzaj | Środek $S_1$ / Wierzchołek $W_1$ | Środek $S_2$ / Wierzchołek $W_2$ |
+| :--- | :--- | :--- |
+| **Sfera** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Elipsoida** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Hiperboloida** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Paraboloida** | $W=(0,0,0)$ | $W=(1,-2, 3)$ |
+
+$\star$ Sprawdź wszystkie powyższe przypadki w **GeoGebrze**, podstawiając konkretne wartości parametrów.
+
+2. Napisz **Ogólne Równanie Powierzchni Drugiego Rodzaju**.
