@@ -40,7 +40,7 @@ $$\mathbf{v}=[-1,3,0]\qquad \text{and} \qquad \mathbf{u}=[0,1,1]$$
 
 14.  Prove that two vectors must have equal lengths if their sum is perpendicular to their difference.
 
-15.  We have 2 people (A and B) moving according to the formulas:
+15.  $\star$ We have 2 people (A and B) moving according to the formulas:
 
       A: $(4,5)+(1,-2) t$
       
@@ -101,3 +101,35 @@ $$\ell(\lambda): x=\lambda+t,\; y=1+2t,\; z=2-t$$
 $$\pi: x - (\lambda-1) y + z - 3 = 0$$
 
    Determine the values of $\lambda$ for which the line is parallel to the plane, contained in the plane, or intersects it at one point.
+
+## $\star$ Second Degree Curves (Conic Sections) in 2D
+
+1. Write the equations of the conic sections (circle, ellipse, hyperbola, parabola) for the following centers $S$ (or vertices $W$ for the parabola):
+
+| Type | Center $S_1$ / Vertex $W_1$ | Center $S_2$ / Vertex $W_2$ |
+| :--- | :--- | :--- |
+| **Circle** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Ellipse** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Hyperbola** | $S=(0,0)$ | $S=(1,-2)$ |
+| **Parabola** | $W=(0,0)$ | $W=(1,-2)$ |
+
+$\star$ Check all the above cases in **GeoGebra**, substituting specific values for the parameters.
+
+2. Write the **General Equation of a Second Degree Curve**.
+
+---
+
+## $\star$ Second Degree Surfaces (Quadrics) in 3D
+
+1. Write the equations of the quadric surfaces (sphere, ellipsoid, hyperboloid, paraboloid) for the following centers $S$ (or vertices $W$ for the paraboloid):
+
+| Type | Center $S_1$ / Vertex $W_1$ | Center $S_2$ / Vertex $W_2$ |
+| :--- | :--- | :--- |
+| **Sphere** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Ellipsoid** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Hyperboloid** | $S=(0,0,0)$ | $S=(1,-2, 3)$ |
+| **Paraboloid** | $W=(0,0,0)$ | $W=(1,-2, 3)$ |
+
+$\star$ Check all the above cases in **GeoGebra**, substituting specific values for the parameters.
+
+2. Write the **General Equation of a Second Degree Surface**.
