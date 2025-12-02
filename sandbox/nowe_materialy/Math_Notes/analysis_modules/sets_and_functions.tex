@@ -1,0 +1,52 @@
+\section*{Sets and Functions}
+
+\subsection*{Cartesian Product and Relations}
+
+\paragraph{Cartesian Product}
+Given two sets $A$ and $B$, the Cartesian product of $A$ and $B$, denoted as $A \times B$, is the set of all ordered pairs $(a, b)$, where $a \in A$ and $b \in B$. Formally:
+\[
+A \times B = \{ (a, b) \mid a \in A \land b \in B \}
+\]
+
+\paragraph{Binary Relation}
+A binary relation $\mathcal{R}$ (or simply a relation) from a set $A$ to a set $B$ is any subset of the Cartesian product $A \times B$.
+\[
+\mathcal{R} \subseteq A \times B
+\]
+If $(a, b) \in \mathcal{R}$, we say that element $a$ is in relation $\mathcal{R}$ with element $b$, which is also written as $a \mathcal{R} b$.
+If $A = B$, we say that $\mathcal{R}$ is a relation on the set $A$.
+
+\paragraph{Example}
+Let $A = \{1, 2, 3\}$ and $B = \{x, y\}$. Then the Cartesian product $A \times B$ is:
+\[
+A \times B = \{ (1, x), (1, y), (2, x), (2, y), (3, x), (3, y) \}
+\]
+A relation $\mathcal{R}$ could be, for example, the subset $\mathcal{R} = \{ (1, x), (2, y), (3, x) \}$.
+
+\subsection*{Functions as a Special Type of Relation}
+
+\paragraph{Definition of a Function}
+A function $f$ from a set $X$ (called the domain) to a set $Y$ (called the codomain) is a binary relation $f \subseteq X \times Y$ that satisfies the following condition:
+\[
+\forall_{x \in X} \quad \exists!_{y \in Y} \quad (x, y) \in f
+\]
+The symbol $\exists!$ means "there exists exactly one".
+
+In other words, a function is a relation in which every element of the domain $X$ is associated with exactly one element of the codomain $Y$. Instead of writing $(x, y) \in f$, we use the more common notation $y = f(x)$.
+
+\paragraph{Formal Conditions for the Definition of a Function}
+A relation $\mathcal{R} \subseteq X \times Y$ is a function if it satisfies two conditions:
+\begin{enumerate}
+    \item \textbf{Existence Condition:} For every element $x \in X$, there exists at least one element $y \in Y$ such that $(x, y) \in \mathcal{R}$.
+    \[ \forall_{x \in X} \exists_{y \in Y} : (x, y) \in \mathcal{R} \]
+    \item \textbf{Uniqueness Condition (Right-Uniqueness):} If an element $x \in X$ is in relation with $y_1 \in Y$ and also with $y_2 \in Y$, then it must be that $y_1 = y_2$.
+    \[ \forall_{x \in X} \forall_{y_1, y_2 \in Y} : \left( (x, y_1) \in \mathcal{R} \land (x, y_2) \in \mathcal{R} \right) \implies y_1 = y_2 \]
+\end{enumerate}
+
+\paragraph{Example}
+Consider the sets $X = \{1, 2, 3\}$ and $Y = \{a, b, c\}$.
+\begin{itemize}
+    \item The relation $\mathcal{R}_1 = \{ (1, a), (2, b), (3, c) \}$ is a function. Every element in $X$ corresponds to exactly one element in $Y$.
+    \item The relation $\mathcal{R}_2 = \{ (1, a), (2, b) \}$ is not a function because the element $3 \in X$ has no corresponding element in $Y$ (it fails the existence condition).
+    \item The relation $\mathcal{R}_3 = \{ (1, a), (1, b), (2, c), (3, a) \}$ is not a function because the element $1 \in X$ is associated with two different elements from $Y$: $a$ and $b$ (it fails the uniqueness condition).
+\end{itemize}

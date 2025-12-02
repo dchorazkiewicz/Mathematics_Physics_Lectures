@@ -1,0 +1,109 @@
+\section*{Limits}
+
+\subsection*{Limit of a Sequence}
+
+\paragraph{Formal Definition}
+A number $L \in \mathbb{R}$ is the limit of a sequence of real numbers $(a_n)_{n=1}^{\infty}$ if for every real number $\varepsilon > 0$, there exists a natural number $N$ such that for all $n > N$, the inequality $|a_n - L| < \varepsilon$ holds.
+
+We write this as:
+\[ \lim_{n \to \infty} a_n = L \]
+which is equivalent to:
+\[
+\forall_{\varepsilon > 0} \quad \exists_{N \in \mathbb{N}} \quad \forall_{n > N} \quad |a_n - L| < \varepsilon
+\]
+
+\subsection*{Limit of a Function}
+
+The limit of a function at a point can be defined in two equivalent ways: the Cauchy definition (using $\varepsilon$ and $\delta$) and the Heine definition (using sequences).
+
+\paragraph{Cauchy's Definition (\(\varepsilon\)-\(\delta\))}
+Let $f$ be a real-valued function defined on a subset $D \subseteq \mathbb{R}$, and let $c$ be a limit point of $D$. A number $L \in \mathbb{R}$ is the limit of the function $f$ as $x$ approaches $c$ if for every $\varepsilon > 0$, there exists a $\delta > 0$ such that for all $x \in D$, if $0 < |x - c| < \delta$, then $|f(x) - L| < \varepsilon$.
+
+We write this as:
+\[ \lim_{x \to c} f(x) = L \]
+which is equivalent to:
+\[
+\forall_{\varepsilon > 0} \quad \exists_{\delta > 0} \quad \forall_{x \in D} \quad (0 < |x - c| < \delta \implies |f(x) - L| < \varepsilon)
+\]
+The condition $0 < |x - c|$ means that we do not consider the value of $f(c)$ itself when determining the limit.
+
+\paragraph{Heine's Definition (Sequential)}
+Let $f$ be a real-valued function defined on a subset $D \subseteq \mathbb{R}$, and let $c$ be a limit point of $D$. A number $L \in \mathbb{R}$ is the limit of the function $f$ as $x$ approaches $c$ if for every sequence $(x_n)_{n=1}^{\infty}$ of elements in $D \setminus \{c\}$ that converges to $c$, the sequence of function values $(f(x_n))_{n=1}^{\infty}$ converges to $L$.
+
+Formally:
+\[ \lim_{x \to c} f(x) = L \]
+is equivalent to:
+\[
+\forall_{(x_n) \subseteq D \setminus \{c\}} \quad \left( \left( \lim_{n \to \infty} x_n = c \right) \implies \left( \lim_{n \to \infty} f(x_n) = L \right) \right)
+\]
+
+\paragraph{Equivalence}
+The Cauchy and Heine definitions of the limit of a function are equivalent. This is a fundamental theorem in real analysis.
+
+\subsection*{Algebra of Limits}
+
+In this section, we present the main theorems regarding arithmetic operations on limits. We will focus on sequences, but analogous theorems hold for functions.
+
+\paragraph{Theorem (Sum of Limits)}
+Let $(a_n)$ and $(b_n)$ be two sequences of real numbers such that $\lim_{n \to \infty} a_n = A$ and $\lim_{n \to \infty} b_n = B$. Then the limit of the sum of these sequences exists and is equal to the sum of their limits:
+\[
+\lim_{n \to \infty} (a_n + b_n) = A + B
+\]
+
+\paragraph{Proof}
+By the definition of a limit, we have:
+\[
+\forall_{\varepsilon_A > 0}\exists_{N_A \in \mathbb{N}} : \forall_{n > N_A} \quad |a_n - A| < \varepsilon_A
+\]
+\[
+\forall_{\varepsilon_B > 0}\exists_{N_B \in \mathbb{N}} : \forall_{n > N_B} \quad |b_n - B| < \varepsilon_B
+\]
+We want to show that for any $\varepsilon > 0$, there exists an $N$ such that for all $n > N$, $|(a_n + b_n) - (A + B)| < \varepsilon$.
+
+Let $\varepsilon > 0$ be given. Let's choose $\varepsilon_A = \varepsilon/2$ and $\varepsilon_B = \varepsilon/2$. From the definitions of the limits of $(a_n)$ and $(b_n)$, there exist $N_A$ and $N_B$ corresponding to these choices.
+
+Let $N = \max(N_A, N_B)$. Then for any $n > N$, both inequalities $|a_n - A| < \varepsilon/2$ and $|b_n - B| < \varepsilon/2$ hold.
+
+Using the triangle inequality, we can write:
+\begin{align*}
+|(a_n + b_n) - (A + B)| &= |(a_n - A) + (b_n - B)| \\
+&\le |a_n - A| + |b_n - B| \\
+&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} \\
+&= \varepsilon
+\end{align*} 
+Thus, we have shown that for any $\varepsilon > 0$, there exists an $N$ such that for all $n > N$, $|(a_n + b_n) - (A + B)| < \varepsilon$. This completes the proof.
+\hfill $\blacksquare$
+
+\paragraph{Theorem (Product of Limits)}
+Let $(a_n)$ and $(b_n)$ be two sequences such that $\lim_{n \to \infty} a_n = A$ and $\lim_{n \to \infty} b_n = B$. Then:
+\[
+\lim_{n \to \infty} (a_n \cdot b_n) = A \cdot B
+\]
+
+\paragraph{Proof}
+Since the sequence $(a_n)$ is convergent, it is bounded. This means there exists a real number $M > 0$ such that $|a_n| \le M$ for all $n \in \mathbb{N}$.
+
+Let $\varepsilon > 0$ be given. From the definitions of the limits of $(a_n)$ and $(b_n)$:
+For $\frac{\varepsilon}{2M} > 0$, there exists an $N_B \in \mathbb{N}$ such that for all $n > N_B$:
+\[ |b_n - B| < \frac{\varepsilon}{2M} \]
+For $\frac{\varepsilon}{2(|B| + 1)} > 0$ (we use $|B|+1$ to avoid division by zero if $B=0$), there exists an $N_A \in \mathbb{N}$ such that for all $n > N_A$:
+\[ |a_n - A| < \frac{\varepsilon}{2(|B| + 1)} \]
+Let $N = \max(N_A, N_B)$. For any $n > N$, we can estimate the difference $|a_n b_n - AB|$:
+\begin{align*}
+|a_n b_n - AB| &= |a_n b_n - a_n B + a_n B - AB| \\
+&= |a_n(b_n - B) + B(a_n - A)| \\
+&\le |a_n(b_n - B)| + |B(a_n - A)| \quad \text{(by triangle inequality)} \\
+&= |a_n| |b_n - B| + |B| |a_n - A| \\
+&\le M |b_n - B| + |B| |a_n - A| \\
+&< M \left( \frac{\varepsilon}{2M} \right) + |B| \left( \frac{\varepsilon}{2(|B| + 1)} \right) \\
+&= \frac{\varepsilon}{2} + \frac{|B|}{|B|+1} \cdot \frac{\varepsilon}{2} \\
+&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+\end{align*}
+This shows that $\lim_{n \to \infty} (a_n \cdot b_n) = AB$.
+\hfill $\blacksquare$
+
+\paragraph{Theorem (Quotient of Limits)}
+Let $(a_n)$ and $(b_n)$ be two sequences such that $\lim_{n \to \infty} a_n = A$ and $\lim_{n \to \infty} b_n = B$. If $B \neq 0$ and $b_n \neq 0$ for all $n$, then:
+\[
+\lim_{n \to \infty} \frac{a_n}{b_n} = \frac{A}{B}
+\]
