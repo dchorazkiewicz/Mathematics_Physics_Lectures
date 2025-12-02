@@ -1,0 +1,38 @@
+\documentclass[12pt, a4paper]{report}
+
+% --- Ustawienia języka i kodowania ---
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% --- Pakiety matematyczne ---
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+% --- Ustawienia strony ---
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{graphicx}
+
+% --- Metadane dokumentu ---
+\title{Zbiór Zadań z Matematyki Wyższej}
+\author{Twoje Imię i Nazwisko}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+% --- Dołączanie rozdziałów ---
+\include{01-algebra}
+\include{02-analiza}
+\include{03-geometria}
+
+% --- Moduły Analizy: dodatkowe pliki wpinane przez \input ---
+% Folder: sandbox/nowe_materialy/Math_Notes/analiza_moduly/
+% Każdy moduł powinien używać \subsection* lub \paragraph i nie posiadać preambuły.
+
+
+\end{document}
+

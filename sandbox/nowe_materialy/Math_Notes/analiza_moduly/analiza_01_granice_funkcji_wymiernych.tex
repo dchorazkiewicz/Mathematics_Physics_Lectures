@@ -1,0 +1,105 @@
+% Moduł: Granice funkcji wymiernych — technika wyciągania najwyższej potęgi
+
+\subsection*{Granice funkcji wymiernych: wyciąganie najwyższej potęgi}
+
+Celem jest obliczanie granic funkcji wymiernych (ilorazów wielomianów) przez jawne wyciągnięcie najwyższej potęgi zmiennej przed nawias. Metoda jest przejrzysta, stabilna obliczeniowo i prowadzi do poprawnego wyniku zarówno dla $x\to \infty$, $x\to -\infty$, jak i dla punktów skończonych, w których licznik i mianownik jednocześnie dążą do zera.
+
+\paragraph{Idea metody}
+Niech \(P(x)\) i \(Q(x)\) będą wielomianami stopnia odpowiednio \(n\) i \(m\):
+\[
+P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0,\quad\quad Q(x) = b_m x^m + b_{m-1} x^{m-1} + \dots + b_0,
+\]
+przy czym \(a_n\neq 0\) i \(b_m\neq 0\).
+
+Rozważamy granicę \(\displaystyle \lim_{x\to\infty} \frac{P(x)}{Q(x)}\). Kluczowy krok:
+- wyciągamy z licznika \(x^n\), a z mianownika \(x^m\),
+- następnie upraszczamy iloraz \(x^n/x^m\) oraz analizujemy pozostałe czynniki, które stają się współczynnikami (lub znikają) w granicy.
+
+\paragraph{Formalny zapis kroku wyciągania}
+Dla \(x\neq 0\):
+\begin{align}
+\frac{P(x)}{Q(x)}
+&= \frac{x^n\left(a_n + a_{n-1}\,x^{-1} + \dots + a_0\,x^{-n}\right)}{x^m\left(b_m + b_{m-1}\,x^{-1} + \dots + b_0\,x^{-m}\right)} \\
+&= x^{n-m} \cdot \frac{a_n + a_{n-1}\,x^{-1} + \dots + a_0\,x^{-n}}{b_m + b_{m-1}\,x^{-1} + \dots + b_0\,x^{-m}}.
+\end{align}
+Ponieważ \(\lim_{x\to\infty} x^{-k} = 0\) dla każdego \(k\in\mathbb{N}\), dostajemy trzy przypadki:
+\[
+\lim_{x\to\infty} \frac{P(x)}{Q(x)} =
+\begin{cases}
+0, & n < m, \\
+\dfrac{a_n}{b_m}, & n = m, \\
+\operatorname{sgn}(x^{n-m})\cdot \infty & n > m\ \text{(tj. granica niewłaściwa; rośnie/jest nieograniczona)}.
+\end{cases}
+\]
+W przypadku \(x\to -\infty\) znak \(x^{n-m}\) zależy od parzystości \(n-m\).
+
+\paragraph{Przykład 1: wielomian przez wielomian dla $x\to\infty$}
+Obliczmy \(\displaystyle \lim_{x\to\infty} \frac{2x^3 - 5x^2 + x - 7}{x^3 + 4x - 1}\).
+
+Wyciągamy najwyższą potęgę \(x^3\) z licznika i mianownika:
+\begin{align}
+\frac{2x^3 - 5x^2 + x - 7}{x^3 + 4x - 1}
+&= \frac{x^3\left(2 - 5\,x^{-1} + 1\,x^{-2} - 7\,x^{-3}\right)}{x^3\left(1 + 4\,x^{-2} - 1\,x^{-3}\right)} \\
+&= \frac{2 - 5\,x^{-1} + x^{-2} - 7\,x^{-3}}{1 + 4\,x^{-2} - x^{-3}}.
+\end{align}
+Każdy składnik \(x^{-k}\) dąży do zera, stąd
+\[
+\lim_{x\to\infty} \frac{2x^3 - 5x^2 + x - 7}{x^3 + 4x - 1} = \frac{2}{1} = 2.
+\]
+To jest zgodne z zasadą: stopnie równe \(n=m=3\) dają iloraz wiodących współczynników \(a_n/b_m\).
+
+\paragraph{Przykład 2: przypadek $n<m$}
+Obliczmy \(\displaystyle \lim_{x\to\infty} \frac{3x^2 - x + 4}{5x^4 + x}\).
+
+Wyciągamy najwyższe potęgi:
+\begin{align}
+\frac{3x^2 - x + 4}{5x^4 + x}
+&= \frac{x^2\left(3 - 1\,x^{-1} + 4\,x^{-2}\right)}{x^4\left(5 + 1\,x^{-3}\right)} \\
+&= x^{-2}\cdot \frac{3 - x^{-1} + 4\,x^{-2}}{5 + x^{-3}}.
+\end{align}
+Ponieważ \(x^{-2} \to 0\) i pozostały ułamek dąży do \(\frac{3}{5}\), całość dąży do zera:
+\[
+\lim_{x\to\infty} \frac{3x^2 - x + 4}{5x^4 + x} = 0.
+\]
+
+\paragraph{Przykład 3: przypadek $n>m$}
+Obliczmy \(\displaystyle \lim_{x\to\infty} \frac{x^5 - 2x}{3x^2 + 1}\).
+\begin{align}
+\frac{x^5 - 2x}{3x^2 + 1}
+&= \frac{x^5\left(1 - 2\,x^{-4}\right)}{x^2\left(3 + 1\,x^{-2}\right)} \\
+&= x^{3}\cdot \frac{1 - 2\,x^{-4}}{3 + x^{-2}}.
+\end{align}
+Iloraz w nawiasie dąży do \(\frac{1}{3}\), ale czynnik \(x^3\to \infty\), zatem granica jest niewłaściwa (również \(+\infty\) dla \(x\to\infty\)).
+
+\paragraph{Granice w punktach skończonych z nieoznaczonością $\frac{0}{0}$}
+Rozważmy \(\displaystyle \lim_{x\to 1} \frac{x^3 - 1}{x^2 - 1}\). W punkcie \(x=1\) zarówno licznik, jak i mianownik są równe zero. Zastosujemy jawny rozkład na czynniki oraz wyciągnięcie potęg względem \((x-1)\).
+
+Krok 1: rozkład wielomianów.
+\[
+x^3 - 1 = (x-1)(x^2 + x + 1),\quad x^2 - 1 = (x-1)(x+1).
+\]
+Krok 2: skrócenie wspólnego czynnika \((x-1)\) dla \(x\neq 1\):
+\begin{align}
+\frac{x^3 - 1}{x^2 - 1}
+&= \frac{(x-1)(x^2 + x + 1)}{(x-1)(x+1)} \\
+&= \frac{x^2 + x + 1}{x+1}.
+\end{align}
+Krok 3: obliczenie granicy poprzez ciągłość: otrzymana funkcja jest ciągła w \(x=1\), więc
+\[
+\lim_{x\to 1} \frac{x^3 - 1}{x^2 - 1} = \left.\frac{x^2 + x + 1}{x+1}\right|_{x=1} = \frac{1 + 1 + 1}{2} = \frac{3}{2}.
+\]
+Alternatywnie, można potraktować oba wielomiany jako szeregi w zmiennej \(h = x-1\), wyciągając najwyższą wspólną potęgę \(h\).
+
+\paragraph{Uwagi o $x\to -\infty$}
+W przypadku granic dla \(x\to -\infty\) należy dodatkowo śledzić znak \(x^{n-m}\). Jeżeli \(n=m\), wynik pozostaje \(a_n/b_m\). Jeżeli \(n>m\), to:
+\[
+\lim_{x\to -\infty} x^{n-m} =
+\begin{cases}
++\infty, & n-m \text{ parzyste}, \\
+-\infty, & n-m \text{ nieparzyste}.
+\end{cases}
+\]
+Iloraz w nawiasie nadal dąży do \(a_n/b_m\), więc kierunek nieograniczonego wzrostu zależy od parzystości.
+
+\paragraph{Podsumowanie}
+Metoda wyciągania najwyższej potęgi sprowadza granicę funkcji wymiernej do analizy prostych czynników \(x^{n-m}\) oraz stabilnego ilorazu współczynników wiodących. Dla punktów skończonych z nieoznaczonością \(\frac{0}{0}\) najlepiej jawnie wyciągać wspólny czynnik \((x-c)\) lub korzystać z rozkładu na czynniki, co zapewnia przejrzyste i formalnie poprawne obliczenie granicy.
