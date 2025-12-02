@@ -1,0 +1,57 @@
+% Moduł: Formalna definicja granicy ciągu i przykłady
+
+\subsection*{Formalna definicja granicy ciągu}
+
+Mówimy, że ciąg \( (a_n) \) ma granicę \( g \in \mathbb{R} \), jeśli dla każdej dowolnie małej liczby \(\varepsilon > 0\) istnieje taka liczba naturalna \( N \), że dla wszystkich \( n > N \) spełniona jest nierówność:
+\[
+|a_n - g| < \varepsilon
+\]
+Piszemy wówczas \(\displaystyle \lim_{n\to\infty} a_n = g\).
+
+\paragraph{Idea definicji}
+Definicja mówi, że bez względu na to, jak wąski pasek o szerokości \(2\varepsilon\) narysujemy wokół wartości granicznej \(g\), od pewnego miejsca \(N\) wszystkie kolejne wyrazy ciągu \(a_n\) muszą się w tym pasku znaleźć. Liczba \(N\) zależy od wybranego \(\varepsilon\).
+
+\paragraph{Przykład 1: Dowód, że \(\displaystyle \lim_{n\to\infty} \frac{1}{n} = 0\)}
+Chcemy pokazać, że dla dowolnego \(\varepsilon > 0\) potrafimy znaleźć takie \(N\), że dla każdego \(n > N\) zachodzi |\(\frac{1}{n}\) - 0| < \(\varepsilon\).
+
+Krok 1: Rozwiązujemy nierówność ze względu na \(n\).
+\[
+\left|\frac{1}{n}\right| < \varepsilon
+\]
+Poniważ \(n\) jest liczbą naturalną, więc \(n>0\), zatem |\(\frac{1}{n}\)| = \(\frac{1}{n}\).
+
+\[
+\frac{1}{n} < \varepsilon \quad \iff \quad n > \frac{1}{\varepsilon}
+\]
+Krok 2: Wybieramy \(N\).
+Nierówność \(n > 1/\varepsilon\) będzie spełniona dla wszystkich \(n\) większych od \(1/\varepsilon\). Możemy więc wybrać \(N\) jako dowolną liczbę naturalną większą lub równą \(1/\varepsilon\). Formalnie, niech \(N = \lfloor \frac{1}{\varepsilon} \rfloor + 1\).
+
+Krok 3: Formalne sprawdzenie.
+Niech \(\varepsilon > 0\) będzie dowolne. Wybierzmy \(N = \lfloor \frac{1}{\varepsilon} \rfloor + 1\). Wtedy dla każdego \(n > N\) mamy:
+\[
+n > \lfloor \frac{1}{\varepsilon} \rfloor + 1 \ge \frac{1}{\varepsilon}
+\]
+A zatem \(n > 1/\varepsilon\), co po przekształceniu daje \(1/n < \varepsilon\). Ponieważ \(1/n > 0\), jest to równoważne |\(\frac{1}{n}\) - 0| < \(\varepsilon\). To kończy dowód.
+
+\paragraph{Przykład 2: Dowód, że \(\displaystyle \lim_{n\to\infty} \frac{n^2-1}{n^2} = 1\)}
+Chcemy pokazać, że dla dowolnego \(\varepsilon > 0\) istnieje takie \(N\), że dla każdego \(n > N\) zachodzi |\(\frac{n^2-1}{n^2}\) - 1| < \(\varepsilon\).
+
+Krok 1: Upraszczamy wyrażenie i rozwiązujemy nierówność.
+\[
+\left|\frac{n^2-1}{n^2} - 1\right| = \left|\frac{n^2-1 - n^2}{n^2}\right| = \left|\frac{-1}{n^2}\right| = \frac{1}{n^2}
+\]
+Teraz rozwiązujemy nierówność:
+\[
+\frac{1}{n^2} < \varepsilon \quad \iff \quad n^2 > \frac{1}{\varepsilon} \quad \iff \quad n > \frac{1}{\sqrt{\varepsilon}}
+\]
+(Bierzemy tylko dodatni pierwiastek, bo \(n>0\)).
+
+Krok 2: Wybieramy \(N\).
+Musimy znaleźć \(N\) takie, że dla \(n>N\) spełnione jest \(n > 1/\sqrt{\varepsilon}\). Możemy wybrać \(N = \lfloor \frac{1}{\sqrt{\varepsilon}} \rfloor + 1\).
+
+Krok 3: Formalne sprawdzenie.
+Niech \(\varepsilon > 0\) będzie dowolne. Wybierzmy \(N = \lfloor \frac{1}{\sqrt{\varepsilon}} \rfloor + 1\). Wtedy dla każdego \(n > N\) mamy:
+\[
+n > \frac{1}{\sqrt{\varepsilon}}
+\]
+Przekształcając, otrzymujemy kolejno \(n^2 > 1/\varepsilon\), a następnie \(1/n^2 < \varepsilon\). To jest równoważne pokazanej wcześniej nierówności |\(\frac{n^2-1}{n^2}\) - 1| < \(\varepsilon\). To kończy dowód.
