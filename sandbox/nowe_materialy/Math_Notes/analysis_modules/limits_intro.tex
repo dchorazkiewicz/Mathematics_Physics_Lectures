@@ -31,6 +31,28 @@ Now, for any $n > N$, we have:
 This implies that $1/n < \varepsilon$. Therefore, we have shown that for any $\varepsilon > 0$, we can find an $N$ (for example, $N = \lceil 1/\varepsilon \rceil$) such that for all $n > N$, $|1/n - 0| < \varepsilon$. This completes the proof that the limit of the sequence $1/n$ is 0.
 \hfill $\blacksquare$
 
+\paragraph{Example: Proof of convergence for the sequence $a_n = \frac{n^2-1}{n^2}$}
+We will prove that the limit of the sequence $a_n = \frac{n^2-1}{n^2}$ is 1.
+\[ \lim_{n \to \infty} \frac{n^2-1}{n^2} = 1 \]
+\textbf{Proof:}
+According to the formal definition of a limit, we need to show that for any given $\varepsilon > 0$, there exists a natural number $N$ such that for all $n > N$, the inequality $|a_n - L| < \varepsilon$ is satisfied.
+
+In our case, $a_n = \frac{n^2-1}{n^2}$ and $L = 1$. The inequality becomes:
+\[ \left|\frac{n^2-1}{n^2} - 1\right| < \varepsilon \]
+Let's simplify the expression inside the absolute value:
+\[ \left|\frac{n^2-1 - n^2}{n^2}\right| = \left|-\frac{1}{n^2}\right| = \frac{1}{n^2} \]
+The inequality simplifies to:
+\[ \frac{1}{n^2} < \varepsilon \]
+To find an appropriate $N$, we can solve this inequality for $n$:
+\[ n^2 > \frac{1}{\varepsilon} \]
+\[ n > \frac{1}{\sqrt{\varepsilon}} \]
+Let's choose $N = \lceil 1/\sqrt{\varepsilon} \rceil$.
+
+Now, for any $n > N$, we have:
+\[ n > N \ge \frac{1}{\sqrt{\varepsilon}} \]
+This implies that $n^2 > 1/\varepsilon$, and therefore $1/n^2 < \varepsilon$. Thus, we have shown that for any $\varepsilon > 0$, we can find an $N$ such that for all $n > N$, $|\frac{n^2-1}{n^2} - 1| < \varepsilon$. This completes the proof that the limit of the sequence is 1.
+\hfill $\blacksquare$
+
 \subsection*{Limit of a Function}
 
 The limit of a function at a point can be defined in two equivalent ways: the Cauchy definition (using $\varepsilon$ and $\delta$) and the Heine definition (using sequences).
