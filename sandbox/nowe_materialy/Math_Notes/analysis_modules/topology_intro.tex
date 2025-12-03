@@ -1,0 +1,52 @@
+\chapter{Topological Foundations: Metric Spaces}
+
+To rigorously define what it means for a variable to "approach" a point, we need to establish a concept of distance and closeness. This is the domain of topology, and its foundational layer for analysis is the theory of metric spaces.
+
+\section*{Metric Spaces}
+
+\paragraph{Definition of a Metric}
+A \textbf{metric} on a non-empty set $X$ is a function $d: X \times X \to \mathbb{R}$ that satisfies the following properties for all $x, y, z \in X$:
+\begin{enumerate}
+    \item \textbf{Non-negativity:} $d(x, y) \ge 0$
+    \item \textbf{Identity of indiscernibles:} $d(x, y) = 0 \iff x = y$
+    \item \textbf{Symmetry:} $d(x, y) = d(y, x)$
+    \item \textbf{Triangle Inequality:} $d(x, z) \le d(x, y) + d(y, z)$
+\end{enumerate}
+The pair $(X, d)$ is called a \textbf{metric space}, and the value $d(x, y)$ is the \textbf{distance} between points $x$ and $y$.
+
+\paragraph{Examples of Metrics}
+\begin{itemize}
+    \item \textbf{Euclidean Metric on $\mathbb{R}$:} This is the standard distance we use on the number line. For $x, y \in \mathbb{R}$, the metric is defined as:
+    \[ d(x, y) = |x - y| \]
+    This is the metric implicitly used in the $\varepsilon-\delta$ definitions of limits.
+    \item \textbf{Manhattan (Taxicab) Metric on $\mathbb{R}^2$:} For two points $P_1 = (x_1, y_1)$ and $P_2 = (x_2, y_2)$ in the plane, the Manhattan distance is:
+    \[ d_1(P_1, P_2) = |x_1 - x_2| + |y_1 - y_2| \]
+    It measures the distance as if moving along a grid, like a taxi in a city.
+    \item \textbf{Discrete Metric:} On any non-empty set $X$, we can define the discrete metric as:
+    \[
+    d(x, y) = \begin{cases} 0 & \text{if } x = y \\ 1 & \text{if } x \neq y \end{cases}
+    \]
+    In this space, every two distinct points are "far" from each other.
+\end{itemize}
+
+\section*{Neighborhoods and Open Sets}
+
+\paragraph{Open Ball (Neighborhood)}
+In a metric space $(X, d)$, the \textbf{open ball} centered at a point $c \in X$ with radius $\varepsilon > 0$ is the set of all points that are at a distance less than $\varepsilon$ from $c$. It is denoted as $B(c, \varepsilon)$:
+\[
+B(c, \varepsilon) = \{ x \in X \mid d(x, c) < \varepsilon \}
+\]
+An open ball is the most basic form of a \textbf{neighborhood} of a point. For instance, in $\mathbb{R}$ with the standard metric, the open ball $B(c, \varepsilon)$ is simply the open interval $(c - \varepsilon, c + \varepsilon)$.
+
+\paragraph{Limit Point (Accumulation Point)}
+Let $(X, d)$ be a metric space and let $D$ be a subset of $X$. A point $c \in X$ (which does not have to be in $D$) is called a \textbf{limit point} or \textbf{accumulation point} of the set $D$ if every open ball centered at $c$ contains at least one point of $D$ that is different from $c$.
+Formally, for every $\varepsilon > 0$, the set $B(c, \varepsilon) \cap (D \setminus \{c\})$ is non-empty.
+\[
+\forall_{\varepsilon > 0} \quad (B(c, \varepsilon) \setminus \{c\}) \cap D \neq \emptyset
+\]
+The set of all limit points of $D$ is called the derived set, denoted $D'$.
+
+\paragraph{Connecting to Limits}
+The concept of a limit point is crucial. When we consider $\lim_{x \to c} f(x)$, we are interested in the behavior of $f$ for values of $x$ that are "close to" but "not equal to" $c$. This is only meaningful if $c$ is a limit point of the function's domain, ensuring that there are always points in the domain arbitrarily close to $c$.
+
+The phrase "$x$ approaches $c$" can now be understood formally. It refers to considering values of $x$ within successively smaller open balls (neighborhoods) around $c$. The definition of a function limit, $\forall \varepsilon > 0, \exists \delta > 0 \dots$, is a precise way of stating that for any desired closeness in the codomain (an $\varepsilon$-neighborhood around the limit $L$), we can find a small enough region in the domain (a $\delta$-neighborhood around $c$) that maps into it.
