@@ -120,3 +120,51 @@ $$
     $$
 h'(x) = -3x^2\sin(x^3)
 $$
+
+### Example 5: Product Rule with a Trigonometric Function
+
+**Problem:** Find the derivative of the function $h(x) = e^x \tan(x)$.
+
+**Solution:**
+
+Let $f(x) = e^x$ and $g(x) = \tan(x)$. We will use the product rule: $h'(x) = f'(x)g(x) + f(x)g'(x)$.
+
+1.  **Find the derivatives of the parts:**
+    *   $f'(x) = \frac{d}{dx}(e^x) = e^x$
+    *   $g'(x) = \frac{d}{dx}(\tan(x)) = \sec^2(x)$
+
+2.  **Apply the product rule formula:**
+    $$
+    h'(x) = (e^x)(\tan(x)) + (e^x)(\sec^2(x))
+    $$
+
+3.  **Simplify:**
+    $$
+    h'(x) = e^x(\tan(x) + \sec^2(x))
+    $$
+
+### Example 6: Chain Rule with Nested Trigonometric Functions
+
+**Problem:** Find the derivative of the function $h(x) = \sin(\cos(x))$.
+
+**Solution:**
+
+This requires the chain rule. The outer function is $f(u) = \sin(u)$ and the inner function is $g(x) = \cos(x)$.
+
+1.  **Find the derivatives of the parts:**
+    *   $f'(u) = \cos(u)$
+    *   $g'(x) = -\sin(x)$
+
+2.  **Apply the chain rule formula $h'(x) = f'(g(x)) \cdot g'(x)$:**
+    $$
+    f'(g(x)) = \cos(\cos(x))
+    $$
+    Now multiply by $g'(x)$:
+    $$
+    h'(x) = \cos(\cos(x)) \cdot (-\sin(x))
+    $$
+
+3.  **Simplify:**
+    $$
+    h'(x) = -\sin(x)\cos(\cos(x))
+    $$
