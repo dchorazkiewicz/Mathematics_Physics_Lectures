@@ -1,8 +1,8 @@
-# Section 3 — Differential and Integral Calculus
+# Dział 3 — Rachunek Różniczkowy i Całkowy
 
-## Limits of Sequences
+## Granice ciągów
 
-1. Calculate the limit of the sequences
+1. Oblicz granicę ciągów
 
     1)  $u_n = \frac{n}{n+1}$
     2)  $u_n = \frac{4n-3}{6-5n}$
@@ -48,9 +48,9 @@
     42) $u_n = \frac{1+2+...+n}{n^2}$
     43) $u_n = \frac{1^2+2^2+...+n^2}{n^3}$
 
-## Limits of Functions
+## Granice funkcji
 
-1. Calculate the limits of the functions
+1. Oblicz granice funkcji
 
     1) $\lim\limits_{x \to 3} \frac{27-x^3}{x-3}$
     2) $\lim\limits_{x \to 3} \frac{x^2-4x+3}{2x-6}$
@@ -84,11 +84,11 @@
     30) $\lim\limits_{x \to 0} (1-3x)^{\frac{1}{x}}$
     31) $\lim\limits_{x \to 0} (1+kx)^{\frac{n}{x}}$
 
-2. For the following functions, determine if they are continuous at the indicated points. If not, determine if they can be defined in a way that makes them continuous.
+2. Dla podanych funkcji określ, czy są ciągłe w podanych punktach. Jeśli nie są, to czy można je tak zdefiniować, aby były ciągłe.
 
-    1) $f(x) = \frac{x^2-25}{x+5}$ for $x \neq -5$ and $f(-5)=-10$.
-    2) $f(x) = \frac{\sin x}{x}$ for $x \neq 0$ and $f(0)=1$.
-    3) $f(x) = \frac{\sin x}{|x|}$ for $x \neq 0$ and $f(0)=1$.
+    1) $f(x) = \frac{x^2-25}{x+5}$ dla $x \neq -5$ i $f(-5)=-10$.
+    2) $f(x) = \frac{\sin x}{x}$ dla $x \neq 0$ i $f(0)=1$.
+    3) $f(x) = \frac{\sin x}{|x|}$ dla $x \neq 0$ i $f(0)=1$.
     4) $f(x) = x + \frac{1}{x}$
     5) $f(x) = \frac{x^2-x^3}{|x-1|}$
     6) $f(x) = x - [x]$
@@ -96,15 +96,16 @@
     8) $f(x) = \frac{\sqrt{1+x}-1}{x}$
     9) $f(x) = x \sin \frac{\pi}{x}$
     10) $f(x) = \frac{\sin^2 x}{1-\cos x}$
-    11) $x \left[ \frac{1}{x} \right]$ at the point $x=0$.
-    12) $x \frac{b}{x} \left[ \frac{x}{a} \right]$ at the point $x=0$.
-    13) $\frac{e^{\frac{1}{x}}-1}{e^{\frac{1}{x}}+1}$ at the point $x=0$.
-    14) $e^{\frac{1}{1-x^2}}$ at the point $x=1$.
-    15) $x e^{\frac{1}{x}}$ at the point $x=0$.
-    16) $\frac{x}{2x+e^{\frac{1}{x-1}}}$ at the point $x=1$.
-## Derivatives of Functions
+    11) $x \left[ \frac{1}{x} \right]$ w punkcie $x=0$.
+    12) $x \frac{b}{x} \left[ \frac{x}{a} \right]$ w punkcie $x=0$.
+    13) $\frac{e^{\frac{1}{x}}-1}{e^{\frac{1}{x}}+1}$ w punkcie $x=0$.
+    14) $e^{\frac{1}{1-x^2}}$ w punkcie $x=1$.
+    15) $x e^{\frac{1}{x}}$ w punkcie $x=0$.
+    16) $\frac{x}{2x+e^{\frac{1}{x-1}}}$ w punkcie $x=1$.
 
-1. Calculate the derivatives of the functions
+## Pochodne funkcji
+
+1. Oblicz pochodne funkcji
 
     1) $y = \frac{1}{3}x^3 - \frac{3}{2}x^4 + \frac{13}{5}x^5 - 2x^6$
     2) $y = 5x^{15} - x^2 + \frac{1}{3}x - 2$
@@ -248,7 +249,7 @@
     140) $y = x^{1/x}$, $x>0$
     141) $y = a^{\ln x}$, $a>0, x>0$
     142) $y = 5^{\sin 2x}$, $x>0$
-    143) $y = x^{\ln x}$, $x>0$; explain the result.
+    143) $y = x^{\ln x}$, $x>0$; wyjaśnić wynik.
     144) $y = (\sin x)^{\cos x}$, $0<x<\frac{\pi}{2}$
     145) $y = (\text{arctg } x)^x$, $x>0$
     146) $y = (\text{tg } x)^{\sin x}$, $0<x<\frac{\pi}{2}$
@@ -260,9 +261,9 @@
     152) $y = (1+\frac{1}{x})^x$
     153) $y = x^{\sqrt{\frac{1}{x}}}$
 
-## Function Analysis (Curve Sketching)
+## Badanie przebiegu funkcji
 
-1. Analyze the behavior (sketch the curve) of the function
+1. Zbadaj przebieg funkcji
 
     1) $y = x^2 \ln x$
     2) $y = (\ln x)^3 - 3 \ln x$
@@ -295,9 +296,9 @@
     29) $y = e^{\arcsin \sqrt{x}}$
     30) $y = \text{arctg}(\ln x)$
 
-## Integrals
+## Całki
 
-1. Calculate the integrals
+1. Oblicz całki
     1) $\int \frac{x\sqrt{x} - x\sqrt[4]{x}}{\sqrt[3]{x}} dx$
     2) $\int (3+2\sqrt[4]{x})^3 dx$
     3) $\int \frac{\sqrt{x}-2\sqrt[3]{x^2}+4\sqrt[6]{x^3}}{6\sqrt[3]{x}} dx$
@@ -461,227 +462,221 @@
 
 ---
 
----
+# Zastosowania
 
-# Applications
+## Zastosowania: ciągi, funkcje, granice
 
-## Applications: sequences, functions, limits
+1.  **Ciągi:**
 
-1.  **Sequences:**
-
-   1. What sequence is this: $4, 4, 4, 4, 4, 4, \dots$?
-   2. Calculate the value of the fifth term of an arithmetic sequence, if its fourth term has a value of $20$, and the sixth has a value of $28$
-   3. Calculate the value of the eighth term of a geometric sequence, whose seventh term has a value of $9$, and the ninth has a value of $1$.
-   4. For the sequence with the general formula $a_n = 2n - 10$ determine how many terms of the sequence take a negative value.
-   5. Give the recursive formula $a_{n+1} = a_n + \dots$ of an arithmetic sequence whose first term has a value of $5$, and the tenth term has a value of $23$.
-   6. Calculate the sum of the terms of the geometric sequence: $-1 + 2 - 4 + \dots - 64$.
-   7. Prove that $a_n = 2n^2 - 1$ is not an arithmetic sequence.
-   8. An arithmetic sequence consists of $200$ elements. The first one has a value of $-10$, and the value of the last one is $60$. What is the sum of this sequence?
-   9. What is the value of the expression $1 + 2 + 4 + 8 + \dots + 2^{10}$?
-   10. For what values of parameter $n$ is the given sequence arithmetic: $(n^2 - 1), (3n + 1), (2n^2 - 6)$?
-   11. Insert two numbers between the numbers $4$ and $108$ so that they form a geometric sequence.
+    1. Jaki to ciąg: $4, 4, 4, 4, 4, 4, \dots$?
+    2. Oblicz wartość piątego wyrazu ciągu arytmetycznego, jeżeli jego czwarty wyraz ma wartość $20$, a szósty ma wartość $28$.
+    3. Oblicz wartość ósmego wyrazu ciągu geometrycznego, którego siódmy wyraz ma wartość $9$, a dziewiąty ma wartość $1$.
+    4. Dla ciągu o wzorze ogólnym $a_n = 2n - 10$ określ, ile wyrazów ciągu przyjmuje wartość ujemną.
+    5. Podaj wzór rekurencyjny $a_{n+1} = a_n + \dots$ ciągu arytmetycznego, którego pierwszy wyraz ma wartość $5$, a dziesiąty wyraz ma wartość $23$.
+    6. Oblicz sumę wyrazów ciągu geometrycznego: $-1 + 2 - 4 + \dots - 64$.
+    7. Udowodnij, że $a_n = 2n^2 - 1$ nie jest ciągiem arytmetycznym.
+    8. Ciąg arytmetyczny składa się z $200$ elementów. Pierwszy z nich ma wartość $-10$, a wartością ostatniego jest $60$. Ile wynosi suma tego ciągu?
+    9. Ile wynosi wyrażenie $1 + 2 + 4 + 8 + \dots + 2^{10}$?
+    10. Dla jakich wartości parametru $n$ podany ciąg jest arytmetyczny: $(n^2 - 1), (3n + 1), (2n^2 - 6)$?
+    11. Pomiędzy liczby $4$ i $108$ wstaw dwie liczby tak, by tworzyły ciąg geometryczny.
 
 
-2.  **Function Composition:**
+2.  **Złożenie funkcji:**
 
-   1)  Let $f(x) = 3x - 1$ and $g(x) = \sqrt{x}$. Find:
-   
-      * $f(g(x))$
-      * $g(f(x))$
-      * $f(f(x))$
-      * $g(g(x))$
+    1)  Niech $f(x) = 3x - 1$ oraz $g(x) = \sqrt{x}$. Znajdź:
+    * $f(g(x))$
+    * $g(f(x))$
+    * $f(f(x))$
+    * $g(g(x))$
 
-   2)  Let $f(x) = e^x$ and $g(x) = \ln(x)$. Check $f(g(x))$ and $g(f(x))$. What conclusions can be drawn from this?
+    1)  Niech $f(x) = e^x$ oraz $g(x) = \ln(x)$. Sprawdź $f(g(x))$ oraz $g(f(x))$. Jakie wnioski można z tego wyciągnąć?
 
-   3)  Given the function $f=\{(1,7), (2,9), (3,11)\}$. Give the inverse function $f^{-1}$.
+    2)  Dana jest funkcja $f=\{(1,7), (2,9), (3,11)\}$. Podaj funkcję odwrotną $f^{-1}$.
 
-   4) Given the function $f=\{(1,7), (2,7), (3,11)\}$. Give the inverse function $f^{-1}$.
+    3)  Dana jest funkcja $f=\{(1,7), (2,7), (3,11)\}$. Podaj funkcję odwrotną $f^{-1}$.
 
-3.  **Limits and Continuity:**
 
-   1)  Prove, using the squeeze theorem:
-    $$\lim_{n \to \infty} \frac{\sin(n)}{n}$$
+3.  **Granice i ciągłość:**
 
-   2)  Find the asymptotes of the function:
-      * $f(x) = \frac{x^2 - 1}{x^2 + 1}$
-      * $g(x) = \frac{\sin(x)}{x^2+1}$
-   3) Check the continuity of the function:
-      * $f(x) = \frac{x^2 - 1}{x - 1}$ at the point $x=0$.
-      * $f(x) = \frac{\sin x}{x}$ at the point $x=0$.
-      * $f(x) = 2 x + 1$ at the point $x=1$.
+    1)  Udowodnij, korzystając z twierdzenia o trzech ciągach:
+        * $$\lim_{n \to \infty} \frac{\sin(n)}{n}$$
 
-## Applications: derivatives
+    2)  Znajdź asymptoty funkcji:
+        * $f(x) = \frac{x^2 - 1}{x^2 + 1}$
+        * $g(x) = \frac{\sin(x)}{x^2+1}$
+    3) Sprawdź ciągłość funkcji:
+        * $f(x) = \frac{x^2 - 1}{x - 1}$ w punkcie $x=0$.
+        * $f(x) = \frac{\sin x}{x}$ w punkcie $x=0$.
+        * $f(x) = 2 x + 1$ w punkcie $x=1$.
 
-1.  **Calculations, definitions and proofs:**
+## Zastosowania: pochodne
 
-   1)  Calculate the derivative from the definition of the difference quotient for:
-      * $3x+1$
-      * $x^2+1$
-      * constant $a$
+1.  **Obliczenia, definicje i dowody:**
 
-   2)  Prove that:
+    1)  Policz pochodną z definicji ilorazu różnicowego dla:
+        * $3x+1$
+        * $x^2+1$
+        * stałej $a$
 
-    $$\frac{d}{dx} (\ln(\sin(x))) = \cot(x)$$
+    2)  Udowodnij, że:
+        $$\frac{d}{dx} (\ln(\sin(x))) = \cot(x)$$
 
-   3)  For $f(x) = \cos(x)$, verify if $f''(x) = -f(x)$.
+    3)  Dla $f(x) = \cos(x)$, zweryfikuj, czy $f''(x) = -f(x)$.
 
-   4)  About certain functions $f$ and $g$ it is known that $g(0)=0, g'(0)=2, f'(0)=4$. What is the derivative of the composite function $f(g(x))$ at the point $x=0$?
+    4)  O pewnych funkcjach $f$ i $g$ wiadomo, że $g(0)=0, g'(0)=2, f'(0)=4$. Ile wynosi pochodna funkcji złożonej $f(g(x))$ w punkcie $x=0$?
 
-   5)  Generalize the Leibniz rule to the case of the derivative of the product of three functions: $(f \cdot g \cdot h)'$.
+    5)  Uogólnij regułę Leibniza na przypadek pochodnej iloczynu trzech funkcji: $(f \cdot g \cdot h)'$.
 
-2. **Physics and Motion:**
+2.  **Fizyka i Ruch:**
 
-      1)  Calculate the velocity and acceleration function of time for the motions given below. What was the position, velocity and acceleration in the fifth second?
+    1)  Policz funkcję prędkości i przyspieszenia od czasu dla podanych poniżej ruchów. Jakie było położenie, prędkość i przyspieszenie w piątej sekundzie?
 
-      * $x(t) = 150 + 50t - 4.5t^2$
+        * $x(t) = 150 + 50t - 4.5t^2$
 
-      * $x(t) = \sin(t)$
- 
-      * $x(t) = t - \frac{1}{t+1}$
+        * $x(t) = \sin(t)$
+ 
+        * $x(t) = t - \frac{1}{t+1}$
 
-      2)  In physics, the position of a particle is given by the formula $x(t) = 3t^2 - 6t + 1$. Find the velocity $v(t)=x'(t)$ and acceleration $a(t)=v'(t)=x''(t)$ of the particle at time $t = 2$.
+    2)  W fizyce położenie cząstki dane jest wzorem $x(t) = 3t^2 - 6t + 1$. Znajdź prędkość $v(t)=x'(t)$ oraz przyspieszenie $a(t)=v'(t)=x''(t)$ cząstki w czasie $t = 2$.
 
-3.  **L’Hospital’s Rule:**
+3.  **Reguła de l’Hospitala:**
 
-   1)  Using L’Hospital’s rule, find the limits:
+    1)  Korzystając z reguły de l’Hospitala znajdź granice:
 
-      * $\displaystyle \lim_{x\to 0} \frac{\sin x}{x}$
+        * $\displaystyle \lim_{x\to 0} \frac{\sin x}{x}$
 
-      * $\displaystyle \lim_{x\to 0} \frac{1 - \cos x}{x^2}$
-  
-      * $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x} - 1}{x}$
-  
-      * $\displaystyle \lim_{x\to \infty} \frac{\ln x}{x}$
-  
-      * $\displaystyle \lim_{x\to \infty} \frac{\exp x}{x}$
+        * $\displaystyle \lim_{x\to 0} \frac{1 - \cos x}{x^2}$
+  
+        * $\displaystyle \lim_{x\to 0} \frac{\sqrt{1+x} - 1}{x}$
+  
+        * $\displaystyle \lim_{x\to \infty} \frac{\ln x}{x}$
+  
+        * $\displaystyle \lim_{x\to \infty} \frac{\exp x}{x}$
 
-      * $\displaystyle \lim_{x\to \infty} \exp(x) \cdot \frac{1}{x}$
+        * $\displaystyle \lim_{x\to \infty} \exp(x) \cdot \frac{1}{x}$
 
-   2)  Why can L’Hospital’s rule not be used to determine the limit below?
+    2)  Dlaczego reguły de l’Hospitala nie można użyć do wyznaczenia granicy poniżej?
         $$\lim_{x\to 0} \frac{x+1}{x-1}$$
 
-4.  **Extrema:**
+4.  **Ekstrema:**
 
-   1)  The profit function is $P(u) = -2u^2 + 50u - 300$, where $u$ is the number of units sold. Find the number of units that maximizes profit.
+    1)  Funkcja zysku wynosi $P(u) = -2u^2 + 50u - 300$, gdzie $u$ to liczba sprzedanych jednostek. Znajdź liczbę jednostek, która maksymalizuje zysk.
 
-   2)  You have 10 meters of string and must use it to fence the largest possible rectangle. Find the dimensions of this rectangle.
+    2)  Masz 10 metrów sznurka i musisz go użyć, aby ogrodzić jak największy możliwy prostokąt. Znajdź wymiary tego prostokąta.
 
-   3)  Find the extremum of the function $f(x) = x^2 + 3x - 5$.
+    3)  Znajdź ekstremum funkcji $f(x) = x^2 + 3x - 5$.
 
-   4)  Find the extremum of the function $f(x) =\frac{x^2+2x+1}{x-1}$.
+    4)  Znajdź ekstremum funkcji $f(x) =\frac{x^2+2x+1}{x-1}$.
 
-5.  **Taylor Series and Approximation:**
+5.  **Szereg Taylora i Aproksymacja:**
 
-   1)  Calculate the tangent at the point $x_0=1$:
-      * to the function $\frac{1}{x}$
-      * to the function $x \cdot \sin(x^2)$
-   2) Find the tangent $y = f'(x_0) (x-x_0) + f(x_0)$ to the function $f(x) = e^{\sin(x)}$ at the point $x_0 = \pi$.
+    1)  Policz styczną w punkcie $x_0=1$:
+        * funkcji $\frac{1}{x}$
+        * funkcji $x \cdot \sin(x^2)$
+    2) Znajdź styczną $y = f'(x_0) (x-x_0) + f(x_0)$ do funkcji $f(x) = e^{\sin(x)}$ w punkcie $x_0 = \pi$.
+        **Wskazówki do wizualizacji w GeoGebrze:**
+        * Zdefiniuj `f(x)`
+        * Dodaj suwak `s`
+        * Zdefiniuj `y = f'(s)(x-s) + f(s)`
+        * Dodaj punkt `P(s, f(s))`
 
-        **Tips for visualization in GeoGebra:**
-      * Define `f(x)`
-      * Add slider `s`
-      * Define `y = f'(s)(x-s) + f(s)`
-      * Add point `P(s, f(s))`
+    3)  Rozpatrzmy funkcję $y(x) = \sqrt{1+x}$.
+        * Znajdź równanie prostej, która aproksymuje tę funkcję w pobliżu punktu $x=0$.
+        * Uzasadnij, że dla dostatecznie małych $x$ wartość wyrażenia $\sqrt{1+x}$ można przybliżyć wyrażeniem $1 + x/2$. (Warto zapamiętać to przybliżenie).
+        * Oszacuj w pamięci wartość wyrażeń $\sqrt{1.02}$ oraz $\sqrt{0.96}$.
 
-   3)  Let us consider the function $y(x) = \sqrt{1+x}$.
+    4)  Znajdź szereg Taylora i zwizualizuj otrzymane funkcje w GeoGebrze:
+        * $f(x) = \cos(x)$ wokół punktu $x = 0$ do 4. stopnia.
+        * $h(x) = 1/(1-x)$ wokół punktu $x = 0$ do 4. stopnia.
+        * $g(x) = \sin(x)$ wokół punktu $x = \pi$ do 4. stopnia.
 
-      * Find the equation of the line that approximates this function near the point $x=0$.
-      * Justify that for sufficiently small $x$ the value of the expression $\sqrt{1+x}$ can be approximated by the expression $1 + x/2$. (It is worth remembering this approximation).
-      * Estimate mentally the value of the expressions $\sqrt{1.02}$ and $\sqrt{0.96}$.
+    5)  Rozwiń funkcję $\sin(x)$ w szereg Taylora w punkcie $x_0 = \pi$.
 
-   4)  Find the Taylor series and visualize the obtained functions in GeoGebra:
-      * $f(x) = \cos(x)$ around the point $x = 0$ to the 4th degree.
-      * $h(x) = 1/(1-x)$ around the point $x = 0$ to the 4th degree.
-      * $g(x) = \sin(x)$ around the point $x = \pi$ to the 4th degree.
+    6)  Rozwiń funkcję $\sin(x)$ w szereg Taylora w punkcie $x_0 = 3\pi/2$.
 
-   5)  Expand the function $\sin(x)$ into a Taylor series at the point $x_0 = \pi$.
+## Zastosowania: całki
 
-   6)  Expand the function $\sin(x)$ into a Taylor series at the point $x_0 = 3\pi/2$.
+1.  **Całka oznaczona:**
 
-## Applications: integrals
-
-1.  **Definite Integral:**
-
-   1)  Calculate the definite integrals:
+    1)  Oblicz całki oznaczone:
 
         a) $\displaystyle \int_{-1}^{1} (-x^2 + 4) dx$
-    
+
         b) $\displaystyle \int_{1}^{e} \frac{3}{x} dx$
-    
+ 
         c) $\displaystyle \int_{0}^{\frac{\pi}{2}} \sin^2(x) dx$
 
-   2)  Calculate the area under the sine arch, i.e.:
+    2)  Oblicz pole pod grzbietem sinusa, czyli:
         $$P = \int_{a}^{b} f(x) dx = \int_{0}^{\pi} \sin(x) dx$$
 
-   3)  Calculate the area of the figure bounded by the curves $y(x) = e^x$ and $y(x) = e^{-x}$ and the line $x=1$.
+    3)  Oblicz pole figury ograniczonej krzywymi $y(x) = e^x$ i $y(x) = e^{-x}$ oraz prostą $x=1$.
 
-   4)  Calculate the area of the region bounded by the lines: $x=1, x=2, y=0, y=x^2+1$.
+    4)  Oblicz pole obszaru ograniczonego liniami: $x=1, x=2, y=0, y=x^2+1$.
 
-2.  **Length, Distance:**
+2.  **Długość, Droga:**
 
-   1)  In Wolfram Alpha/Colab calculate the length of the sine curve $f(x) = \sin(x)$ on the interval $[0,\pi]$, using the formula:
+    1)  W Wolframie Alpha/Colabie oblicz długość krzywej sinusa na odcinku $[0,\pi]$, używając wzoru:
+        $$L = \int_{a}^{b} \sqrt{1+(f'(x))^2} dx$$
+        gdzie $f(x) = \sin(x)$.
 
-    $$L = \int_{a}^{b} \sqrt{1+(f'(x))^2} dx$$
+    2)  Znajdź drogę przebytą przez poruszającą się cząstkę między czasem $t=0$ a $t=2$ dla następującej funkcji położenia: $x(t) = 3t^2 - 6t + 1$.
 
-   2)  Find the distance traveled by a moving particle between time $t=0$ and $t=2$ for the following position function: $x(t) = 3t^2 - 6t + 1$.
+## Zastosowania: równania różniczkowe
 
-## Applications: differential equations
+1.  **Rząd równania i podstawy:**
 
-1.  **Order of equation and basics:**
-
-   1)  What is the order of the following ordinary differential equations:
-
+    1)  Jaki jest rząd następujących równań różniczkowych zwyczajnych:
+ 
         a) $\frac{dx}{dt} = x^2$
 
         b) $\left(\frac{dx}{dt}\right)^2 = x$
 
         c) $\frac{d^2x}{dt^2} = \left(\frac{dx}{dt}\right)^3$
-
+ 
         d) $x + \frac{dx}{dt} \cdot \frac{d^2x}{dt^2} = 0$
 
-    2)  Solve the following first-order ordinary differential equations:       
-
+    2)  Rozwiąż następujące równania różniczkowe zwyczajne pierwszego rzędu:
+        
         a) $y'(x)= y(x)$
-
+        
         b) $y'(x) = \frac{1}{2y(x)}$
 
-2.  **Method of separation of variables:**
+2.  **Metoda rozdzielania zmiennych:**
+
+    Rozwiąż równania różniczkowe pierwszego rzędu metodą rozdzielania zmiennych:
+
+    a) $\frac{dy}{dx} = \frac{x}{y}$
+
+    b)  $\frac{dy}{dx} = \frac{y}{x}$
+
+    c)  $\frac{dy}{dx} = \frac{1}{x}$
+
+    d)  $\frac{dy}{dx} = xy$
+
+    e)  $\frac{dy}{dx} = \sqrt{x}$
+
+    f)  $ydx + xdy = 0$
 
 
-   1) Solve the first-order differential equations using the method of separation of variables:
+3.  **Równania drugiego rzędu**
 
-
-        a) $\frac{dy}{dx} = \frac{x}{y}$
-
-        b)  $\frac{dy}{dx} = \frac{y}{x}$
-
-        c)  $\frac{dy}{dx} = \frac{1}{x}$
-
-        d)  $\frac{dy}{dx} = xy$
-
-        e)  $\frac{dy}{dx} = \sqrt{x}$
+    Rozwiąż równania różniczkowe drugiego rzędu:
  
-        f)  $ydx + xdy = 0$
+    a)  $\frac{d^2x}{dt^2} - a = 0$
 
+    b)  $\frac{d^2y}{dx^2} - \frac{dy}{dx} = 0$
+ 
+    c)  $y'' + y' = 0$ (przy warunkach brzegowych $y(0)=2$ oraz $y'(0)=-1$)
+ 
+    d)  $y'' - y = 0$ (przy warunkach brzegowych $y(0)=2$ oraz $y'(0)=0$)
+ 
+    e)  $\frac{d^2y}{dx^2} = \omega^2 y$
+ 
+    f)  $\frac{d^2y}{dx^2} = -\omega^2 y$
 
-3.  **Second order equations**
+4.  **Równania różniczkowe cząstkowe:**
+    
+    1) Sprawdź, czy funkcja $\psi(t, x) = A \cos(\omega t + kx)$ jest rozwiązaniem równania różniczkowego cząstkowego drugiego rzędu (tzw. "równania falowego"), gdzie $v = \frac{\omega}{k} = \frac{2\pi / T}{2\pi / \lambda}$:
+   
+     $$\frac{\partial^2 \psi(t, x)}{\partial t^2} - v^2 \frac{\partial^2 \psi(t, x)}{\partial x^2} = 0$$
 
-   1) Solve the second-order differential equations:
-
-        a)  $\frac{d^2x}{dt^2} - a = 0$
-
-        b)  $\frac{d^2y}{dx^2} - \frac{dy}{dx} = 0$
-
-        c)  $y'' + y' = 0$ (with boundary conditions $y(0)=2$ and $y'(0)=-1$
-
-        d)  $y'' - y = 0$ (with boundary conditions $y(0)=2$ and $y'(0)=0$)
-
-        e)  $\frac{d^2y}{dx^2} = \omega^2 y$
-
-        f)  $\frac{d^2y}{dx^2} = -\omega^2 y$
-
-4.   **Partial Differential Equations:**
-
-    1) Check if the function $\psi(t, x) = A \cos(\omega t + kx)$ is a solution to the second-order partial differential equation (so-called "wave equation"), where $v = \frac{\omega}{k} = \frac{2\pi / T}{2\pi / \lambda}$:
-
-    $$\frac{\partial^2 \psi(t, x)}{\partial t^2} - v^2 \frac{\partial^2 \psi(t, x)}{\partial x^2} = 0$$
