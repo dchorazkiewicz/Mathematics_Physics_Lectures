@@ -1,0 +1,104 @@
+\section*{Sets and Functions}
+
+\subsection*{Cartesian Product and Relations}
+
+\paragraph{Cartesian Product}
+Given two sets $A$ and $B$, the Cartesian product of $A$ and $B$, denoted as $A \times B$, is the set of all ordered pairs $(a, b)$, where $a \in A$ and $b \in B$. Formally:
+\[
+A \times B = \{ (a, b) \mid a \in A \land b \in B \}
+\]
+
+\paragraph{Binary Relation}
+A binary relation $\mathcal{R}$ (or simply a relation) from a set $A$ to a set $B$ is any subset of the Cartesian product $A \times B$.
+\[
+\mathcal{R} \subseteq A \times B
+\]
+If $(a, b) \in \mathcal{R}$, we say that element $a$ is in relation $\mathcal{R}$ with element $b$, which is also written as $a \mathcal{R} b$.
+If $A = B$, we say that $\mathcal{R}$ is a relation on the set $A$.
+
+\paragraph{Example}
+Let $A = \{1, 2, 3\}$ and $B = \{x, y\}$. Then the Cartesian product $A \times B$ is:
+\[
+A \times B = \{ (1, x), (1, y), (2, x), (2, y), (3, x), (3, y) \}
+\]
+A relation $\mathcal{R}$ could be, for example, the subset $\mathcal{R} = \{ (1, x), (2, y), (3, x) \}$.
+
+\subsection*{Functions as a Special Type of Relation}
+
+\paragraph{Definition of a Function}
+A function $f$ from a set $X$ (called the domain) to a set $Y$ (called the codomain) is a binary relation $f \subseteq X \times Y$ that satisfies the following condition:
+\[
+\forall_{x \in X} \quad \exists!_{y \in Y} \quad (x, y) \in f
+\]
+The symbol $\exists!$ means "there exists exactly one".
+
+In other words, a function is a relation in which every element of the domain $X$ is associated with exactly one element of the codomain $Y$. Instead of writing $(x, y) \in f$, we use the more common notation $y = f(x)$.
+
+\paragraph{Formal Conditions for the Definition of a Function}
+A relation $\mathcal{R} \subseteq X \times Y$ is a function if it satisfies two conditions:
+\begin{enumerate}
+    \item \textbf{Existence Condition:} For every element $x \in X$, there exists at least one element $y \in Y$ such that $(x, y) \in \mathcal{R}$.
+    \[ \forall_{x \in X} \exists_{y \in Y} : (x, y) \in \mathcal{R} \]
+    \item \textbf{Uniqueness Condition (Right-Uniqueness):} If an element $x \in X$ is in relation with $y_1 \in Y$ and also with $y_2 \in Y$, then it must be that $y_1 = y_2$.
+    \[ \forall_{x \in X} \forall_{y_1, y_2 \in Y} : \left( (x, y_1) \in \mathcal{R} \land (x, y_2) \in \mathcal{R} \right) \implies y_1 = y_2 \]
+\end{enumerate}
+
+\paragraph{Example}
+Consider the sets $X = \{1, 2, 3\}$ and $Y = \{a, b, c\}$.
+\begin{itemize}
+    \item The relation $\mathcal{R}_1 = \{ (1, a), (2, b), (3, c) \}$ is a function. Every element in $X$ corresponds to exactly one element in $Y$.
+    \item The relation $\mathcal{R}_2 = \{ (1, a), (2, b) \}$ is not a function because the element $3 \in X$ has no corresponding element in $Y$ (it fails the existence condition).
+    \item The relation $\mathcal{R}_3 = \{ (1, a), (1, b), (2, c), (3, a) \}$ is not a function because the element $1 \in X$ is associated with two different elements from $Y$: $a$ and $b$ (it fails the uniqueness condition).
+\end{itemize}
+
+\paragraph{Further Examples}
+Functions can take many forms, depending on their domain and codomain:
+\begin{itemize}
+    \item \textbf{A polynomial function:} Let $f: \mathbb{R} \to \mathbb{R}$ be defined by the formula $f(x) = x^2 - 4x + 3$. This is a function where every real number is mapped to another real number. The relation consists of pairs $(x, x^2 - 4x + 3)$ for all $x \in \mathbb{R}$.
+    \item \textbf{A function on finite sets:} Let $A = \{\text{apple}, \text{banana}, \text{cherry}\}$ and $B = \{\text{red}, \text{yellow}\}$. A function $g: A \to B$ could be defined as $g(\text{apple}) = \text{red}$, $g(\text{banana}) = \text{yellow}$, and $g(\text{cherry}) = \text{red}$. This is a valid function, even though two different elements from the domain map to the same element in the codomain.
+    \item \textbf{The identity function:} For any set $X$, the identity function $id_X: X \to X$ is defined as $id_X(x) = x$ for all $x \in X$. It maps every element to itself.
+\end{itemize}
+
+\subsection*{Sequences as Functions}
+
+It is worth noting that sequences, which are often treated as a separate topic, are fundamentally a type of function. A sequence of real numbers, for example, is a function whose domain is the set of natural numbers $\mathbb{N}$ and whose codomain is the set of real numbers $\mathbb{R}$.
+
+\paragraph{Formal Definition of a Sequence}
+An infinite sequence of elements from a set $A$ is a function $f: \mathbb{N} \to A$.
+Instead of the standard function notation $f(n)$, we typically use subscript notation, such as $a_n$, to denote the value of the function for the argument $n$. The entire sequence is then denoted as $(a_n)_{n=1}^{\infty}$ or simply $(a_n)$.
+
+\paragraph{Example}
+The sequence defined by the formula $a_n = 1/n$ for $n \in \{1, 2, 3, \dots\}$ is actually a function $f: \mathbb{N} \to \mathbb{R}$ where $f(n) = 1/n$. The sequence is $(1, 1/2, 1/3, \dots)$.
+This perspective is crucial because it allows us to apply concepts from the theory of functions (like limits) directly to sequences.
+
+\subsection*{Further examples of functions}
+
+Many mathematical concepts, which may seem different at first glance, are also examples of functions.
+
+\paragraph{Determinant of a Matrix}
+The determinant is a function that takes a square matrix as input and produces a single number (a scalar). For a given dimension $n$, the determinant function `det` can be seen as a function:
+\[
+\det: M_{n \times n}(\mathbb{R}) \to \mathbb{R}
+\]
+where $M_{n \times n}(\mathbb{R})$ is the set of all $n \times n$ matrices with real coefficients. For each matrix $A \in M_{n \times n}(\mathbb{R})$, the function assigns exactly one real number, $\det(A)$.
+
+\paragraph{Operators in Calculus}
+Operators in calculus, such as differentiation and integration, can also be viewed as functions. These are often called \textit{functionals} or \textit{higher-order functions} because their domain and/or codomain are sets of functions.
+\begin{itemize}
+    \item \textbf{Differentiation:} The differentiation operator, $\frac{d}{dx}$, can be considered a function that maps a differentiable function to another function. For example, if we consider the set $C^1(\mathbb{R})$ of all continuously differentiable functions on $\mathbb{R}$ and the set $C^0(\mathbb{R})$ of all continuous functions on $\mathbb{R}$, then:
+    \[
+    \frac{d}{dx}: C^1(\mathbb{R}) \to C^0(\mathbb{R})
+    \]
+    It takes a function, like $f(x) = x^2$, and returns its derivative, $f'(x) = 2x$.
+    \item \textbf{Definite Integration:} A definite integral is a function that maps a function to a number. For instance, the operator that integrates a continuous function over the interval $[0, 1]$ can be defined as:
+    \[
+    I: C([0, 1]) \to \mathbb{R}, \quad \text{where} \quad I(f) = \int_{0}^{1} f(x) \,dx
+    \]
+    This function takes a continuous function $f$ and assigns to it the scalar value representing the area under its curve on the interval $[0, 1]$.
+\end{itemize}
+
+\subsection*{The Importance of Functions in Mathematics}
+
+The concept of a function is one of the most fundamental and unifying ideas in all of mathematics. Functions appear in virtually every branch of the discipline, from calculus and algebra to topology and logic. They are the primary tool for describing relationships and transformations between different mathematical objects.
+
+Whether we are modeling physical phenomena, analyzing data, or studying abstract structures, functions provide the language and framework to express how quantities depend on one another. Understanding functions not just as calculation rules, but as versatile mappings between sets, is a key step toward deeper mathematical insight.

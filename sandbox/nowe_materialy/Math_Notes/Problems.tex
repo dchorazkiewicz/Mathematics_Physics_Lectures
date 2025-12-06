@@ -1,0 +1,37 @@
+\documentclass[12pt, a4paper]{report}
+
+% --- Ustawienia języka i kodowania ---
+% \usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% --- Pakiety matematyczne ---
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+% --- Ustawienia strony ---
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+
+% --- Metadane dokumentu ---
+\title{Calculus}
+\author{Damian Chorążkiewicz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+% --- Dołączanie rozdziałów ---
+
+\include{Analysis.tex}
+
+% --- Moduły Analizy: dodatkowe pliki wpinane przez \input ---
+% Folder: sandbox/nowe_materialy/Math_Notes/analysis_modules/
+% Każdy moduł powinien używać \subsection* lub \paragraph i nie posiadać preambuły.
+
+
+\end{document}
+
