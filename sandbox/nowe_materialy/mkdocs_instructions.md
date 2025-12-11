@@ -7,15 +7,10 @@ Zamiast generować statyczne pliki PDF, przechodzimy na nowoczesny standard doku
 Wykorzystamy wbudowane funkcje Visual Studio Code do szybkiej publikacji projektu.
 
 1.  Otwórz **Visual Studio Code** i wybierz `File > Open Folder...`, wskazując nowy, pusty katalog na dysku.
-
 2.  Stwórz w tym folderze dowolny plik, np. pusty plik o nazwie `README.md` (Git wymaga przynajmniej jednego pliku, aby utworzyć repozytorium).
-
 3.  Zapisz plik.
-
 4.  Przejdź do zakładki **Source Control** (ikona grafu/drzewka na lewym pasku bocznym).
-
 5.  Kliknij niebieski przycisk **Publish to GitHub**.
-
 6.  Wybierz opcję publikacji jako **Public repository**.
 
 *Po tej operacji Twój folder jest już połączony z GitHubem.*
@@ -62,17 +57,12 @@ Nie musisz wysyłać strony na serwer GitHub (`gh-deploy`) za każdym razem, gdy
 **Instrukcja pracy bieżącej:**
 
 1.  Wpisz w terminalu VS Code:
-
     ```bash
     mkdocs serve
     ```
-
 2.  Otwórz w przeglądarce adres, który się wyświetli (zazwyczaj `http://127.0.0.1:8000/`).
-
 3.  Edytuj pliki `.md` w folderze `docs`. Za każdym razem, gdy zapiszesz plik (`Ctrl+S`), strona w przeglądarce odświeży się automatycznie.
-
 4.  Dopiero gdy skończysz pracę i będziesz zadowolony z efektu, zatrzymaj serwer (`Ctrl+C`) i wyślij zmiany "w świat" komendą z kroku 3:
-
     ```bash
     mkdocs gh-deploy
     ```
@@ -99,3 +89,37 @@ Skopiuj poniższy **Prompt** i wklej go do Agenta:
 2.  Sprawdź w przeglądarce, czy nowa zakładka "Pochodne" się pojawiła i czy wzory matematyczne wyglądają ładnie (nie są surowym tekstem z dolarami).
 3.  Jeśli wszystko działa, zatrzymaj serwer i opublikuj zmiany: `mkdocs gh-deploy`.
 4.  Otwórz link z logów i sprawdź wersję publiczną.
+
+## Krok 7: Interaktywne Symulacje (HTML + AI)
+
+Twoja dokumentacja nie musi ograniczać się do statycznego tekstu. Nowoczesne czaty AI (takie jak **Gemini, Claude, czy ChatGPT**) potrafią generować działające symulacje fizyczne i matematyczne w języku HTML/JavaScript. Możesz je łatwo "wszczepić" do swojej strony z notatkami.
+
+**Proces tworzenia symulacji:**
+
+1.  **Generowanie kodu:** Udaj się do wybranego czata AI (np. Gemini lub Claude) i poproś o wygenerowanie symulacji.
+
+      * *Przykładowy prompt do zewnętrznego AI:*
+        > "Napisz dla mnie symulację rzutu ukośnego (lub wizualizację dodawania macierzy) jako pojedynczy plik HTML z wbudowanym CSS i JavaScript. Chcę, aby użytkownik mógł zmieniać parametry suwakami, a wynik był widoczny na wykresie/animacji."
+
+2.  **Zapisywanie pliku:**
+
+      * Skopiuj otrzymany kod HTML.
+      * W folderze `docs` (tam gdzie masz pliki `.md`) stwórz nowy plik, np. `rzut_ukosny.html` i wklej do niego kod.
+
+3.  **Integracja z nawigacją:**
+
+      * Pliki HTML można dodawać do menu strony dokładnie tak samo, jak pliki Markdown.
+      * Poproś Agenta w VS Code o dodanie tego pliku do nawigacji.
+
+Skopiuj poniższy **Prompt** i wklej go do Agenta w VS Code:
+
+> **Prompt dla Agenta (Integracja HTML):**
+>
+> "W folderze `docs` stworzyłem plik HTML z symulacją. Proszę, zaktualizuj plik `mkdocs.yml`:
+>
+> 1.  Znajdź sekcję `nav`.
+> 2.  Dodaj do niej nową pozycję o nazwie 'Symulacja', która będzie wskazywać na ten plik HTML w folderze `docs`.
+> 3.  Upewnij się, że struktura pliku konfiguracyjnego pozostanie poprawna."
+
+**Weryfikacja:**
+Uruchom `mkdocs serve`. W menu powinieneś zobaczyć nową pozycję "Symulacja". Po kliknięciu otworzy się Twoja interaktywna aplikacja stworzona przez AI. Gdy będziesz zadowolony, wypchnij zmiany na serwer (`mkdocs gh-deploy`).
