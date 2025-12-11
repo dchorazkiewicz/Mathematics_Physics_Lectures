@@ -1,6 +1,6 @@
 # Instrukcja: Publikacja notatek jako strona WWW (MkDocs + GitHub Pages)
 
-Zamiast generować statyczne pliki PDF, przechodzimy na nowoczesny standard dokumentacji technicznej. Wykorzystamy framework **MkDocs** z motywem **Material**, aby stworzyć responsywną stronę internetową z notatkami z matematyki (analiza, algebra, geometria). Całość będzie hostowana na **GitHub Pages**.
+Niniejszy dokument to przewodnik, który pozwoli Wam samodzielnie zbudować i opublikować nowoczesną stronę z dokumentacją – dokładnie taką, jaką teraz widzicie. Wykorzystamy framework **MkDocs** z motywem **Material** oraz darmowy hosting **GitHub Pages**, aby w szybki i profesjonalny sposób udostępniać notatki z matematyki w internecie.
 
 ## Krok 1: Inicjalizacja Repozytorium (VS Code)
 
@@ -25,10 +25,10 @@ Skopiuj poniższy **Prompt** i wklej go do czatu z Agentem:
 >
 > "Jesteś ekspertem od dokumentacji technicznej w Pythonie. Proszę o przygotowanie środowiska pod MkDocs w bieżącym folderze. Wykonaj następujące kroki:
 >
-> 1.  Stwórz wirtualne środowisko Python (`.venv`) i podaj komendę do jego aktywacji.
-> 2.  Zainstaluj w tym środowisku pakiety: `mkdocs` oraz `mkdocs-material`.
-> 3.  Wygeneruj strukturę nowego projektu w głównym katalogu (`mkdocs new .`).
-> 4.  Nadpisz plik konfiguracyjny `mkdocs.yml`, ustawiając `site_name` na 'Notatki z Matematyki' oraz zmieniając motyw (`theme`) na `name: material`.
+> 1. Stwórz wirtualne środowisko Python (`.venv`) i podaj komendę do jego aktywacji.
+> 2. Zainstaluj w tym środowisku pakiety: `mkdocs` oraz `mkdocs-material`.
+> 3. Wygeneruj strukturę nowego projektu w głównym katalogu (`mkdocs new .`).
+> 4. Nadpisz plik konfiguracyjny `mkdocs.yml`, ustawiając `site_name` na 'Notatki z Matematyki' oraz zmieniając motyw (`theme`) na `name: material`.
 >
 > Nie uruchamiaj serwera, tylko przygotuj pliki."
 
@@ -42,7 +42,7 @@ Wpisz w terminalu:
 
 ```bash
 mkdocs gh-deploy
-```
+````
 
 ## Krok 4: Efekt końcowy
 
