@@ -76,3 +76,26 @@ Nie musisz wysyłać strony na serwer GitHub (`gh-deploy`) za każdym razem, gdy
     ```bash
     mkdocs gh-deploy
     ```
+
+## Krok 6: Dodawanie treści i konfiguracja matematyki
+
+Podobnie jak wcześniej, pliki z notatkami (Markdown) tworzymy w folderze `docs`. Aby nowa notatka była widoczna na pasku bocznym strony, musi zostać dodana do pliku konfiguracyjnego `mkdocs.yml`. Ponadto, musimy upewnić się, że MkDocs potrafi renderować wzory matematyczne (LaTeX).
+
+Wykorzystajmy Agenta, aby stworzył przykładową notatkę, dodał ją do nawigacji i skonfigurował obsługę matematyki.
+
+Skopiuj poniższy **Prompt** i wklej go do Agenta:
+
+> **Prompt dla Agenta (Dodawanie treści i LaTeX):**
+>
+> "Proszę o rozbudowę projektu o nową notatkę i konfigurację matematyki.
+>
+> 1.  Stwórz w folderze `docs` plik o nazwie `pochodne.md`. Wpisz w nim krótką notatkę na temat pochodnych funkcji, zawierającą definicję oraz przykładowy wzór sformatowany w LaTeX (użyj dolarów).
+> 2.  Zaktualizuj plik `mkdocs.yml`, dodając ten plik do sekcji nawigacji (`nav`) pod nazwą 'Pochodne'.
+> 3.  **Bardzo ważne:** Zmodyfikuj `mkdocs.yml` tak, aby dodać pełną obsługę renderowania wzorów matematycznych. Skonfiguruj rozszerzenie `pymdownx.arithmatex` oraz dodaj niezbędne wpisy `extra_javascript` i `extra_css` (dla biblioteki MathJax lub KaTeX), aby wzory na stronie wyświetlały się poprawnie, a nie jako surowy kod."
+
+**Co zrobić po wykonaniu zadania przez Agenta?**
+
+1.  Uruchom serwer lokalny: `mkdocs serve`.
+2.  Sprawdź w przeglądarce, czy nowa zakładka "Pochodne" się pojawiła i czy wzory matematyczne wyglądają ładnie (nie są surowym tekstem z dolarami).
+3.  Jeśli wszystko działa, zatrzymaj serwer i opublikuj zmiany: `mkdocs gh-deploy`.
+4.  Otwórz link z logów i sprawdź wersję publiczną.
