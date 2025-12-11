@@ -1,6 +1,6 @@
 # Instrukcja: Publikacja notatek jako strona WWW (MkDocs + GitHub Pages)
 
-Zamiast generować statyczne pliki PDF, przechodzimy na nowoczesny standard dokumentacji technicznej. Wykorzystamy framework **MkDocs** z motywem **Material**, aby stworzyć responsywną stronę internetową z notatkami. Całość będzie hostowana na **GitHub Pages**.
+Zamiast generować statyczne pliki PDF, przechodzimy na nowoczesny standard dokumentacji technicznej. Wykorzystamy framework **MkDocs** z motywem **Material**, aby stworzyć responsywną stronę internetową z notatkami z matematyki (analiza, algebra, geometria). Całość będzie hostowana na **GitHub Pages**.
 
 ## Krok 1: Inicjalizacja Repozytorium (VS Code)
 
@@ -33,7 +33,7 @@ Skopiuj poniższy **Prompt** i wklej go do czatu z Agentem:
 > 1.  Stwórz wirtualne środowisko Python (`.venv`) i podaj komendę do jego aktywacji.
 > 2.  Zainstaluj w tym środowisku pakiety: `mkdocs` oraz `mkdocs-material`.
 > 3.  Wygeneruj strukturę nowego projektu w głównym katalogu (`mkdocs new .`).
-> 4.  Nadpisz plik konfiguracyjny `mkdocs.yml`, ustawiając `site_name` na 'Notatki z Rachunku Różniczkowego' oraz zmieniając motyw (`theme`) na `name: material`.
+> 4.  Nadpisz plik konfiguracyjny `mkdocs.yml`, ustawiając `site_name` na 'Notatki z Matematyki' oraz zmieniając motyw (`theme`) na `name: material`.
 >
 > Nie uruchamiaj serwera, tylko przygotuj pliki."
 
@@ -41,7 +41,7 @@ Skopiuj poniższy **Prompt** i wklej go do czatu z Agentem:
 
 ## Krok 3: Publikacja strony (Deployment)
 
-Gdy projekt jest gotowy, używamy jednej komendy, aby zbudować stronę i wysłać ją na serwer.
+Gdy projekt jest wstępnie gotowy, używamy jednej komendy, aby zbudować stronę i wysłać ją na serwer.
 
 Wpisz w terminalu:
 
@@ -51,14 +51,28 @@ mkdocs gh-deploy
 
 ## Krok 4: Efekt końcowy
 
-Twoja strona będzie dostępna pod adresem:
+Nie musisz zgadywać adresu swojej strony ani ręcznie go konstruować. Po pomyślnym wykonaniu komendy `mkdocs gh-deploy`, spójrz na logi w terminalu.
 
-`https://<TWOJ_LOGIN>.github.io/<NAZWA_REPO>/`
+Na samym końcu pojawi się bezpośredni link do Twojej opublikowanej strony. Wystarczy, że go klikniesz (w VS Code zazwyczaj z wciśniętym klawiszem `Ctrl` lub `Cmd`), aby zobaczyć swoje notatki w sieci.
 
-### Wskazówki do edycji
+## Krok 5: Jak pracować na co dzień? (Local Development)
 
-  * Edytujesz pliki `.md` w katalogu `docs`.
+Nie musisz wysyłać strony na serwer GitHub (`gh-deploy`) za każdym razem, gdy poprawisz literówkę lub dodasz jeden wzór. Efektywniejsza praca polega na podglądzie zmian lokalnie na Twoim komputerze.
 
-  * Aby zaktualizować stronę po zmianach w notatkach, po prostu ponownie wpisz komendę `mkdocs gh-deploy`.
+**Instrukcja pracy bieżącej:**
 
-Czy chciałbyś, abym do sekcji z Agentem dodała instrukcję instalacji rozszerzeń do obsługi wzorów matematycznych?
+1.  Wpisz w terminalu VS Code:
+
+    ```bash
+    mkdocs serve
+    ```
+
+2.  Otwórz w przeglądarce adres, który się wyświetli (zazwyczaj `http://127.0.0.1:8000/`).
+
+3.  Edytuj pliki `.md` w folderze `docs`. Za każdym razem, gdy zapiszesz plik (`Ctrl+S`), strona w przeglądarce odświeży się automatycznie.
+
+4.  Dopiero gdy skończysz pracę i będziesz zadowolony z efektu, zatrzymaj serwer (`Ctrl+C`) i wyślij zmiany "w świat" komendą z kroku 3:
+
+    ```bash
+    mkdocs gh-deploy
+    ```
