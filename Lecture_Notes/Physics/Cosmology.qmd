@@ -1,5 +1,5 @@
 ---
-title: Cosmology
+title: Cosmology and Astrophysics
 format:
   html:
     theme: flatly
@@ -21,4 +21,101 @@ format:
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
 
-## Cosmology
+## Introduction
+
+[cite_start]Cosmology is the scientific study of the origin, evolution, and eventual fate of the Universe[cite: 617]. Unlike astronomy, which often focuses on individual celestial objects, cosmology looks at the Universe as a whole entity.
+
+It asks the biggest questions:
+- How did it begin?
+- What is it made of?
+- How will it end?
+
+## Milestones in Astronomy and Cosmology
+
+[cite_start]Our understanding of the Universe has evolved drastically over millennia, moving from Earth-centered views to the realization of a dynamic, expanding cosmos[cite: 923].
+
+### 1. Ancient and Geocentric Models
+* **Mesopotamian Astronomy (circa 1800 BCE):** The earliest records of astronomical predictions.
+* **Ptolemy (2nd century CE):** In his work "Almagest", he presented the **Geocentric Model**, where Earth is stationary at the center of the Universe. [cite_start]This view dominated for over a millennium[cite: 924].
+
+### 2. The Heliocentric Revolution
+* **Nicolaus Copernicus (1473-1543):** Proposed the **Heliocentric Model**, placing the Sun at the center. [cite_start]This simplified the description of planetary motion (retrograde motion)[cite: 925].
+* [cite_start]**Galileo Galilei (1564-1642):** Using the telescope, he discovered Jupiter's moons, proving that not everything orbits the Earth[cite: 926].
+
+### 3. The Laws of Motion
+* **Johannes Kepler (1571-1630):** Formulated three laws of planetary motion. Crucially, he showed that orbits are ellipses, not circles. His third law relates the orbital period $T$ to the distance from the Sun $R$:
+    [cite_start]$$T^2 \propto R^3$$ [cite: 927]
+* **Isaac Newton (1643-1727):** Developed the theory of Universal Gravitation. He provided the physical mechanism explaining *why* planets follow Kepler's laws:
+    [cite_start]$$F = G \frac{m_1 m_2}{r^2}$$ [cite: 928]
+
+### 4. Modern Cosmology
+* **Albert Einstein (1915):** Formulated **General Relativity**. Gravity is not a force, but the curvature of spacetime caused by mass and energy. [cite_start]This is the mathematical framework for the entire Universe[cite: 929].
+
+## The Expanding Universe
+
+### Hubble's Discovery
+In 1929, Edwin Hubble observed distant galaxies and noticed a pattern called **Redshift**. [cite_start]The light from these galaxies was shifted toward the red end of the spectrum, indicating they are moving away from us (Doppler effect)[cite: 930].
+
+He discovered a linear relationship: **The farther a galaxy is, the faster it recedes.**
+
+### Hubble's Law
+This relationship is described by the equation:
+
+$$
+v = H_0 \cdot d
+$$
+
+Where:
+* $v$ is the recession velocity (typically in km/s).
+* $d$ is the distance to the galaxy (in Megaparsecs, Mpc).
+* $H_0$ is the **Hubble Constant**. [cite_start]Current measurements estimate it around $H_0 \approx 70$ km/s/Mpc[cite: 931].
+
+**Implication:** If galaxies are moving apart, the Universe is expanding. If we reverse time, they must have originated from a single point. This leads directly to the concept of the Big Bang.
+
+## The Big Bang Theory
+
+[cite_start]The Big Bang theory posits that the Universe began as an infinitely hot and dense singularity approximately 13.8 billion years ago[cite: 934].
+
+### Timeline of the Early Universe
+
+1.  **Planck Epoch ($t < 10^{-43}$ s):** The laws of physics as we know them do not apply. Gravity is unified with other forces.
+2.  **Inflation Era ($t \approx 10^{-35}$ s):** The Universe underwent a period of exponential expansion, growing faster than light. This explains why the Universe looks uniform in all directions.
+3.  **Nucleosynthesis ($t \approx 3$ minutes):** The Universe cooled enough for protons and neutrons to fuse. The first atomic nuclei (Hydrogen, Helium, and traces of Lithium) were formed.
+4.  **Recombination ($t \approx 380,000$ years):** Electrons bound to nuclei to form neutral atoms. [cite_start]The Universe became transparent, allowing light to travel freely for the first time[cite: 935].
+
+### Cosmic Microwave Background (CMB)
+This "first light" from the Recombination era is still visible today. It has been redshifted by the expansion of the Universe into the microwave spectrum.
+Discovered by **Arno Penzias and Robert Wilson** in 1965, the CMB is the strongest evidence for the Big Bang. [cite_start]It is a nearly uniform radiation with a temperature of $2.7$ K filling the entire sky[cite: 932].
+
+## Composition of the Universe
+
+[cite_start]Observations of the rotation speeds of galaxies and the rate of cosmic expansion have revealed that "normal" matter makes up only a fraction of the cosmos[cite: 933].
+
+1.  **Normal Matter (~5%):** Everything we can see: atoms, stars, planets, gas, and us.
+2.  **Dark Matter (~27%):** Invisible mass that does not interact with light (does not emit or reflect it). We know it exists because of its gravitational pull on galaxies. Without it, galaxies would fly apart.
+3.  **Dark Energy (~68%):** A mysterious form of energy that permeates all of space and exerts a "negative pressure," causing the expansion of the Universe to **accelerate**.
+
+## Astrophysics: Life Cycle of Stars
+
+Stars are the engines of the Universe, forging heavy elements necessary for life. [cite_start]A star's life is a constant battle between **Gravity** (pulling inward) and **Nuclear Pressure** (pushing outward)[cite: 940].
+
+### Star Formation
+Stars form from the gravitational collapse of giant molecular clouds (nebulae). As the cloud collapses, it heats up until nuclear fusion ignites in the core.
+
+### The Fate of our Sun (Low to Medium Mass Stars)
+The Sun is currently fusing Hydrogen into Helium.
+1.  **Red Giant:** In about 5 billion years, hydrogen will run out. The core will contract, and the outer layers will expand and cool.
+2.  **Planetary Nebula:** The outer layers will be ejected into space, creating colorful shells of gas.
+3.  [cite_start]**White Dwarf:** The core remains as a small, dense object (about the size of Earth), slowly cooling over trillions of years[cite: 941].
+
+### The Fate of Massive Stars
+Stars with mass $> 8 \times M_{Sun}$ burn fuel much faster and have a violent end.
+1.  **Supernova:** When iron accumulates in the core, fusion stops. Gravity instantly collapses the core, resulting in a colossal explosion.
+2.  **Neutron Star:** If the remaining core is between 1.4 and 3 solar masses, it becomes a neutron star—a city-sized object with immense density.
+3.  **Black Hole:** If the core is heavier than ~3 solar masses, gravity overcomes all forces. [cite_start]The core collapses into a singularity, a point of infinite density from which not even light can escape[cite: 942].
+
+## References
+
+* [Hubble Extreme Deep Field](https://en.wikipedia.org/wiki/Hubble_Extreme_Deep_Field)
+* [Timeline of the early universe](https://en.wikipedia.org/wiki/Timeline_of_the_early_universe)
+* [NASA Universe Overview](https://science.nasa.gov/universe/overview/)
