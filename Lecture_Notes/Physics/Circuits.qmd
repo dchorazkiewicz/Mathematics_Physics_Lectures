@@ -529,7 +529,7 @@ This part covers the non-trivial aspects of electrical circuits, including alter
 
 We also present the **Falstad Circuit Simulator**, a powerful online tool for visualizing and analyzing electrical circuits.
 
-### Altering current and voltage
+### Alternating current and voltage
 
 Current is the flow of electric charge through a conductor, measured in amperes (A). Along we also provide voltage characteristics measured in volts (V).
 
@@ -719,7 +719,7 @@ Rectifier diodes are available in different types, such as silicon diodes, germa
 
 ![Source: Wikipedia](./pics/circuits/rectifier.png)
 
-##### Diode with somothing out condensator:
+##### Diode with something out condensator:
 
 ![Source: Wikipedia](./pics/circuits/rectifier_with_condensator.png)
 

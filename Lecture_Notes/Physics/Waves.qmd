@@ -360,7 +360,7 @@ Diffraction is another key concept explained by the Huygens–Fresnel principle,
 
 The Doppler effect is a well-known phenomenon where the frequency of a wave changes due to the relative motion between the source and observer. The Huygens–Fresnel principle provides a theoretical framework for understanding the Doppler effect, showing how the wavefronts shift and compress or expand based on the motion of the source and observer.
 
-This effec can be visualized with the following animations (source: Wikipedia):
+This effect can be visualized with the following animations (source: Wikipedia):
 
 :::{layout-ncol="2"}
 ![](pics/waves/Dopplereffectstationary.gif)
