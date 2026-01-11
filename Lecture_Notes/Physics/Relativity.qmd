@@ -1,0 +1,230 @@
+---
+title: Special Relativity
+format:
+  html:
+    theme: flatly
+    toc: true
+    toc-depth: 3
+    highlight-style: tango
+    code-line-numbers: true
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+    code-block-bg: "rgba(42, 174, 42, 0.02)"
+    code-block-border-left: "#2aae2a"
+    code-language-label: true
+    css: styles.css
+    math: mathjax
+    self-contained: true
+    other-links:
+      - text: Main page
+        href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
+---
+
+## Introduction: The Crisis of Common Sense
+
+For centuries, physics was built on the intuition of Isaac Newton. Space was a rigid stage, and time was a universal clock ticking the same for everyone, everywhere. This view is summarized by **Galilean Relativity**.
+
+However, in the late 19th century, James Clerk Maxwell's equations of electromagnetism revealed a problem: they predicted that the speed of light, $c$, is a fundamental constant ($c \approx 3 \times 10^8$ m/s). But if you run towards a light beam, shouldn't you measure it moving slower relative to you? Maxwell said "no", Newton said "yes".
+
+Albert Einstein solved this in 1905 with **Special Relativity**, fundamentally changing our understanding of reality.
+
+## Two Worlds: Galilean vs. Minkowski Space
+
+To understand relativity, we must compare how we translate coordinates between two observers. Imagine two frames of reference:
+1.  **Frame $S$** (e.g., a person on a platform).
+2.  **Frame $S'$** (e.g., a person on a train) moving with velocity $v$ along the $x$-axis relative to $S$.
+
+### 1. The Classical World (Galilean Transformation)
+
+In classical mechanics, time is absolute ($t' = t$). If an event happens at $(x, t)$ in frame $S$, the observer in $S'$ sees it at:
+
+$$
+\begin{cases}
+x' = x - vt \\
+y' = y \\
+z' = z \\
+t' = t
+\end{cases}
+$$
+
+**Velocity Addition:** If a ball is thrown with speed $u_x'$ inside the train ($S'$), its speed seen from the platform ($S$) is simply:
+$$u_x = u_x' + v$$
+
+If the ball is a photon ($u_x' = c$), then $u_x = c + v$. This contradicts experiment and Maxwell's equations!
+
+### 2. The Relativistic World (Lorentz Transformation)
+
+Einstein postulated that **the speed of light $c$ is constant in all inertial frames**. For this to be true, time and space *must* mix. The correct transformation is the **Lorentz Transformation**:
+
+First, we define two helper variables:
+$$
+\beta = \frac{v}{c} \quad \text{(Speed parameter)}
+$$
+$$
+\gamma = \frac{1}{\sqrt{1 - \beta^2}} = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} \quad \text{(Lorentz factor)}
+$$
+*Note: As $v \to 0$, $\gamma \to 1$, and we recover Galilean mechanics. As $v \to c$, $\gamma \to \infty$.*
+
+The transformation equations are:
+
+$$
+\begin{cases}
+x' = \gamma (x - vt) \\
+y' = y \\
+z' = z \\
+t' = \gamma (t - \frac{v}{c^2}x)
+\end{cases}
+$$
+
+**Key Difference:** Look at the equation for $t'$. Time is no longer absolute! Your time $t'$ depends on my position $x$. This is the "loss of simultaneity".
+
+### Spacetime Interval (The Invariant)
+
+In 3D Euclidean space (Galilean), the distance between two points is invariant upon rotation:
+$$\Delta r^2 = \Delta x^2 + \Delta y^2 + \Delta z^2$$
+
+In **Minkowski Space** (Relativity), space and time are fused into 4D Spacetime. The invariant "distance" is called the **Spacetime Interval** ($s^2$):
+
+$$
+\Delta s^2 = (c\Delta t)^2 - (\Delta x^2 + \Delta y^2 + \Delta z^2)
+$$
+
+All observers, regardless of their speed, agree on the value of $\Delta s^2$.
+- If $\Delta s^2 > 0$: **Timelike** separation (causally connected events).
+- If $\Delta s^2 < 0$: **Spacelike** separation (no causal connection).
+- If $\Delta s^2 = 0$: **Lightlike** separation (connected by a light ray).
+
+## Consequences of Lorentz Transformations
+
+Using the Lorentz equations, we can derive the strange effects of high-speed travel.
+
+### 1. Time Dilation
+
+**Scenario:** An observer in frame $S'$ (the moving train) has a clock at a fixed position $x'$. They measure the time interval between two ticks (events) as the **Proper Time** $\Delta t_0$.
+* Event 1: $(x', t'_1)$
+* Event 2: $(x', t'_2)$
+* Duration: $\Delta t' = t'_2 - t'_1 = \Delta t_0$
+
+What does the observer in $S$ (platform) measure? We use the inverse Lorentz transformation for time ($t = \gamma(t' + \frac{v}{c^2}x')$):
+
+$$
+t_1 = \gamma (t'_1 + \frac{v}{c^2}x')
+$$
+$$
+t_2 = \gamma (t'_2 + \frac{v}{c^2}x')
+$$
+
+Subtracting these gives:
+
+$$
+\Delta t = t_2 - t_1 = \gamma (t'_2 - t'_1)
+$$
+
+$$
+\Delta t = \gamma \Delta t_0
+$$
+
+**Conclusion:** Since $\gamma \geq 1$, $\Delta t \geq \Delta t_0$.
+**Moving clocks run slower.** The observer on the platform sees the train's clock ticking slowly. The "proper time" (measured by the clock itself) is always the shortest time interval.
+
+### 2. Length Contraction
+
+**Scenario:** A stick is at rest in frame $S'$ (the moving train). Its length is measured in $S'$ as the **Proper Length** $L_0$.
+* End 1: $x'_1$
+* End 2: $x'_2$
+* Length: $L_0 = x'_2 - x'_1$
+
+The observer in $S$ (platform) wants to measure the length. To measure the length of a moving object, you must record the positions of both ends **simultaneously** ($\Delta t = 0$ in frame $S$).
+We use the Lorentz transformation for $x'$: $x' = \gamma(x - vt)$.
+
+$$
+x'_1 = \gamma (x_1 - v t_1)
+$$
+$$
+x'_2 = \gamma (x_2 - v t_2)
+$$
+
+Since the measurement in $S$ is simultaneous, $t_1 = t_2$. Subtracting the equations:
+
+$$
+x'_2 - x'_1 = \gamma (x_2 - x_1)
+$$
+
+$$
+L_0 = \gamma L
+$$
+
+Rearranging for $L$:
+
+$$
+L = \frac{L_0}{\gamma}
+$$
+
+**Conclusion:** Since $\gamma \geq 1$, $L \leq L_0$.
+**Moving objects appear shorter** along the direction of motion.
+
+## Concrete Example: Cosmic Ray Muons
+
+This is not just theory; we observe it daily. Muons are unstable particles created in the upper atmosphere (approx. 10 km up) by cosmic rays.
+* Muon lifetime (at rest): $\tau \approx 2.2 \mu s$.
+* Muon speed: $v \approx 0.998c$ ($\gamma \approx 15$).
+
+**Classical Prediction:**
+Distance traveled $= v \times \tau \approx (3 \times 10^8 \text{ m/s}) \times (2.2 \times 10^{-6} \text{ s}) \approx 660 \text{ meters}$.
+Muons should decay long before reaching the ground. Yet, we detect them at sea level! Why?
+
+### Explanation 1: From Earth's Perspective (Time Dilation)
+To us on Earth, the muon is a moving clock. Its internal "watch" runs slower by a factor of $\gamma$.
+* Dilated lifetime: $\Delta t = \gamma \tau = 15 \times 2.2 \mu s = 33 \mu s$.
+* Distance traveled: $d = v \times \Delta t \approx c \times 33 \mu s \approx 9900 \text{ meters}$.
+**Result:** The muon lives long enough to reach the ground.
+
+### Explanation 2: From Muon's Perspective (Length Contraction)
+To the muon, it is at rest, and the Earth is rushing towards it at $0.998c$. The distance to the ground ($L_0 = 10 \text{ km}$) is length-contracted.
+* Contracted distance: $L = \frac{L_0}{\gamma} = \frac{10000 \text{ m}}{15} \approx 666 \text{ meters}$.
+* Time to hit Earth: $t = \frac{L}{v} \approx \frac{666}{c} \approx 2.22 \mu s$.
+**Result:** The ground reaches the muon just before it decays.
+
+Both observers agree on the outcome (the muon hits the ground), but they disagree on *why* (distorted time vs. distorted space).
+
+## Relativistic Velocity Addition
+
+If you run at $0.8c$ inside a rocket moving at $0.8c$, you do not move at $1.6c$. The Galilean formula $u = u' + v$ fails. The correct formula derived from Lorentz transformations is:
+
+$$
+u = \frac{u' + v}{1 + \frac{u' v}{c^2}}
+$$
+
+If we substitute $u' = c$ (a photon fired from the rocket):
+
+$$
+u = \frac{c + v}{1 + \frac{c v}{c^2}} = \frac{c + v}{1 + \frac{v}{c}} = \frac{c + v}{\frac{c + v}{c}} = c
+$$
+
+The speed of light is $c$ for everyone, preserving the fundamental postulate.
+
+## Mass-Energy Equivalence
+
+Finally, relativity modifies Newton's Second Law. As an object approaches $c$, it becomes harder to accelerate. This leads to the most famous equation in physics. Total energy $E$ is related to momentum $p$ and rest mass $m_0$:
+
+$$
+E^2 = (pc)^2 + (m_0 c^2)^2
+$$
+
+For a particle at rest ($p=0$):
+$$
+E = m_0 c^2
+$$
+
+This implies that mass is simply a concentrated form of energy.
+
+## Summary Table
+
+| Concept | Galilean Relativity (Classical) | Special Relativity (Einstein) |
+| :--- | :--- | :--- |
+| **Time** | Absolute ($t' = t$) | Relative ($t' \neq t$) |
+| **Space** | Absolute ($L' = L$) | Relative ($L = L_0 / \gamma$) |
+| **Speed of Light** | Variable ($c \pm v$) | Constant ($c$) |
+| **Transformation** | $x' = x - vt$ | $x' = \gamma(x - vt)$ |
+| **Invariant** | Distance $\Delta r^2$ | Interval $c^2\Delta t^2 - \Delta r^2$ |
