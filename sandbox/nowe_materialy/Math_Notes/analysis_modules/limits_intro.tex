@@ -12,6 +12,94 @@ which is equivalent to:
 \forall_{\varepsilon > 0} \quad \exists_{N \in \mathbb{N}} \quad \forall_{n > N} \quad |a_n - L| < \varepsilon
 \]
 
+\paragraph{Example: Proof of convergence for the sequence $a_n = 1/n$}
+We will prove that the limit of the sequence $a_n = 1/n$ is 0.
+\[ \lim_{n \to \infty} \frac{1}{n} = 0 \]
+\textbf{Proof:}
+According to the formal definition of a limit, we need to show that for any given $\varepsilon > 0$, there exists a natural number $N$ such that for all $n > N$, the inequality $|a_n - L| < \varepsilon$ is satisfied.
+
+In our case, $a_n = 1/n$ and $L = 0$. The inequality becomes:
+\[ \left|\frac{1}{n} - 0\right| < \varepsilon \]
+Since $n$ is a natural number, $n > 0$, so $|1/n| = 1/n$. The inequality simplifies to:
+\[ \frac{1}{n} < \varepsilon \]
+To find an appropriate $N$, we can solve this inequality for $n$:
+\[ n > \frac{1}{\varepsilon} \]
+By the Archimedean property of real numbers, for any positive real number $\varepsilon$, there exists a natural number $N$ such that $N > 1/\varepsilon$. Let's choose $N = \lceil 1/\varepsilon \rceil$.
+
+Now, for any $n > N$, we have:
+\[ n > N \ge \frac{1}{\varepsilon} \]
+This implies that $1/n < \varepsilon$. Therefore, we have shown that for any $\varepsilon > 0$, we can find an $N$ (for example, $N = \lceil 1/\varepsilon \rceil$) such that for all $n > N$, $|1/n - 0| < \varepsilon$. This completes the proof that the limit of the sequence $1/n$ is 0.
+\hfill $\blacksquare$
+
+\paragraph{Example: Proof of convergence for the sequence $a_n = \frac{n^2-1}{n^2}$}
+We will prove that the limit of the sequence $a_n = \frac{n^2-1}{n^2}$ is 1.
+\[ \lim_{n \to \infty} \frac{n^2-1}{n^2} = 1 \]
+\textbf{Proof:}
+According to the formal definition of a limit, we need to show that for any given $\varepsilon > 0$, there exists a natural number $N$ such that for all $n > N$, the inequality $|a_n - L| < \varepsilon$ is satisfied.
+
+In our case, $a_n = \frac{n^2-1}{n^2}$ and $L = 1$. The inequality becomes:
+\[ \left|\frac{n^2-1}{n^2} - 1\right| < \varepsilon \]
+Let's simplify the expression inside the absolute value:
+\[ \left|\frac{n^2-1 - n^2}{n^2}\right| = \left|-\frac{1}{n^2}\right| = \frac{1}{n^2} \]
+The inequality simplifies to:
+\[ \frac{1}{n^2} < \varepsilon \]
+To find an appropriate $N$, we can solve this inequality for $n$:
+\[ n^2 > \frac{1}{\varepsilon} \]
+\[ n > \frac{1}{\sqrt{\varepsilon}} \]
+Let's choose $N = \lceil 1/\sqrt{\varepsilon} \rceil$.
+
+Now, for any $n > N$, we have:
+\[ n > N \ge \frac{1}{\sqrt{\varepsilon}} \]
+This implies that $n^2 > 1/\varepsilon$, and therefore $1/n^2 < \varepsilon$. Thus, we have shown that for any $\varepsilon > 0$, we can find an $N$ such that for all $n > N$, $|\frac{n^2-1}{n^2} - 1| < \varepsilon$. This completes the proof that the limit of the sequence is 1.
+\hfill $\blacksquare$
+
+\paragraph{The Limit of the Sequence $a_n = (1+1/n)^n$}
+A fundamental limit in calculus is the limit of the sequence $a_n = (1+1/n)^n$. This limit exists, and its value is the base of the natural logarithm, the number $e$.
+\[ \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e \]
+The proof of the existence of this limit is more involved than the previous examples. It relies on the Monotone Convergence Theorem, which states that a sequence that is both monotonic (either non-decreasing or non-increasing) and bounded must converge.
+
+We will prove that the sequence $a_n$ is monotonically increasing and bounded above.
+
+\textbf{1. Monotonically Increasing ($a_n \le a_{n+1}$)}
+Using the binomial theorem, we can expand the term $a_n$:
+\begin{align*}
+a_n = \left(1 + \frac{1}{n}\right)^n &= \sum_{k=0}^{n} \binom{n}{k} \left(\frac{1}{n}\right)^k \\
+&= 1 + \binom{n}{1}\frac{1}{n} + \binom{n}{2}\frac{1}{n^2} + \dots + \binom{n}{n}\frac{1}{n^n} \\
+&= 1 + 1 + \frac{n(n-1)}{2!}\frac{1}{n^2} + \frac{n(n-1)(n-2)}{3!}\frac{1}{n^3} + \dots \\
+&= 1 + 1 + \frac{1}{2!}\left(1-\frac{1}{n}\right) + \frac{1}{3!}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) + \dots
+\end{align*}
+Similarly, for $a_{n+1}$:
+\[
+a_{n+1} = 1 + 1 + \frac{1}{2!}\left(1-\frac{1}{n+1}\right) + \frac{1}{3!}\left(1-\frac{1}{n+1}\right)\left(1-\frac{2}{n+1}\right) + \dots
+\]
+By comparing the terms of the expansions for $a_n$ and $a_{n+1}$, we can see that for each $k \ge 2$, the term
+\[ \frac{1}{k!}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right)\dots\left(1-\frac{k-1}{n}\right) \]
+is less than the corresponding term for $a_{n+1}$:
+\[ \frac{1}{k!}\left(1-\frac{1}{n+1}\right)\left(1-\frac{2}{n+1}\right)\dots\left(1-\frac{k-1}{n+1}\right) \]
+because for each factor, $\left(1-\frac{j}{n}\right) < \left(1-\frac{j}{n+1}\right)$ for $j=1, 2, \dots, k-1$.
+Furthermore, the expansion of $a_{n+1}$ has one additional positive term. Thus, we can conclude that $a_n < a_{n+1}$ for all $n \ge 1$. The sequence is strictly increasing.
+
+\textbf{2. Bounded Above}
+From the binomial expansion of $a_n$, we have:
+\[
+a_n = 1 + 1 + \frac{1}{2!}\left(1-\frac{1}{n}\right) + \frac{1}{3!}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) + \dots
+\]
+Since each term $\left(1-\frac{j}{n}\right)$ is less than 1, we can establish an upper bound:
+\[ a_n < 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \dots + \frac{1}{n!} \]
+Now, we can use the inequality $k! \ge 2^{k-1}$ for $k \ge 2$. This gives us $\frac{1}{k!} \le \frac{1}{2^{k-1}}$.
+\begin{align*}
+a_n &< 1 + \left(1 + \frac{1}{2^1} + \frac{1}{2^2} + \dots + \frac{1}{2^{n-1}}\right)
+\end{align*}
+The expression in the parentheses is a finite geometric series with first term 1 and common ratio $1/2$. The sum is:
+\[ S_n = \frac{1 - (1/2)^n}{1 - 1/2} = 2\left(1 - \frac{1}{2^n}\right) < 2 \]
+Therefore, for all $n$, we have:
+\[ a_n < 1 + 2 = 3 \]
+The sequence is bounded above by 3.
+
+\textbf{Conclusion}
+Since the sequence $(a_n)_{n=1}^\infty$ is monotonically increasing and bounded above, it is convergent. The limit is defined as Euler's number, $e$.
+\hfill $\blacksquare$
+
 \subsection*{Limit of a Function}
 
 The limit of a function at a point can be defined in two equivalent ways: the Cauchy definition (using $\varepsilon$ and $\delta$) and the Heine definition (using sequences).
@@ -75,8 +163,12 @@ Thus, we have shown that for any $\varepsilon > 0$, there exists an $N$ such tha
 \hfill $\blacksquare$
 
 \paragraph{Theorem (Product of Limits)}
-Let $(a_n)$ and $(b_n)$ be two sequences such that $\lim_{n \to \infty} a_n = A$ and $\lim_{n \to \infty} b_n = B$. Then:
-\[
+
+Let $(a_n)$ and $(b_n)$ be two sequences such that 
+$\lim_{n \to \infty} a_n = A$
+and $\lim_{n \to \infty} b_n = B$. Then:
+
+ \[
 \lim_{n \to \infty} (a_n \cdot b_n) = A \cdot B
 \]
 
@@ -107,3 +199,32 @@ Let $(a_n)$ and $(b_n)$ be two sequences such that $\lim_{n \to \infty} a_n = A$
 \[
 \lim_{n \to \infty} \frac{a_n}{b_n} = \frac{A}{B}
 \]
+
+\paragraph{Example: Proof of the limit of $f(x) = x^2$}
+We will prove that $\lim_{x \to 3} x^2 = 9$.
+
+\textbf{Proof:}
+According to the $\varepsilon$-$\delta$ definition of a limit, we need to show that for any given $\varepsilon > 0$, there exists a $\delta > 0$ such that for all $x$, if $0 < |x - 3| < \delta$, then $|x^2 - 9| < \varepsilon$.
+
+Let $\varepsilon > 0$ be given. We want to find a $\delta > 0$. Let's analyze the expression $|x^2 - 9|$:
+\[ |x^2 - 9| = |(x-3)(x+3)| = |x-3||x+3| \]
+We need to bound the term $|x+3|$. We are interested in values of $x$ close to 3, so we can restrict $\delta$ to be less than or equal to 1.
+If we assume $\delta \le 1$, then from $|x - 3| < \delta$, we have $|x - 3| < 1$.
+This implies $-1 < x - 3 < 1$, which leads to $2 < x < 4$.
+For $x$ in this interval, we have $5 < x+3 < 7$, so $|x+3| < 7$.
+
+Now we can write:
+\[ |x^2 - 9| = |x-3||x+3| < 7|x-3| \]
+To make this less than $\varepsilon$, we require $7|x-3| < \varepsilon$, which means $|x-3| < \varepsilon/7$.
+
+So, we need to satisfy two conditions for $\delta$: $\delta \le 1$ and $\delta \le \varepsilon/7$. We can choose $\delta$ to be the smaller of these two values:
+\[ \delta = \min\left(1, \frac{\varepsilon}{7}\right) \]
+Now, let's verify this choice. For any given $\varepsilon > 0$, let $\delta = \min(1, \varepsilon/7)$.
+If $0 < |x-3| < \delta$, then we have:
+1. $|x-3| < 1$, which we have shown implies $|x+3| < 7$.
+2. $|x-3| < \varepsilon/7$.
+
+Combining these, we get:
+\[ |x^2 - 9| = |x-3||x+3| < \left(\frac{\varepsilon}{7}\right) \cdot 7 = \varepsilon \]
+Thus, we have shown that for any $\varepsilon > 0$, we can find a $\delta > 0$ such that if $0 < |x-3| < \delta$, then $|x^2 - 9| < \varepsilon$. This completes the proof.
+\hfill $\blacksquare$
