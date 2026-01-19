@@ -123,3 +123,50 @@ Skopiuj poniższy **Prompt** i wklej go do Agenta w VS Code:
 
 **Weryfikacja:**
 Uruchom `mkdocs serve`. W menu powinieneś zobaczyć nową pozycję "Symulacja". Po kliknięciu otworzy się Twoja interaktywna aplikacja stworzona przez AI. Gdy będziesz zadowolony, wypchnij zmiany na serwer (`mkdocs gh-deploy`).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Jasne, oto zaktualizowany **Krok 2**, zawierający zmodyfikowany prompt dla Agenta, który zadba o higienę repozytorium (plik `.gitignore`).
+
+---
+
+## Krok 2: Automatyczna konfiguracja (Agent AI)
+
+Teraz poprosimy Agenta AI w Visual Studio Code o przygotowanie środowiska Python, struktury MkDocs oraz zabezpieczenie repozytorium przed wysyłaniem zbędnych plików.
+
+Skopiuj poniższy **Prompt** i wklej go do czatu z Agentem:
+
+> **Prompt dla Agenta:**
+>
+> "Jesteś ekspertem od dokumentacji technicznej w Pythonie. Proszę o przygotowanie środowiska pod MkDocs w bieżącym folderze. Wykonaj następujące kroki:
+>
+> 1. Stwórz wirtualne środowisko Python (`.venv`) i podaj komendę do jego aktywacji.
+> 2. Stwórz plik `.gitignore`, aby wykluczyć pliki tymczasowe z repozytorium. Dodaj do niego koniecznie:
+>    - `.venv/` (środowisko wirtualne),
+>    - `site/` (folder zbudowanej strony),
+>    - `__pycache__/`.
+> 3. Zainstaluj w tym środowisku pakiety: `mkdocs` oraz `mkdocs-material`.
+> 4. Wygeneruj strukturę nowego projektu w głównym katalogu (`mkdocs new .`).
+> 5. Nadpisz plik konfiguracyjny `mkdocs.yml`, ustawiając `site_name` na 'Notatki z Matematyki' oraz zmieniając motyw (`theme`) na `name: material`.
+>
+> Nie uruchamiaj serwera, tylko przygotuj pliki."
+
+*Pamiętaj, aby po wykonaniu instrukcji przez Agenta wpisać w terminalu komendę aktywującą środowisko (tą, którą poda Agent).*
