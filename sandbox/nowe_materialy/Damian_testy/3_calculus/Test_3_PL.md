@@ -38,6 +38,8 @@ Oblicz całkę $\int (x^2+3x+5)x dx$.
 * C) $\frac{x^3}{3} + \frac{3x^2}{2} + 5x + C$
 * D) $3x^2 + 6x + 5 + C$
 
+\newpage
+
 ## Zadanie 6
 Oblicz całkę $\int x\sin(x^2) dx$.
 

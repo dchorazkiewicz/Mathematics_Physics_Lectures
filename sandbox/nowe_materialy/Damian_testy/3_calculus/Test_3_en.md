@@ -38,6 +38,8 @@ Calculate the integral $\int (x^2+3x+5)x dx$.
 * C) $\frac{x^3}{3} + \frac{3x^2}{2} + 5x + C$
 * D) $3x^2 + 6x + 5 + C$
 
+\newpage
+
 ## Problem 6
 Calculate the integral $\int x\sin(x^2) dx$.
 
