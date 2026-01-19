@@ -55,6 +55,7 @@ ln -sf ../../../Lecture_Notes/Physics/Statistics.html Statistics.html
 cd "$ROOT_DIR/docs/Physics/Modern_Physics" || exit
 ln -sf ../../../Lecture_Notes/Physics/Quantum_mechanics.html Quantum_mechanics.html
 ln -sf ../../../Lecture_Notes/Physics/Cosmology.html Cosmology.html
+ln -sf ../../../Lecture_Notes/Physics/Relativity.html Relativity.html
 
 # Powrót do katalogu głównego
 cd "$ROOT_DIR" || exit

@@ -29,11 +29,12 @@ nav:
         - Statistics 101: Physics/Experiments_Statistics/Statistics.html
         - Measurements: Physics/Experiments_Statistics/Measurement.html
       - Student Projects:
-        - Estiamting Pi: Physics/Experiments_Statistics/sp/estimation_of_pi.md
+        - Estimating Pi: Physics/Experiments_Statistics/sp/estimation_of_pi.md
     - ⚛️ Modern Physics:
       - 🎓 Lecture Notes:
         - Quantum Mechanics: Physics/Modern_Physics/Quantum_mechanics.html
         - Cosmology: Physics/Modern_Physics/Cosmology.html
+        - Relativity: Physics/Modern_Physics/Relativity.html
       - Student Projects:
         - Quantum Harmonic Oscillator: Physics/Modern_Physics/sp/quantum_harmonic_oscillator.md
     - ✏️ Exercises for Students:

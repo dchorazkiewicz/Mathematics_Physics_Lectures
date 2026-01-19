@@ -1,5 +1,5 @@
 ---
-title: Quantum mechanics
+title: Quantum Mechanics
 format:
   html:
     theme: flatly
@@ -21,4 +21,299 @@ format:
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
 
-## QM
+## Introduction to the Quantum World
+
+Classical mechanics, which works perfectly for planets, cars, and bridges, fails completely when we look at the microscopic world of atoms. To understand quantum mechanics, we must first understand how our concept of matter has evolved.
+
+It turns out that energy and other physical quantities are not continuous (analog), but discrete (digital/quantized). For a computer scientist, this is good news: nature at its lowest level operates on discrete states, much like bits and registers, rather than continuous variables.
+
+## Historical Evolution of the Atom
+
+### J.J. Thomson's Model (1904)
+
+Before the discovery of the nucleus, J.J. Thomson (who discovered the electron) proposed the **"Plum Pudding Model"**.
+
+- The atom was conceptualized as a sphere of positive charge ("pudding").
+- Negatively charged electrons ("plums") were embedded inside this sphere to balance the charge.
+- This model assumed that mass and charge were distributed evenly throughout the atom.
+
+### Rutherford's Model (1911)
+
+Ernest Rutherford performed his famous gold foil experiment. He fired alpha particles (heavy, positively charged particles) at a thin sheet of gold.
+Most passed through, but some bounced back at sharp angles. This experiment proved that:
+
+1.  **Nucleus:** The positive charge and almost all the mass are concentrated in a tiny nucleus at the center.
+2.  **Empty Space:** Most of the atom is essentially empty space.
+3.  **Planetary Model:** Electrons orbit the nucleus like planets orbit the Sun.
+
+**The "Bug" in the System:**
+According to classical electrodynamics, an accelerating electric charge emits electromagnetic radiation. An electron orbiting a nucleus is constantly accelerating (centripetal acceleration). Therefore, it should continuously lose energy and spiral into the nucleus in a fraction of a second. According to classical physics, **stable matter shouldn't exist!**
+
+## The Bohr Model (1913)
+
+Niels Bohr solved this catastrophe by introducing **quantum postulates**. He didn't reject classical mechanics entirely but imposed "constraints" on it. This is similar to how we impose boundary conditions in differential equations.
+
+### Bohr's Postulates
+
+1.  **Stationary Orbits:** Electrons can only orbit the nucleus in specific, "allowed" orbits with fixed energies. In these orbits, contrary to classical electrodynamics, they **do not** radiate energy.
+
+2.  **Quantization of Angular Momentum:** The angular momentum $L$ of an electron cannot be arbitrary. It must be an integer multiple of the reduced Planck constant $\hbar$. This is the quantization condition:
+
+$$
+L = n \hbar = n \frac{h}{2\pi}
+$$
+
+where:
+* $n = 1, 2, 3, \dots$ is the **principal quantum number** (an integer!).
+* $h$ is Planck's constant.
+
+3.  **Energy Transitions:** An electron can jump between these stable orbits. It emits or absorbs a photon with energy equal exactly to the difference between the energy levels:
+
+$$
+\Delta E = E_f - E_i = h \nu
+$$
+
+### Energy Levels of Hydrogen
+
+Using these postulates, Bohr derived the formula for the energy levels of a Hydrogen atom. The energy is negative because the electron is bound to the nucleus:
+
+$$
+E_n = -13.6 \text{ eV} \frac{1}{n^2}
+$$
+
+- **Ground State ($n=1$):** The lowest possible energy level ($E_1 = -13.6$ eV). The electron cannot fall lower than this.
+- **Excited States ($n > 1$):** Higher energy orbits.
+- **Ionization ($n \to \infty$):** The electron is free ($E=0$).
+
+### Derivation of Spectral Lines (The Rydberg Formula)
+
+Let us see how to derive the formula for the wavelength of emitted light.
+Consider an electron falling from a higher energy level $n_i$ to a lower level $n_f$. The energy difference is carried away by a photon.
+
+$$
+\Delta E = E_{n_i} - E_{n_f}
+$$
+
+Substituting the energy formula $E_n = \frac{E_1}{n^2}$ (where $E_1 = -13.6$ eV):
+
+$$
+\Delta E = \left( \frac{E_1}{n_i^2} \right) - \left( \frac{E_1}{n_f^2} \right) = -E_1 \left( \frac{1}{n_f^2} - \frac{1}{n_i^2} \right)
+$$
+
+The energy of a photon is related to its wavelength $\lambda$ by $\Delta E = h \nu = \frac{hc}{\lambda}$.
+Equating these:
+
+$$
+\frac{hc}{\lambda} = -E_1 \left( \frac{1}{n_f^2} - \frac{1}{n_i^2} \right)
+$$
+
+Solving for $1/\lambda$:
+
+$$
+\frac{1}{\lambda} = \frac{-E_1}{hc} \left( \frac{1}{n_f^2} - \frac{1}{n_i^2} \right)
+$$
+
+The term $\frac{-E_1}{hc}$ is a collection of physical constants that yields the **Rydberg Constant** $R$. Thus, we arrive at the famous **Rydberg Formula**:
+
+$$
+\frac{1}{\lambda} = R \left( \frac{1}{n_f^2} - \frac{1}{n_i^2} \right)
+$$
+
+where $R \approx 1.097 \times 10^7 \, \text{m}^{-1}$. This formula explains the discrete "bar code" of light emitted by atoms.
+
+## De Broglie Waves (Wave-Particle Duality)
+
+Bohr's model worked, but it didn't explain *why* angular momentum is quantized. Why only integers?
+
+In 1924, Louis de Broglie proposed a revolutionary idea: **If light (waves) can behave like particles (photons), then particles (electrons) can behave like waves.**
+
+Every particle with momentum $p$ has an associated wavelength $\lambda$:
+
+$$
+\lambda = \frac{h}{p} = \frac{h}{mv}
+$$
+
+### Explanation of Quantization
+
+This hypothesis elegantly explains Bohr's quantization rule. An electron orbit is stable only if it forms a **standing wave** around the nucleus.
+The circumference of the orbit ($2\pi r$) must fit exactly an integer number of wavelengths:
+
+$$
+2\pi r = n \lambda
+$$
+
+If the circumference is not an integer multiple of the wavelength, the wave interferes destructively with itself and cancels out. This means "fractional" orbits simply cannot exist.
+
+## Heisenberg Uncertainty Principle
+
+In the quantum world, we cannot know everything with infinite precision. Werner Heisenberg formulated the principle stating that we cannot simultaneously measure the position $x$ and momentum $p$ of a particle with arbitrary accuracy:
+
+$$
+\Delta x \Delta p \geq \frac{\hbar}{2}
+$$
+
+This is not a measurement error. It is a fundamental property of nature. If you know exactly where a particle is ($\Delta x \to 0$), you know nothing about its momentum ($\Delta p \to \infty$).
+
+## The Schrödinger Equation
+
+The Bohr model and De Broglie waves were great steps forward, but they were limited to simple cases like Hydrogen. We needed a general law that governs the motion of quantum particles, just as Newton's Second Law ($F=ma$) governs classical particles.
+
+In 1926, Erwin Schrödinger formulated such an equation. For a particle of mass $m$ moving in a potential $V(x)$, the **Time-Independent Schrödinger Equation** is:
+
+$$
+- \frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{dx^2} + V(x)\psi(x) = E\psi(x)
+$$
+
+This might look intimidating, but for a computer scientist, it is a familiar structure: **The Eigenvalue Problem**.
+
+$$
+\hat{H} \psi = E \psi
+$$
+
+Where:
+
+* $\hat{H}$ (Hamiltonian) is the operator representing Total Energy (Kinetic + Potential).
+* $\psi$ (Wavefunction) is the "state" of the system (Eigenvector).
+* $E$ is the energy value (Eigenvalue).
+
+### The Wavefunction and Probability
+
+What is $\psi(x)$? It is not a physical wave like a water wave. In classical mechanics, we know the exact position $x(t)$. In quantum mechanics, we lose that certainty.
+
+Max Born proposed the statistical interpretation: **The square of the absolute value of the wavefunction represents the probability density.**
+
+$$
+P(x) = |\psi(x)|^2
+$$
+
+The probability of finding the particle between points $a$ and $b$ is:
+
+$$
+P(a \le x \le b) = \int_a^b |\psi(x)|^2 dx
+$$
+
+Since the particle must exist *somewhere*, the wavefunction must be normalized:
+
+$$
+\int_{-\infty}^{+\infty} |\psi(x)|^2 dx = 1
+$$
+
+## Quantum Superposition and Qubits
+
+One of the most profound consequences of the Schrödinger equation is the principle of **superposition**. Since the equation is linear, if $\psi_1$ and $\psi_2$ are solutions, then any linear combination of them is also a solution:
+
+$$
+\psi = c_1 \psi_1 + c_2 \psi_2
+$$
+
+where $c_1$ and $c_2$ are complex numbers.
+
+### The Qubit
+In classical computing, a bit is either 0 or 1. In quantum mechanics, we use the **Dirac notation (Bra-Ket)** to denote states:
+* State "0" is denoted as $|0\rangle$.
+* State "1" is denoted as $|1\rangle$.
+
+A **Qubit** (Quantum Bit) can exist in a superposition of both states simultaneously:
+
+$$
+|\psi\rangle = \alpha |0\rangle + \beta |1\rangle
+$$
+
+The coefficients $\alpha$ and $\beta$ are probability amplitudes. When we measure the qubit:
+* Probability of measuring 0 is $|\alpha|^2$.
+* Probability of measuring 1 is $|\beta|^2$.
+* Normalization requires: $|\alpha|^2 + |\beta|^2 = 1$.
+
+### Schrödinger's Cat
+This concept leads to the famous thought experiment devised by Erwin Schrödinger. A cat in a sealed box is linked to a quantum event (like radioactive decay). Until the box is opened (measurement is performed), the system is described by a superposition of states:
+
+$$
+|\text{Cat}\rangle = \frac{1}{\sqrt{2}} \left( |\text{Dead}\rangle + |\text{Alive}\rangle \right)
+$$
+
+The cat is not dead OR alive; it is in a linear combination of both states. The act of measurement forces the wavefunction to **collapse** into one of the definite states.
+
+## Particle in a Box (Infinite Potential Well)
+
+The simplest application of the Schrödinger equation is the "Particle in a Box". Imagine an electron trapped in a 1D wire of length $L$, with infinitely high walls at the ends.
+
+* Inside the box ($0 < x < L$): $V(x) = 0$ (particle moves freely).
+* Outside the box: $V(x) = \infty$ (particle cannot escape).
+
+Because the particle cannot be outside, $\psi(0) = 0$ and $\psi(L) = 0$.
+Solving the Schrödinger equation with these boundary conditions yields solutions that are simple sine waves (standing waves):
+
+$$
+\psi_n(x) = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi x}{L}\right)
+$$
+
+And the allowed energy levels are:
+
+$$
+E_n = \frac{n^2 h^2}{8mL^2}
+$$
+
+where $n = 1, 2, 3, \dots$
+
+**Key Takeaways:**
+
+1.  **Zero-Point Energy:** The lowest energy ($n=1$) is not zero! The particle can never sit completely still. If it did, we would know its position and momentum precisely, violating the Heisenberg Uncertainty Principle.
+2.  **Quantization:** Energy is discrete (quantized) purely because the particle is confined in space.
+
+## Quantum Tunneling
+
+Classical logic says: "If you don't have enough energy to jump over a wall, you bounce back."
+Quantum mechanics says: "There is a non-zero probability you will pass through the wall."
+
+Consider a particle with energy $E$ approaching a potential barrier of height $V_0$, where $E < V_0$.
+
+### Mathematical Derivation
+Inside the barrier, the potential is $V(x) = V_0$. The Schrödinger equation becomes:
+
+$$
+- \frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + V_0 \psi = E \psi
+$$
+
+Rearranging terms:
+
+$$
+\frac{d^2 \psi}{dx^2} = \frac{2m(V_0 - E)}{\hbar^2} \psi
+$$
+
+Since $E < V_0$, the term on the right is positive. Let us define a real constant $\kappa$:
+
+$$
+\kappa = \sqrt{\frac{2m(V_0 - E)}{\hbar^2}}
+$$
+
+The equation becomes $\frac{d^2 \psi}{dx^2} = \kappa^2 \psi$. The general solution to this differential equation is **exponential**:
+
+$$
+\psi(x) = A e^{-\kappa x} + B e^{\kappa x}
+$$
+
+* The term $e^{\kappa x}$ grows infinitely as $x$ increases, which is physically impossible for a wide barrier, so we set $B \approx 0$.
+* The term $e^{-\kappa x}$ represents a **decaying wave**.
+
+This means the probability density $|\psi(x)|^2$ inside the barrier is not zero, but decays exponentially:
+
+$$
+P(x) \propto e^{-2\kappa x}
+$$
+
+If the barrier has a finite width $L$, the wavefunction at the other side $\psi(L)$ is small but non-zero. The particle can **tunnel** through!
+
+### Applications in Technology
+
+This is not just theory; it is the basis of modern electronics:
+
+1.  **Flash Memory (SSD/USB):** To store data, we force electrons to tunnel through an insulating oxide layer onto a "floating gate". Once there, they are trapped (representing a '0' or '1').
+2.  **Scanning Tunneling Microscope (STM):** Uses tunneling current to image individual atoms on a surface.
+3.  **CPU Limitations:** As transistors get smaller (nanometers scale), electrons start tunneling through logic gates where they shouldn't, causing leakage current and heating. This is a major limit to Moore's Law.
+
+## References
+
+- [Bohr Model - Wikipedia](https://en.wikipedia.org/wiki/Bohr_model)
+- [Hydrogen Spectral Series - Wikipedia](https://en.wikipedia.org/wiki/Hydrogen_spectral_series)
+- [Wave-Particle Duality - HyperPhysics](http://hyperphysics.phy-astr.gsu.edu/hbase/mod1.html)
+- [Schrödinger's Cat - Wikipedia](https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat)

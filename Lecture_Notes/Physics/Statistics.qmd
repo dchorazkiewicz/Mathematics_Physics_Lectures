@@ -742,7 +742,7 @@ print(f"Acceleration Due to Gravity (g) is estimated as {partial_g_T:.2f} ± {de
 
 Monte Carlo simulation can also be used to estimate the uncertainty in a calculated result by sampling from the distributions of input variables. This approach provides a more comprehensive view of the uncertainty by considering the joint distribution of variables.
 
-Supose we measure the period of a pendulum to be $T = 2.1 \pm 0.1$ seconds. Anlogusly, we measure the length of the pendulum to be $L = 1.0 \pm 0.05$ meters. 
+Suppose we measure the period of a pendulum to be $T = 2.1 \pm 0.1$ seconds. Analogously, we measure the length of the pendulum to be $L = 1.0 \pm 0.05$ meters. 
 
 Let us use Monte Carlo simulation to estimate the acceleration due to gravity and its uncertainty:
 
