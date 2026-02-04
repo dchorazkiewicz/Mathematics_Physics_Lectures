@@ -1,177 +1,72 @@
-## Zadanie 1
-Znajdź granicę ciągu $a_n = \frac{2n^2 + 3n + 2}{5-2n^2}$ przy $n \to \infty$.
+Tak, przeanalizowałem to dogłębnie. **To jest absolutne minimum i jest ono poprawne.**
 
-* A) $-1$
-* B) $1$
-* C) $\infty$
-* D) $\frac{2}{5}$
+Twoja sytuacja jest teraz klarowna. Skrypt zadziałał idealnie w trybie "chirurgicznym". Nie ma tu zbędnej pracy, jest tylko **niezbędny ratunek**.
 
-## Zadanie 2
-Znajdź granicę funkcji $f(x) = \frac{\sin(x-\pi)}{x}$ przy $x \to 0$.
+### Dlaczego to jest poprawne i bezpieczne?
 
-* A) $0$
-* B) $1$
-* C) $-1$
-* D) $\infty$
-
-## Zadanie 3
-Oblicz pochodną funkcji $y(x) = 2x^3 - 3x^2 + 8x - 9$.
-
-* A) $6x^2 - 6x + 8$
-* B) $6x^3 - 6x^2 + 8x$
-* C) $2x^2 - 3x + 8$
-* D) $6x^2 - 6x$
-
-## Zadanie 4
-Oblicz pochodną funkcji $y(x) = x\sin(x)+1$.
-
-* A) $\sin(x) + x\cos(x)$
-* B) $\cos(x)$
-* C) $\sin(x) - x\cos(x)$
-* D) $x\cos(x)$
-
-## Zadanie 5
-Oblicz całkę $\int (x^2+3x+5)x dx$.
-
-* A) $\frac{x^4}{4} + x^3 + \frac{5x^2}{2} + C$
-* B) $x^3 + 3x^2 + 5x + C$
-* C) $\frac{x^3}{3} + \frac{3x^2}{2} + 5x + C$
-* D) $3x^2 + 6x + 5 + C$
-
-\newpage
-
-## Zadanie 6
-Oblicz całkę $\int x\sin(x^2) dx$.
-
-* A) $-\frac{1}{2}\cos(x^2)$
-* B) $2x\cos(x^2) + C$
-* C) $-\frac{1}{2}\cos(x^2) + C$
-* D) $-\cos(x^2) + C$
-
-## Zadanie 7
-Oblicz całkę $\int \frac{x+2}{x+1} dx$.
-
-* A) $x + \ln|x+1| + C$
-* B) $\ln|x+1| + C$
-* C) $x - \ln|x+1| + C$
-* D) $1 + \frac{1}{x+1} + C$
-
-## Zadanie 8
-Znajdź pole obszaru ograniczonego osią x oraz krzywą $y = x^2$ na przedziale $[0,2]$.
-
-* A) $\frac{8}{3}$
-* B) $4$
-* C) $\frac{4}{3}$
-* D) $\frac{1}{3}x^3+C$
-
-## Zadanie 9
-Cząstka porusza się wzdłuż linii prostej, a jej położenie w czasie $t$ jest dane funkcją $x(t) = t^3 - 6t^2 + 9t + 2$. Znajdź prędkość $V(t) = \frac{dx(t)}{dt}$ oraz przyspieszenie $a(t) = \frac{d^2x(t)}{dt^2}$ cząstki w czasie $t = 2$.
-
-* A) Prędkość: 0, Przyspieszenie: -3
-* B) Prędkość: 3, Przyspieszenie: 0
-* C) Prędkość: -3, Przyspieszenie: 0
-* D) Prędkość: -3, Przyspieszenie: 12
-
-## Zadanie 10
-Rozwiąż równanie różniczkowe $\frac{dy}{dx} = \frac{x+2}{x+1}$ z warunkiem początkowym $y(0) = 1$.
-
-* A) $y(x) = x + \ln|x+1| + C$
-* B) $y(x) = \ln|x+1| + 1$
-* C) $y(x) = x + \ln|x+1| + 1$
-* D) $y(x) = \frac{-1}{(x+1)^2}$
+1. **Zadziałała "Symulacja Śmierci":** Skrypt słusznie zauważył, że skoro usuwasz 90% pipeline'ów (`base_models`, `prophet`, etc.), to nie ma sensu przenosić ich parametrów do `common`. Dlatego `catalog_common.yml` i `parameters_common.yml` są puste. **Oszczędziłeś mnóstwo czasu.**
+2. **Wykryto "Pępowinę" (Critical Rescue):** Skrypt wykrył jedyne realne zagrożenie dla produkcji. Twój pipeline `prepare_base_sales_agg` (który zostaje) jest uzależniony od parametrów `holidays_config` i `date_features_config`, które fizycznie leżą w pliku pipeline'u `prepare_extended_sales_agg` (który usuwasz).
+3. **Werdykt:** Jeśli nie wykonasz tej "akcji ratunkowej", `prepare_base_sales_agg` przestanie działać w momencie usunięcia katalogu `prepare_extended...`.
 
 ---
 
-### Odpowiedzi
+### TWOJA LISTA ZADAŃ (Checklist przed Delete)
 
-1. **A**
-2. **C**
-3. **A**
-4. **A**
-5. **A**
-6. **C**
-7. **A**
-8. **A**
-9. **C**
-10. **C**
+Wykonaj tylko te 3 kroki. To zapewni ciągłość działania.
 
-### Wyniki obliczeń
+#### KROK 1: Operacja Ratunkowa + Namespace (W pliku YAML)
 
-* **Zadanie 1:** $-1$
-* **Zadanie 2:** $-1$
-* **Zadanie 3:** $6x^2 - 6x + 8$
-* **Zadanie 4:** $x\cos(x) + \sin(x)$
-* **Zadanie 5:** $\frac{x^4}{4} + x^3 + \frac{5x^2}{2} + C$
-* **Zadanie 6:** $-\frac{\cos(x^2)}{2} + C$
-* **Zadanie 7:** $x + \ln(x + 1) + C$
-* **Zadanie 8:** $\frac{8}{3}$
-* **Zadanie 9:** Prędkość $v(2) = -3$, Przyspieszenie $a(2) = 0$
-* **Zadanie 10:** $x + \ln(x + 1) + 1$
+Musisz połączyć ratowanie parametrów z naprawą namespace'u, o którą prosi skrypt.
 
----
+**Otwórz plik:** `conf/base/parameters_prepare_base_sales_agg.yml`
+**Zrób tak:**
 
-### Kod Python
+1. Wklej zawartość z `parameters_rescued.yml`.
+2. Wszystko (zarówno stare `aggregation_config` jak i nowe wklejone) wcięcie pod klucz `prepare_base_sales_agg`.
 
-```python
-import sympy as sp
+**Docelowy wygląd pliku (Tak ma wyglądać po edycji):**
 
-# Definiowanie symboli
-n = sp.symbols('n')
-x = sp.symbols('x')
-t = sp.symbols('t')
+```yaml
+prepare_base_sales_agg:  # <--- namespace (wymagany przez Kedro convention)
+  
+  # --- TO BYŁO (Stare) ---
+  aggregation_config:
+    min_sys_date: "2015-01-01"
+    # ... reszta konfiguracji ...
 
-print("--- WYNIKI ZADAŃ ---")
+  # --- TO JEST URATOWANE (Z parameters_rescued.yml) ---
+  holidays_config:
+    country_col: sys_market_code
+    date_col: sys_date
 
-# Zadanie 1: Granica ciągu
-expr1 = (2*n**2 + 3*n + 2) / (5 - 2*n**2)
-limit1 = sp.limit(expr1, n, sp.oo)
-print(f"Zadanie 1: {limit1}")
+  date_features_config:
+    order_by_col: sys_date
 
-# Zadanie 2: Granica funkcji
-expr2 = sp.sin(x - sp.pi) / x
-limit2 = sp.limit(expr2, x, 0)
-print(f"Zadanie 2: {limit2}")
+```
 
-# Zadanie 3: Pochodna wielomianu
-expr3 = 2*x**3 - 3*x**2 + 8*x - 9
-deriv3 = sp.diff(expr3, x)
-print(f"Zadanie 3: {deriv3}")
+#### KROK 2: Aktualizacja Kodu Python (W pipeline.py)
 
-# Zadanie 4: Pochodna iloczynu
-expr4 = x * sp.sin(x) + 1
-deriv4 = sp.diff(expr4, x)
-print(f"Zadanie 4: {deriv4}")
+Skoro dodałeś namespace `prepare_base_sales_agg` w YAML, musisz powiedzieć o tym w kodzie Python.
 
-# Zadanie 5: Całka nieoznaczona
-expr5 = (x**2 + 3*x + 5) * x
-integral5 = sp.integrate(expr5, x)
-print(f"Zadanie 5: {integral5} + C")
+**Otwórz plik:** `src/biakedro/pipelines/prepare_base_sales_agg/pipeline.py`
+**Zaktualizuj inputy węzłów:**
 
-# Zadanie 6: Całka przez podstawienie
-expr6 = x * sp.sin(x**2)
-integral6 = sp.integrate(expr6, x)
-print(f"Zadanie 6: {integral6} + C")
+| Węzeł | Stary Input | Nowy Input (Poprawny) |
+| --- | --- | --- |
+| `prepare_and_aggregate...` | `params:aggregation_config` | `params:prepare_base_sales_agg.aggregation_config` |
+| `combine_aggregated...` | `params:aggregation_config` | `params:prepare_base_sales_agg.aggregation_config` |
+| `add_date_features_node` | `params:date_features_config` | `params:prepare_base_sales_agg.date_features_config` |
+| `add_holidays_node` | `params:holidays_config` | `params:prepare_base_sales_agg.holidays_config` |
 
-# Zadanie 7: Całka wymierna
-expr7 = (x + 2) / (x + 1)
-integral7 = sp.integrate(expr7, x)
-print(f"Zadanie 7: {integral7} + C")
+#### KROK 3: DELETE (Wielka Czystka)
 
-# Zadanie 8: Pole powierzchni (całka oznaczona)
-expr8 = x**2
-area8 = sp.integrate(expr8, (x, 0, 2))
-print(f"Zadanie 8: {area8}")
+Teraz, gdy parametry są bezpieczne u "właściciela", możesz bez strachu usunąć katalogi (zarówno w `conf/base/...` jak i w `src/biakedro/pipelines/...`) dla:
 
-# Zadanie 9: Prędkość i przyspieszenie
-x_t = t**3 - 6*t**2 + 9*t + 2
-v_t = sp.diff(x_t, t)
-a_t = sp.diff(v_t, t)
-v_2 = v_t.subs(t, 2)
-a_2 = a_t.subs(t, 2)
-print(f"Zadanie 9: Prędkość v(2) = {v_2}, Przyspieszenie a(2) = {a_2}")
+* `prepare_extended_sales_agg`
+* `base_models`
+* `prophet_predictions`
+* ...i wszystkich innych z Twojej listy do usunięcia.
 
-# Zadanie 10: Równanie różniczkowe
-y = sp.Function('y')
-diff_eq = sp.Eq(y(x).diff(x), (x + 2) / (x + 1))
-solution = sp.dsolve(diff_eq, y(x), ics={y(0): 1})
-print(f"Zadanie 10: {solution.rhs}")
+**Models Generator jest bezpieczny**, ponieważ korzysta z danych produkowanych przez `prepare_base_sales_agg` (`final_agg_sales_ts_features`), a ten pipeline właśnie uratowałeś.
+
+Możesz iść z tym na produkcję.
