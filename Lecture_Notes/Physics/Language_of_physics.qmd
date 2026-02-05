@@ -1010,6 +1010,8 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
 
 ### Integrals
 
+#### Area under a curve
+
 At the simplest level, an integral is the reverse of a derivative. The integral of a function $f(x)$ with respect to $x$ is defined as
 
 $$
@@ -1024,6 +1026,26 @@ $$
 
 The integral is a measure of the area under the curve of the function $f(x)$. The integral is a function that gives the area under the curve of the function $f(x)$ up to a given point.
  
+
+#### Line integrals
+
+The line integral is a generalization of the integral to functions of multiple variables. The line integral of a vector field $\mathbf{F}(x, y)$ along a curve $C$ parameterized by $\mathbf{r}(t) = (x(t), y(t))$ for $t$ in $[a, b]$ is defined as
+
+$$
+\int_C \mathbf{F} \cdot d\mathbf{r} = \int_a^b \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) dt
+$$
+
+where $\mathbf{F} \cdot d\mathbf{r}$ is the dot product of the vector field $\mathbf{F}$ and the differential element of the curve $d\mathbf{r}$. The line integral is a measure of the work done by the vector field $\mathbf{F}$ along the curve $C$.
+
+Numerically, the line integral can be approximated by dividing the curve into $N$ small segments and summing the contributions from each segment:
+
+$$  
+\int_C \mathbf{F} \cdot d\mathbf{r} \approx \sum_{i=1}^{N} \mathbf{F}(\mathbf{r}(t_i)) \cdot \Delta \mathbf{r}_i
+$$
+
+where $\Delta \mathbf{r}_i$ is the vector representing the $i$-th segment of the curve.
+
+
 ### Html example
 
 ```{=html}
