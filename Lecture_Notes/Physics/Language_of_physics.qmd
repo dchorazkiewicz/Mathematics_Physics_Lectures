@@ -687,14 +687,30 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
 #### Html example
 
 ```{=html}
-```{=html}
-<div class="derivative-widget">
-    <script src="[https://cdn.plot.ly/plotly-2.27.0.min.js](https://cdn.plot.ly/plotly-2.27.0.min.js)"></script>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizualizacja Pochodnych</title>
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
-        /* Izolacja stylów wewnątrz widgetu */
-        .derivative-widget {
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .derivative-widget {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px;
             padding: 10px;
             background-color: #f4f4f4;
             color: #333;
@@ -702,19 +718,16 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             flex-direction: column;
             align-items: center;
             border-radius: 8px;
-            /* Usunięto height: 100vh, które psuło scrollowanie strony głównej */
         }
 
         .derivative-widget .vis-container {
             width: 100%;
-            max-width: 1000px;
             background-color: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            /* Ustalamy rozsądną wysokość dla samego widgetu */
-            height: 600px; 
+            height: 650px;
         }
 
         /* Tabs styling */
@@ -765,16 +778,27 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             margin-bottom: 15px;
             align-items: center;
             flex-wrap: wrap;
-            padding: 10px;
+            padding: 15px;
             background-color: #f9f9f9;
             border-radius: 8px;
             border: 1px solid #eee;
+            justify-content: space-between; /* Rozsunięcie elementów */
         }
 
         .derivative-widget .control-group {
             display: flex;
             flex-direction: column;
-            min-width: 200px;
+            min-width: 150px;
+        }
+
+        /* Styl dla boksu z wynikami */
+        .derivative-widget .result-box {
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #1976d2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            min-width: 220px;
         }
 
         .derivative-widget label {
@@ -798,9 +822,20 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
         .derivative-widget .math-val {
             font-family: monospace;
             color: #d32f2f;
+            font-weight: bold;
+        }
+        
+        .derivative-widget .math-result {
+            font-family: monospace;
+            color: #1976d2;
+            font-weight: bold;
+            font-size: 1.2em;
         }
     </style>
+</head>
+<body>
 
+<div class="derivative-widget">
     <div class="vis-container">
         <div class="tabs">
             <button class="tab-btn active" data-tab="ordinary">Ordinary Derivative (1D)</button>
@@ -809,17 +844,30 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
 
         <div id="tab-ordinary" class="tab-content active">
             <div class="controls">
-                <div class="control-group">
-                    <label>Point position (x): <span id="ord-x-val" class="math-val">1.00</span></label>
-                    <input type="range" id="ord-x" min="-2.5" max="2.5" step="0.05" value="1.0">
+                <div style="display:flex; gap: 20px; flex-wrap: wrap;">
+                    <div class="control-group">
+                        <label>Point position (x): <span id="ord-x-val" class="math-val">1.00</span></label>
+                        <input type="range" id="ord-x" min="-2.5" max="2.5" step="0.05" value="1.0">
+                    </div>
+                    <div class="control-group">
+                        <label>Step size (h): <span id="ord-h-val" class="math-val">1.00</span></label>
+                        <input type="range" id="ord-h" min="0.01" max="2.0" step="0.01" value="1.0">
+                    </div>
                 </div>
-                <div class="control-group">
-                    <label>Step size (h / &epsilon;): <span id="ord-h-val" class="math-val">1.00</span></label>
-                    <input type="range" id="ord-h" min="0.01" max="2.0" step="0.01" value="1.0">
+                
+                <!-- Boks z obliczeniami -->
+                <div class="control-group result-box">
+                    <div title="Iloraz różnicowy (nachylenie siecznej)">
+                        &Delta;y / &Delta;x &approx; <span id="calc-slope" class="math-result"></span>
+                    </div>
+                    <div style="font-size: 0.85em; color: #666; margin-top: 4px;">
+                        Exact derivative f'(x): <span id="calc-exact" style="font-weight:600"></span>
+                    </div>
                 </div>
-                <div style="font-size: 0.85em; color: #666; max-width: 400px;">
+
+                <div style="width: 100%; font-size: 0.85em; color: #666; margin-top: 10px;">
                     Function: <span style="font-family: monospace">f(x) = 0.5x³ - x</span><br>
-                    Move 'h' close to 0 to see the secant line become the tangent.
+                    Move 'h' close to 0 to see the approximation converge to the exact value.
                 </div>
             </div>
             <div id="plot-ordinary" class="plot-area"></div>
@@ -844,11 +892,11 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             <div id="plot-partial" class="plot-area"></div>
         </div>
     </div>
+</div>
 
-    <script>
+<script>
     (function() {
-        // --- LOGIC: TABS ---
-        const widget = document.currentScript.parentElement;
+        const widget = document.querySelector('.derivative-widget');
         
         function switchTab(tabName) {
             widget.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -857,11 +905,9 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             widget.querySelector('#tab-' + tabName).classList.add('active');
             widget.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
             
-            // Trigger resize for Plotly
             window.dispatchEvent(new Event('resize'));
         }
 
-        // Attach listeners to buttons
         widget.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 switchTab(this.getAttribute('data-tab'));
@@ -873,6 +919,10 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
         const ordHSlider = document.getElementById('ord-h');
         const ordXVal = document.getElementById('ord-x-val');
         const ordHVal = document.getElementById('ord-h-val');
+        
+        // Elementy do wyświetlania obliczeń
+        const calcSlope = document.getElementById('calc-slope');
+        const calcExact = document.getElementById('calc-exact');
 
         function f1(x) { return 0.5 * Math.pow(x, 3) - x; }
         function df1(x) { return 1.5 * Math.pow(x, 2) - 1; }
@@ -885,7 +935,6 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             ordXVal.innerText = x0.toFixed(2);
             ordHVal.innerText = h.toFixed(2);
 
-            // Prepare data...
             const xRange = [], yRange = [];
             for (let i = -3.5; i <= 3.5; i += 0.1) {
                 xRange.push(i);
@@ -893,20 +942,31 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             }
             const y0 = f1(x0);
             const y1 = f1(x1);
+            
+            // Secant calculation (Difference Quotient)
             const m_secant = (y1 - y0) / (x1 - x0);
-            const secantX = [x0 - 1, x1 + 1];
-            const secantY = [m_secant * (secantX[0] - x0) + y0, m_secant * (secantX[1] - x0) + y0];
+            
+            // Tangent calculation (Exact Derivative)
             const m_tangent = df1(x0);
-            const tangentX = [x0 - 1, x0 + 1.5];
+
+            // Aktualizacja wyświetlacza obliczeń
+            calcSlope.innerText = m_secant.toFixed(4);
+            calcExact.innerText = m_tangent.toFixed(4);
+
+            const secantX = [x0 - 2, x1 + 2];
+            const secantY = [m_secant * (secantX[0] - x0) + y0, m_secant * (secantX[1] - x0) + y0];
+            
+            const tangentX = [x0 - 1.5, x0 + 1.5];
             const tangentY = [m_tangent * (tangentX[0] - x0) + y0, m_tangent * (tangentX[1] - x0) + y0];
+            
             const triX = [x0, x1, x1, x0];
             const triY = [y0, y0, y1, y0];
 
             const data = [
                 { x: xRange, y: yRange, mode: 'lines', line: {color: '#444', width: 2}, name: 'f(x)' },
                 { x: triX, y: triY, mode: 'lines', line: {color: 'rgba(0,0,0,0.3)', width: 1, dash: 'dot'}, fill: 'toself', fillColor: 'rgba(0,255,0,0.1)', name: 'Δx, Δy', showlegend: false },
-                { x: secantX, y: secantY, mode: 'lines', line: {color: '#2e7d32', width: 3}, name: 'Secant' },
-                { x: tangentX, y: tangentY, mode: 'lines', line: {color: '#d32f2f', width: 2, dash: 'dash'}, name: 'Tangent' },
+                { x: secantX, y: secantY, mode: 'lines', line: {color: '#2e7d32', width: 3}, name: 'Secant (Approx)' },
+                { x: tangentX, y: tangentY, mode: 'lines', line: {color: '#d32f2f', width: 2, dash: 'dash'}, name: 'Tangent (Exact)' },
                 { x: [x0], y: [y0], mode: 'markers', marker: {color: '#d32f2f', size: 10}, name: 'x' },
                 { x: [x1], y: [y1], mode: 'markers', marker: {color: '#2e7d32', size: 10}, name: 'x + h' }
             ];
@@ -921,7 +981,8 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
                 autosize: true
             };
 
-            Plotly.newPlot('plot-ordinary', data, layout, {responsive: true, displayModeBar: false});
+            // Używamy react dla płynności
+            Plotly.react('plot-ordinary', data, layout, {responsive: true, displayModeBar: false});
         }
 
         ordXSlider.addEventListener('input', drawOrdinary);
@@ -959,7 +1020,6 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
                 z_data.push(row);
             }
 
-            // Slices and Tangents calculation (simplified for brevity, logic preserved)
             const sliceX_x=[], sliceX_y=[], sliceX_z=[];
             for(let i=-range; i<=range; i+=0.1) { sliceX_x.push(i); sliceX_y.push(y0); sliceX_z.push(f2(i, y0)); }
             
@@ -995,7 +1055,6 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
         partXSlider.addEventListener('input', drawPartial);
         partYSlider.addEventListener('input', drawPartial);
 
-        // Initial draw
         drawOrdinary();
         setTimeout(drawPartial, 100);
         
@@ -1004,8 +1063,10 @@ This limit represents the rate of change of the function $f(x, y)$ with respect 
             Plotly.Plots.resize('plot-partial');
         });
     })();
-    </script>
-</div>
+</script>
+
+</body>
+</html>
 ```
 
 ### Integrals
