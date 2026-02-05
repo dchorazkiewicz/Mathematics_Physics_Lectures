@@ -3,6 +3,9 @@ title: Mechanics
 format:
   html:
     theme: flatly
+    grid:
+      body-width: 1000px      # Domyślnie jest to ok. 800-900px
+      margin-width: 250px    # Szerokość bocznych paneli (np. TOC)
     toc: true
     toc-depth: 3
     highlight-style: tango

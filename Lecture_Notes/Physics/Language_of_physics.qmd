@@ -3,6 +3,9 @@ title: Language of Physics
 format:
   html:
     theme: flatly
+    grid:
+      body-width: 1000px      # Domyślnie jest to ok. 800-900px
+      margin-width: 250px  
     toc: true
     toc-depth: 3
     highlight-style: tango
