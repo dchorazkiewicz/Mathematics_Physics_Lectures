@@ -23,6 +23,9 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
+<a class="md-skip" href="#probabilistic-space">
+          Skip to content
+        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -719,11 +722,64 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Introduction to Probability
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     Introduction to Probability
   </span>
 </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probabilistic-space">
+<span class="md-ellipsis">
+      Probabilistic space
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probability-space-theory-and-examples">
+<span class="md-ellipsis">
+      Probability Space: Theory and Examples
+    </span>
+</a>
+<nav aria-label="Probability Space: Theory and Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-theoretical-definition">
+<span class="md-ellipsis">
+      1. Theoretical Definition
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-example-single-coin-toss">
+<span class="md-ellipsis">
+      2. Example: Single Coin Toss
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-example-rolling-a-die">
+<span class="md-ellipsis">
+      3. Example: Rolling a Die
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -740,13 +796,273 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probabilistic-space">
+<span class="md-ellipsis">
+      Probabilistic space
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probability-space-theory-and-examples">
+<span class="md-ellipsis">
+      Probability Space: Theory and Examples
+    </span>
+</a>
+<nav aria-label="Probability Space: Theory and Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-theoretical-definition">
+<span class="md-ellipsis">
+      1. Theoretical Definition
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-example-single-coin-toss">
+<span class="md-ellipsis">
+      2. Example: Single Coin Toss
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-example-rolling-a-die">
+<span class="md-ellipsis">
+      3. Example: Rolling a Die
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
 </nav>
 </div>
 </div>
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1>Introduction to Probability</h1>
+<h2 id="probabilistic-space">Probabilistic space<a class="headerlink" href="#probabilistic-space" title="Permanent link">¶</a></h2>
+<h1 id="probability-space-theory-and-examples">Probability Space: Theory and Examples<a class="headerlink" href="#probability-space-theory-and-examples" title="Permanent link">¶</a></h1>
+<p>A probability space is a mathematical triplet <span class="arithmatex">\((\Omega, \mathcal{F}, P)\)</span> that fully describes a random process. It consists of three fundamental components.</p>
+<h2 id="1-theoretical-definition">1. Theoretical Definition<a class="headerlink" href="#1-theoretical-definition" title="Permanent link">¶</a></h2>
+<h3 id="the-sample-space-omega">The Sample Space (<span class="arithmatex">\(\Omega\)</span>)<a class="headerlink" href="#the-sample-space-omega" title="Permanent link">¶</a></h3>
+<p>The set of all possible distinct outcomes of the experiment.</p>
+<h3 id="the-sigma-algebra-mathcalf">The Sigma-algebra (<span class="arithmatex">\(\mathcal{F}\)</span>)<a class="headerlink" href="#the-sigma-algebra-mathcalf" title="Permanent link">¶</a></h3>
+<p>A collection of subsets of <span class="arithmatex">\(\Omega\)</span>, known as <strong>events</strong>. This collection defines "what can be measured." It must satisfy three properties:</p>
+<ul>
+<li><strong>Non-empty:</strong> <span class="arithmatex">\(\Omega \in \mathcal{F}\)</span>.</li>
+<li><strong>Closed under complement:</strong> If event <span class="arithmatex">\(A\)</span> is in <span class="arithmatex">\(\mathcal{F}\)</span>, then "not A" (<span class="arithmatex">\(A^c\)</span>) is also in <span class="arithmatex">\(\mathcal{F}\)</span>.</li>
+<li><strong>Closed under countable unions:</strong> If you have a sequence of events, their union is also an event.</li>
+</ul>
+<h3 id="the-probability-measure-p">The Probability Measure (<span class="arithmatex">\(P\)</span>)<a class="headerlink" href="#the-probability-measure-p" title="Permanent link">¶</a></h3>
+<p>A function <span class="arithmatex">\(P: \mathcal{F} \to [0, 1]\)</span> that assigns a probability to every event in <span class="arithmatex">\(\mathcal{F}\)</span>. It must satisfy:</p>
+<ul>
+<li><span class="arithmatex">\(P(\Omega) = 1\)</span>.</li>
+<li><span class="arithmatex">\(P(\emptyset) = 0\)</span>.</li>
+<li><strong>Countable Additivity:</strong> For mutually exclusive events <span class="arithmatex">\(A_1, A_2, \dots\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)
+\]</div>
+<hr/>
+<h2 id="2-example-single-coin-toss">2. Example: Single Coin Toss<a class="headerlink" href="#2-example-single-coin-toss" title="Permanent link">¶</a></h2>
+<p>This is the simplest non-trivial example.</p>
+<ul>
+<li><strong>Experiment:</strong> Tossing a fair coin once.</li>
+<li><strong>Sample Space (<span class="arithmatex">\(\Omega\)</span>):</strong> There are two possible outcomes: Heads (<span class="arithmatex">\(H\)</span>) and Tails (<span class="arithmatex">\(T\)</span>).</li>
+</ul>
+<div class="arithmatex">\[
+\Omega = \{H, T\}
+\]</div>
+<ul>
+<li><strong>Sigma-algebra (<span class="arithmatex">\(\mathcal{F}\)</span>):</strong> We need to list all possible events. Since the space is finite and small, we take the Power Set (the set of all subsets).</li>
+</ul>
+<div class="arithmatex">\[
+\mathcal{F} = \big\{ \emptyset, \{H\}, \{T\}, \{H, T\} \big\}
+\]</div>
+<p><strong>Interpretation of <span class="arithmatex">\(\mathcal{F}\)</span> elements:</strong></p>
+<ul>
+<li><span class="arithmatex">\(\emptyset\)</span>: The impossible event (neither Heads nor Tails occurs).</li>
+<li><span class="arithmatex">\(\{H\}\)</span>: The event "Heads occurs".</li>
+<li><span class="arithmatex">\(\{T\}\)</span>: The event "Tails occurs".</li>
+<li>
+<p><span class="arithmatex">\(\{H, T\}\)</span>: The certain event (either Heads or Tails occurs). This is equivalent to <span class="arithmatex">\(\Omega\)</span>.</p>
+</li>
+<li>
+<p><strong>Probability Measure (<span class="arithmatex">\(P\)</span>):</strong> Assuming a fair coin:</p>
+</li>
+</ul>
+<div class="arithmatex">\[
+P(\{H\}) = 0.5, \quad P(\{T\}) = 0.5
+\]</div>
+<div class="arithmatex">\[
+P(\emptyset) = 0, \quad P(\Omega) = 1
+\]</div>
+<hr/>
+<h2 id="3-example-rolling-a-die">3. Example: Rolling a Die<a class="headerlink" href="#3-example-rolling-a-die" title="Permanent link">¶</a></h2>
+<p>A slightly more complex discrete example.</p>
+<ul>
+<li><strong>Experiment:</strong> Rolling a standard six-sided die.</li>
+<li><strong>Sample Space (<span class="arithmatex">\(\Omega\)</span>):</strong></li>
+</ul>
+<div class="arithmatex">\[
+\Omega = \{1, 2, 3, 4, 5, 6\}
+\]</div>
+<ul>
+<li><strong>Sigma-algebra (<span class="arithmatex">\(\mathcal{F}\)</span>):</strong>
+    Usually, for discrete spaces, we use the Power Set (<span class="arithmatex">\(2^\Omega\)</span>), which contains all possible combinations of outcomes.
+    Size of <span class="arithmatex">\(\mathcal{F} = 2^6 = 64\)</span> events.</li>
+</ul>
+<p><strong>Examples of specific events in <span class="arithmatex">\(\mathcal{F}\)</span>:</strong></p>
+<ul>
+<li><strong>Elementary events:</strong> <span class="arithmatex">\(\{1\}, \{2\}, \dots\)</span> (Rolling a specific number).</li>
+<li>
+<p><strong>Compound events:</strong></p>
+<ul>
+<li><span class="arithmatex">\(A = \{2, 4, 6\}\)</span>: The event "Rolling an even number".</li>
+<li><span class="arithmatex">\(B = \{5, 6\}\)</span>: The event "Rolling more than 4".</li>
+</ul>
+</li>
+<li>
+<p><strong>Probability Measure (<span class="arithmatex">\(P\)</span>):</strong>
+    For a fair die, we assign a probability of <span class="arithmatex">\(\frac{1}{6}\)</span> to each elementary outcome. The probability of any event <span class="arithmatex">\(E\)</span> is the sum of the probabilities of the outcomes in <span class="arithmatex">\(E\)</span>.</p>
+</li>
+</ul>
+<p><strong>Calculations:</strong></p>
+<div class="arithmatex">\[
+P(\{1\}) = \frac{1}{6}
+\]</div>
+<div class="arithmatex">\[
+P(\text{Even}) = P(\{2, 4, 6\}) = \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{3}{6} = 0.5
+\]</div>
+<div style="font-family: sans-serif; border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 600px; background-color: #f9f9f9; color: #333;">
+<h2 style="margin-top: 0; color: #2c3e50;">Probability Simulator</h2>
+<div style="margin-bottom: 30px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+<h3 style="margin: 0 0 10px 0;">1. Coin Toss (Bernoulli Trial)</h3>
+<p style="font-size: 0.9em; color: #666;">Theoretical Probability: P(Heads) = 0.5, P(Tails) = 0.5</p>
+<button onclick="tossCoin()" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px;">Toss Coin</button>
+<button onclick="resetCoin()" style="background-color: #95a5a6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 5px;">Reset</button>
+<div id="coinResult" style="font-weight: bold; margin-top: 10px; height: 24px;">Result: -</div>
+<div style="margin-top: 15px;">
+<div style="display: flex; align-items: center; margin-bottom: 5px;">
+<span style="width: 60px; font-size: 12px;">Heads:</span>
+<div style="flex-grow: 1; background-color: #eee; height: 20px; border-radius: 3px; overflow: hidden;">
+<div id="barHeads" style="width: 0%; background-color: #2ecc71; height: 100%; transition: width 0.3s;"></div>
+</div>
+<span id="countHeads" style="width: 80px; text-align: right; font-size: 12px; font-family: monospace;">0 (0%)</span>
+</div>
+<div style="display: flex; align-items: center;">
+<span style="width: 60px; font-size: 12px;">Tails:</span>
+<div style="flex-grow: 1; background-color: #eee; height: 20px; border-radius: 3px; overflow: hidden;">
+<div id="barTails" style="width: 0%; background-color: #e74c3c; height: 100%; transition: width 0.3s;"></div>
+</div>
+<span id="countTails" style="width: 80px; text-align: right; font-size: 12px; font-family: monospace;">0 (0%)</span>
+</div>
+<p style="font-size: 11px; color: #888; text-align: right; margin: 5px 0 0 0;">Total Tosses: <span id="totalCoin">0</span></p>
+</div>
+</div>
+<div>
+<h3 style="margin: 0 0 10px 0;">2. Die Roll (Uniform Distribution)</h3>
+<p style="font-size: 0.9em; color: #666;">Theoretical Probability: P(k) ≈ 16.67% for k ∈ {1..6}</p>
+<button onclick="rollDie()" style="background-color: #8e44ad; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px;">Roll Die</button>
+<button onclick="resetDie()" style="background-color: #95a5a6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 5px;">Reset</button>
+<div id="dieResult" style="font-weight: bold; margin-top: 10px; height: 24px;">Result: -</div>
+<div id="dieBars" style="margin-top: 15px;">
+</div>
+<p style="font-size: 11px; color: #888; text-align: right; margin: 5px 0 0 0;">Total Rolls: <span id="totalDie">0</span></p>
+</div>
+<script>
+        // --- COIN LOGIC ---
+        let coinStats = { heads: 0, tails: 0, total: 0 };
+
+        function tossCoin() {
+            // Random space: [0, 1). < 0.5 is Heads, >= 0.5 is Tails
+            const isHeads = Math.random() < 0.5;
+            coinStats.total++;
+
+            if (isHeads) {
+                coinStats.heads++;
+                document.getElementById('coinResult').innerText = "Result: HEADS";
+                document.getElementById('coinResult').style.color = "#2ecc71";
+            } else {
+                coinStats.tails++;
+                document.getElementById('coinResult').innerText = "Result: TAILS";
+                document.getElementById('coinResult').style.color = "#e74c3c";
+            }
+            updateCoinUI();
+        }
+
+        function updateCoinUI() {
+            const pctHeads = coinStats.total === 0 ? 0 : (coinStats.heads / coinStats.total * 100).toFixed(1);
+            const pctTails = coinStats.total === 0 ? 0 : (coinStats.tails / coinStats.total * 100).toFixed(1);
+
+            document.getElementById('barHeads').style.width = pctHeads + '%';
+            document.getElementById('barTails').style.width = pctTails + '%';
+
+            document.getElementById('countHeads').innerText = `${coinStats.heads} (${pctHeads}%)`;
+            document.getElementById('countTails').innerText = `${coinStats.tails} (${pctTails}%)`;
+            document.getElementById('totalCoin').innerText = coinStats.total;
+        }
+
+        function resetCoin() {
+            coinStats = { heads: 0, tails: 0, total: 0 };
+            document.getElementById('coinResult').innerText = "Result: -";
+            document.getElementById('coinResult').style.color = "#333";
+            updateCoinUI();
+        }
+
+        // --- DIE LOGIC ---
+        let dieStats = { counts: [0,0,0,0,0,0,0], total: 0 }; // index 0 unused
+
+        // Init Die UI
+        const dieContainer = document.getElementById('dieBars');
+        let dieHTML = '';
+        for(let i=1; i<=6; i++) {
+            dieHTML += `
+            <div style="display: flex; align-items: center; margin-bottom: 4px;">
+                <span style="width: 20px; font-size: 12px; font-weight:bold;">${i}</span>
+                <div style="flex-grow: 1; background-color: #eee; height: 16px; border-radius: 3px; overflow: hidden;">
+                    <div id="barDie${i}" style="width: 0%; background-color: #8e44ad; height: 100%; transition: width 0.3s; opacity: 0.7;"></div>
+                </div>
+                <span id="countDie${i}" style="width: 80px; text-align: right; font-size: 12px; font-family: monospace;">0 (0%)</span>
+            </div>`;
+        }
+        dieContainer.innerHTML = dieHTML;
+
+        function rollDie() {
+            // Random integer 1-6
+            const result = Math.floor(Math.random() * 6) + 1;
+            dieStats.total++;
+            dieStats.counts[result]++;
+
+            document.getElementById('dieResult').innerText = "Result: " + result;
+            updateDieUI();
+        }
+
+        function updateDieUI() {
+            document.getElementById('totalDie').innerText = dieStats.total;
+            for(let i=1; i<=6; i++) {
+                const count = dieStats.counts[i];
+                const pct = dieStats.total === 0 ? 0 : (count / dieStats.total * 100).toFixed(1);
+
+                document.getElementById(`barDie${i}`).style.width = pct + '%';
+                document.getElementById(`countDie${i}`).innerText = `${count} (${pct}%)`;
+            }
+        }
+
+        function resetDie() {
+            dieStats = { counts: [0,0,0,0,0,0,0], total: 0 };
+            document.getElementById('dieResult').innerText = "Result: -";
+            updateDieUI();
+        }
+    </script>
+</div>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
