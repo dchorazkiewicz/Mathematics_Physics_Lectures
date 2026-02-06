@@ -55,6 +55,9 @@ nav:
       - Recurrence and ...: Discrete_Mathematics/3_Recurrence_and_.md
       - Graph Theory and ...: Discrete_Mathematics/4_Graph_theory_and_.md
       - Logic and ...: Discrete_Mathematics/5_Logic_and.md
+  - Probabilistic methods:
+    - 🎓 Lecture Notes:
+      - Introduction to Probability: Probabilistic_methods/introduction.md
 
 
 theme:
