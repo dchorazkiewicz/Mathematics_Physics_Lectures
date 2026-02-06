@@ -48,7 +48,6 @@ where:
 
 where $\epsilon_0$ is the vacuum permittivity.
 
-![https://upload.wikimedia.org/wikipedia/commons/1/1f/CoulombsLaw_scal.svg](https://upload.wikimedia.org/wikipedia/commons/1/1f/CoulombsLaw_scal.svg)
 
 
 It is ease to observe that the force is attractive if the charges are of opposite sign and repulsive if they are of the same sign. Secondly, the force has same structure as the gravitational force, which is given by
@@ -68,12 +67,532 @@ where:
 - $|\mathbf{r}-\mathbf{r}'|$ is the distance between the two masses.
 
 
+```{=html}
+<!-- Poczatek Widgetu Coulomba -->
+<style>
+    /* Style ograniczone tylko do tego kontenera (#coulomb-widget-container) */
+    #coulomb-widget-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+        width: 100%;
+        height: 600px; /* Wysokość widgetu w dokumencie */
+        display: flex;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+        user-select: none;
+        margin: 20px 0; /* Odstęp od tekstu w dokumencie */
+    }
+
+    #coulomb-widget-container * {
+        box-sizing: border-box;
+    }
+
+    /* Panel boczny */
+    #coulomb-widget-container .panel {
+        width: 300px;
+        flex-shrink: 0;
+        background-color: rgba(255, 255, 255, 0.98);
+        border-right: 1px solid #cbd5e1;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    /* Obszar Canvas */
+    #coulomb-widget-container .canvas-area {
+        flex-grow: 1;
+        position: relative;
+        background-color: #ffffff;
+    }
+
+    #coulomb-widget-container canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: crosshair;
+        background-color: #ffffff;
+        box-shadow: inset 0 0 20px #e2e8f0;
+    }
+
+    /* Elementy UI */
+    #coulomb-widget-container h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #cbd5e1;
+        color: #1e293b;
+    }
+
+    #coulomb-widget-container h3 {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #64748b;
+        margin: 16px 0 8px 0;
+        font-weight: 600;
+    }
+
+    #coulomb-widget-container .btn {
+        background-color: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+
+    #coulomb-widget-container .btn:hover {
+        background-color: #e2e8f0;
+    }
+
+    #coulomb-widget-container .btn:active {
+        transform: scale(0.98);
+    }
+
+    #coulomb-widget-container .btn-red { background-color: #ef4444; color: white; border: none; }
+    #coulomb-widget-container .btn-red:hover { background-color: #dc2626; }
+    
+    #coulomb-widget-container .btn-blue { background-color: #3b82f6; color: white; border: none; }
+    #coulomb-widget-container .btn-blue:hover { background-color: #2563eb; }
+
+    #coulomb-widget-container .btn-active {
+        background-color: #e2e8f0;
+        border-color: #94a3b8;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    #coulomb-widget-container .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    #coulomb-widget-container .flex-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    /* Slider */
+    #coulomb-widget-container input[type=range] {
+        width: 100%;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+
+    /* Legenda i Info */
+    #coulomb-widget-container .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8rem;
+        color: #475569;
+        margin-bottom: 6px;
+    }
+
+    #coulomb-widget-container .color-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    }
+
+    #coulomb-widget-container .overlay-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: right;
+        pointer-events: none;
+        opacity: 0.9;
+    }
+    
+    #coulomb-widget-container .readout-main {
+        font-family: monospace;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    #coulomb-widget-container .readout-sub {
+        font-size: 0.7rem;
+        color: #64748b;
+    }
+
+    #coulomb-widget-container .math-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 6px;
+        font-family: monospace;
+        font-size: 0.75rem;
+        text-align: center;
+        color: #64748b;
+        margin-top: 8px;
+    }
+</style>
+
+<div id="coulomb-widget-container">
+    
+    <!-- Panel Sterowania -->
+    <div class="panel">
+        <h2>Coulomb's Law</h2>
+        
+        <!-- Scenarios -->
+        <h3>Scenarios</h3>
+        <div class="grid-2" id="cw-scenario-btns">
+            <button class="btn btn-active" onclick="CW_setScenario('dipole', this)">Dipole</button>
+            <button class="btn" onclick="CW_setScenario('plates', this)">Plates</button>
+            <button class="btn" onclick="CW_setScenario('ring', this)">Ring</button>
+            <button class="btn" onclick="CW_setScenario('concentric', this)">Concentric</button>
+        </div>
+
+        <!-- Density (Hidden by default) -->
+        <div id="cw-density-control" style="display:none; margin-top:12px; background:#f1f5f9; padding:8px; border-radius:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#475569; margin-bottom:4px;">
+                <span>SOURCE COUNT</span>
+                <span id="cw-density-val">12</span>
+            </div>
+            <input type="range" id="cw-density-slider" min="4" max="40" step="2" value="12">
+        </div>
+
+        <!-- Field Tracing -->
+        <h3>Field Tracing</h3>
+        <div class="flex-row">
+            <button id="cw-trace-btn" class="btn" style="flex:1;">⏺ Record Path</button>
+            <button id="cw-clear-trace" class="btn">Clear</button>
+        </div>
+
+        <!-- Manual Setup -->
+        <h3>Manual Setup</h3>
+        <div class="grid-2">
+            <button id="cw-add-pos" class="btn btn-red">+ Add (+)</button>
+            <button id="cw-add-neg" class="btn btn-blue">− Add (-)</button>
+        </div>
+        
+        <div style="margin-top:12px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:4px;">
+                <span>Force Scale (k)</span>
+                <span id="cw-scale-val" style="color:#64748b;">1.0x</span>
+            </div>
+            <input type="range" id="cw-scale-slider" min="0.1" max="5.0" step="0.1" value="1.0">
+        </div>
+
+        <button id="cw-reset-btn" class="btn" style="width:100%; margin-top:12px;">Reset All</button>
+
+        <!-- Legend -->
+        <div style="margin-top:auto; padding-top:16px; border-top:1px solid #e2e8f0;">
+            <div class="legend-item"><div class="color-dot" style="background:#ef4444;"></div> +Q Source</div>
+            <div class="legend-item"><div class="color-dot" style="background:#3b82f6;"></div> -Q Source</div>
+            <div class="legend-item"><div class="color-dot" style="background:#facc15;"></div> +q Test Charge</div>
+            <div class="legend-item">
+                <div style="width:20px; height:2px; background:#1e293b; margin-right:5px;"></div> 
+                Net Force
+            </div>
+            <div class="math-box">F = k · Q·q / r²</div>
+        </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-area">
+        <canvas id="cw-canvas"></canvas>
+        <div class="overlay-info">
+            <div id="cw-readout" class="readout-main">F_net = 0</div>
+            <div class="readout-sub">Arbitrary Units</div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Namespace variables to avoid global pollution in Quarto
+    const container = document.getElementById('coulomb-widget-container');
+    const canvas = document.getElementById('cw-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // UI Refs
+    const scaleSlider = document.getElementById('cw-scale-slider');
+    const scaleDisplay = document.getElementById('cw-scale-val');
+    const densitySlider = document.getElementById('cw-density-slider');
+    const densityDisplay = document.getElementById('cw-density-val');
+    const densityControl = document.getElementById('cw-density-control');
+    const traceBtn = document.getElementById('cw-trace-btn');
+    const readout = document.getElementById('cw-readout');
+
+    // Config
+    const CONFIG = {
+        k: 80000, maxForce: 250, rSrc: 16, rTest: 9, minDist: 25, traceDist: 25
+    };
+
+    // State
+    let sources = [];
+    let testQ = { x: 0, y: 0, dragging: false };
+    let dragIdx = -1;
+    let scaleMult = 1.0;
+    let scenario = 'dipole';
+    let density = 12;
+    let tracing = false;
+    let traceHist = [];
+    let lastTrace = { x:-999, y:-999 };
+
+    // --- Core Functions ---
+
+    function resize() {
+        const rect = container.querySelector('.canvas-area').getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+    
+    // Initial resize
+    setTimeout(resize, 100); 
+    // Resize observer is safer than window resize for embedded content
+    new ResizeObserver(resize).observe(container);
+
+    window.CW_setScenario = function(type, btn) {
+        scenario = type;
+        
+        // Update buttons
+        container.querySelectorAll('#cw-scenario-btns .btn').forEach(b => b.classList.remove('btn-active'));
+        btn.classList.add('btn-active');
+
+        // Toggle density
+        densityControl.style.display = (type === 'dipole') ? 'none' : 'block';
+
+        traceHist = [];
+        loadScenario();
+    };
+
+    function loadScenario() {
+        const w = canvas.width || 800;
+        const h = canvas.height || 600;
+        const cx = w/2, cy = h/2;
+        
+        sources = [];
+        if(!testQ.dragging && traceHist.length === 0) { testQ.x = cx; testQ.y = cy; }
+
+        if(scenario === 'dipole') {
+            testQ.y = cy - 80;
+            sources.push({x: w*0.35, y: cy, q: 5, c: '#ef4444'});
+            sources.push({x: w*0.65, y: cy, q: -5, c: '#3b82f6'});
+        } else if(scenario === 'plates') {
+            const count = density;
+            const H = 300, sp = H/(count-1), off = H/2;
+            const qv = 40/count;
+            for(let i=0; i<count; i++) {
+                let y = cy - off + i*sp;
+                sources.push({x: cx-100, y:y, q:qv, c:'#ef4444'});
+                sources.push({x: cx+100, y:y, q:-qv, c:'#3b82f6'});
+            }
+        } else if(scenario === 'ring') {
+            const R = 140, qv = 60/density;
+            for(let i=0; i<density; i++) {
+                let a = (i/density)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R, y: cy+Math.sin(a)*R, q:qv, c:'#ef4444'});
+            }
+        } else if(scenario === 'concentric') {
+            const R1 = 70, R2 = 160;
+            const n1 = Math.max(4, Math.floor(density/3));
+            const n2 = density - n1;
+            const qv = 40/n1;
+            for(let i=0; i<n1; i++) {
+                let a = (i/n1)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R1, y: cy+Math.sin(a)*R1, q:qv, c:'#ef4444'});
+            }
+            for(let i=0; i<n2; i++) {
+                let a = (i/n2)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R2, y: cy+Math.sin(a)*R2, q:-qv, c:'#3b82f6'});
+            }
+            testQ.x = cx + 220;
+        }
+    }
+
+    // --- Interaction ---
+    function getPos(e) {
+        const r = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - r.left, y: clientY - r.top };
+    }
+
+    function start(e) {
+        const p = getPos(e);
+        // Delete (Middle click)
+        if(e.button === 1) {
+            e.preventDefault();
+            for(let i=sources.length-1; i>=0; i--) {
+                if(Math.hypot(p.x - sources[i].x, p.y - sources[i].y) < CONFIG.rSrc * 1.5) {
+                    sources.splice(i, 1); return;
+                }
+            }
+            return;
+        }
+        // Test Charge
+        if(Math.hypot(p.x - testQ.x, p.y - testQ.y) < CONFIG.rTest * 2.5) {
+            testQ.dragging = true; return;
+        }
+        // Sources
+        for(let i=0; i<sources.length; i++) {
+            if(Math.hypot(p.x - sources[i].x, p.y - sources[i].y) < CONFIG.rSrc * 1.5) {
+                dragIdx = i; return;
+            }
+        }
+    }
+
+    function move(e) {
+        if(!testQ.dragging && dragIdx === -1) return;
+        const p = getPos(e);
+        if(testQ.dragging) { testQ.x = p.x; testQ.y = p.y; }
+        else if(dragIdx !== -1) { sources[dragIdx].x = p.x; sources[dragIdx].y = p.y; }
+    }
+
+    function end() { testQ.dragging = false; dragIdx = -1; lastTrace = {x:-999, y:-999}; }
+
+    // Listeners on Canvas only
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end); // capture mouse up outside
+    canvas.addEventListener('touchstart', (e)=>{if(e.touches.length===1){e.preventDefault();start(e)}}, {passive:false});
+    canvas.addEventListener('touchmove', (e)=>{e.preventDefault();move(e)}, {passive:false});
+    canvas.addEventListener('touchend', (e)=>{e.preventDefault();end()});
+
+    // --- Controls ---
+    document.getElementById('cw-add-pos').onclick = ()=>sources.push({x:canvas.width/2+20, y:canvas.height/2+20, q:5, c:'#ef4444'});
+    document.getElementById('cw-add-neg').onclick = ()=>sources.push({x:canvas.width/2-20, y:canvas.height/2-20, q:-5, c:'#3b82f6'});
+    document.getElementById('cw-reset-btn').onclick = ()=>{ traceHist=[]; loadScenario(); };
+    document.getElementById('cw-clear-trace').onclick = ()=>traceHist=[];
+    
+    traceBtn.onclick = () => {
+        tracing = !tracing;
+        traceBtn.innerText = tracing ? "⏹ Stop" : "⏺ Record Path";
+        traceBtn.style.color = tracing ? "#dc2626" : "#334155";
+        lastTrace = {x:-999, y:-999};
+    };
+
+    scaleSlider.oninput = (e) => { scaleMult = parseFloat(e.target.value); scaleDisplay.innerText = scaleMult.toFixed(1)+'x'; };
+    densitySlider.oninput = (e) => { density = parseInt(e.target.value); densityDisplay.innerText = density; loadScenario(); };
+
+    // --- Rendering ---
+    function drawArrow(x, y, vx, vy, color, w, dashed) {
+        const len = Math.hypot(vx, vy);
+        if(len < 2) return;
+        const head = Math.min(10, len*0.4);
+        const ang = Math.atan2(vy, vx);
+        const tx = x+vx, ty = y+vy;
+        
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineWidth = w;
+        ctx.strokeStyle = color;
+        if(dashed) ctx.setLineDash([4,4]);
+        ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke();
+        
+        ctx.setLineDash([]);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(tx-head*Math.cos(ang-Math.PI/6), ty-head*Math.sin(ang-Math.PI/6));
+        ctx.lineTo(tx-head*Math.cos(ang+Math.PI/6), ty-head*Math.sin(ang+Math.PI/6));
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        
+        // Grid
+        ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1; ctx.beginPath();
+        for(let i=0; i<canvas.width; i+=50) { ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); }
+        for(let i=0; i<canvas.height; i+=50) { ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); }
+        ctx.stroke();
+
+        let nFx = 0, nFy = 0;
+        let k = CONFIG.k * scaleMult;
+
+        // Calc
+        sources.forEach(s => {
+            let dx = testQ.x - s.x, dy = testQ.y - s.y;
+            let d2 = dx*dx + dy*dy;
+            let d = Math.sqrt(d2);
+            let safeD = Math.max(d, CONFIG.minDist);
+            let F = k * (s.q * 1) / (safeD*safeD); // q test = 1
+            let fx = F * (dx/d), fy = F * (dy/d);
+            nFx += fx; nFy += fy;
+
+            // Draw component
+            let vLen = Math.hypot(fx, fy);
+            let sc = (vLen > CONFIG.maxForce) ? CONFIG.maxForce/vLen : 1;
+            drawArrow(testQ.x, testQ.y, fx*sc, fy*sc, s.c, 1, true);
+        });
+
+        // Trace Record
+        if(tracing && testQ.dragging) {
+            if(Math.hypot(testQ.x-lastTrace.x, testQ.y-lastTrace.y) > CONFIG.traceDist) {
+                traceHist.push({x:testQ.x, y:testQ.y, fx:nFx, fy:nFy});
+                lastTrace = {x:testQ.x, y:testQ.y};
+                if(traceHist.length > 400) traceHist.shift();
+            }
+        }
+
+        // Draw Trace
+        ctx.globalAlpha = 0.4;
+        traceHist.forEach(pt => {
+            let vLen = Math.hypot(pt.fx, pt.fy);
+            let sc = (vLen > CONFIG.maxForce) ? CONFIG.maxForce/vLen : 1;
+            drawArrow(pt.x, pt.y, pt.fx*sc, pt.fy*sc, '#64748b', 1.5, false);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, 2, 0, 7); ctx.fillStyle='#64748b'; ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        // Net Force
+        let netLen = Math.hypot(nFx, nFy);
+        let netSc = (netLen > CONFIG.maxForce) ? CONFIG.maxForce/netLen : 1;
+        if(netLen > 0.5) drawArrow(testQ.x, testQ.y, nFx*netSc, nFy*netSc, '#1e293b', 4, false);
+
+        readout.innerText = "F_net = " + Math.round(netLen);
+
+        // Sources
+        sources.forEach(s => {
+            ctx.beginPath(); ctx.arc(s.x, s.y, CONFIG.rSrc, 0, 7);
+            ctx.fillStyle = s.c; ctx.fill();
+            ctx.strokeStyle='white'; ctx.lineWidth=2; ctx.stroke();
+            ctx.fillStyle='white'; ctx.font='bold 14px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+            ctx.fillText(s.q>0?'+':'−', s.x, s.y);
+        });
+
+        // Test Q
+        ctx.beginPath(); ctx.arc(testQ.x, testQ.y, CONFIG.rTest, 0, 7);
+        ctx.fillStyle = '#facc15'; ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle='#0f172a'; ctx.font='bold 10px Arial'; 
+        ctx.fillText('q', testQ.x, testQ.y);
+
+        requestAnimationFrame(animate);
+    }
+    
+    loadScenario();
+    animate();
+
+})(); // End IIFE
+</script>
+<!-- Koniec Widgetu Coulomba -->
+```
+
 ### Electric Field
 
 The electric field $\mathbf{E}$ is a vector field that describes the force per unit charge experienced by a positive test charge placed in the vicinity of other charges. The electric field due to a point charge $q$ at a position $\mathbf{r}'$ is given by:
 
 $$
-\mathbf{E}(\mathbf{r}) = \frac{1}{4\pi\epsilon_0}\frac{q}{|\mathbf{r}-\mathbf{r}'|^3}(\mathbf{r}-\mathbf{r}')
+\mathbf{E}(\mathbf{r}) = \frac{1}{4\pi\epsilon_0}\frac{Q}{|\mathbf{r}-\mathbf{r}'|^3}(\mathbf{r}-\mathbf{r}')
 $$
 
 
@@ -83,7 +602,7 @@ $$
 The electric field due to multiple point charges can be calculated using the superposition principle. The total electric field $\mathbf{E}_{\text{total}}$ at a point $\mathbf{r}$ due to a set of point charges $q_1, q_2, \ldots, q_n$ located at positions $\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_n$ is given by:
 
 $$
-\mathbf{E}_{\text{total}}(\mathbf{r}) = \sum_{i=1}^{n} \mathbf{E}_i(\mathbf{r}) = \sum_{i=1}^{n} \frac{1}{4\pi\epsilon_0}\frac{q_i}{|\mathbf{r}-\mathbf{r}_i|^3}(\mathbf{r}-\mathbf{r}_i)
+\mathbf{E}_{\text{total}}(\mathbf{r}) = \sum_{i=1}^{n} \mathbf{E}_i(\mathbf{r}) = \sum_{i=1}^{n} \frac{1}{4\pi\epsilon_0}\frac{Q_i}{|\mathbf{r}-\mathbf{r}_i|^3}(\mathbf{r}-\mathbf{r}_i)
 $$
 
 where $\mathbf{E}_i(\mathbf{r})$ is the electric field due to the $i$-th charge at position $\mathbf{r}_i$.
@@ -433,6 +952,11 @@ F_z &= q(E_z + v_x B_y - v_y B_x)
 \end{align*}
 $$
 
+
+```{=html}
+
+```
+
 ### Special Case 1 
 
 * $\mathbf{E}=0$
@@ -711,6 +1235,615 @@ W &=\int_{\infty}^{r} (-\mathbf{F}) \cdot d\mathbf{r} \\
 $$
 
 where $\mathbf{F}$ is the force acting on the charge $q$ due to the electric field $\mathbf{E}$. The negative sign indicates that work is done against the electric field when bringing a positive charge from infinity to a point in the field.
+
+
+```{=html}
+<!-- Electric Potential & Work Explorer -->
+<!-- Isolated Widget v6: Detailed Calculation Breakdown (Path vs Potential) -->
+
+<div id="wp-widget-root">
+    <style>
+        /* ISOLATION RESET */
+        #wp-widget-root {
+            all: initial;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            width: 100%;
+            height: 750px; /* Zwiększona wysokość dla detali */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        #wp-widget-root * { box-sizing: border-box; }
+
+        /* HEADER */
+        #wp-widget-root .header {
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #wp-widget-root h2 {
+            margin: 0; font-size: 1.1rem; font-weight: 700; color: #0f172a;
+        }
+
+        #wp-widget-root .scenario-btns {
+            display: flex; gap: 6px;
+        }
+
+        #wp-widget-root button {
+            background-color: #fff; border: 1px solid #cbd5e1; color: #475569;
+            padding: 6px 12px; border-radius: 6px; font-size: 0.8rem;
+            font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        #wp-widget-root button:hover { background-color: #f1f5f9; color: #0f172a; }
+        #wp-widget-root button.active { background-color: #e0f2fe; border-color: #3b82f6; color: #0369a1; }
+        
+        #wp-widget-root button.action { background-color: #f1f5f9; }
+        #wp-widget-root button.action:hover { background-color: #e2e8f0; }
+
+        /* MAIN LAYOUT */
+        #wp-widget-root .main-area {
+            display: flex; flex-grow: 1; height: 100%; overflow: hidden;
+        }
+
+        /* CANVAS */
+        #wp-widget-root .canvas-container {
+            flex-grow: 1; position: relative; background-color: #ffffff;
+            cursor: crosshair; overflow: hidden;
+        }
+        #wp-widget-root canvas { display: block; width: 100%; height: 100%; }
+
+        /* SIDEBAR */
+        #wp-widget-root .sidebar {
+            width: 340px; background-color: #f8fafc; border-left: 1px solid #e2e8f0;
+            padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;
+        }
+
+        /* CARDS */
+        #wp-widget-root .data-card {
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+            padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        #wp-widget-root .card-title {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;
+            color: #64748b; font-weight: 700; margin-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;
+        }
+
+        /* CALCULATION DETAILS */
+        #wp-widget-root .calc-section {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        #wp-widget-root .calc-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        #wp-widget-root .calc-header {
+            font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; display: flex; justify-content: space-between;
+        }
+        
+        #wp-widget-root .math-row {
+            font-family: 'Georgia', serif; font-style: italic; color: #475569;
+            font-size: 0.85rem; margin-bottom: 6px;
+        }
+
+        #wp-widget-root .detail-row {
+            display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; margin-bottom: 2px;
+        }
+        #wp-widget-root .detail-val { font-family: monospace; color: #334155; }
+
+        #wp-widget-root .result-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 6px; font-weight: 600; font-size: 0.9rem;
+        }
+        
+        #wp-widget-root .res-val { font-family: 'Courier New', monospace; font-weight: 700; font-size: 1rem; }
+
+        /* LEGEND */
+        #wp-widget-root .legend-item {
+            display: flex; align-items: center; gap: 8px; font-size: 0.8rem;
+            color: #475569; margin-bottom: 4px;
+        }
+        #wp-widget-root .dot { width: 10px; height: 10px; border-radius: 50%; }
+        #wp-widget-root .line { width: 20px; height: 3px; border-radius: 2px; }
+
+        /* SLIDERS */
+        #wp-widget-root input[type=range] { width: 100%; margin: 8px 0; cursor: pointer; }
+        
+        #wp-widget-root .hint {
+            position: absolute; bottom: 10px; left: 10px;
+            font-size: 0.8rem; color: #64748b; background: rgba(255,255,255,0.95);
+            padding: 6px 12px; border-radius: 4px; pointer-events: none;
+            border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+
+    <div class="header">
+        <h2>Potential & Work</h2>
+        <div class="scenario-btns">
+            <button onclick="WP_APP.setScenario('single', this)" class="active">Single</button>
+            <button onclick="WP_APP.setScenario('dipole', this)">Dipole</button>
+            <button onclick="WP_APP.setScenario('quad', this)">Square</button>
+            <button onclick="WP_APP.setScenario('random', this)">Random</button>
+        </div>
+        <div class="scenario-btns">
+            <button onclick="WP_APP.toggleField()" id="btn-field" class="action">Hide Field</button>
+            <button onclick="WP_APP.resetPath()" class="action">Clear Path</button>
+        </div>
+    </div>
+
+    <div class="main-area">
+        <div class="canvas-container" id="wp-canvas-container">
+            <canvas id="wp-canvas"></canvas>
+            <div class="hint">
+                Drag the yellow charge <b>(q)</b> to calculate Work
+            </div>
+        </div>
+
+        <div class="sidebar">
+            
+            <!-- Physics Calculation Card -->
+            <div class="data-card">
+                <div class="card-title">Work Calculation Comparison</div>
+                
+                <!-- Method 1 -->
+                <div class="calc-section">
+                    <div class="calc-header" style="color:#d97706;">Method 1: Path Integral</div>
+                    <div class="math-row">W = &int; <b>F</b> &middot; d<b>r</b></div>
+                    <div class="detail-row">
+                        <span>Summing force along path...</span>
+                        <span class="detail-val" id="val-samples">0 steps</span>
+                    </div>
+                    <div class="result-row" style="color:#d97706;">
+                        <span>Result:</span>
+                        <span id="val-w-path" class="res-val">0.00 J</span>
+                    </div>
+                </div>
+
+                <!-- Method 2 -->
+                <div class="calc-section">
+                    <div class="calc-header" style="color:#059669;">Method 2: Potential Diff.</div>
+                    <div class="math-row">W = -q (V<sub>end</sub> - V<sub>start</sub>)</div>
+                    
+                    <div class="detail-row">
+                        <span>Start Potential (V<sub>start</sub>):</span>
+                        <span id="val-v-start" class="detail-val">0.00 V</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>End Potential (V<sub>end</sub>):</span>
+                        <span id="val-v-curr" class="detail-val">0.00 V</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Test Charge (q):</span>
+                        <span id="val-q-display" class="detail-val">1.00</span>
+                    </div>
+                    
+                    <div class="result-row" style="color:#059669;">
+                        <span>Result:</span>
+                        <span id="val-w-pot" class="res-val">0.00 J</span>
+                    </div>
+                </div>
+                
+                <div style="font-size:0.75rem; text-align:center; color:#64748b; margin-top:8px;">
+                    Both methods must yield the same result.
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="data-card">
+                <div class="card-title">Test Charge (q)</div>
+                <input type="range" id="inp-q" min="-2" max="2" step="0.1" value="1">
+                <div style="font-size:0.75rem; color:#64748b; text-align:right;">
+                    Adjust q value
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="data-card">
+                <div class="card-title">Legend</div>
+                <div class="legend-item"><div class="dot" style="background:#ef4444;"></div> Positive Source</div>
+                <div class="legend-item"><div class="dot" style="background:#3b82f6;"></div> Negative Source</div>
+                <div class="legend-item"><div class="line" style="background:#ef4444;"></div> +W (Against Field)</div>
+                <div class="legend-item"><div class="line" style="background:#22c55e;"></div> -W (With Field)</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    var WP_APP = (function() {
+        var root = document.getElementById('wp-widget-root');
+        var canvas = document.getElementById('wp-canvas');
+        var ctx = canvas.getContext('2d');
+        var container = document.getElementById('wp-canvas-container');
+
+        // UI
+        var ui = {
+            wPath: document.getElementById('val-w-path'),
+            wPot: document.getElementById('val-w-pot'),
+            vCurr: document.getElementById('val-v-curr'),
+            vStart: document.getElementById('val-v-start'),
+            qDisp: document.getElementById('val-q-display'),
+            samples: document.getElementById('val-samples'),
+            inpq: document.getElementById('inp-q'),
+            btnField: document.getElementById('btn-field')
+        };
+
+        // State
+        var state = {
+            w: 800, h: 600,
+            sources: [], // {x, y, q}
+            testQ: 1.0,
+            pos: {x: 400, y: 300},
+            
+            // Interaction
+            dragging: false,
+            path: [], // {x,y, wDelta}
+            
+            // Physics
+            startPot: 0,
+            currentPot: 0,
+            workPathAccum: 0,
+            totalSamples: 0,
+            stepSize: 0.5, // Always high precision (0.5px)
+            
+            showField: true,
+            scale: 50, // pixels per unit
+            K: 5000 // Display constant
+        };
+
+        function init() {
+            resize();
+            setScenario('single');
+            
+            // Listeners
+            var resizeTimeout;
+            new ResizeObserver(function() {
+                if (resizeTimeout) clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(resize, 100);
+            }).observe(container);
+            
+            canvas.addEventListener('mousedown', onDown);
+            canvas.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onUp);
+            
+            canvas.addEventListener('touchstart', function(e){e.preventDefault(); onDown(e.touches[0]);}, {passive:false});
+            canvas.addEventListener('touchmove', function(e){e.preventDefault(); onMove(e.touches[0]);}, {passive:false});
+            window.addEventListener('touchend', onUp);
+
+            ui.inpq.oninput = function() { 
+                state.testQ = parseFloat(this.value); 
+                updatePhysics(); 
+                draw(); 
+            };
+
+            loop();
+        }
+
+        function resize() {
+            var r = container.getBoundingClientRect();
+            if (Math.abs(state.w - r.width) < 1 && Math.abs(state.h - r.height) < 1) return;
+
+            state.w = r.width; state.h = r.height;
+            canvas.width = state.w; canvas.height = state.h;
+            
+            if(state.sources.length === 0) setScenario('single');
+            else draw();
+        }
+
+        // --- Scenarios ---
+        function setScenario(type, btn) {
+            var cx = state.w / 2;
+            var cy = state.h / 2;
+            
+            state.sources = [];
+            
+            if (type === 'single') {
+                state.sources.push({x: cx, y: cy, q: 2});
+            } else if (type === 'dipole') {
+                state.sources.push({x: cx - 100, y: cy, q: 2});
+                state.sources.push({x: cx + 100, y: cy, q: -2});
+            } else if (type === 'quad') {
+                var d = 80;
+                state.sources.push({x: cx-d, y: cy-d, q: 2});
+                state.sources.push({x: cx+d, y: cy-d, q: -2});
+                state.sources.push({x: cx+d, y: cy+d, q: 2});
+                state.sources.push({x: cx-d, y: cy+d, q: -2});
+            } else if (type === 'random') {
+                for(var i=0; i<3; i++) {
+                    state.sources.push({
+                        x: cx + (Math.random()-0.5)*300,
+                        y: cy + (Math.random()-0.5)*200,
+                        q: (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random()*2)
+                    });
+                }
+            }
+
+            state.pos = {x: cx, y: cy + 150};
+            state.path = [];
+            state.workPathAccum = 0;
+            state.totalSamples = 0;
+            state.startPot = calcPot(state.pos.x, state.pos.y);
+            
+            if(btn) {
+                var btns = root.querySelectorAll('.scenario-btns button');
+                btns.forEach(function(b){ b.classList.remove('active'); });
+                btn.classList.add('active');
+            }
+            
+            updatePhysics();
+            draw();
+        }
+
+        // --- Physics ---
+        var MIN_R = 10; 
+
+        function calcPot(x, y) {
+            var V = 0;
+            for(var i=0; i<state.sources.length; i++) {
+                var s = state.sources[i];
+                var dx = x - s.x; var dy = y - s.y;
+                var r = Math.sqrt(dx*dx + dy*dy);
+                if (r < MIN_R) r = MIN_R; 
+                V += (state.K/10) * s.q / r;
+            }
+            return V;
+        }
+
+        function calcForce(x, y) {
+            var Fx = 0; var Fy = 0;
+            for(var i=0; i<state.sources.length; i++) {
+                var s = state.sources[i];
+                var dx = x - s.x; var dy = y - s.y;
+                var r2 = dx*dx + dy*dy;
+                var r = Math.sqrt(r2);
+                if (r < MIN_R) r = MIN_R;
+                
+                var mag = state.K * s.q * state.testQ / (r*r);
+                Fx += mag * (dx/r);
+                Fy += mag * (dy/r);
+            }
+            return {x: Fx, y: Fy};
+        }
+
+        function updatePhysics() {
+            state.currentPot = calcPot(state.pos.x, state.pos.y);
+            
+            // W = -q(V_end - V_start)
+            var W_pot = -state.testQ * (state.currentPot - state.startPot);
+            
+            // Update UI
+            ui.wPath.innerText = state.workPathAccum.toFixed(2) + " J";
+            ui.wPot.innerText = W_pot.toFixed(2) + " J";
+            
+            ui.vCurr.innerText = state.currentPot.toFixed(2) + " V";
+            ui.vStart.innerText = state.startPot.toFixed(2) + " V";
+            ui.qDisp.innerText = state.testQ.toFixed(2);
+            ui.samples.innerText = state.totalSamples + " steps";
+        }
+
+        // --- Interaction ---
+        function onDown(e) {
+            var r = canvas.getBoundingClientRect();
+            var mx = e.clientX - r.left; var my = e.clientY - r.top;
+            
+            var dx = mx - state.pos.x; var dy = my - state.pos.y;
+            if (dx*dx+dy*dy < 900) { 
+                state.dragging = true;
+                state.startPot = calcPot(state.pos.x, state.pos.y);
+                state.workPathAccum = 0;
+                state.totalSamples = 0;
+                state.path = [{x: state.pos.x, y: state.pos.y, w:0}];
+                updatePhysics();
+                draw();
+            }
+        }
+
+        function onMove(e) {
+            if(!state.dragging) return;
+            var r = canvas.getBoundingClientRect();
+            var mx = e.clientX - r.left; var my = e.clientY - r.top;
+            
+            mx = Math.max(10, Math.min(state.w-10, mx));
+            my = Math.max(10, Math.min(state.h-10, my));
+
+            // Integrate High Precision
+            var startX = state.pos.x;
+            var startY = state.pos.y;
+            
+            var distSq = (mx - startX)*(mx - startX) + (my - startY)*(my - startY);
+            var dist = Math.sqrt(distSq);
+            
+            if (dist < 0.1) return;
+
+            var steps = Math.ceil(dist / state.stepSize);
+            var dX_step = (mx - startX) / steps;
+            var dY_step = (my - startY) / steps;
+            
+            var accumWork = 0;
+            var currX = startX;
+            var currY = startY;
+
+            for(var i=0; i<steps; i++) {
+                var midX = currX + dX_step/2;
+                var midY = currY + dY_step/2;
+                
+                var F = calcForce(midX, midY);
+                accumWork += (F.x * dX_step + F.y * dY_step) / 10;
+                
+                currX += dX_step;
+                currY += dY_step;
+                state.totalSamples++;
+            }
+            
+            state.workPathAccum += accumWork;
+            state.pos = {x: mx, y: my};
+            state.path.push({x: mx, y: my, w: accumWork});
+            
+            updatePhysics();
+            draw();
+        }
+
+        function onUp() {
+            state.dragging = false;
+        }
+
+        function resetPath() {
+            state.path = [];
+            state.workPathAccum = 0;
+            state.totalSamples = 0;
+            state.startPot = calcPot(state.pos.x, state.pos.y);
+            updatePhysics();
+            draw();
+        }
+
+        function toggleField() {
+            state.showField = !state.showField;
+            ui.btnField.innerText = state.showField ? "Hide Field" : "Show Field";
+            draw();
+        }
+
+        // --- Render ---
+        function draw() {
+            ctx.clearRect(0,0,state.w, state.h);
+            
+            if(state.showField) drawField();
+            drawEquipotentials();
+            drawPath();
+            drawSources();
+            drawTestCharge();
+        }
+
+        function drawField() {
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.3)";
+            ctx.lineWidth = 1;
+            var step = 40;
+            
+            for(var x=20; x<state.w; x+=step) {
+                for(var y=20; y<state.h; y+=step) {
+                    var F = calcForce(x,y);
+                    var mag = Math.sqrt(F.x*F.x + F.y*F.y);
+                    if(mag < 0.1) continue;
+                    var len = Math.min(20, mag*5); 
+                    var ux = F.x/mag; var uy = F.y/mag;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(x - ux*len/2, y - uy*len/2);
+                    ctx.lineTo(x + ux*len/2, y + uy*len/2);
+                    ctx.stroke();
+                    
+                    var hx = x + ux*len/2; var hy = y + uy*len/2;
+                    ctx.beginPath();
+                    ctx.arc(hx, hy, 1.5, 0, 6.28);
+                    ctx.fillStyle = "rgba(148, 163, 184, 0.8)";
+                    ctx.fill();
+                }
+            }
+        }
+
+        function drawEquipotentials() {
+            if (state.sources.length === 1) {
+                ctx.strokeStyle = "rgba(100, 116, 139, 0.2)";
+                ctx.setLineDash([4,4]);
+                var s = state.sources[0];
+                for(var r=50; r<600; r+=50) {
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, r, 0, 6.28);
+                    ctx.stroke();
+                }
+                ctx.setLineDash([]);
+            }
+        }
+
+        function drawSources() {
+            state.sources.forEach(function(s){
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 18, 0, 6.28);
+                ctx.fillStyle = s.q > 0 ? "#ef4444" : "#3b82f6";
+                ctx.fill();
+                ctx.lineWidth=2; ctx.strokeStyle="white"; ctx.stroke();
+                
+                ctx.fillStyle="white"; ctx.textAlign="center"; ctx.textBaseline="middle";
+                ctx.font="bold 14px Arial";
+                ctx.fillText(s.q > 0 ? "+" : "-", s.x, s.y);
+            });
+        }
+
+        function drawTestCharge() {
+            var x = state.pos.x; var y = state.pos.y;
+            
+            if(state.path.length > 0) {
+                var sx = state.path[0].x; var sy = state.path[0].y;
+                ctx.beginPath(); ctx.arc(sx, sy, 4, 0, 6.28);
+                ctx.fillStyle="#94a3b8"; ctx.fill();
+                ctx.fillStyle="#64748b"; ctx.font="10px Arial";
+                ctx.fillText("Start", sx, sy-10);
+            }
+
+            ctx.beginPath();
+            ctx.arc(x, y, 12, 0, 6.28);
+            var col = state.testQ > 0 ? "#facc15" : (state.testQ < 0 ? "#3b82f6" : "#94a3b8");
+            ctx.fillStyle = col;
+            
+            if(state.dragging) {
+                ctx.shadowColor="rgba(0,0,0,0.2)"; ctx.shadowBlur=10;
+            }
+            ctx.fill(); ctx.shadowBlur=0;
+            ctx.strokeStyle="#475569"; ctx.lineWidth=2; ctx.stroke();
+            
+            ctx.fillStyle="#1e293b"; ctx.font="bold 11px Arial";
+            ctx.fillText("q", x, y);
+        }
+
+        function drawPath() {
+            if(state.path.length < 2) return;
+            ctx.lineWidth = 4;
+            ctx.lineCap = "round";
+            
+            for(var i=1; i<state.path.length; i++) {
+                var p1 = state.path[i-1];
+                var p2 = state.path[i];
+                
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                
+                if (p2.w > 0.05) ctx.strokeStyle = "#22c55e";
+                else if (p2.w < -0.05) ctx.strokeStyle = "#ef4444";
+                else ctx.strokeStyle = "#cbd5e1";
+                
+                ctx.stroke();
+            }
+        }
+
+        function loop() { requestAnimationFrame(loop); }
+
+        return {
+            init: init,
+            setScenario: setScenario,
+            resetPath: resetPath,
+            toggleField: toggleField,
+            reset: function() { setScenario('single'); }
+        };
+    })();
+
+    WP_APP.init();
+    </script>
+</div>
+```
+
 
 ## Condensator
 
