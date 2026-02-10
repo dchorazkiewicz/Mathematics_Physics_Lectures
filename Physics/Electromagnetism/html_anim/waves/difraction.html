@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diffraction & Interference Explorer</title>
+    <style>
+        /* Scoped styles */
+        .diffraction-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .diffraction-app * {
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.6rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            background: #007bff;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+        }
+
+        /* Canvas Area */
+        .canvas-container {
+            width: 100%;
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #diffCanvas {
+            background-color: #111;
+            cursor: crosshair;
+            width: 100%;
+            height: 400px;
+        }
+
+        /* Legend overlay */
+        .legend-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+        .legend-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .line { width: 20px; height: 2px; }
+
+        /* Controls */
+        .controls-panel {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .val-display {
+            font-family: monospace;
+            color: #007bff;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="diffraction-app">
+    <div class="app-header">
+        <h2>Huygens-Fresnel: Diffraction & Interference</h2>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchMode('single')">Single Slit Diffraction</button>
+        <button class="tab-btn" onclick="switchMode('double')">Double Slit Interference</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="diffCanvas"></canvas>
+        <div class="legend-overlay">
+            <div class="legend-row"><span class="dot" style="background: #ffd700;"></span> <span>Secondary Sources</span></div>
+            <div class="legend-row"><span class="line" style="border-top: 2px dashed #32cd32;"></span> <span>Huygens Wavelets</span></div>
+            <div class="legend-row"><span class="line" style="background: #ff4d4d; height: 3px;"></span> <span>Mean Intensity</span></div>
+        </div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="control-group">
+            <div class="control-label">
+                <label>Wavelength (&lambda;)</label>
+                <span id="val-lambda" class="val-display">--</span>
+            </div>
+            <input type="range" id="slider-lambda" min="20" max="60" step="1" value="35">
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label>Slit Width (a)</label>
+                <span id="val-width" class="val-display">--</span>
+            </div>
+            <input type="range" id="slider-width" min="10" max="100" step="5" value="60">
+        </div>
+
+        <div class="control-group" id="group-separation" style="display: none; opacity: 0.5;">
+            <div class="control-label">
+                <label>Slit Separation (d)</label>
+                <span id="val-sep" class="val-display">--</span>
+            </div>
+            <input type="range" id="slider-sep" min="40" max="150" step="5" value="80" disabled>
+        </div>
+
+        <div class="control-group">
+             <div class="control-label">
+                <label>Simulation Quality</label>
+             </div>
+             <label style="font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="chk-wavelets" checked> Show Huygens Arcs
+             </label>
+             <label style="font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="chk-field" checked> Show Field Map
+             </label>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('diffCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false }); // Optimize for no transparency
+
+        // UI Elements
+        const sliderLambda = document.getElementById('slider-lambda');
+        const sliderWidth = document.getElementById('slider-width');
+        const sliderSep = document.getElementById('slider-sep');
+        const groupSep = document.getElementById('group-separation');
+        const valLambda = document.getElementById('val-lambda');
+        const valWidth = document.getElementById('val-width');
+        const valSep = document.getElementById('val-sep');
+        const chkWavelets = document.getElementById('chk-wavelets');
+        const chkField = document.getElementById('chk-field');
+        const tabs = document.querySelectorAll('.tab-btn');
+
+        // State
+        let mode = 'single'; // 'single' or 'double'
+        let time = 0;
+        let sources = [];
+        let animationId;
+
+        // Physics Parameters
+        let lambda = 35;
+        let slitWidth = 60;
+        let separation = 80;
+        let speed = 2.0;
+
+        // Configuration
+        const GRAPH_WIDTH = 150; // Width of the intensity graph panel on the right
+
+        // Render Scale (Optimization)
+        let width, height;
+        let simWidth; // Width of the wave simulation area
+        let imageData;
+        let fieldBuf; // Buffer for calculated field values
+
+        function init() {
+            window.switchMode = function(newMode) {
+                mode = newMode;
+                tabs.forEach(t => t.classList.remove('active'));
+                if(mode === 'single') {
+                    tabs[0].classList.add('active');
+                    groupSep.style.display = 'none';
+                    groupSep.style.opacity = '0.3';
+                    sliderSep.disabled = true;
+                } else {
+                    tabs[1].classList.add('active');
+                    groupSep.style.display = 'flex';
+                    groupSep.style.opacity = '1';
+                    sliderSep.disabled = false;
+                }
+                updateSources();
+            };
+
+            resize();
+            updateSources();
+            animate();
+        }
+
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+
+            // Ensure valid dimensions to prevent IndexSizeError if layout isn't ready
+            let newWidth = Math.floor(rect.width);
+            let newHeight = Math.floor(rect.height);
+
+            // Fallback dimensions
+            if (newWidth === 0 || newHeight === 0) {
+                newWidth = 800;
+                newHeight = 400;
+            }
+
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            width = newWidth;
+            height = newHeight;
+            simWidth = width - GRAPH_WIDTH;
+
+            // Re-create buffers with valid dimensions
+            imageData = ctx.createImageData(width, height);
+            fieldBuf = new Float32Array(height);
+
+            updateSources();
+        }
+
+        function updateSources() {
+            sources = [];
+            const barrierX = simWidth * 0.25; // Barrier position
+            const centerY = height / 2;
+
+            // Density of Huygens sources (points per pixel)
+            const density = 0.15; // 1 source every ~6-7 pixels
+
+            if (mode === 'single') {
+                const numPoints = Math.max(3, Math.floor(slitWidth * density));
+                const startY = centerY - slitWidth/2;
+
+                for(let i=0; i<=numPoints; i++) {
+                    const y = startY + (i / numPoints) * slitWidth;
+                    sources.push({ x: barrierX, y: y });
+                }
+            } else {
+                // Double Slit
+                const numPoints = Math.max(2, Math.floor(slitWidth * density));
+
+                // Top slit
+                let startY = centerY - separation/2 - slitWidth/2;
+                for(let i=0; i<=numPoints; i++) {
+                    const y = startY + (i / numPoints) * slitWidth;
+                    sources.push({ x: barrierX, y: y });
+                }
+
+                // Bottom slit
+                startY = centerY + separation/2 - slitWidth/2;
+                for(let i=0; i<=numPoints; i++) {
+                    const y = startY + (i / numPoints) * slitWidth;
+                    sources.push({ x: barrierX, y: y });
+                }
+            }
+        }
+
+        function calculateField() {
+            // Guard clause if initialization failed
+            if (!imageData) return;
+
+            const k = (2 * Math.PI) / lambda;
+            const barrierX = simWidth * 0.25;
+
+            // Phase for animation: k*r - omega*t
+            const phaseT = (2 * Math.PI * time * speed) / lambda;
+
+            const ptr = imageData.data;
+            const showField = chkField.checked;
+
+            const sx = new Float32Array(sources.length);
+            const sy = new Float32Array(sources.length);
+            for(let s=0; s<sources.length; s++) { sx[s] = sources[s].x; sy[s] = sources[s].y; }
+            const numSources = sources.length;
+
+            // 1. Calculate Field Map (Time Dependent)
+            let idx = 0;
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    // --- GRAPH AREA (RIGHT SIDE) ---
+                    if (x >= simWidth) {
+                        ptr[idx] = 0; idx += 4; continue;
+                    }
+
+                    // --- SIMULATION AREA (LEFT SIDE) ---
+                    let val = 0;
+                    if (x < barrierX) {
+                        // Plane wave
+                        val = Math.sin((2 * Math.PI * x) / lambda - phaseT);
+                    } else {
+                        // Interference
+                        if (showField) {
+                            for (let s = 0; s < numSources; s++) {
+                                const dx = x - sx[s];
+                                const dy = y - sy[s];
+                                const r = Math.sqrt(dx*dx + dy*dy);
+                                const amp = 10.0 / (Math.sqrt(r) + 1.0);
+                                const phase = k * r - phaseT;
+                                val += amp * Math.sin(phase);
+                            }
+                            val = val / Math.sqrt(numSources);
+                        }
+                    }
+
+                    // Draw
+                    if (showField) {
+                        let intensity = 128 + val * 80;
+                        if (intensity < 0) intensity = 0;
+                        if (intensity > 255) intensity = 255;
+                        ptr[idx] = intensity; ptr[idx+1] = intensity; ptr[idx+2] = intensity; ptr[idx+3] = 255;
+                    } else {
+                        ptr[idx] = 20; ptr[idx+1] = 20; ptr[idx+2] = 20; ptr[idx+3] = 255;
+                    }
+                    idx += 4;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+
+            // 2. Calculate Screen Intensity (Time Averaged / Static)
+            // We calculate this separately for the screen line (x = simWidth)
+            // Intensity ~ Amplitude^2. E_total = sum(A_i * exp(i*k*r_i))
+            // We sum phasors components: sum(cos(kr)) and sum(sin(kr))
+
+            const screenX = simWidth - 1;
+
+            for (let y = 0; y < height; y++) {
+                let sumSin = 0;
+                let sumCos = 0;
+
+                for (let s = 0; s < numSources; s++) {
+                    const dx = screenX - sx[s];
+                    const dy = y - sy[s];
+                    const r = Math.sqrt(dx*dx + dy*dy);
+
+                    const amp = 10.0 / (Math.sqrt(r) + 1.0);
+                    const kr = k * r; // Phase without time component
+
+                    sumSin += amp * Math.sin(kr);
+                    sumCos += amp * Math.cos(kr);
+                }
+
+                // Average Intensity ~ Amplitude Squared
+                // Amplitude = sqrt(sumSin^2 + sumCos^2)
+                // We divide by numSources to normalize to similar scale as field map
+                const amplitudeSq = (sumSin*sumSin + sumCos*sumCos) / numSources;
+
+                // Store Amplitude (envelope) in buffer so we can square it later for Intensity graph
+                // or just store the value we want to plot.
+                // Let's store amplitude, so graph calculates Amplitude^2 = Intensity
+                fieldBuf[y] = Math.sqrt(amplitudeSq);
+            }
+        }
+
+        function drawOverlay() {
+            const barrierX = simWidth * 0.25;
+            const centerY = height / 2;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(0, 0, simWidth, height);
+            ctx.clip();
+
+            // Draw Barrier
+            ctx.fillStyle = "#555";
+            if (mode === 'single') {
+                ctx.fillRect(barrierX - 2, 0, 4, centerY - slitWidth/2);
+                ctx.fillRect(barrierX - 2, centerY + slitWidth/2, 4, height);
+            } else {
+                ctx.fillRect(barrierX - 2, 0, 4, centerY - separation/2 - slitWidth/2);
+                ctx.fillRect(barrierX - 2, centerY - separation/2 + slitWidth/2, 4, separation - slitWidth);
+                ctx.fillRect(barrierX - 2, centerY + separation/2 + slitWidth/2, 4, height);
+            }
+
+            // Draw Sources
+            ctx.fillStyle = "#ffd700";
+            sources.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Draw Huygens Wavelets
+            if (chkWavelets.checked) {
+                ctx.strokeStyle = "rgba(50, 205, 50, 0.6)";
+                ctx.lineWidth = 1;
+                const offset = (time * speed) % lambda;
+                const numArcs = 15;
+                ctx.beginPath();
+                sources.forEach(s => {
+                    for(let n=1; n<=numArcs; n++) {
+                        const r = n * lambda - offset;
+                        if (r > 0 && r < simWidth - barrierX) {
+                            ctx.moveTo(s.x + r * Math.cos(-Math.PI/2), s.y + r * Math.sin(-Math.PI/2));
+                            ctx.arc(s.x, s.y, r, -Math.PI/2, Math.PI/2);
+                        }
+                    }
+                });
+                ctx.setLineDash([2, 4]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+            ctx.restore();
+
+            // Draw Intensity Graph
+            drawIntensityGraph();
+        }
+
+        function drawIntensityGraph() {
+            // Divider
+            ctx.beginPath();
+            ctx.strokeStyle = "#444";
+            ctx.lineWidth = 2;
+            ctx.moveTo(simWidth, 0);
+            ctx.lineTo(simWidth, height);
+            ctx.stroke();
+
+            ctx.fillStyle = "#888";
+            ctx.font = "12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("Screen Plane", simWidth + GRAPH_WIDTH/2, 20);
+
+            // Graph
+            const startX = simWidth + 10;
+            const scaleI = 8;
+
+            ctx.beginPath();
+            ctx.strokeStyle = "#ff4d4d";
+            ctx.lineWidth = 2;
+
+            for (let y = 0; y < height; y++) {
+                const Amp = fieldBuf[y];
+                const I = Amp * Amp; // Intensity is Amplitude squared
+
+                const px = startX + (I * scaleI);
+
+                if (y === 0) ctx.moveTo(px, y);
+                else ctx.lineTo(px, y);
+            }
+            ctx.stroke();
+
+            // Baseline
+            ctx.beginPath();
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 1;
+            ctx.moveTo(startX, 0);
+            ctx.lineTo(startX, height);
+            ctx.stroke();
+        }
+
+        function animate() {
+            time++;
+            lambda = parseInt(sliderLambda.value);
+            slitWidth = parseInt(sliderWidth.value);
+            separation = parseInt(sliderSep.value);
+
+            valLambda.textContent = lambda;
+            valWidth.textContent = slitWidth;
+            valSep.textContent = separation;
+
+            updateSources();
+            calculateField();
+            drawOverlay();
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+
+    })();
+</script>
+
+</body>
+</html>

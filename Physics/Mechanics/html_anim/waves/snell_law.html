@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huygens-Fresnel Principle: Refraction</title>
+    <style>
+        .huygens-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .huygens-app * {
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.6rem;
+        }
+
+        .canvas-wrapper {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #huygensCanvas {
+            display: block;
+            width: 100%;
+            height: 450px;
+        }
+
+        .controls-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-row label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .val-display {
+            font-family: monospace;
+            color: #007bff;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .buttons-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover { background-color: #0056b3; }
+
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-reset:hover { background-color: #5a6268; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .line { width: 20px; height: 3px; display: inline-block; }
+
+        .alert-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .controls-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="huygens-app">
+    <div class="app-header">
+        <h2>Huygens-Fresnel Refraction</h2>
+        <p>Wavelets construction at the interface</p>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="line" style="background: #007bff;"></span> Incident Wave
+        </div>
+        <div class="legend-item">
+            <span class="dot" style="background: #ffc107;"></span> Secondary Sources
+        </div>
+        <div class="legend-item">
+            <span class="line" style="border: 1px solid #28a745; height: 10px; width:10px; border-radius: 50%;"></span> Wavelets
+        </div>
+        <div class="legend-item">
+            <span class="line" style="background: #dc3545;"></span> Refracted Wavefront
+        </div>
+    </div>
+
+    <div class="canvas-wrapper">
+        <canvas id="huygensCanvas"></canvas>
+        <div id="tirAlert" class="alert-box">Total Internal Reflection!</div>
+    </div>
+
+    <div class="controls-container">
+        <div class="control-group">
+            <div class="control-row">
+                <label>Medium 1 Index (n<sub>1</sub>)</label>
+                <span id="val-n1" class="val-display">1.0</span>
+            </div>
+            <input type="range" id="n1" min="1.0" max="2.5" step="0.1" value="1.0">
+
+            <div class="control-row">
+                <label>Medium 2 Index (n<sub>2</sub>)</label>
+                <span id="val-n2" class="val-display">1.5</span>
+            </div>
+            <input type="range" id="n2" min="1.0" max="2.5" step="0.1" value="1.5">
+
+            <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                Velocity ratio (v<sub>1</sub>/v<sub>2</sub>) = <span id="val-ratio">1.50</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-row">
+                <label>Incident Angle (&theta;<sub>1</sub>)</label>
+                <span id="val-angle" class="val-display">45°</span>
+            </div>
+            <input type="range" id="angle" min="0" max="80" step="1" value="45">
+
+            <div class="control-row">
+                <label>Refracted Angle (&theta;<sub>2</sub>)</label>
+                <span id="val-angle2" class="val-display">--</span>
+            </div>
+
+            <div class="control-row">
+                <label>Animation Speed</label>
+            </div>
+            <input type="range" id="speed" min="0.1" max="2.0" step="0.1" value="0.5">
+        </div>
+
+        <div class="buttons-row">
+            <button id="btn-play" class="btn btn-primary">Pause</button>
+            <button id="btn-reset" class="btn btn-reset">Reset Wave</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('huygensCanvas');
+        const ctx = canvas.getContext('2d');
+        const tirAlert = document.getElementById('tirAlert');
+
+        // UI Refs
+        const ui = {
+            n1: document.getElementById('n1'),
+            n2: document.getElementById('n2'),
+            angle: document.getElementById('angle'),
+            speed: document.getElementById('speed'),
+            vn1: document.getElementById('val-n1'),
+            vn2: document.getElementById('val-n2'),
+            vang: document.getElementById('val-angle'),
+            vang2: document.getElementById('val-angle2'),
+            vratio: document.getElementById('val-ratio'),
+            btnPlay: document.getElementById('btn-play'),
+            btnReset: document.getElementById('btn-reset')
+        };
+
+        // State
+        let state = {
+            n1: 1.0,
+            n2: 1.5,
+            theta1: 45 * Math.PI / 180, // radians
+            speed: 0.5,
+            time: 0,
+            running: true
+        };
+
+        // Constants
+        const BASE_VELOCITY = 100; // pixels per second (base c)
+        let width, height;
+        let sources = [];
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+            initSources();
+        }
+
+        function initSources() {
+            sources = [];
+            const numSources = 12;
+            const step = width / (numSources + 2); // padding
+            for(let i=1; i<=numSources; i++) {
+                sources.push({ x: i * step, y: height/2, hitTime: null });
+            }
+        }
+
+        function updatePhysics() {
+            // Snell's Law: n1 * sin(t1) = n2 * sin(t2)
+            const sinT2 = (state.n1 / state.n2) * Math.sin(state.theta1);
+            let theta2 = 0;
+            let isTIR = false;
+
+            if (Math.abs(sinT2) > 1.0) {
+                isTIR = true;
+                theta2 = null;
+            } else {
+                theta2 = Math.asin(sinT2);
+            }
+
+            // Velocities
+            const v1 = BASE_VELOCITY / state.n1;
+            const v2 = BASE_VELOCITY / state.n2;
+
+            return { v1, v2, theta2, isTIR };
+        }
+
+        function resetWave() {
+            state.time = -2; // Start slightly before
+            sources.forEach(s => s.hitTime = null);
+        }
+
+        function draw() {
+            const { v1, v2, theta2, isTIR } = updatePhysics();
+
+            // Update UI
+            ui.vang2.textContent = isTIR ? "TIR" : (theta2 * 180 / Math.PI).toFixed(1) + "°";
+            ui.vratio.textContent = (state.n2 / state.n1).toFixed(2);
+            tirAlert.style.display = isTIR ? 'block' : 'none';
+
+            // Clear
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Media Backgrounds
+            const midY = height / 2;
+
+            // Medium 1 (Top)
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, width, midY);
+
+            // Medium 2 (Bottom)
+            ctx.fillStyle = "#f1f3f5"; // Slight gray
+            ctx.fillRect(0, midY, width, midY);
+
+            // Draw Interface Line
+            ctx.beginPath();
+            ctx.moveTo(0, midY);
+            ctx.lineTo(width, midY);
+            ctx.strokeStyle = "#adb5bd";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw Normal (Dashed)
+            ctx.beginPath();
+            ctx.moveTo(width/2, 20);
+            ctx.lineTo(width/2, height - 20);
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = "#999";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // --- Draw Rays ---
+            const centerX = width/2;
+            const rayLen = 300;
+
+            // Incident Ray (Medium 1)
+            // Starts top left usually if theta > 0
+            const ix = centerX - rayLen * Math.sin(state.theta1);
+            const iy = midY - rayLen * Math.cos(state.theta1);
+
+            ctx.beginPath();
+            ctx.moveTo(ix, iy);
+            ctx.lineTo(centerX, midY);
+            ctx.strokeStyle = "rgba(0, 123, 255, 0.4)";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Refracted Ray (Medium 2)
+            if (!isTIR) {
+                const rx = centerX + rayLen * Math.sin(theta2);
+                const ry = midY + rayLen * Math.cos(theta2);
+                ctx.beginPath();
+                ctx.moveTo(centerX, midY);
+                ctx.lineTo(rx, ry);
+                ctx.strokeStyle = "rgba(0, 123, 255, 0.4)";
+                ctx.stroke();
+            }
+
+            // --- Wavefront Simulation ---
+
+            const distance = state.time * v1; // Distance of wavefront from center along ray direction
+
+            // Calculate hit times for sources
+            // The wave hits the interface at different times.
+            // Based on geometry, time delay relative to center is: x_rel * sin(theta) / v1
+
+            sources.forEach(s => {
+                const proj = (s.x - centerX) * Math.sin(state.theta1);
+                s.hitTime = (proj / v1);
+            });
+
+            // 1. Draw Incident Wavefront (The one that triggers Huygens)
+
+            if (state.time < 1.5) { // Only draw if relevant
+                // Calculation of wavefront position
+                // The wavefront is perpendicular to the ray direction.
+                // Its position along the ray is given by 'distance' (v1 * t).
+                // Center of wavefront (intersection with ray):
+                // Ray goes from Top-Left to Center. Direction vector D = (sin t1, cos t1).
+                // At t=0, it's at Center. At t<0, it's at Center + t*v1*D = Center - |dist|*D.
+                // Or simply: P = Center + (v1*t)*D. Since t is signed, this works.
+
+                const rX = centerX + distance * Math.sin(state.theta1); // Changed - to + to fix direction
+                const rY = midY + distance * Math.cos(state.theta1); // Changed - to + to fix direction
+
+                // Note: since 't' starts negative, (v1*t) is negative.
+                // We want to be at Top-Left.
+                // CenterX + (negative) * (positive_sin) = Left. Correct.
+                // MidY + (negative) * (positive_cos) = Top. Correct.
+                // The previous version used '-' which flipped it to Bottom-Right.
+
+                // Perpendicular vector (-cos t1, sin t1)
+                const pX = -Math.cos(state.theta1);
+                const pY = Math.sin(state.theta1);
+                const L = 600;
+
+                ctx.beginPath();
+                ctx.moveTo(rX - pX*L, rY - pY*L);
+                ctx.lineTo(rX + pX*L, rY + pY*L);
+                ctx.strokeStyle = "#007bff";
+                ctx.lineWidth = 2;
+                // Clip to top half
+                ctx.save();
+                ctx.rect(0,0,width,midY);
+                ctx.clip();
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // 2. Draw Secondary Sources and Wavelets
+            sources.forEach(s => {
+                // Draw source dot
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 4, 0, Math.PI*2);
+                ctx.fillStyle = "#ffc107";
+                ctx.fill();
+
+                // Check if wave has hit this source
+                if (state.time > s.hitTime) {
+                    const dt = state.time - s.hitTime;
+                    const radius = v2 * dt;
+
+                    // Draw Wavelet (Semi-circle in Medium 2)
+                    if (!isTIR && radius > 0) {
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, radius, 0, Math.PI, false);
+                        ctx.strokeStyle = "rgba(40, 167, 69, 0.6)"; // Greenish
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            // 3. Draw Refracted Wavefront (Envelope)
+
+            if (!isTIR && state.time > -0.5) {
+                const dist2 = v2 * state.time;
+                // For refracted wave (t > 0), it moves away from center into Medium 2.
+                // Direction D2 = (sin t2, cos t2).
+                // Position P2 = Center + (v2*t)*D2.
+                const rX2 = centerX + dist2 * Math.sin(theta2);
+                const rY2 = midY + dist2 * Math.cos(theta2);
+
+                // Perpendicular vector (-cos t2, sin t2)
+                const pX2 = -Math.cos(theta2);
+                const pY2 = Math.sin(theta2);
+                const L2 = 600;
+
+                ctx.beginPath();
+                ctx.moveTo(rX2 - pX2*L2, rY2 - pY2*L2);
+                ctx.lineTo(rX2 + pX2*L2, rY2 + pY2*L2);
+                ctx.strokeStyle = "#dc3545"; // Red
+                ctx.lineWidth = 3;
+
+                // Clip to bottom half
+                ctx.save();
+                ctx.rect(0, midY, width, height - midY);
+                ctx.clip();
+                ctx.stroke();
+                ctx.restore();
+            }
+
+        }
+
+        function animate() {
+            if (state.running) {
+                state.time += 0.016 * state.speed; // approx 60fps
+
+                // Auto reset if too far
+                if (state.time > 4.0) {
+                    state.time = -2.0;
+                }
+            }
+            draw();
+            requestAnimationFrame(animate);
+        }
+
+        // Interaction
+        function updateFromUI() {
+            state.n1 = parseFloat(ui.n1.value);
+            state.n2 = parseFloat(ui.n2.value);
+            state.theta1 = parseFloat(ui.angle.value) * Math.PI / 180;
+            state.speed = parseFloat(ui.speed.value);
+
+            ui.vn1.textContent = state.n1.toFixed(1);
+            ui.vn2.textContent = state.n2.toFixed(1);
+            ui.vang.textContent = ui.angle.value + "°";
+
+            if (!state.running) draw();
+        }
+
+        [ui.n1, ui.n2, ui.angle, ui.speed].forEach(el => {
+            el.addEventListener('input', updateFromUI);
+        });
+
+        ui.btnPlay.addEventListener('click', () => {
+            state.running = !state.running;
+            ui.btnPlay.textContent = state.running ? "Pause" : "Resume";
+        });
+
+        ui.btnReset.addEventListener('click', () => {
+            resetWave();
+            if (!state.running) draw();
+        });
+
+        window.addEventListener('resize', resize);
+
+        // Init
+        resize();
+        resetWave();
+        updateFromUI();
+        animate();
+
+    })();
+</script>
+
+</body>
+</html>

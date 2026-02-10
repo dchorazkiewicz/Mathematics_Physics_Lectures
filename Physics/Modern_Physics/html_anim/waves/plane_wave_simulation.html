@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plane Wave Simulation</title>
+    <style>
+        /* Reset and main container styles - isolated */
+        .wave-sim-wrapper {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .wave-sim-wrapper * {
+            box-sizing: border-box;
+        }
+
+        /* Canvas styling */
+        .wave-canvas-container {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            position: relative;
+            /* Container for canvas ensuring proper aspect ratio/sizing logic if needed */
+        }
+
+        #waveCanvas {
+            display: block;
+            width: 100%;
+            height: 350px; /* Increased height for clearer axis labels */
+            cursor: crosshair;
+        }
+
+        /* Control panel */
+        .wave-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .wave-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #495057;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .control-group span.value-display {
+            font-weight: normal;
+            color: #007bff;
+            font-family: monospace;
+        }
+
+        /* Slider Styles */
+        .wave-sim-wrapper input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        .wave-sim-wrapper input[type=range]:focus { outline: none; }
+        .wave-sim-wrapper input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px; width: 16px; border-radius: 50%;
+            background: #007bff; cursor: pointer; margin-top: -6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .wave-sim-wrapper input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: #dee2e6; border-radius: 2px;
+        }
+        .wave-sim-wrapper input[type=range]::-moz-range-thumb {
+            height: 16px; width: 16px; border: none; border-radius: 50%;
+            background: #007bff; cursor: pointer;
+        }
+        .wave-sim-wrapper input[type=range]::-moz-range-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: #dee2e6; border-radius: 2px;
+        }
+
+        /* Buttons */
+        .button-container {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .wave-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 600;
+        }
+        .wave-btn:hover { background-color: #218838; }
+        .wave-btn.paused { background-color: #dc3545; }
+        .wave-btn.paused:hover { background-color: #c82333; }
+
+        .equation-display {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .legend {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 0.85em;
+            color: #666;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wave-sim-wrapper">
+    <div class="equation-display">
+        y(x, t) = A sin(kx - ωt)
+    </div>
+
+    <div class="wave-canvas-container">
+        <canvas id="waveCanvas"></canvas>
+    </div>
+
+    <div class="wave-controls">
+        <div class="control-group">
+            <label for="amplitude">Amplitude (A) [m]: <span id="val-amp" class="value-display">1.0</span></label>
+            <input type="range" id="amplitude" min="0" max="2.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="control-group">
+            <label for="wavelength">Wavelength (&lambda;) [m]: <span id="val-lambda" class="value-display">4.0</span></label>
+            <input type="range" id="wavelength" min="1.0" max="8.0" step="0.1" value="4.0">
+        </div>
+
+        <div class="control-group">
+            <label for="omega">Angular Frequency (&omega;) [rad/s]: <span id="val-omega" class="value-display">2.0</span></label>
+            <input type="range" id="omega" min="0" max="10" step="0.1" value="2.0">
+        </div>
+
+        <div class="button-container">
+            <button id="toggleBtn" class="wave-btn">Pause</button>
+        </div>
+
+        <div class="legend">
+            Press <strong>Pause</strong> to see measurements for Amplitude and Wavelength.
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI Elements
+        const ampInput = document.getElementById('amplitude');
+        const lambdaInput = document.getElementById('wavelength');
+        const omegaInput = document.getElementById('omega');
+        const toggleBtn = document.getElementById('toggleBtn');
+
+        const valAmp = document.getElementById('val-amp');
+        const valLambda = document.getElementById('val-lambda');
+        const valOmega = document.getElementById('val-omega');
+
+        // State variables
+        let width, height;
+        let animationId;
+        let isRunning = true;
+        let time = 0;
+        let lastTime = performance.now();
+
+        // Simulation parameters
+        let params = {
+            A: parseFloat(ampInput.value),
+            lambda: parseFloat(lambdaInput.value),
+            omega: parseFloat(omegaInput.value)
+        };
+
+        // Configuration
+        const PADDING_LEFT = 50;  // Space for Y-axis labels
+        const PADDING_BOTTOM = 40; // Space for X-axis labels
+        const PIXELS_PER_METER = 80; // Scale X
+        const PIXELS_PER_AMP_UNIT = 60; // Scale Y
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+
+            // Logical dimensions
+            width = canvas.width / dpr;
+            height = canvas.height / dpr;
+
+            ctx.scale(dpr, dpr);
+
+            // Clear logical dimensions for internal logic
+            // We use `width` and `height` in draw function which refer to CSS pixels now
+        }
+
+        function drawGrid(xAxisY) {
+            ctx.strokeStyle = '#e9ecef';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+
+            // X Axis Grid & Labels
+            const startX = PADDING_LEFT;
+            const endX = width;
+            const yZero = xAxisY;
+
+            // Physical length visible
+            const visibleMeters = (width - PADDING_LEFT) / PIXELS_PER_METER;
+
+            for (let m = 0; m <= visibleMeters; m += 1) {
+                const px = startX + m * PIXELS_PER_METER;
+
+                // Grid line
+                ctx.beginPath();
+                ctx.moveTo(px, 0);
+                ctx.lineTo(px, height - PADDING_BOTTOM);
+                ctx.stroke();
+
+                // Label
+                ctx.fillText(m.toString(), px, height - PADDING_BOTTOM + 5);
+            }
+            // Axis label
+            ctx.fillText("Position x (m)", width / 2 + PADDING_LEFT/2, height - 15);
+
+            // Y Axis Grid & Labels
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+
+            const maxAmpVisible = (yZero) / PIXELS_PER_AMP_UNIT;
+
+            // Steps for Y axis (e.g., 0.5, 1.0, 1.5...)
+            for (let a = -Math.floor(maxAmpVisible); a <= Math.floor(maxAmpVisible); a += 0.5) {
+                if (a === 0) continue; // Skip 0, handled by main axis
+                const py = yZero - (a * PIXELS_PER_AMP_UNIT);
+
+                if (py > 0 && py < height - PADDING_BOTTOM) {
+                    // Grid line
+                    ctx.beginPath();
+                    ctx.moveTo(PADDING_LEFT, py);
+                    ctx.lineTo(width, py);
+                    ctx.stroke();
+
+                    // Label
+                    ctx.fillText(a.toFixed(1), PADDING_LEFT - 10, py);
+                }
+            }
+            // Axis label logic
+            ctx.save();
+            ctx.translate(15, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.textAlign = 'center';
+            ctx.fillText("Displacement y (m)", 0, 0);
+            ctx.restore();
+        }
+
+        function drawArrow(x1, y1, x2, y2, color = 'red', label = null) {
+            const headlen = 8; // length of head in pixels
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Arrow head 1
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
+
+            // Arrow head 2 (for double sided, if needed logic, but here manual)
+        }
+
+        function drawDoubleArrow(x1, y1, x2, y2, color, label) {
+            drawArrow(x1, y1, x2, y2, color);
+            drawArrow(x2, y2, x1, y1, color); // Reverse for other head
+
+            if (label) {
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2;
+                ctx.fillStyle = color;
+                ctx.font = 'bold 14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText(label, midX, midY - 5);
+            }
+        }
+
+        function drawMeasurements(xAxisY, k) {
+            // Find peaks
+            // Peak condition: k*x - omega*t = PI/2 + 2*PI*n
+            // x = (PI/2 + omega*t + 2*PI*n) / k
+
+            const phase = params.omega * time;
+            const firstN = Math.floor((-phase - Math.PI/2) / (2*Math.PI));
+            // We search for n starting a bit before 0 to cover all visible area
+
+            let peaks = [];
+
+            // Scan for peaks within visible range
+            // Physical width
+            const maxPhysX = (width - PADDING_LEFT) / PIXELS_PER_METER;
+
+            for (let n = firstN; ; n++) {
+                const x_phys = (Math.PI/2 + phase + 2*Math.PI*n) / k;
+
+                if (x_phys > maxPhysX + params.lambda) break; // Optimization stop
+
+                if (x_phys >= 0 && x_phys <= maxPhysX) {
+                    peaks.push(x_phys);
+                }
+            }
+
+            // Draw Amplitude (on the first visible peak)
+            if (peaks.length > 0) {
+                const pX = peaks[0];
+                const pxCanvas = PADDING_LEFT + pX * PIXELS_PER_METER;
+                const topY = xAxisY - (params.A * PIXELS_PER_AMP_UNIT);
+
+                // Vertical line for Amplitude
+                ctx.beginPath();
+                ctx.moveTo(pxCanvas, xAxisY);
+                ctx.lineTo(pxCanvas, topY);
+                ctx.strokeStyle = '#28a745';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Arrow head at top
+                ctx.beginPath();
+                ctx.moveTo(pxCanvas, topY);
+                ctx.lineTo(pxCanvas - 5, topY + 8);
+                ctx.lineTo(pxCanvas + 5, topY + 8);
+                ctx.closePath();
+                ctx.fillStyle = '#28a745';
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = '#28a745';
+                ctx.textAlign = 'left';
+                ctx.font = 'bold 13px sans-serif';
+                ctx.fillText(`A = ${params.A.toFixed(1)}m`, pxCanvas + 8, xAxisY - (params.A * PIXELS_PER_AMP_UNIT)/2);
+            }
+
+            // Draw Wavelength (between two peaks)
+            if (peaks.length >= 2) {
+                const p1 = peaks[0];
+                const p2 = peaks[1];
+
+                const x1 = PADDING_LEFT + p1 * PIXELS_PER_METER;
+                const x2 = PADDING_LEFT + p2 * PIXELS_PER_METER;
+                const yLevel = xAxisY - (params.A * PIXELS_PER_AMP_UNIT) - 20; // Above the wave
+
+                // Draw lines up
+                ctx.strokeStyle = 'rgba(255,0,0,0.3)';
+                ctx.setLineDash([2, 2]);
+                ctx.beginPath();
+                ctx.moveTo(x1, xAxisY - (params.A * PIXELS_PER_AMP_UNIT));
+                ctx.lineTo(x1, yLevel);
+                ctx.moveTo(x2, xAxisY - (params.A * PIXELS_PER_AMP_UNIT));
+                ctx.lineTo(x2, yLevel);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Draw double arrow
+                drawDoubleArrow(x1, yLevel, x2, yLevel, '#dc3545', `λ = ${params.lambda.toFixed(1)}m`);
+            }
+        }
+
+        function draw() {
+            // Clear
+            ctx.clearRect(0, 0, width, height);
+
+            const xAxisY = (height - PADDING_BOTTOM) / 2;
+
+            // Draw Grid & Axes
+            drawGrid(xAxisY);
+
+            // Main Axis Line
+            ctx.beginPath();
+            ctx.moveTo(PADDING_LEFT, xAxisY);
+            ctx.lineTo(width, xAxisY);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Wave Drawing
+            ctx.beginPath();
+            ctx.strokeStyle = '#007bff';
+            ctx.lineWidth = 3;
+
+            const k = (2 * Math.PI) / params.lambda;
+
+            // Start drawing from x=0 (physically) which is PADDING_LEFT pixels
+            const startPx = PADDING_LEFT;
+
+            ctx.beginPath();
+            for (let px = startPx; px < width; px++) {
+                // Physical x relative to start of axis
+                const x_phys = (px - startPx) / PIXELS_PER_METER;
+
+                // Wave equation
+                const y_phys = params.A * Math.sin(k * x_phys - params.omega * time);
+
+                // Canvas Y
+                const py = xAxisY - (y_phys * PIXELS_PER_AMP_UNIT);
+
+                if (px === startPx) {
+                    ctx.moveTo(px, py);
+                } else {
+                    ctx.lineTo(px, py);
+                }
+            }
+            ctx.stroke();
+
+            // Particle Visualization (at fixed physical position x = 2.0m)
+            const particleX_phys = 2.0;
+            if ((particleX_phys * PIXELS_PER_METER + PADDING_LEFT) < width) {
+                const particleY_phys = params.A * Math.sin(k * particleX_phys - params.omega * time);
+                const pPx = PADDING_LEFT + particleX_phys * PIXELS_PER_METER;
+                const pPy = xAxisY - (particleY_phys * PIXELS_PER_AMP_UNIT);
+
+                ctx.beginPath();
+                ctx.arc(pPx, pPy, 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#dc3545';
+                ctx.fill();
+
+                // Helper line for particle
+                ctx.beginPath();
+                ctx.moveTo(pPx, xAxisY);
+                ctx.lineTo(pPx, pPy);
+                ctx.strokeStyle = 'rgba(220, 53, 69, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Draw measurements if paused
+            if (!isRunning) {
+                drawMeasurements(xAxisY, k);
+            }
+        }
+
+        function animate(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            const dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (isRunning) {
+                time += dt;
+            }
+
+            draw();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Listeners
+        window.addEventListener('resize', () => { resize(); draw(); });
+
+        ampInput.addEventListener('input', (e) => {
+            params.A = parseFloat(e.target.value);
+            valAmp.textContent = params.A.toFixed(1);
+            if (!isRunning) draw();
+        });
+
+        lambdaInput.addEventListener('input', (e) => {
+            params.lambda = parseFloat(e.target.value);
+            valLambda.textContent = params.lambda.toFixed(1);
+            if (!isRunning) draw();
+        });
+
+        omegaInput.addEventListener('input', (e) => {
+            params.omega = parseFloat(e.target.value);
+            valOmega.textContent = params.omega.toFixed(1);
+            if (!isRunning) draw();
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                toggleBtn.textContent = "Pause";
+                toggleBtn.classList.remove('paused');
+                lastTime = performance.now();
+            } else {
+                toggleBtn.textContent = "Resume";
+                toggleBtn.classList.add('paused');
+                draw(); // Force redraw to show arrows immediately
+            }
+        });
+
+        resize();
+        requestAnimationFrame(animate);
+
+    })();
+</script>
+
+</body>
+</html>

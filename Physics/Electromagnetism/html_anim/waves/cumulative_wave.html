@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symulacja Fali Skumulowanej</title>
+    <style>
+        .sim-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .sim-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sim-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .sim-header p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .canvas-container {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #simCanvas {
+            background-color: #ffffff;
+            cursor: default;
+            width: 100%;
+            height: 500px;
+            display: block;
+        }
+
+        .controls-container {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .speed-control {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .speed-control label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        .btn-play { background-color: #28a745; }
+        .btn-pause { background-color: #dc3545; }
+        .btn-reset { background-color: #6c757d; }
+
+        .status-bar {
+            margin-top: 5px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sim-app">
+    <div class="sim-header">
+        <h2>Simultaneous Arrival (Cumulative Wave)</h2>
+        <p>Supersonic plane (v=2c) approaching an observer</p>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="simCanvas"></canvas>
+    </div>
+
+    <div class="status-bar" id="timeDisplay">Time: 0.00s / 5.00s</div>
+
+    <div class="controls-container">
+        <div class="speed-control">
+            <label>Prędkość animacji: <span id="speedVal">1.0x</span></label>
+            <input type="range" id="speedSlider" min="0.1" max="2.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="buttons">
+            <button id="btnPlay" class="btn btn-play">Start</button>
+            <button id="btnReset" class="btn btn-reset">Reset</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const btnPlay = document.getElementById('btnPlay');
+        const btnReset = document.getElementById('btnReset');
+        const speedSlider = document.getElementById('speedSlider');
+        const speedVal = document.getElementById('speedVal');
+
+        // Physics Parameters
+        const c = 1.0;          // Speed of sound
+        const v = 2.0;          // Speed of plane
+        const T = 5.0;          // Impact time
+        const IMPULSE_INTERVAL = 0.5; // Seconds
+
+        // State
+        let currentTime = 0;
+        let isRunning = false;
+        let animationId;
+        let width, height;
+        let scale = 1;
+        let simSpeed = 1.0;
+
+        // Data structures
+        let impulses = [];
+
+        // Pre-calculate trajectory for static line drawing
+        const trajectoryPoints = [];
+
+        function precomputeTrajectory() {
+            const steps = 500;
+            for(let i=0; i<=steps; i++) {
+                const t = (i / steps) * T;
+                const safeT = Math.min(t, T - 1e-4);
+
+                const r = c * (T - safeT);
+                const term = Math.sqrt(v*v - c*c) / c;
+                const theta = term * Math.log(T / (T - safeT));
+
+                const x = r * Math.cos(theta);
+                const y = r * Math.sin(theta);
+                trajectoryPoints.push({x, y});
+            }
+        }
+
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+
+            const maxCoord = c * T * 1.1;
+            const minDim = Math.min(width, height);
+            scale = (minDim / 2) / maxCoord;
+
+            drawFrame();
+        }
+
+        function getPlanePos(t) {
+            const safeT = Math.min(t, T - 1e-6);
+            const r = c * (T - safeT);
+            const term = Math.sqrt(v*v - c*c) / c;
+            const theta = term * Math.log(T / (T - safeT));
+
+            return {
+                x: r * Math.cos(theta),
+                y: r * Math.sin(theta)
+            };
+        }
+
+        function update(dt) {
+            if (!isRunning) return;
+
+            // Apply speed multiplier
+            const step = dt * simSpeed;
+
+            const prevTime = currentTime;
+            currentTime += step;
+
+            if (currentTime >= T) {
+                currentTime = T;
+                isRunning = false;
+                btnPlay.textContent = "Replay";
+                btnPlay.classList.remove('btn-pause');
+                btnPlay.classList.add('btn-play');
+            }
+
+            // Check for new impulse emission
+            const startIdx = Math.floor(prevTime / IMPULSE_INTERVAL) + 1;
+            const endIdx = Math.floor(currentTime / IMPULSE_INTERVAL);
+
+            for(let i = startIdx; i <= endIdx; i++) {
+                const emitTime = i * IMPULSE_INTERVAL;
+                if (emitTime < T) {
+                    const pos = getPlanePos(emitTime);
+                    impulses.push({
+                        emitTime: emitTime,
+                        x: pos.x,
+                        y: pos.y
+                    });
+                }
+            }
+        }
+
+        function drawFrame() {
+            ctx.clearRect(0, 0, width, height);
+
+            // --- TRANSFORMED WORLD SPACE ---
+            ctx.save();
+            ctx.translate(width/2, height/2);
+            ctx.scale(scale, -scale);
+
+            // 1. Draw Static Trajectory (Blue dashed)
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0, 0, 255, 0.4)';
+            ctx.lineWidth = 2 / scale;
+            ctx.setLineDash([5 / scale, 5 / scale]);
+            if (trajectoryPoints.length > 0) {
+                ctx.moveTo(trajectoryPoints[0].x, trajectoryPoints[0].y);
+                for(let i=1; i<trajectoryPoints.length; i++) {
+                    ctx.lineTo(trajectoryPoints[i].x, trajectoryPoints[i].y);
+                }
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 2. Draw Observer (Dot only)
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(0, 0, 0.15, 0, Math.PI*2);
+            ctx.fill();
+
+            // 3. Draw Impulses (Red Circles)
+            ctx.lineWidth = 1.5 / scale;
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';
+
+            for (let imp of impulses) {
+                const r = c * (currentTime - imp.emitTime);
+                if (r > 0) {
+                    ctx.beginPath();
+                    ctx.arc(imp.x, imp.y, r, 0, Math.PI*2);
+                    ctx.stroke();
+                }
+            }
+
+            // 4. Draw Plane (Black Dot)
+            const planePos = getPlanePos(currentTime);
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(planePos.x, planePos.y, 0.1, 0, Math.PI*2);
+            ctx.fill();
+
+            ctx.restore();
+            // --- END TRANSFORMED SPACE ---
+
+            // 5. Draw Labels (Screen Space - No scaling artifacts)
+            ctx.fillStyle = '#333';
+            ctx.font = '14px sans-serif';
+            // Observer label at center + offset
+            ctx.fillText("Observer", width/2 + 10, height/2 - 10);
+
+            timeDisplay.textContent = `Time: ${currentTime.toFixed(2)}s / ${T.toFixed(2)}s`;
+        }
+
+        function loop() {
+            if (isRunning) {
+                update(0.016);
+            }
+            drawFrame();
+            animationId = requestAnimationFrame(loop);
+        }
+
+        // Interaction
+        speedSlider.addEventListener('input', (e) => {
+            simSpeed = parseFloat(e.target.value);
+            speedVal.textContent = simSpeed.toFixed(1) + "x";
+        });
+
+        btnPlay.addEventListener('click', () => {
+            if (currentTime >= T) {
+                currentTime = 0;
+                impulses = [];
+                isRunning = true;
+                btnPlay.textContent = "Pause";
+                btnPlay.classList.remove('btn-play');
+                btnPlay.classList.add('btn-pause');
+            } else {
+                isRunning = !isRunning;
+                if(isRunning) {
+                    btnPlay.textContent = "Pause";
+                    btnPlay.classList.remove('btn-play');
+                    btnPlay.classList.add('btn-pause');
+                } else {
+                    btnPlay.textContent = "Resume";
+                    btnPlay.classList.remove('btn-pause');
+                    btnPlay.classList.add('btn-play');
+                }
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            isRunning = false;
+            currentTime = 0;
+            impulses = [];
+            btnPlay.textContent = "Start";
+            btnPlay.classList.remove('btn-pause');
+            btnPlay.classList.add('btn-play');
+            drawFrame();
+        });
+
+        window.addEventListener('resize', resize);
+
+        precomputeTrajectory();
+        resize();
+        loop();
+
+    })();
+</script>
+
+</body>
+</html>

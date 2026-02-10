@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1D Wave Equation Solver</title>
+    <style>
+        /* Scoped styles for the widget */
+        .wave-solver-wrapper {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .wave-solver-wrapper * {
+            box-sizing: border-box;
+        }
+
+        .solver-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .solver-header h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .solver-header p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Canvas Area */
+        .solver-canvas-container {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        #solverCanvas {
+            display: block;
+            width: 100%;
+            height: 350px;
+        }
+
+        /* Controls */
+        .solver-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .wave-select {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .solver-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover { background-color: #0056b3; }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover { background-color: #bd2130; }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover { background-color: #5a6268; }
+
+        .info-panel {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #495057;
+            text-align: center;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .solver-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wave-solver-wrapper">
+    <div class="solver-header">
+        <h2>Wave Equation Evolution</h2>
+        <p>Fixed ends: u(0,t) = u(L,t) = 0. Initial velocity: 0.</p>
+    </div>
+
+    <div class="solver-canvas-container">
+        <canvas id="solverCanvas"></canvas>
+    </div>
+
+    <div class="solver-controls">
+        <div class="control-group">
+            <label for="shapeSelect">Initial Pulse Shape:</label>
+            <select id="shapeSelect" class="wave-select">
+                <option value="triangle">Triangular (Pluck)</option>
+                <option value="gaussian">Gaussian Pulse</option>
+                <option value="sine">Sinusoidal (Mode 1)</option>
+                <option value="sine2">Sinusoidal (Mode 2)</option>
+                <option value="square">Square Pulse</option>
+                <option value="noise">Random Noise</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="speedRange">Simulation Speed:</label>
+            <input type="range" id="speedRange" min="1" max="5" value="1" step="1">
+
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="showComponents">
+                    <span class="slider"></span>
+                </label>
+                <span style="font-size: 0.9em; font-weight: 600; color: #495057;">Show Components</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="startStopBtn" class="solver-btn btn-primary">Start</button>
+            <button id="resetBtn" class="solver-btn btn-secondary">Reset</button>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <span id="simInfo">t = 0.00</span>
+        <div id="legendContainer" style="display: none; gap: 15px;">
+            <span class="legend-item"><span class="legend-color" style="background: #28a745;"></span> Right Wave</span>
+            <span class="legend-item"><span class="legend-color" style="background: #fd7e14;"></span> Left Wave</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Configuration
+        const N = 400; // Number of spatial points
+        const C_VAL = 1.0; // Courant number (c * dt / dx). Set to 1.0 for exact 1D propagation
+
+        // State arrays (Current, Previous, Next)
+        let u = new Float64Array(N);
+        let u_prev = new Float64Array(N);
+        let u_next = new Float64Array(N);
+        let u_initial = new Float64Array(N); // Store initial state for decomposition
+
+        let isRunning = false;
+        let animationId;
+        let timeStepCount = 0;
+        let speedMultiplier = 1;
+        let showComponents = false;
+
+        // UI Elements
+        const canvas = document.getElementById('solverCanvas');
+        const ctx = canvas.getContext('2d');
+        const startStopBtn = document.getElementById('startStopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const shapeSelect = document.getElementById('shapeSelect');
+        const speedRange = document.getElementById('speedRange');
+        const componentsToggle = document.getElementById('showComponents');
+        const simInfo = document.getElementById('simInfo');
+        const legendContainer = document.getElementById('legendContainer');
+
+        // Initial setup
+        let width, height;
+        const PADDING = 40;
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+            draw();
+        }
+
+        // --- PHYSICS ENGINE ---
+
+        function initializeWave(type) {
+            // Reset arrays
+            u.fill(0);
+            u_prev.fill(0);
+            u_next.fill(0);
+            u_initial.fill(0);
+            timeStepCount = 0;
+            simInfo.textContent = `t = 0.00`;
+
+            const center = Math.floor(N / 2);
+
+            // Set u (current state at t=0)
+            if (type === 'triangle') {
+                // Pluck in the middle
+                const w = Math.floor(N / 4);
+                for (let i = 0; i < N; i++) {
+                    if (i > center - w && i < center + w) {
+                        u[i] = 1.0 - Math.abs(i - center) / w;
+                    }
+                }
+            } else if (type === 'gaussian') {
+                const sigma = N / 20;
+                for (let i = 0; i < N; i++) {
+                    u[i] = Math.exp(-Math.pow(i - center, 2) / (2 * sigma * sigma));
+                }
+            } else if (type === 'sine') {
+                for (let i = 0; i < N; i++) {
+                    u[i] = Math.sin(Math.PI * i / (N - 1));
+                }
+            } else if (type === 'sine2') {
+                for (let i = 0; i < N; i++) {
+                    u[i] = Math.sin(2 * Math.PI * i / (N - 1));
+                }
+            } else if (type === 'square') {
+                const w = Math.floor(N / 8);
+                for (let i = center - w; i < center + w; i++) {
+                    u[i] = 1.0;
+                }
+                const k = 2; // smoothing kernel
+                for(let i=center-w-k; i<=center-w+k; i++) u[i] = 0.5;
+                for(let i=center+w-k; i<=center+w+k; i++) u[i] = 0.5;
+            } else if (type === 'noise') {
+                for (let i = 1; i < N - 1; i++) {
+                    u[i] = (Math.random() - 0.5) * 0.2;
+                }
+            }
+
+            // Boundary conditions
+            u[0] = 0;
+            u[N-1] = 0;
+
+            // Copy to initial array for component visualization
+            for(let i=0; i<N; i++) u_initial[i] = u[i];
+
+            // Compute u_prev based on initial velocity = 0
+            for (let i = 1; i < N - 1; i++) {
+                u_prev[i] = u[i] + 0.5 * (C_VAL * C_VAL) * (u[i+1] - 2*u[i] + u[i-1]);
+            }
+            u_prev[0] = 0;
+            u_prev[N-1] = 0;
+        }
+
+        function solveStep() {
+            const C2 = C_VAL * C_VAL;
+            for (let i = 1; i < N - 1; i++) {
+                u_next[i] = 2 * u[i] - u_prev[i] + C2 * (u[i+1] - 2 * u[i] + u[i-1]);
+            }
+            u_next[0] = 0;
+            u_next[N-1] = 0;
+
+            let temp = u_prev;
+            u_prev = u;
+            u = u_next;
+            u_next = temp;
+
+            timeStepCount++;
+        }
+
+        // --- HELPER FOR REFLECTIONS ---
+        // Returns the value of the initial wave at index idx, considering odd boundary conditions
+        function getInitialValue(idx) {
+            const maxIdx = N - 1;
+            const period = 2 * maxIdx;
+
+            // Normalize index to handle periodicity
+            let normIdx = idx % period;
+            if (normIdx < 0) normIdx += period;
+
+            // Handle Odd Symmetry
+            // If in [0, L], return val. If in (L, 2L), return -val(reflected)
+            if (normIdx <= maxIdx) {
+                return u_initial[normIdx];
+            } else {
+                return -u_initial[period - normIdx];
+            }
+        }
+
+        // --- RENDERING ---
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw axis
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(PADDING, height / 2);
+            ctx.lineTo(width - PADDING, height / 2);
+            ctx.stroke();
+
+            const xScale = (width - 2 * PADDING) / (N - 1);
+            const yScale = 100; // Amplitude scale in pixels
+            const yOffset = height / 2;
+
+            // --- Draw Components (if enabled) ---
+            if (showComponents) {
+                // Since C_VAL = 1.0, the wave moves exactly 1 index per time step
+                const shift = timeStepCount;
+
+                // Right traveling wave (Green) -> f(x - ct) -> moves to larger indices
+                ctx.beginPath();
+                ctx.strokeStyle = '#28a745'; // Green
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]); // Dashed
+                for (let i = 0; i < N; i++) {
+                    // Right component is 1/2 * phi(x - ct)
+                    const val = 0.5 * getInitialValue(i - shift);
+                    const x = PADDING + i * xScale;
+                    const y = yOffset - val * yScale;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Left traveling wave (Orange) -> g(x + ct) -> moves to smaller indices
+                ctx.beginPath();
+                ctx.strokeStyle = '#fd7e14'; // Orange
+                ctx.lineWidth = 2;
+                //ctx.setLineDash([5, 5]); // Keep dashed
+                for (let i = 0; i < N; i++) {
+                    // Left component is 1/2 * phi(x + ct)
+                    const val = 0.5 * getInitialValue(i + shift);
+                    const x = PADDING + i * xScale;
+                    const y = yOffset - val * yScale;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                ctx.setLineDash([]); // Reset dash
+            }
+
+            // --- Draw Main String ---
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#007bff'; // Blue
+            for (let i = 0; i < N; i++) {
+                const x = PADDING + i * xScale;
+                const y = yOffset - u[i] * yScale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Draw endpoints
+            ctx.fillStyle = '#dc3545';
+            ctx.beginPath();
+            ctx.arc(PADDING, yOffset, 4, 0, Math.PI * 2);
+            ctx.arc(width - PADDING, yOffset, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function animate() {
+            if (!isRunning) return;
+            for(let k=0; k<speedMultiplier; k++) solveStep();
+            draw();
+            simInfo.textContent = `Time steps: ${timeStepCount}`;
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // --- INTERACTIONS ---
+
+        startStopBtn.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                startStopBtn.textContent = "Pause";
+                startStopBtn.classList.remove('btn-primary');
+                startStopBtn.classList.add('btn-danger');
+                animate();
+            } else {
+                startStopBtn.textContent = "Start";
+                startStopBtn.classList.remove('btn-danger');
+                startStopBtn.classList.add('btn-primary');
+                cancelAnimationFrame(animationId);
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            isRunning = false;
+            startStopBtn.textContent = "Start";
+            startStopBtn.classList.remove('btn-danger');
+            startStopBtn.classList.add('btn-primary');
+            cancelAnimationFrame(animationId);
+            initializeWave(shapeSelect.value);
+            draw();
+        });
+
+        shapeSelect.addEventListener('change', (e) => {
+            isRunning = false;
+            startStopBtn.textContent = "Start";
+            startStopBtn.classList.remove('btn-danger');
+            startStopBtn.classList.add('btn-primary');
+            cancelAnimationFrame(animationId);
+            initializeWave(e.target.value);
+            draw();
+        });
+
+        speedRange.addEventListener('input', (e) => {
+            speedMultiplier = parseInt(e.target.value);
+        });
+
+        componentsToggle.addEventListener('change', (e) => {
+            showComponents = e.target.checked;
+            legendContainer.style.display = showComponents ? 'flex' : 'none';
+            if (!isRunning) draw();
+        });
+
+        window.addEventListener('resize', () => {
+            resize();
+        });
+
+        // Initialize
+        resize();
+        initializeWave('triangle');
+        draw();
+
+    })();
+</script>
+
+</body>
+</html>

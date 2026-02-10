@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Interference & Superposition</title>
+    <style>
+        /* Scoped styles for the widget to prevent global conflicts */
+        .interference-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .interference-app * {
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.6rem;
+        }
+
+        .app-header p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Canvas Area */
+        .canvas-wrapper {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        #interferenceCanvas {
+            display: block;
+            width: 100%;
+            height: 400px;
+            cursor: crosshair;
+        }
+
+        /* Legend */
+        .legend-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        /* Controls Layout */
+        .controls-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .wave-panel {
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid transparent;
+        }
+
+        .wave-panel.blue { border-left-color: #007bff; background-color: rgba(0, 123, 255, 0.03); }
+        .wave-panel.red { border-left-color: #dc3545; background-color: rgba(220, 53, 69, 0.03); }
+
+        .wave-panel h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        /* --- POPRAWIONA SEKCJA --- */
+        .control-row label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            /* Usunięto justify-content: space-between, co powodowało rozciąganie */
+            align-items: center;
+            gap: 8px; /* Dodano naturalny odstęp */
+            margin-bottom: 4px;
+        }
+        /* ------------------------- */
+
+        .val-display {
+            font-family: monospace;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .red .val-display { color: #dc3545; }
+
+        /* Sliders */
+        .interference-app input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        .interference-app input[type=range]:focus { outline: none; }
+
+        /* Thumb styling */
+        .interference-app input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 14px; width: 14px; border-radius: 50%;
+            background: #6c757d; cursor: pointer; margin-top: -5px;
+        }
+        .blue input[type=range]::-webkit-slider-thumb { background: #007bff; }
+        .red input[type=range]::-webkit-slider-thumb { background: #dc3545; }
+
+        .interference-app input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: #dee2e6; border-radius: 2px;
+        }
+
+        /* Bottom Toolbar (Presets & Playback) */
+        .bottom-toolbar {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .preset-group {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #ced4da;
+            color: #495057;
+        }
+        .btn-outline:hover { background-color: #e9ecef; border-color: #adb5bd; }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+            min-width: 100px;
+        }
+        .btn-primary:hover { background-color: #218838; }
+
+        .btn-paused {
+            background-color: #dc3545;
+        }
+        .btn-paused:hover { background-color: #c82333; }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+            .controls-container { grid-template-columns: 1fr; }
+            .bottom-toolbar { flex-direction: column; align-items: stretch; }
+            .preset-group { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="interference-app">
+    <div class="app-header">
+        <h2>Superposition Principle</h2>
+        <p>Visualizing the sum of two harmonic waves</p>
+    </div>
+
+    <div class="canvas-wrapper">
+        <canvas id="interferenceCanvas"></canvas>
+    </div>
+
+    <div class="legend-bar">
+        <div class="legend-item">
+            <div class="legend-line" style="background: #007bff; height: 2px;"></div>
+            <span>Wave 1 (&psi;<sub>1</sub>)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line" style="background: #dc3545; height: 2px;"></div>
+            <span>Wave 2 (&psi;<sub>2</sub>)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line" style="background: #28a745; height: 4px;"></div>
+            <span><strong>Sum (&psi;<sub>total</sub>)</strong></span>
+        </div>
+    </div>
+
+    <div class="controls-container">
+        <div class="wave-panel blue">
+            <h3>Wave 1 (Blue)
+                <label class="checkbox-label" style="font-size: 0.8rem; font-weight: normal;">
+                    <input type="checkbox" id="showW1" checked> Visible
+                </label>
+            </h3>
+
+            <div class="control-row">
+                <label>Amplitude (A<sub>1</sub>): <span id="val-a1" class="val-display">1.0</span></label>
+                <input type="range" id="slider-a1" min="0" max="1.5" step="0.1" value="1.0">
+            </div>
+            <div class="control-row">
+                <label>Wavelength (&lambda;<sub>1</sub>): <span id="val-l1" class="val-display">4.0</span></label>
+                <input type="range" id="slider-l1" min="1.0" max="10.0" step="0.1" value="4.0">
+            </div>
+            <div class="control-row">
+                <label>Velocity (v<sub>1</sub>): <span id="val-v1" class="val-display">1.0</span></label>
+                <input type="range" id="slider-v1" min="-2.0" max="2.0" step="0.1" value="1.0">
+            </div>
+            <div class="control-row">
+                <label>Phase Shift (&phi;<sub>1</sub>): <span id="val-p1" class="val-display">0.00</span> &pi;</label>
+                <input type="range" id="slider-p1" min="0" max="2" step="0.05" value="0">
+            </div>
+        </div>
+
+        <div class="wave-panel red">
+            <h3>Wave 2 (Red)
+                <label class="checkbox-label" style="font-size: 0.8rem; font-weight: normal;">
+                    <input type="checkbox" id="showW2" checked> Visible
+                </label>
+            </h3>
+
+            <div class="control-row">
+                <label>Amplitude (A<sub>2</sub>): <span id="val-a2" class="val-display">1.0</span></label>
+                <input type="range" id="slider-a2" min="0" max="1.5" step="0.1" value="1.0">
+            </div>
+            <div class="control-row">
+                <label>Wavelength (&lambda;<sub>2</sub>): <span id="val-l2" class="val-display">4.0</span></label>
+                <input type="range" id="slider-l2" min="1.0" max="10.0" step="0.1" value="4.0">
+            </div>
+            <div class="control-row">
+                <label>Velocity (v<sub>2</sub>): <span id="val-v2" class="val-display">-1.0</span></label>
+                <input type="range" id="slider-v2" min="-2.0" max="2.0" step="0.1" value="-1.0">
+            </div>
+            <div class="control-row">
+                <label>Phase Shift (&phi;<sub>2</sub>): <span id="val-p2" class="val-display">0.00</span> &pi;</label>
+                <input type="range" id="slider-p2" min="0" max="2" step="0.05" value="0">
+            </div>
+        </div>
+
+        <div class="bottom-toolbar">
+            <div class="preset-group">
+                <button class="btn btn-outline" onclick="setPreset('standing')">Standing Wave</button>
+                <button class="btn btn-outline" onclick="setPreset('constructive')">Constructive</button>
+                <button class="btn btn-outline" onclick="setPreset('destructive')">Destructive</button>
+                <button class="btn btn-outline" onclick="setPreset('beats')">Beats</button>
+            </div>
+            <button id="playPauseBtn" class="btn btn-primary">Pause</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Scope to prevent global namespace pollution
+    (function() {
+        const canvas = document.getElementById('interferenceCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Params
+        const params = {
+            w1: { A: 1.0, lambda: 4.0, v: 1.0, phi: 0.0, visible: true },
+            w2: { A: 1.0, lambda: 4.0, v: -1.0, phi: 0.0, visible: true }
+        };
+
+        // State
+        let isRunning = true;
+        let time = 0;
+        let lastTime = performance.now();
+        let animationId;
+
+        // Scale factors
+        let width, height;
+        const scaleX = 60; // pixels per meter
+        const scaleY = 60; // pixels per unit amplitude
+        const yOffset = 0.5; // normalized (0.5 = center)
+
+        // UI References
+        const ui = {
+            w1: {
+                A: document.getElementById('slider-a1'),
+                l: document.getElementById('slider-l1'),
+                v: document.getElementById('slider-v1'),
+                p: document.getElementById('slider-p1'),
+                vis: document.getElementById('showW1'),
+                valA: document.getElementById('val-a1'),
+                valL: document.getElementById('val-l1'),
+                valV: document.getElementById('val-v1'),
+                valP: document.getElementById('val-p1')
+            },
+            w2: {
+                A: document.getElementById('slider-a2'),
+                l: document.getElementById('slider-l2'),
+                v: document.getElementById('slider-v2'),
+                p: document.getElementById('slider-p2'),
+                vis: document.getElementById('showW2'),
+                valA: document.getElementById('val-a2'),
+                valL: document.getElementById('val-l2'),
+                valV: document.getElementById('val-v2'),
+                valP: document.getElementById('val-p2')
+            },
+            btn: document.getElementById('playPauseBtn')
+        };
+
+        // --- Core Logic ---
+
+        function resize() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+            draw();
+        }
+
+        function getWaveY(waveParams, x_meters, t) {
+            // y = A * sin(k(x - vt) + phi)
+            // k = 2*pi / lambda
+            const k = (2 * Math.PI) / waveParams.lambda;
+            // Phase phi is in units of PI from slider
+            const phase = waveParams.phi * Math.PI;
+
+            return waveParams.A * Math.sin(k * (x_meters - waveParams.v * t) + phase);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Axes
+            const centerY = height * yOffset;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Grid (Vertical)
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            const maxMeters = width / scaleX;
+            for(let m = 0; m <= maxMeters; m++) {
+                const px = m * scaleX;
+                ctx.beginPath();
+                ctx.moveTo(px, 0);
+                ctx.lineTo(px, height);
+                ctx.stroke();
+                // Axis Label
+                ctx.fillStyle = '#999';
+                ctx.font = '10px sans-serif';
+                ctx.fillText(m, px + 2, height - 5);
+            }
+
+            // --- Wave Calculation Loop ---
+
+            // To optimize, we'll store points
+            const points1 = [];
+            const points2 = [];
+            const pointsSum = [];
+
+            // Resolution: 1 point per pixel
+            for (let px = 0; px < width; px++) {
+                const x_meters = px / scaleX;
+
+                const y1 = getWaveY(params.w1, x_meters, time);
+                const y2 = getWaveY(params.w2, x_meters, time);
+                const ySum = y1 + y2;
+
+                points1.push(y1);
+                points2.push(y2);
+                pointsSum.push(ySum);
+            }
+
+            // Helper to draw a path
+            function drawPath(points, color, width, dash = []) {
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = width;
+                ctx.setLineDash(dash);
+
+                for (let px = 0; px < points.length; px++) {
+                    // Invert Y for canvas
+                    const py = centerY - points[px] * scaleY;
+                    if (px === 0) ctx.moveTo(px, py);
+                    else ctx.lineTo(px, py);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // Draw Wave 1 (Blue)
+            if (params.w1.visible) {
+                drawPath(points1, '#007bff', 2);
+            }
+
+            // Draw Wave 2 (Red)
+            if (params.w2.visible) {
+                drawPath(points2, '#dc3545', 2);
+            }
+
+            // Draw Sum (Green) - Always visible
+            drawPath(pointsSum, '#28a745', 4); // Thicker line
+
+            // Legend inside canvas (Optional, removed since we have external legend)
+        }
+
+        function animate(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            const dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (isRunning) {
+                time += dt;
+            }
+
+            draw();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // --- Interaction ---
+
+        function updateParamsFromUI() {
+            // Wave 1
+            params.w1.A = parseFloat(ui.w1.A.value);
+            params.w1.lambda = parseFloat(ui.w1.l.value);
+            params.w1.v = parseFloat(ui.w1.v.value);
+            params.w1.phi = parseFloat(ui.w1.p.value);
+            params.w1.visible = ui.w1.vis.checked;
+
+            ui.w1.valA.textContent = params.w1.A.toFixed(1);
+            ui.w1.valL.textContent = params.w1.lambda.toFixed(1);
+            ui.w1.valV.textContent = params.w1.v.toFixed(1);
+            ui.w1.valP.textContent = params.w1.phi.toFixed(2);
+
+            // Wave 2
+            params.w2.A = parseFloat(ui.w2.A.value);
+            params.w2.lambda = parseFloat(ui.w2.l.value);
+            params.w2.v = parseFloat(ui.w2.v.value);
+            params.w2.phi = parseFloat(ui.w2.p.value);
+            params.w2.visible = ui.w2.vis.checked;
+
+            ui.w2.valA.textContent = params.w2.A.toFixed(1);
+            ui.w2.valL.textContent = params.w2.lambda.toFixed(1);
+            ui.w2.valV.textContent = params.w2.v.toFixed(1);
+            ui.w2.valP.textContent = params.w2.phi.toFixed(2);
+
+            if (!isRunning) draw();
+        }
+
+        // --- Presets ---
+
+        window.setPreset = function(type) {
+            if (type === 'standing') {
+                // Equal amplitude, equal wavelength, opposite velocities
+                setUIValues(1.0, 4.0, 1.0, 0.0,  // W1
+                            1.0, 4.0, -1.0, 0.0); // W2
+                // Ensure visible
+                ui.w1.vis.checked = true;
+                ui.w2.vis.checked = true;
+            } else if (type === 'constructive') {
+                // Same direction, phase 0
+                setUIValues(1.0, 4.0, 1.0, 0.0,
+                            1.0, 4.0, 1.0, 0.0);
+            } else if (type === 'destructive') {
+                // Same direction, phase PI (1.0 in slider units)
+                setUIValues(1.0, 4.0, 1.0, 0.0,
+                            1.0, 4.0, 1.0, 1.0);
+            } else if (type === 'beats') {
+                // Slightly different wavelengths, same speed
+                setUIValues(1.0, 4.0, 2.0, 0.0,
+                            1.0, 3.5, 2.0, 0.0);
+            }
+            updateParamsFromUI();
+
+            // Auto start if paused? Optional.
+            if (!isRunning) {
+                togglePlay();
+            }
+        };
+
+        function setUIValues(a1, l1, v1, p1, a2, l2, v2, p2) {
+            ui.w1.A.value = a1; ui.w1.l.value = l1; ui.w1.v.value = v1; ui.w1.p.value = p1;
+            ui.w2.A.value = a2; ui.w2.l.value = l2; ui.w2.v.value = v2; ui.w2.p.value = p2;
+        }
+
+        function togglePlay() {
+            isRunning = !isRunning;
+            if (isRunning) {
+                ui.btn.textContent = "Pause";
+                ui.btn.classList.remove('btn-paused');
+                ui.btn.classList.add('btn-primary');
+                lastTime = performance.now();
+            } else {
+                ui.btn.textContent = "Resume";
+                ui.btn.classList.remove('btn-primary');
+                ui.btn.classList.add('btn-paused');
+            }
+        }
+
+        // --- Event Listeners ---
+
+        const inputs = [
+            ui.w1.A, ui.w1.l, ui.w1.v, ui.w1.p, ui.w1.vis,
+            ui.w2.A, ui.w2.l, ui.w2.v, ui.w2.p, ui.w2.vis
+        ];
+
+        inputs.forEach(input => {
+            input.addEventListener('input', updateParamsFromUI);
+            input.addEventListener('change', updateParamsFromUI);
+        });
+
+        ui.btn.addEventListener('click', togglePlay);
+        window.addEventListener('resize', () => {
+            resize();
+        });
+
+        // Initialize
+        resize();
+        updateParamsFromUI();
+        setPreset('standing'); // Default start
+        requestAnimationFrame(animate);
+
+    })();
+</script>
+
+</body>
+</html>
