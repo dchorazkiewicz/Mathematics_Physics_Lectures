@@ -200,8 +200,8 @@ def process_static_assets():
 if __name__ == "__main__":
     
     # --- KONFIGURACJA UŻYTKOWNIKA ---
-    FILTER_NAME = "Waves"      
-    DO_DEPLOY = True     
+    FILTER_NAME = "Electromagnetism"  
+    DO_DEPLOY = False     
     # --------------------------------
     
     # 1. Walidacja Hybrydowa
