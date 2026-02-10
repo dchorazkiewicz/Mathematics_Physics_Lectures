@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepler's Laws Simulator</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background-color: #050505; 
+            color: #e0e0e0; 
+            font-family: 'Segoe UI', sans-serif;
+            display: flex; 
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* Render Area */
+        #canvas-wrapper { 
+            flex-grow: 1; 
+            height: 100%; 
+            position: relative;
+            overflow: hidden;
+        }
+
+        #canvas-container { width: 100%; height: 100%; }
+
+        /* Overlay for Graphs/Text inside Canvas */
+        #overlay-canvas {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            pointer-events: none;
+            /* Border for visibility when active */
+        }
+
+        /* Control Panel */
+        #controls {
+            width: 360px;
+            min-width: 360px; 
+            background: #111;
+            border-left: 1px solid #333;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        #controls-content {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        h1 { font-size: 20px; margin: 0 0 15px 0; padding-bottom: 10px; border-bottom: 1px solid #444; color: #ffd700; }
+        h2 { font-size: 14px; margin: 20px 0 10px 0; color: #88ccff; text-transform: uppercase; letter-spacing: 1px; }
+        p { font-size: 13px; line-height: 1.5; color: #ccc; margin-bottom: 15px; }
+        
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            background: #222;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            margin: 10px 0;
+            border: 1px solid #333;
+        }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 1px solid #333; }
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #1a1a1a;
+            color: #888;
+            font-size: 13px;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .tab:hover { background: #222; color: #fff; }
+        .tab.active { background: #111; color: #ffd700; border-bottom: 2px solid #ffd700; }
+
+        /* Inputs */
+        label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; }
+        input[type=range] { flex-grow: 1; margin: 0 10px; cursor: pointer; }
+        span.val { width: 50px; text-align: right; font-family: monospace; color: #00ffcc; }
+        
+        button {
+            width: 100%; padding: 10px; background: #333; color: #fff;
+            border: 1px solid #555; cursor: pointer; margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover { background: #444; }
+
+        .legend-item { display: flex; align-items: center; font-size: 12px; margin-top: 5px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; display: inline-block; }
+
+        .law-section { display: none; }
+        .law-section.active { display: block; }
+
+        /* Scrollbar */
+        #controls-content::-webkit-scrollbar { width: 8px; }
+        #controls-content::-webkit-scrollbar-track { background: #111; }
+        #controls-content::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        
+        .lap-counter {
+            font-family: monospace;
+            background: #222;
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: 5px;
+            color: #fff;
+        }
+    </style>
+    <!-- Import Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+<div id="canvas-wrapper">
+    <div id="canvas-container"></div>
+    <!-- Overlay canvas for charts/HUD -->
+    <canvas id="overlay-canvas" width="300" height="150"></canvas>
+</div>
+
+<div id="controls">
+    <div class="tabs">
+        <div class="tab active" data-law="1">1st Law<br>(Ellipses)</div>
+        <div class="tab" data-law="2">2nd Law<br>(Areas)</div>
+        <div class="tab" data-law="3">3rd Law<br>(Periods)</div>
+    </div>
+
+    <div id="controls-content">
+        <h1>Kepler's Laws Simulator</h1>
+        
+        <!-- Law 1 -->
+        <div id="law1" class="law-section active">
+            <p><strong>The Law of Ellipses:</strong> The orbit of a planet is an ellipse with the Sun at one of the two foci.</p>
+            <div class="math">r = a(1 - e^2) / (1 + e cos &theta;)</div>
+            
+            <h2>Orbit Parameters</h2>
+            <label>Eccentricity (e) <input type="range" id="eccentricity" min="0" max="0.8" step="0.01" value="0.5"> <span class="val" id="val_e">0.50</span></label>
+            <div style="font-size:11px; color:#888; margin-bottom:10px;">0 = Circle, near 1 = Flat Ellipse</div>
+
+            <h2>Visualization</h2>
+            <div class="legend-item"><span class="dot" style="background:#ffff00"></span>Sun (Focus 1)</div>
+            <div class="legend-item"><span class="dot" style="background:#444; border:1px solid #888"></span>Empty Focus 2</div>
+            <div class="legend-item"><span class="dot" style="background:#00ff00"></span>Planet</div>
+            <br>
+            <label><input type="checkbox" id="showAxes" checked> Show Axes & Foci</label>
+        </div>
+
+        <!-- Law 2 -->
+        <div id="law2" class="law-section">
+            <p><strong>The Law of Equal Areas:</strong> A line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time.</p>
+            <div class="math">dA / dt = const</div>
+            
+            <h2>Visualization</h2>
+            <p>The orbit is divided into <strong>12 equal time intervals</strong>. Notice how the sectors near the Sun are short and wide, while those far away are long and narrow. Their areas are identical.</p>
+            
+            <label>Eccentricity (e) <input type="range" id="eccentricity2" min="0" max="0.8" step="0.01" value="0.6"> <span class="val" id="val_e2">0.60</span></label>
+            <label>Simulation Speed <input type="range" id="speed2" min="0" max="2" step="0.1" value="0.5"> <span class="val" id="val_speed2">0.5x</span></label>
+            
+            <div class="legend-item"><span class="dot" style="background:#336699"></span>Sector A (Time T/12)</div>
+            <div class="legend-item"><span class="dot" style="background:#113355"></span>Sector B (Time T/12)</div>
+        </div>
+
+        <!-- Law 3 -->
+        <div id="law3" class="law-section">
+            <p><strong>The Law of Harmonies:</strong> The square of the orbital period of a planet is directly proportional to the cube of the semi-major axis of its orbit.</p>
+            <div class="math">T^2 &propto; a^3</div>
+
+            <h2>Compare Planets</h2>
+            <div class="legend-item"><span class="dot" style="background:#00ff00"></span>Planet 1 (Ref, a=10)</div>
+            <div class="legend-item"><span class="dot" style="background:#ff3333"></span>Planet 2 (Variable)</div>
+
+            <br>
+            <label>Axis Planet 2 (a) <input type="range" id="axis3" min="5" max="30" step="0.5" value="15.0"> <span class="val" id="val_a3">15.0</span></label>
+            
+            <div class="lap-counter">
+                P1 Laps: <span id="laps1">0</span><br>
+                P2 Laps: <span id="laps2">0</span>
+            </div>
+            
+            <div style="background:#222; padding:10px; border-radius:4px; margin-top:10px; font-family:monospace; font-size:12px;">
+                T1 = <span id="calc_t1">1.00</span> yr<br>
+                T2 = <span id="calc_t2">1.84</span> yr<br>
+                Ratio T2/T1 = <span id="calc_ratio">1.84</span>
+            </div>
+            
+            <label style="margin-top:15px;">Speed <input type="range" id="speed3" min="0" max="3" step="0.1" value="1.0"> <span class="val" id="val_speed3">1.0x</span></label>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * KEPLER'S LAWS SIMULATOR
+ * Uses Three.js and Kepler's Equation for correct physics.
+ */
+
+// --- Scene Setup ---
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
+camera.position.set(0, 50, 0); 
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableRotate = false; // Top-down view locked
+controls.enableZoom = true;
+controls.enablePan = true;
+
+// --- Overlay Canvas (2D) ---
+const overlayCanvas = document.getElementById('overlay-canvas');
+const ctx = overlayCanvas.getContext('2d');
+
+// --- Reusable Materials & Geometry ---
+const sunMat = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+const sunGeo = new THREE.SphereGeometry(1.5, 32, 16);
+const planetMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const planet2Mat = new THREE.MeshBasicMaterial({ color: 0xff3333 });
+const planetGeo = new THREE.SphereGeometry(0.8, 16, 16);
+
+// --- Scene Objects ---
+const sun = new THREE.Mesh(sunGeo, sunMat);
+scene.add(sun);
+
+// Foci (Law 1)
+const focus2 = new THREE.Mesh(new THREE.SphereGeometry(0.5, 8, 8), new THREE.MeshBasicMaterial({ color: 0x444444 }));
+scene.add(focus2);
+
+const majorAxisLine = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x333333, transparent: true, opacity: 0.5 }));
+scene.add(majorAxisLine);
+
+// Planets
+const planet1 = new THREE.Mesh(planetGeo, planetMat);
+scene.add(planet1);
+
+const planet2 = new THREE.Mesh(planetGeo, planet2Mat);
+scene.add(planet2); 
+
+// Orbits
+const orbit1Line = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x008800 }));
+scene.add(orbit1Line);
+
+const orbit2Line = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x883333 }));
+scene.add(orbit2Line);
+
+// Law 2 Sectors Group
+const sectorsGroup = new THREE.Group();
+scene.add(sectorsGroup);
+
+// --- App State ---
+const state = {
+    activeLaw: 1,
+    time: 0,
+    speed: 0.5,
+    
+    // Orbit 1 Params
+    a1: 12,   
+    e1: 0.5,
+    
+    // Orbit 2 Params
+    a2: 15,
+    e2: 0.0,
+    
+    // Laps
+    laps1: 0,
+    laps2: 0,
+    lastAngle1: 0,
+    lastAngle2: 0
+};
+
+// --- Physics Logic (Kepler Solver) ---
+
+// Solve M = E - e*sin(E)
+function solveKepler(M, e) {
+    let E = M;
+    const tolerance = 1e-6;
+    for(let i=0; i<15; i++) {
+        const dE = (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+        E -= dE;
+        if(Math.abs(dE) < tolerance) break;
+    }
+    return E;
+}
+
+// Get position (x, 0, z)
+function getPosition(a, e, time, offsetM = 0) {
+    // T scales with a^1.5
+    // Let T_ref = 1 for a_ref = 10.
+    const T = Math.pow(a / 10, 1.5) * 10; 
+    const n = (2 * Math.PI) / T;
+    let M = n * time + offsetM;
+
+    const E = solveKepler(M, e);
+
+    const b = a * Math.sqrt(1 - e*e);
+    const x = a * (Math.cos(E) - e);
+    const z = b * Math.sin(E);
+
+    return { vec: new THREE.Vector3(x, 0, z), angle: M };
+}
+
+// --- Drawing Functions ---
+
+function updateOrbitGeometry(line, a, e) {
+    const points = [];
+    const b = a * Math.sqrt(1 - e*e);
+    const segments = 200;
+    for (let i = 0; i <= segments; i++) {
+        const E = (i / segments) * 2 * Math.PI;
+        const x = a * (Math.cos(E) - e);
+        const z = b * Math.sin(E);
+        points.push(new THREE.Vector3(x, 0, z));
+    }
+    line.geometry.setFromPoints(points);
+}
+
+function updateSectors(a, e) {
+    // Clear old sectors
+    while(sectorsGroup.children.length > 0){ 
+        sectorsGroup.remove(sectorsGroup.children[0]); 
+    }
+    
+    if (state.activeLaw !== 2) return;
+
+    const b = a * Math.sqrt(1 - e*e);
+    const numSectors = 12;
+    
+    // Generate 12 sectors
+    // We iterate Mean Anomaly M from 0 to 2PI in 12 steps.
+    // Since equal time = equal change in Mean Anomaly.
+    
+    for(let i=0; i<numSectors; i++) {
+        const M_start = (i / numSectors) * 2 * Math.PI;
+        const M_end = ((i+1) / numSectors) * 2 * Math.PI;
+        
+        // We need to draw the arc properly.
+        // We calculate E start and end.
+        const E_start = solveKepler(M_start, e);
+        const E_end = solveKepler(M_end, e);
+        
+        const shape = new THREE.Shape();
+        shape.moveTo(0, 0); // Sun
+        
+        // Trace arc
+        const segments = 10;
+        for(let j=0; j<=segments; j++) {
+            const E = E_start + (j/segments) * (E_end - E_start);
+            const x = a * (Math.cos(E) - e);
+            const z = b * Math.sin(E);
+            shape.lineTo(x, z);
+        }
+        
+        shape.lineTo(0, 0); // Back to sun
+
+        const color = (i % 2 === 0) ? 0x336699 : 0x113355;
+        const geo = new THREE.ShapeGeometry(shape);
+        const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide, transparent: true, opacity: 0.8 }));
+        mesh.rotation.x = Math.PI / 2;
+        sectorsGroup.add(mesh);
+    }
+}
+
+function updateFociVisuals() {
+    // Sun at 0,0. Empty focus at -2ae
+    const f2x = -2 * state.a1 * state.e1;
+    focus2.position.set(f2x, 0, 0);
+    
+    const show = state.activeLaw === 1 && document.getElementById('showAxes').checked;
+    focus2.visible = show;
+    majorAxisLine.visible = show;
+
+    if(show) {
+        const peri = state.a1 * (1 - state.e1);
+        const aph = -state.a1 * (1 + state.e1);
+        majorAxisLine.geometry.setFromPoints([new THREE.Vector3(peri + 2, 0, 0), new THREE.Vector3(aph - 2, 0, 0)]);
+    }
+}
+
+function drawOverlay() {
+    // Clear
+    ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+    
+    if (state.activeLaw === 3) {
+        // Draw T^2 vs a^3 chart sketch
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        ctx.fillRect(0, 0, 300, 150);
+        
+        // Axes
+        ctx.strokeStyle = "#888";
+        ctx.beginPath();
+        ctx.moveTo(30, 10); ctx.lineTo(30, 130);
+        ctx.lineTo(290, 130);
+        ctx.stroke();
+        
+        // Label axes
+        ctx.fillStyle = "#ccc";
+        ctx.font = "10px Arial";
+        ctx.fillText("a³ (Distance³)", 130, 145);
+        ctx.save();
+        ctx.translate(15, 70);
+        ctx.rotate(-Math.PI/2);
+        ctx.fillText("T² (Period²)", 0, 0);
+        ctx.restore();
+        
+        // Plot Curve T^2 = k * a^3
+        // Normalized: if a=10, T=1. k = 1/1000.
+        // Let's plot points for a few planets
+        ctx.strokeStyle = "#444";
+        ctx.beginPath();
+        for(let a=5; a<30; a+=1) {
+            const a3 = Math.pow(a, 3);
+            const t2 = Math.pow(Math.pow(a/10, 1.5), 2); // ( (a/10)^1.5 )^2 = (a/10)^3
+            
+            // Map to canvas
+            // Max a=30 -> a^3 = 27000
+            // Max T^2 = (3^1.5)^2 = 27
+            
+            const x = 30 + (a3 / 27000) * 260;
+            const y = 130 - (t2 / 27) * 120;
+            
+            if (a===5) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        
+        // Plot Current Planet 2
+        const currA = state.a2;
+        const currA3 = Math.pow(currA, 3);
+        const currT2 = Math.pow(Math.pow(currA/10, 1.5), 2);
+        
+        const px = 30 + (currA3 / 27000) * 260;
+        const py = 130 - (currT2 / 27) * 120;
+        
+        ctx.fillStyle = "#ff3333";
+        ctx.beginPath();
+        ctx.arc(px, py, 4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillText("P2", px+5, py-5);
+        
+        // Plot Planet 1 (Ref)
+        const p1x = 30 + (1000 / 27000) * 260;
+        const p1y = 130 - (1 / 27) * 120;
+        ctx.fillStyle = "#00ff00";
+        ctx.beginPath();
+        ctx.arc(p1x, p1y, 4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillText("P1", p1x+5, p1y-5);
+    }
+}
+
+// --- Main Loop ---
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Time update
+    const dt = 0.1 * state.speed;
+    state.time += dt;
+
+    // --- Planet 1 Logic ---
+    const posRes1 = getPosition(state.a1, state.e1, state.time);
+    planet1.position.copy(posRes1.vec);
+
+    // Lap Counter P1
+    let angle1 = posRes1.angle % (2*Math.PI);
+    if (angle1 < state.lastAngle1) state.laps1++;
+    state.lastAngle1 = angle1;
+
+    // --- Planet 2 Logic (Law 3) ---
+    if(state.activeLaw === 3) {
+        planet2.visible = true;
+        orbit2Line.visible = true;
+        
+        const posRes2 = getPosition(state.a2, state.e2, state.time);
+        planet2.position.copy(posRes2.vec);
+        
+        // Lap Counter P2
+        let angle2 = posRes2.angle % (2*Math.PI);
+        if (angle2 < state.lastAngle2) state.laps2++;
+        state.lastAngle2 = angle2;
+        
+        // Update DOM
+        document.getElementById('laps1').innerText = state.laps1;
+        document.getElementById('laps2').innerText = state.laps2;
+        
+        drawOverlay();
+    } else {
+        planet2.visible = false;
+        orbit2Line.visible = false;
+        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+    }
+
+    // --- Focus Updates ---
+    updateFociVisuals();
+
+    renderer.render(scene, camera);
+}
+
+// --- UI Handlers ---
+
+// Tabs
+document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', (e) => {
+        // UI toggle
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        e.target.classList.add('active');
+        document.querySelectorAll('.law-section').forEach(x => x.classList.remove('active'));
+        const lawId = e.target.getAttribute('data-law');
+        document.getElementById('law' + lawId).classList.add('active');
+        
+        // State reset
+        state.activeLaw = parseInt(lawId);
+        state.time = 0;
+        state.laps1 = 0; 
+        state.laps2 = 0;
+        state.lastAngle1 = 0;
+        state.lastAngle2 = 0;
+        
+        // Law specific setups
+        if(state.activeLaw === 1) {
+            state.speed = 0.5;
+            state.a1 = 12;
+            state.e1 = parseFloat(document.getElementById('eccentricity').value);
+            controls.reset();
+            camera.position.set(0, 50, 0);
+            sectorsGroup.visible = false;
+        } else if(state.activeLaw === 2) {
+            state.speed = parseFloat(document.getElementById('speed2').value);
+            state.a1 = 12;
+            state.e1 = parseFloat(document.getElementById('eccentricity2').value);
+            sectorsGroup.visible = true;
+            updateSectors(state.a1, state.e1);
+        } else if(state.activeLaw === 3) {
+            state.speed = parseFloat(document.getElementById('speed3').value);
+            state.a1 = 10; // Ref
+            state.e1 = 0;  // Circle
+            state.a2 = parseFloat(document.getElementById('axis3').value);
+            state.e2 = 0;  // Circle
+            sectorsGroup.visible = false;
+            camera.position.set(0, 80, 0); // Zoom out
+        }
+        
+        // Update geometry
+        updateOrbitGeometry(orbit1Line, state.a1, state.e1);
+        updateOrbitGeometry(orbit2Line, state.a2, state.e2);
+    });
+});
+
+// Law 1 Inputs
+document.getElementById('eccentricity').addEventListener('input', (e) => {
+    state.e1 = parseFloat(e.target.value);
+    document.getElementById('val_e').innerText = state.e1.toFixed(2);
+    updateOrbitGeometry(orbit1Line, state.a1, state.e1);
+});
+document.getElementById('showAxes').addEventListener('change', updateFociVisuals);
+
+// Law 2 Inputs
+document.getElementById('eccentricity2').addEventListener('input', (e) => {
+    state.e1 = parseFloat(e.target.value);
+    document.getElementById('val_e2').innerText = state.e1.toFixed(2);
+    updateOrbitGeometry(orbit1Line, state.a1, state.e1);
+    updateSectors(state.a1, state.e1); // Live update sectors
+});
+document.getElementById('speed2').addEventListener('input', (e) => {
+    state.speed = parseFloat(e.target.value);
+    document.getElementById('val_speed2').innerText = state.speed.toFixed(1) + 'x';
+});
+
+// Law 3 Inputs
+document.getElementById('axis3').addEventListener('input', (e) => {
+    state.a2 = parseFloat(e.target.value);
+    document.getElementById('val_a3').innerText = state.a2.toFixed(1);
+    updateOrbitGeometry(orbit2Line, state.a2, state.e2);
+    
+    // Reset laps on change
+    state.laps1 = 0; state.laps2 = 0; state.time = 0;
+    
+    // Calc values
+    const T1 = Math.pow(state.a1/10, 1.5);
+    const T2 = Math.pow(state.a2/10, 1.5);
+    document.getElementById('calc_t1').innerText = T1.toFixed(2);
+    document.getElementById('calc_t2').innerText = T2.toFixed(2);
+    document.getElementById('calc_ratio').innerText = (T2/T1).toFixed(2);
+});
+document.getElementById('speed3').addEventListener('input', (e) => {
+    state.speed = parseFloat(e.target.value);
+    document.getElementById('val_speed3').innerText = state.speed.toFixed(1) + 'x';
+});
+
+
+// Init
+updateOrbitGeometry(orbit1Line, state.a1, state.e1);
+updateOrbitGeometry(orbit2Line, state.a2, state.e2);
+updateFociVisuals();
+sectorsGroup.visible = false; // Hide sectors initially
+animate();
+
+// Window Resize
+window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+});
+
+</script>
+</body>
+</html>

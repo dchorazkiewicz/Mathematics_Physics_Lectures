@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ptolemaic System Simulator (3D)</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Segoe UI', sans-serif;
+            display: flex; 
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* Views Container (Left side) */
+        #views-container { 
+            flex-grow: 1; 
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .view-panel {
+            width: 100%;
+            height: 50%; /* Two panels 50% height each */
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #333;
+        }
+        
+        .view-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #ccc;
+            pointer-events: none;
+            z-index: 5;
+            border: 1px solid #444;
+        }
+
+        /* Control Panel (Right side) */
+        #controls {
+            width: 320px;
+            min-width: 320px; 
+            background: #111;
+            padding: 20px;
+            border-left: 1px solid #333;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            height: 100vh;
+            overflow-y: auto; 
+            font-size: 13px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        h1 { font-size: 18px; margin: 0 0 10px 0; border-bottom: 1px solid #555; padding-bottom: 5px; color: #ffd700; }
+        h2 { font-size: 14px; margin: 15px 0 5px 0; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+
+        label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        input[type=range] { flex-grow: 1; margin: 0 10px; cursor: pointer; }
+        span.val { width: 40px; text-align: right; font-family: monospace; color: #00ffcc; }
+        
+        .legend { margin-top: 15px; font-size: 12px; line-height: 1.6; }
+        .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover { background: #555; }
+        
+        .info { font-size: 11px; color: #888; margin-top: 10px; font-style: italic; }
+
+        #controls::-webkit-scrollbar { width: 8px; }
+        #controls::-webkit-scrollbar-track { background: #111; }
+        #controls::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        #controls::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+    <!-- Import Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+<!-- Views Container -->
+<div id="views-container">
+    <div id="view-system" class="view-panel">
+        <div class="view-label">System View (3D Orbits)</div>
+    </div>
+    <div id="view-earth" class="view-panel">
+        <div class="view-label">Earth View (Celestial Sphere)</div>
+    </div>
+</div>
+
+<!-- Side Panel -->
+<div id="controls">
+    <h1>Ptolemaic System</h1>
+    
+    <h2>Deferent Geometry</h2>
+    <label>Radius (R) <input type="range" id="R" min="20" max="100" value="80"> <span class="val" id="val_R">80</span></label>
+    <label>Eccentricity (e) <input type="range" id="e" min="0" max="20" step="0.1" value="6"> <span class="val" id="val_e">6.0</span></label>
+    <div class="info">Earth-Center distance. Equant is 2x further.</div>
+
+    <h2>Epicycle Geometry</h2>
+    <label>Radius (r) <input type="range" id="r" min="5" max="50" value="10"> <span class="val" id="val_r">10</span></label>
+    
+    <h2>Motion (Speeds)</h2>
+    <label>Deferent Speed <input type="range" id="speed1" min="-2" max="2" step="0.1" value="0.1"> <span class="val" id="val_speed1">0.1</span></label>
+    <label>Epicycle Speed <input type="range" id="speed2" min="-5" max="5" step="0.1" value="1.0"> <span class="val" id="val_speed2">1.0</span></label>
+
+    <h2>Third Dimension (Inclinations)</h2>
+    <label>Deferent Inclination <input type="range" id="inc_def" min="-15" max="15" step="0.1" value="-7.0"> <span class="val" id="val_inc_def">-7.0°</span></label>
+    <label>Epicycle Inclination <input type="range" id="inc_epi" min="-15" max="15" step="0.1" value="7.0"> <span class="val" id="val_inc_epi">7.0°</span></label>
+
+    <button id="resetTrail">Clear Orbit Trail</button>
+    <button id="toggleEcliptic">Show/Hide Ecliptic Grid</button>
+
+    <div class="legend">
+        <div><span class="dot" style="background:#2244ff"></span>Earth (Center)</div>
+        <div><span class="dot" style="background:#ffff00"></span>Deferent Center (M)</div>
+        <div><span class="dot" style="background:#00ff00"></span>Equant (Q)</div>
+        <div><span class="dot" style="background:#888"></span>Epicycle Center (C)</div>
+        <div><span class="dot" style="background:#ff0000"></span>Planet (P)</div>
+    </div>
+</div>
+
+<script>
+/**
+ * MATHEMATICAL IMPLEMENTATION
+ * Two Views: System and Celestial Sphere
+ */
+
+// --- CONFIGURATION VIEW 1: SYSTEM ---
+const containerSystem = document.getElementById('view-system');
+const sceneSystem = new THREE.Scene();
+
+const cameraSystem = new THREE.PerspectiveCamera(45, containerSystem.clientWidth / containerSystem.clientHeight, 1, 1000);
+cameraSystem.position.set(100, 80, 150); 
+
+const rendererSystem = new THREE.WebGLRenderer({ antialias: true });
+rendererSystem.setSize(containerSystem.clientWidth, containerSystem.clientHeight);
+containerSystem.appendChild(rendererSystem.domElement);
+
+const controlsSystem = new THREE.OrbitControls(cameraSystem, rendererSystem.domElement);
+controlsSystem.enableDamping = true;
+controlsSystem.dampingFactor = 0.05;
+
+// --- CONFIGURATION VIEW 2: EARTH (CELESTIAL SPHERE) ---
+const containerEarth = document.getElementById('view-earth');
+const sceneEarth = new THREE.Scene();
+// Dark background for the sky
+sceneEarth.background = new THREE.Color(0x0a0a1a);
+
+const cameraEarth = new THREE.PerspectiveCamera(45, containerEarth.clientWidth / containerEarth.clientHeight, 1, 1000);
+// Camera positioned slightly outside looking at the sphere center (Earth)
+cameraEarth.position.set(0, 50, 200);
+
+const rendererEarth = new THREE.WebGLRenderer({ antialias: true });
+rendererEarth.setSize(containerEarth.clientWidth, containerEarth.clientHeight);
+containerEarth.appendChild(rendererEarth.domElement);
+
+const controlsEarth = new THREE.OrbitControls(cameraEarth, rendererEarth.domElement);
+controlsEarth.enableDamping = true;
+controlsEarth.dampingFactor = 0.05;
+
+// --- State Variables ---
+// Initial values updated as requested
+const params = {
+    R: 80, 
+    e: 6.0, 
+    r: 10, 
+    w1: 0.1, 
+    w2: 1.0, 
+    inc_def: -7.0, 
+    inc_epi: 7.0, 
+    time: 0
+};
+
+// --- Graphics Objects (SCENE 1: SYSTEM) ---
+
+const axesHelper = new THREE.AxesHelper(50);
+sceneSystem.add(axesHelper);
+
+const eclipticGrid = new THREE.GridHelper(300, 30, 0x444444, 0x111111);
+sceneSystem.add(eclipticGrid);
+
+function createPoint(color, size) {
+    return new THREE.Mesh(new THREE.SphereGeometry(size, 16, 16), new THREE.MeshBasicMaterial({ color: color }));
+}
+
+const earth = createPoint(0x2244ff, 3); sceneSystem.add(earth);
+const centerDeferent = createPoint(0xffff00, 1.5); sceneSystem.add(centerDeferent);
+const equant = createPoint(0x00ff00, 1.5); sceneSystem.add(equant);
+const centerEpicycle = createPoint(0xaaaaaa, 2); sceneSystem.add(centerEpicycle);
+const planet = createPoint(0xff0000, 2.5); sceneSystem.add(planet);
+
+// Lines
+const deferentLine = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x555555 })); sceneSystem.add(deferentLine);
+const epicycleLine = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x888888 })); sceneSystem.add(epicycleLine);
+const arm1 = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.3 })); sceneSystem.add(arm1);
+const arm2 = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 })); sceneSystem.add(arm2);
+const radiusVec = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0.2 })); sceneSystem.add(radiusVec);
+
+// Orbit Trail (System)
+const MAX_TRAIL_POINTS = 3000;
+const trailGeo = new THREE.BufferGeometry();
+const trailPos = new Float32Array(MAX_TRAIL_POINTS * 3);
+trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+const trail = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ color: 0xff3333 }));
+sceneSystem.add(trail);
+
+// --- Graphics Objects (SCENE 2: CELESTIAL SPHERE) ---
+
+const SKY_RADIUS = 80;
+
+// Celestial Sphere (Wireframe)
+const celestialSphereGeo = new THREE.WireframeGeometry(new THREE.SphereGeometry(SKY_RADIUS, 24, 12));
+const celestialSphere = new THREE.LineSegments(celestialSphereGeo, new THREE.LineBasicMaterial({ color: 0x222244, transparent: true, opacity: 0.3 }));
+sceneEarth.add(celestialSphere);
+
+// Ecliptic (Line on sphere)
+const eclipticLineGeo = new THREE.BufferGeometry();
+const eclipticPoints = [];
+for(let i=0; i<=64; i++) {
+    const t = (i/64)*Math.PI*2;
+    eclipticPoints.push(Math.cos(t)*SKY_RADIUS, 0, Math.sin(t)*SKY_RADIUS);
+}
+eclipticLineGeo.setAttribute('position', new THREE.Float32BufferAttribute(eclipticPoints, 3));
+const eclipticLineSky = new THREE.Line(eclipticLineGeo, new THREE.LineBasicMaterial({ color: 0x5555ff }));
+sceneEarth.add(eclipticLineSky);
+
+// Stars (Random dots)
+const starsGeo = new THREE.BufferGeometry();
+const starsPos = [];
+for(let i=0; i<500; i++) {
+    const r = SKY_RADIUS; // Stars on the same sphere as projection
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.sin(phi) * Math.sin(theta);
+    const z = r * Math.cos(phi);
+    // Avoid ecliptic belt to not obscure the view
+    if(Math.abs(y) > 5) starsPos.push(x, y, z);
+}
+starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(starsPos, 3));
+const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.7 }));
+sceneEarth.add(stars);
+
+// Planet on sky
+const planetSky = createPoint(0xff3333, 1.5);
+sceneEarth.add(planetSky);
+
+// Trail on sky (Loop)
+const skyTrailGeo = new THREE.BufferGeometry();
+const skyTrailPos = new Float32Array(MAX_TRAIL_POINTS * 3);
+skyTrailGeo.setAttribute('position', new THREE.BufferAttribute(skyTrailPos, 3));
+const skyTrail = new THREE.Line(skyTrailGeo, new THREE.LineBasicMaterial({ color: 0xffaa00 }));
+sceneEarth.add(skyTrail);
+
+// Earth in center
+const earthSky = createPoint(0x2244ff, 2);
+sceneEarth.add(earthSky);
+
+let trailCount = 0;
+
+// --- SOLVER ---
+
+function updateSystem() {
+    const t = params.time;
+    const incDefRad = params.inc_def * Math.PI / 180;
+    const incEpiRad = params.inc_epi * Math.PI / 180;
+    const e = params.e;
+    const R = params.R;
+
+    // --- STEP 1: Epicycle Center (C) ---
+    const lambda_mean = params.w1 * t; 
+    const term1 = -e * Math.cos(lambda_mean);
+    const discrim = R*R - Math.pow(e * Math.sin(lambda_mean), 2);
+    let rho = (discrim >= 0) ? term1 + Math.sqrt(discrim) : R;
+    
+    let cx_local = rho * Math.cos(lambda_mean);
+    let cz_local = rho * Math.sin(lambda_mean);
+    
+    let C_x_flat = 2*e + cx_local;
+    let C_z_flat = cz_local;
+    
+    // Deferent Rotation
+    let C_x = C_x_flat;
+    let C_y = C_z_flat * Math.sin(incDefRad); 
+    let C_z = C_z_flat * Math.cos(incDefRad); 
+    
+    const VectorC = new THREE.Vector3(C_x, C_y, C_z);
+    
+    // --- STEP 2: Planet (P) ---
+    const alpha_epi = params.w2 * t;
+    let px_epi = params.r * Math.cos(alpha_epi);
+    let pz_epi = params.r * Math.sin(alpha_epi);
+    
+    // Epicycle Rotation
+    let pz_epi_rot = pz_epi * Math.cos(incEpiRad);
+    let py_epi_rot = pz_epi * Math.sin(incEpiRad);
+    let px_epi_rot = px_epi;
+    
+    // Rotate by Deferent Inclination
+    let P_vec_local = new THREE.Vector3(px_epi_rot, py_epi_rot, pz_epi_rot);
+    P_vec_local.applyAxisAngle(new THREE.Vector3(1, 0, 0), incDefRad);
+    
+    const VectorP = new THREE.Vector3().copy(VectorC).add(P_vec_local);
+    
+    // --- Update Graphics SCENE 1 ---
+    centerDeferent.position.set(e, 0, 0); 
+    equant.position.set(2*e, 0, 0);      
+    centerEpicycle.position.copy(VectorC);
+    planet.position.copy(VectorP);
+    
+    updateLine(arm1, new THREE.Vector3(2*e, 0, 0), VectorC);
+    updateLine(arm2, VectorC, VectorP);
+    updateLine(radiusVec, new THREE.Vector3(0,0,0), VectorP);
+    updateOrbitPath(deferentLine, params.R, params.e, 0, params.inc_def);
+    updateOrbitPath(epicycleLine, params.r, VectorC.x, VectorC.z, params.inc_def, VectorC.y, params.inc_epi);
+    
+    // --- Update Graphics SCENE 2 (SKY) ---
+    // Project VectorP onto Celestial Sphere
+    // Direction vector from Earth (0,0,0) to Planet
+    const direction = VectorP.clone().normalize();
+    const skyPos = direction.multiplyScalar(SKY_RADIUS);
+    
+    planetSky.position.copy(skyPos);
+
+    // Update Trails
+    updateTrails(VectorP, skyPos);
+    
+    params.time += 0.05;
+    controlsSystem.update();
+    controlsEarth.update();
+}
+
+function updateLine(line, p1, p2) {
+    const pos = line.geometry.attributes.position;
+    pos.setXYZ(0, p1.x, p1.y, p1.z);
+    pos.setXYZ(1, p2.x, p2.y, p2.z);
+    pos.needsUpdate = true;
+}
+
+function updateOrbitPath(lineObj, radius, centerX, centerZ, incDefDeg, centerY_offset = 0, incEpiDeg = 0) {
+    const points = [];
+    const segments = 64;
+    const incDef = incDefDeg * Math.PI / 180;
+    const incEpi = incEpiDeg * Math.PI / 180;
+
+    for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        let x = radius * Math.cos(theta);
+        let z = radius * Math.sin(theta);
+        let y = 0;
+
+        if (incEpiDeg !== 0) {
+            let y_temp = z * Math.sin(incEpi);
+            let z_temp = z * Math.cos(incEpi);
+            y = y_temp;
+            z = z_temp;
+        }
+
+        let y_rot = y * Math.cos(incDef) + z * Math.sin(incDef);
+        let z_rot = -y * Math.sin(incDef) + z * Math.cos(incDef);
+        
+        if (lineObj === epicycleLine) {
+            points.push(centerX + x, centerY_offset + y_rot, centerZ + z_rot);
+        } else {
+            points.push(centerX + x, y_rot, z_rot); 
+        }
+    }
+    const geometry = lineObj.geometry;
+    const positions = new Float32Array(points.length * 3);
+    for(let i=0; i<points.length; i++) positions[i] = points[i];
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+}
+
+function updateTrails(posSystem, posSky) {
+    const sysArr = trail.geometry.attributes.position.array;
+    const skyArr = skyTrail.geometry.attributes.position.array;
+    
+    if (trailCount < MAX_TRAIL_POINTS) {
+        // System
+        sysArr[trailCount * 3] = posSystem.x;
+        sysArr[trailCount * 3 + 1] = posSystem.y;
+        sysArr[trailCount * 3 + 2] = posSystem.z;
+        // Sky
+        skyArr[trailCount * 3] = posSky.x;
+        skyArr[trailCount * 3 + 1] = posSky.y;
+        skyArr[trailCount * 3 + 2] = posSky.z;
+        
+        trailCount++;
+    } else {
+        // Shift System
+        for (let i = 0; i < (MAX_TRAIL_POINTS - 1) * 3; i++) {
+            sysArr[i] = sysArr[i + 3];
+        }
+        sysArr[(MAX_TRAIL_POINTS - 1) * 3] = posSystem.x;
+        sysArr[(MAX_TRAIL_POINTS - 1) * 3 + 1] = posSystem.y;
+        sysArr[(MAX_TRAIL_POINTS - 1) * 3 + 2] = posSystem.z;
+        
+        // Shift Sky
+        for (let i = 0; i < (MAX_TRAIL_POINTS - 1) * 3; i++) {
+            skyArr[i] = skyArr[i + 3];
+        }
+        skyArr[(MAX_TRAIL_POINTS - 1) * 3] = posSky.x;
+        skyArr[(MAX_TRAIL_POINTS - 1) * 3 + 1] = posSky.y;
+        skyArr[(MAX_TRAIL_POINTS - 1) * 3 + 2] = posSky.z;
+    }
+    
+    trail.geometry.setDrawRange(0, trailCount);
+    trail.geometry.attributes.position.needsUpdate = true;
+    
+    skyTrail.geometry.setDrawRange(0, trailCount);
+    skyTrail.geometry.attributes.position.needsUpdate = true;
+}
+
+// --- UI Binding ---
+function bindInput(id, paramKey) {
+    const el = document.getElementById(id);
+    const valEl = document.getElementById('val_' + id);
+    el.addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        params[paramKey] = v;
+        valEl.innerText = v + (id.includes('inc') ? '°' : '');
+        if (['R','e','r'].includes(paramKey)) {
+            trailCount = 0;
+            trail.geometry.setDrawRange(0, 0);
+            skyTrail.geometry.setDrawRange(0, 0);
+        }
+    });
+}
+
+bindInput('R', 'R');
+bindInput('e', 'e');
+bindInput('r', 'r');
+bindInput('speed1', 'w1');
+bindInput('speed2', 'w2');
+bindInput('inc_def', 'inc_def');
+bindInput('inc_epi', 'inc_epi');
+
+document.getElementById('resetTrail').addEventListener('click', () => {
+    trailCount = 0;
+    trail.geometry.setDrawRange(0, 0);
+    skyTrail.geometry.setDrawRange(0, 0);
+});
+
+document.getElementById('toggleEcliptic').addEventListener('click', () => {
+    eclipticGrid.visible = !eclipticGrid.visible;
+    eclipticLineSky.visible = !eclipticLineSky.visible;
+});
+
+// Resize
+window.addEventListener('resize', () => {
+    const w = containerSystem.clientWidth;
+    const h = containerSystem.clientHeight;
+    
+    cameraSystem.aspect = w / h;
+    cameraSystem.updateProjectionMatrix();
+    rendererSystem.setSize(w, h);
+    
+    cameraEarth.aspect = w / h;
+    cameraEarth.updateProjectionMatrix();
+    rendererEarth.setSize(w, h);
+});
+
+// Start loop
+function animate() {
+    requestAnimationFrame(animate);
+    updateSystem();
+    rendererSystem.render(sceneSystem, cameraSystem);
+    rendererEarth.render(sceneEarth, cameraEarth);
+}
+animate();
+
+</script>
+</body>
+</html>
