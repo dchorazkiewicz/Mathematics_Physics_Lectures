@@ -1,56 +1,37 @@
 import os
 import subprocess
 import sys
+import re
 from pathlib import Path
 
 # ==========================================
-# 1. KONFIGURACJA ZASOBÓW STATYCZNYCH (NOWOŚĆ)
-# Tutaj wpisz foldery z animacjami/obrazkami, które mają być dostępne
-# pod konkretnymi ścieżkami w docs/.
+# 1. KONFIGURACJA ZASOBÓW STATYCZNYCH
 # ==========================================
 STATIC_ASSETS = [
-    # Rozwiązanie Twojego błędu 404:
-    # Źródło: Lecture_Notes/Physics/html_anim
-    # Cel:    docs/Physics/Modern_Physics/html_anim (bo tam szuka przeglądarka z poziomu Cosmology.html)
     {
         "src": "Lecture_Notes/Physics/html_anim",
         "dest": "docs/Physics/Modern_Physics/html_anim"
     },
-    # Jeśli animacje są też potrzebne w Mechanice (np. dla fal):
-    {
-        "src": "Lecture_Notes/Physics/html_anim",
-        "dest": "docs/Physics/Mechanics/html_anim"
-    },
-     # Jeśli animacje są też potrzebne w Elektromagnetyzmie:
-    {
-        "src": "Lecture_Notes/Physics/html_anim",
-        "dest": "docs/Physics/Electromagnetism/html_anim"
-    },
 ]
 
 # ==========================================
-# 2. MANIFEST PLIKÓW QUARTO
-# Źródło (.qmd) -> Cel (katalog w docs/)
+# 2. MANIFEST - TYLKO PLIKI DO PRZETWORZENIA!
+# Wpisuj tu tylko to, co leży w 'Lecture_Notes' i musi trafić do 'docs'.
+# Pliki, które już są w 'docs' (jak Twoje .md), NIE MUSZĄ tu być.
 # ==========================================
 MANIFEST = [
-    # --- PHYSICS: Mechanics ---
+    # --- PHYSICS (Quarto .qmd) ---
     {"src": "Lecture_Notes/Physics/Language_of_physics.qmd", "dest_dir": "docs/Physics/Mechanics"},
     {"src": "Lecture_Notes/Physics/Mechanics.qmd",           "dest_dir": "docs/Physics/Mechanics"},
     {"src": "Lecture_Notes/Physics/Waves.qmd",               "dest_dir": "docs/Physics/Mechanics"},
-    
-    # --- PHYSICS: Electromagnetism ---
     {"src": "Lecture_Notes/Physics/Electromagnetism.qmd",    "dest_dir": "docs/Physics/Electromagnetism"},
     {"src": "Lecture_Notes/Physics/Circuits.qmd",            "dest_dir": "docs/Physics/Electromagnetism"},
-    
-    # --- PHYSICS: Experiments ---
     {"src": "Lecture_Notes/Physics/Measurement.qmd",         "dest_dir": "docs/Physics/Experiments_Statistics"},
     {"src": "Lecture_Notes/Physics/Statistics.qmd",          "dest_dir": "docs/Physics/Experiments_Statistics"},
-
-    # --- PHYSICS: Modern Physics ---
     {"src": "Lecture_Notes/Physics/Quantum_mechanics.qmd",   "dest_dir": "docs/Physics/Modern_Physics"},
     {"src": "Lecture_Notes/Physics/Cosmology.qmd",           "dest_dir": "docs/Physics/Modern_Physics"},
     {"src": "Lecture_Notes/Physics/Relativity.qmd",          "dest_dir": "docs/Physics/Modern_Physics"},
-
+    
     # --- MATHEMATICS ---
     {"src": "Lecture_Notes/Mathematics/Linear_Algebra.qmd",    "dest_dir": "docs/Mathematics"},
     {"src": "Lecture_Notes/Mathematics/Analytic_Geometry.qmd", "dest_dir": "docs/Mathematics"},
@@ -59,12 +40,13 @@ MANIFEST = [
     # --- DISCRETE MATHEMATICS ---
     {"src": "Lecture_Notes/Discrete_Mathematics/Discrete_Mathematics.qmd", "dest_dir": "docs/Discrete_Mathematics"},
 
-    # --- PROBABILISTIC METHODS ---
-    {"src": "Lecture_Notes/Probabilistic_methods/introduction.qmd", "dest_dir": "docs/Probabilistic_methods"},
+    # UWAGA: Usunąłem stąd pliki .md (np. logistic_equation), które są już w docs.
+    # Skoro są w docs, skrypt nie musi ich kopiować/linkować.
+    # Walidator poniżej sam je znajdzie w folderze docs.
 ]
 
 # ==========================================
-# NARZĘDZIA I KOLORY
+# NARZĘDZIA
 # ==========================================
 class Colors:
     HEADER = '\033[95m'
@@ -72,7 +54,7 @@ class Colors:
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
-    GREY = '\033[90m' # Dla info o pominięciu
+    GREY = '\033[90m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
 
@@ -87,153 +69,163 @@ PROJECT_ROOT = Path(__file__).parent.resolve()
 os.chdir(PROJECT_ROOT)
 
 # ==========================================
-# INTELIGENTNE LINKOWANIE
+# 0. WALIDACJA HYBRYDOWA (Manifest OR Docs)
 # ==========================================
-def ensure_smart_symlink(src_path, link_path):
-    """
-    Tworzy symlink TYLKO jeśli nie istnieje lub jest błędny.
-    Nie dotyka pliku, jeśli link jest poprawny.
-    """
-    # Upewnij się, że katalog nadrzędny linku istnieje
-    link_path.parent.mkdir(parents=True, exist_ok=True)
+def validate_project_structure():
+    log_section("WALIDACJA STRUKTURY PROJEKTU")
+    mkdocs_path = PROJECT_ROOT / "mkdocs.yml"
     
-    # Oblicz relatywną ścieżkę (target), na którą link ma wskazywać
-    # Np. ../../../Lecture_Notes/Physics/html_anim
-    try:
-        target_relative = os.path.relpath(src_path, link_path.parent)
-    except ValueError:
-        # Na Windows czasem problem przy różnych dyskach, fallback do absolutnej
-        target_relative = str(src_path)
+    if not mkdocs_path.exists():
+        log_error("CRITICAL: Brak pliku mkdocs.yml!")
+        sys.exit(1)
 
-    # 1. Sprawdź czy cokolwiek istnieje pod ścieżką linku
-    if link_path.is_symlink():
-        # Pobierz, gdzie ten link aktualnie wskazuje
-        current_target = os.readlink(link_path)
+    # 1. Mapa Manifestu (Co my generujemy/linkujemy?)
+    manifest_map = {}
+    for entry in MANIFEST:
+        src_p = Path(entry['src'])
+        dest_d = Path(entry['dest_dir'])
+        target_name = src_p.with_suffix('.html').name if src_p.suffix == '.qmd' else src_p.name
         
-        # Jeśli wskazuje tam gdzie chcemy -> NIC NIE RÓB
-        if current_target == str(target_relative):
-            log_skip(f"Link poprawny: {link_path.name}")
-            return True
-        else:
-            log_warn(f"Naprawa linku (zły cel): {link_path.name}")
-            link_path.unlink() # Usuwamy błędny link
+        # Klucz = relatywna ścieżka w docs
+        try:
+            rel_dest = (dest_d.relative_to("docs") / target_name).as_posix()
+        except ValueError:
+            rel_dest = (dest_d / target_name).as_posix() # Fallback
             
-    elif link_path.exists():
-        log_warn(f"Pod ścieżką '{link_path.name}' istnieje zwykły plik/katalog! Pomijam.")
+        manifest_map[rel_dest] = entry['src']
+
+    # 2. Parsowanie mkdocs.yml i sprawdzanie
+    errors_found = []
+    pattern = re.compile(r':\s*([^\s#]+\.(?:md|html))')
+    
+    with open(mkdocs_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        match = pattern.search(line)
+        if match:
+            mkdocs_file_ref = match.group(1).strip() # np. Physics/Mechanics/sp/logistic.md
+            
+            # --- SCENARIUSZ A: Plik jest w MANIFEŚCIE (generowany/linkowany) ---
+            if mkdocs_file_ref in manifest_map:
+                source_file = manifest_map[mkdocs_file_ref]
+                full_src_path = PROJECT_ROOT / source_file
+                if not full_src_path.exists():
+                    errors_found.append(f"Linia {i+1}: '{mkdocs_file_ref}'\n      -> Zdefiniowany w Manifest, ale brak pliku źródłowego: '{source_file}'")
+                continue # Jest w Manifeście i istnieje -> OK
+
+            # --- SCENARIUSZ B: Plik jest "Natywny" (leży bezpośrednio w docs/) ---
+            # Sprawdzamy czy plik fizycznie istnieje w docs/
+            direct_path_in_docs = PROJECT_ROOT / "docs" / mkdocs_file_ref
+            
+            if direct_path_in_docs.exists():
+                # To jest OK - plik istnieje statycznie w docs.
+                # Nie robimy nic, skrypt go po prostu zaakceptuje.
+                pass 
+            else:
+                # --- BŁĄD: Ani w Manifeście, ani w Docs ---
+                errors_found.append(f"Linia {i+1}: '{mkdocs_file_ref}'\n      -> Nie znaleziono ani w MANIFEŚCIE (Lecture_Notes), ani bezpośrednio w folderze 'docs/'!")
+
+    if errors_found:
+        log_error(f"Znaleziono {len(errors_found)} błędów spójności!")
+        for e in errors_found:
+            print(f"{Colors.FAIL} [x] {e}{Colors.ENDC}")
+        print(f"\n{Colors.WARNING}Skrypt zatrzymany. Upewnij się, że pliki istnieją w 'docs/' lub są w Manifeście.{Colors.ENDC}")
+        sys.exit(1)
+    else:
+        log_success("Struktura OK: Wszystkie pliki z mkdocs.yml istnieją (w Manifest lub lokalnie w docs).")
+
+# ==========================================
+# 3. SMART SYMLINK
+# ==========================================
+def ensure_smart_symlink(src_abs, dest_link_abs):
+    dest_link_abs.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        target_relative = os.path.relpath(src_abs, dest_link_abs.parent)
+    except ValueError:
+        target_relative = str(src_abs)
+
+    if dest_link_abs.is_symlink():
+        if os.readlink(dest_link_abs) == str(target_relative):
+            log_skip(f"Link OK: {dest_link_abs.name}")
+            return True
+        dest_link_abs.unlink()
+    elif dest_link_abs.exists():
+        log_warn(f"Plik istnieje (nie link), pomijam: {dest_link_abs.name}")
         return False
 
-    # 2. Tworzenie linku (tylko jeśli go nie ma lub został usunięty)
     try:
-        link_path.symlink_to(target_relative)
-        log_success(f"Utworzono link: {link_path.name} -> {target_relative}")
+        dest_link_abs.symlink_to(target_relative)
+        log_success(f"Link utworzony: {dest_link_abs.name}")
         return True
     except OSError as e:
-        log_error(f"Błąd tworzenia linku {link_path.name}: {e}")
+        log_error(f"Błąd linkowania {dest_link_abs.name}: {e}")
         return False
 
 # ==========================================
-# FUNKCJE GŁÓWNE
+# 4. PRZETWARZANIE
 # ==========================================
-def validate_mkdocs_entry(html_filename, dest_dir):
-    mkdocs_file = PROJECT_ROOT / "mkdocs.yml"
-    if not mkdocs_file.exists(): return False
-    try:
-        rel_path = Path(dest_dir).relative_to("docs") / html_filename
-        search_pattern = str(rel_path).replace("\\", "/")
-    except ValueError:
-        search_pattern = html_filename
-    
-    with open(mkdocs_file, 'r', encoding='utf-8') as f:
-        return search_pattern in f.read()
-
-def process_static_assets():
-    """Obsługa folderów z animacjami itp."""
-    log_section("ZASOBY STATYCZNE (HTML_ANIM)")
-    for item in STATIC_ASSETS:
-        src = PROJECT_ROOT / item['src']
-        dest = PROJECT_ROOT / item['dest']
-        
-        if not src.exists():
-            log_error(f"Katalog źródłowy nie istnieje: {item['src']}")
-            continue
-            
-        ensure_smart_symlink(src, dest)
-
-def process_quarto_item(item):
-    """Kompilacja i linkowanie plików .qmd"""
+def process_item(item):
     src_path = PROJECT_ROOT / item['src']
     dest_dir_path = PROJECT_ROOT / item['dest_dir']
     
-    qmd_name = src_path.name
-    html_name = src_path.with_suffix('.html').name
+    is_quarto = src_path.suffix == '.qmd'
+    target_filename = src_path.with_suffix('.html').name if is_quarto else src_path.name
+    target_link_path = dest_dir_path / target_filename
+    source_to_link = src_path.with_suffix('.html') if is_quarto else src_path
+
+    if is_quarto:
+        print(f"   -> Renderowanie Quarto: {src_path.name}...")
+        try:
+            subprocess.run(["quarto", "render", src_path.name], cwd=src_path.parent, capture_output=True, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            log_error(f"Błąd kompilacji Quarto: {e.stderr}")
+            return False
     
-    if not src_path.exists():
-        log_error(f"Brak pliku: {src_path}")
-        return False
+    return ensure_smart_symlink(source_to_link, target_link_path)
 
-    # Walidacja mkdocs.yml (tylko Warning)
-    if not validate_mkdocs_entry(html_name, item['dest_dir']):
-        log_warn(f"Brak wpisu w mkdocs.yml dla: {html_name}")
-
-    # Kompilacja Quarto (zawsze, bo user pracuje nad treścią)
-    print(f"   -> Renderowanie: {qmd_name}...")
-    try:
-        subprocess.run(
-            ["quarto", "render", qmd_name],
-            cwd=src_path.parent,
-            capture_output=True,
-            text=True,
-            check=True
-        )
-    except subprocess.CalledProcessError as e:
-        log_error(f"Błąd Quarto: {e.stderr}")
-        return False
-
-    # Linkowanie wynikowego HTML (Smart Link)
-    source_html = src_path.with_suffix('.html')
-    target_link = dest_dir_path / html_name
-    
-    return ensure_smart_symlink(source_html, target_link)
-
-def run_deploy():
-    log_section("PUBLIKACJA (DEPLOY)")
-    try:
-        subprocess.run(["mkdocs", "gh-deploy"], check=True)
-        log_success("Opublikowano!")
-    except subprocess.CalledProcessError:
-        log_error("Błąd mkdocs gh-deploy.")
+def process_static_assets():
+    log_section("ZASOBY STATYCZNE")
+    for item in STATIC_ASSETS:
+        src = PROJECT_ROOT / item['src']
+        dest = PROJECT_ROOT / item['dest']
+        if not src.exists():
+            log_error(f"Brak folderu źródłowego: {item['src']}")
+            continue
+        ensure_smart_symlink(src, dest)
 
 # ==========================================
 # MAIN
 # ==========================================
 if __name__ == "__main__":
     
-    # --- KONFIGURACJA STEROWANIA ---
-    FILTER_NAME = "Cosmo"   # Np. "Cosmology" lub puste "" dla wszystkich
-    DO_DEPLOY = False       # True = publikuj na GitHub
-    # -------------------------------
+    # --- KONFIGURACJA UŻYTKOWNIKA ---
+    FILTER_NAME = "Cosmo"      
+    DO_DEPLOY = False     
+    # --------------------------------
+    
+    # 1. Walidacja Hybrydowa
+    validate_project_structure()
     
     log_section(f"START (Filtr: '{FILTER_NAME}')")
     
-    # 1. Najpierw ogarniamy zasoby statyczne (żeby foldery istniały)
     process_static_assets()
     
-    # 2. Potem pliki Quarto
-    log_section("PLIKI QUARTO")
-    processed, errors = 0, 0
-    
+    errors = 0
+    # Przetwarzamy tylko to, co jest w MANIFEŚCIE (czyli wymaga pracy)
+    # Pliki statyczne z 'docs' są ignorowane w tej pętli, bo są już na miejscu.
     for entry in MANIFEST:
         if FILTER_NAME and FILTER_NAME.lower() not in entry['src'].lower():
             continue
-            
-        if not process_quarto_item(entry):
+        if not process_item(entry):
             errors += 1
-        processed += 1
-
-    # Podsumowanie
-    print("-" * 40)
+            
+    log_section("FINAŁ")
     if errors == 0:
-        log_success(f"Przetworzono: {processed}. Brak błędów.")
-        if DO_DEPLOY: run_deploy()
+        if DO_DEPLOY:
+            log_info("Deploy...")
+            subprocess.run(["mkdocs", "gh-deploy"], check=True)
+        else:
+            log_info("Gotowe (Lokalnie).")
     else:
-        log_error(f"Błędy: {errors}. Deploy wstrzymany.")
+        log_error("Napraw błędy kompilacji.")
