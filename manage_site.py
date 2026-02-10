@@ -201,7 +201,7 @@ if __name__ == "__main__":
     
     # --- KONFIGURACJA UŻYTKOWNIKA ---
     FILTER_NAME = "Cosmo"      
-    DO_DEPLOY = False     
+    DO_DEPLOY = True     
     # --------------------------------
     
     # 1. Walidacja Hybrydowa

@@ -25,9 +25,15 @@ format:
 ---
 
 
-<iframe src="html_anim/cosmology/kepler.html" width="100%" height="500px"></iframe>
+<iframe src="html_anim/cosmology/ptolomeo.html" width="100%" height="500px"></iframe>
+[html_anim/cosmology/ptolomeo.html](html_anim/cosmology/ptolomeo.html)
 
+<iframe src="html_anim/cosmology/copernicus.html" width="100%" height="500px"></iframe>
+[html_anim/cosmology/copernicus.html](html_anim/cosmology/copernicus.html)
+
+<iframe src="html_anim/cosmology/kepler.html" width="100%" height="500px"></iframe>
 [html_anim/cosmology/kepler.html](html_anim/cosmology/kepler.html)
+
 
 ## Mathematical Model of the Ptolemaic System
 
