@@ -200,8 +200,8 @@ def process_static_assets():
 if __name__ == "__main__":
     
     # --- KONFIGURACJA UŻYTKOWNIKA ---
-    FILTER_NAME = "Language"      
-    DO_DEPLOY = False     
+    FILTER_NAME = "Mechanics"      
+    DO_DEPLOY = True     
     # --------------------------------
     
     # 1. Walidacja Hybrydowa
