@@ -1,0 +1,114 @@
+<div style="font-family: sans-serif; text-align: center; margin: 20px 0; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9;">
+
+    <div style="margin-bottom: 15px;">
+        <label for="timeSlider" style="font-weight: bold;">Czas t: <span id="timeDisplay">0.00</span></label>
+        <br>
+        <input type="range" id="timeSlider" min="0" max="5" step="0.05" value="0" style="width: 80%; max-width: 400px; margin-top: 10px;">
+    </div>
+
+    <canvas id="scalarFieldCanvas" width="400" height="400" style="border: 1px solid #ccc; background-color: white;"></canvas>
+
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('scalarFieldCanvas');
+            const ctx = canvas.getContext('2d');
+            const slider = document.getElementById('timeSlider');
+            const timeDisplay = document.getElementById('timeDisplay');
+
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Konfiguracja zakresu
+            const xMin = -5, xMax = 5;
+            const yMin = -5, yMax = 5;
+
+            // Maksymalna wartość amplitudy dla t=0 (do stałej skali kolorów)
+            const globalMax = 5.0;
+
+            // Funkcja pola skalarnego
+            function scalarField(x, y, t) {
+                return 5 * Math.sin(x) * Math.cos(y) * Math.exp(-t);
+            }
+
+            // Funkcja mapująca wartość na kolor (Blue -> White -> Red)
+            function valueToColor(val) {
+                // Normalizacja wartości do zakresu [-1, 1] względem globalnego maksimum
+                let norm = val / globalMax;
+
+                let r, g, b;
+
+                if (norm > 0) {
+                    // Pozytywne - od białego do czerwonego
+                    // norm = 0 -> biały (255,255,255), norm = 1 -> czerwony (255,0,0)
+                    const intensity = Math.floor(255 * (1 - Math.min(norm, 1)));
+                    r = 255;
+                    g = intensity;
+                    b = intensity;
+                } else {
+                    // Negatywne - od białego do niebieskiego
+                    // norm = 0 -> biały, norm = -1 -> niebieski (0,0,255)
+                    const intensity = Math.floor(255 * (1 - Math.min(Math.abs(norm), 1)));
+                    r = intensity;
+                    g = intensity;
+                    b = 255;
+                }
+                return `rgb(${r},${g},${b})`;
+            }
+
+            function draw(t) {
+                // Tworzymy obraz piksel po pikselu dla wydajności przy animacji
+                const imageData = ctx.createImageData(width, height);
+                const data = imageData.data;
+
+                for (let py = 0; py < height; py++) {
+                    // Mapowanie piksela na współrzędną Y (odwracamy oś Y, aby góra była dodatnia)
+                    const y = yMax - (py / height) * (yMax - yMin);
+
+                    for (let px = 0; px < width; px++) {
+                        // Mapowanie piksela na współrzędną X
+                        const x = xMin + (px / width) * (xMax - xMin);
+
+                        const val = scalarField(x, y, t);
+
+                        // Obliczanie koloru
+                        // Musimy to zrobić ręcznie dla imageData
+                        let norm = val / globalMax;
+                        let r, g, b;
+
+                        if (norm > 0) {
+                            let intensity = 255 * (1 - Math.min(norm, 1));
+                            r = 255;
+                            g = intensity;
+                            b = intensity;
+                        } else {
+                            let intensity = 255 * (1 - Math.min(Math.abs(norm), 1));
+                            r = intensity;
+                            g = intensity;
+                            b = 255;
+                        }
+
+                        const index = (py * width + px) * 4;
+                        data[index] = r;     // Red
+                        data[index + 1] = g; // Green
+                        data[index + 2] = b; // Blue
+                        data[index + 3] = 255; // Alpha
+                    }
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            // Obsługa zdarzeń
+            slider.addEventListener('input', function() {
+                const t = parseFloat(this.value);
+                timeDisplay.innerText = t.toFixed(2);
+
+                // Używamy requestAnimationFrame dla płynności
+                window.requestAnimationFrame(() => draw(t));
+            });
+
+            // Pierwsze rysowanie
+            draw(0);
+        })();
+    </script>
+</div>
