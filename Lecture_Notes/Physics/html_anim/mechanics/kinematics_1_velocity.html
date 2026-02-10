@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+<div class="parametric-motion-widget">
+    <style>
+        .parametric-motion-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .parametric-motion-widget h3 {
+            margin-top: 0;
+            color: #444;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .parametric-motion-widget .canvas-wrapper {
+            position: relative;
+            margin: 10px 0 20px 0;
+            background: #fdfdfd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        .parametric-motion-widget canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        .parametric-motion-widget .controls-panel {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .parametric-motion-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .parametric-motion-widget label {
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .parametric-motion-widget select,
+        .parametric-motion-widget button {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .parametric-motion-widget button {
+            font-weight: bold;
+            color: white;
+            border: none;
+        }
+
+        .parametric-motion-widget .btn-start { background-color: #2e7d32; }
+        .parametric-motion-widget .btn-start:hover { background-color: #1b5e20; }
+        .parametric-motion-widget .btn-pause { background-color: #f57c00; }
+
+        .parametric-motion-widget .btn-reset {
+            background-color: #607d8b;
+            margin-top: 5px;
+        }
+        .parametric-motion-widget .btn-reset:hover { background-color: #455a64; }
+
+        .parametric-motion-widget input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .parametric-motion-widget input[type=checkbox] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .parametric-motion-widget .math-info {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #1565c0;
+            font-size: 1.1em;
+        }
+
+        .parametric-motion-widget .value-display {
+            color: #1565c0;
+        }
+
+        .parametric-motion-widget .legend {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .parametric-motion-widget .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .parametric-motion-widget .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .parametric-motion-widget .controls-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Visualization of Position r(t) and Velocity v(t)</h3>
+
+    <div class="canvas-wrapper">
+        <canvas class="param-canvas" width="700" height="450"></canvas>
+    </div>
+
+    <div class="controls-panel">
+        <div class="math-info">r(t) = ...</div>
+
+        <div class="control-group">
+            <label>Select Trajectory:</label>
+            <select class="curve-select">
+                <option value="parabola">Parabola (Projectile)</option>
+                <option value="circle">Circle</option>
+                <option value="lissajous">Lissajous Curve</option>
+                <option value="spiral">Archimedean Spiral</option>
+            </select>
+
+            <label style="margin-top: 5px; cursor: pointer;">
+                <span>Show Velocity Vector</span>
+                <input type="checkbox" class="chk-velocity" checked>
+            </label>
+
+            <button class="btn-start">Start</button>
+            <button class="btn-reset">Reset</button>
+        </div>
+
+        <div class="control-group">
+            <label>Time t: <span class="t-val value-display">0.00</span></label>
+            <input type="range" class="t-slider" min="0" max="1000" step="1" value="0">
+
+            <label style="margin-top: 10px;">Animation Speed:</label>
+            <input type="range" class="speed-slider" min=".5" max="3" step=".5" value="3">
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="color-box" style="background: #1976d2;"></div> Position r(t)
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #2e7d32;"></div> Velocity v(t)
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #d32f2f; border-radius: 50%;"></div> Particle
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.param-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI Elements
+        const curveSelect = widget.querySelector('.curve-select');
+        const btnStart = widget.querySelector('.btn-start');
+        const btnReset = widget.querySelector('.btn-reset');
+        const tSlider = widget.querySelector('.t-slider');
+        const tValDisplay = widget.querySelector('.t-val');
+        const speedSlider = widget.querySelector('.speed-slider');
+        const mathDisplay = widget.querySelector('.math-info');
+        const chkVelocity = widget.querySelector('.chk-velocity');
+
+        let state = {
+            t: 0,
+            curveKey: 'parabola',
+            isRunning: false,
+            speed: 3,
+            showVelocity: true,
+            animFrame: null
+        };
+
+        // Curve Configuration
+        // fn: r(t) -> position {x, y}
+        // d_fn: v(t) = r'(t) -> velocity {x, y}
+        // velScale: visual scaling factor for velocity vector length
+        const curves = {
+            parabola: {
+                label: "r(t) = [ 2t,  -t² + 4t ]",
+                fn: (t) => ({ x: 2*t, y: -t*t + 4*t }),
+                d_fn: (t) => ({ x: 2, y: -2*t + 4 }),
+                tMin: 0, tMax: 4.5,
+                scale: 60,
+                velScale: 0.5,
+                origin: { x: 50, y: 380 },
+                gridStep: 1
+            },
+            circle: {
+                label: "r(t) = [ 3cos(t), 3sin(t) ]",
+                fn: (t) => ({ x: 3*Math.cos(t), y: 3*Math.sin(t) }),
+                d_fn: (t) => ({ x: -3*Math.sin(t), y: 3*Math.cos(t) }),
+                tMin: 0, tMax: 2 * Math.PI,
+                scale: 50,
+                velScale: 0.5,
+                origin: { x: 350, y: 225 },
+                gridStep: 1
+            },
+            lissajous: {
+                label: "r(t) = [ 4sin(3t), 3sin(2t) ]",
+                fn: (t) => ({ x: 4*Math.sin(3*t), y: 3*Math.sin(2*t) }),
+                d_fn: (t) => ({ x: 12*Math.cos(3*t), y: 6*Math.cos(2*t) }),
+                tMin: 0, tMax: 2 * Math.PI,
+                scale: 45,
+                velScale: 0.2, // Velocity is large here, scale down visual
+                origin: { x: 350, y: 225 },
+                gridStep: 1
+            },
+            spiral: {
+                label: "r(t) = [ 0.5t·cos(t), 0.5t·sin(t) ]",
+                fn: (t) => ({ x: 0.5*t*Math.cos(t), y: 0.5*t*Math.sin(t) }),
+                d_fn: (t) => ({
+                    x: 0.5*(Math.cos(t) - t*Math.sin(t)),
+                    y: 0.5*(Math.sin(t) + t*Math.cos(t))
+                }),
+                tMin: 0, tMax: 4 * Math.PI,
+                scale: 40,
+                velScale: 0.5,
+                origin: { x: 350, y: 225 },
+                gridStep: 1
+            }
+        };
+
+        function getConf() { return curves[state.curveKey]; }
+
+        // Logic -> Screen Conversion (Y flips: logic up is screen down)
+        function toScreen(lx, ly, conf) {
+            return {
+                x: conf.origin.x + lx * conf.scale,
+                y: conf.origin.y - ly * conf.scale
+            };
+        }
+
+        // Draw Arrow (Vector)
+        function drawArrow(ctx, fromX, fromY, toX, toY, color, width=2.5) {
+            const headlen = 10;
+            const dx = toX - fromX;
+            const dy = toY - fromY;
+            const len = Math.sqrt(dx*dx + dy*dy);
+
+            if(len < 1) return; // Don't draw tiny arrows
+
+            const angle = Math.atan2(dy, dx);
+
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+
+            // Line
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.stroke();
+
+            // Arrow Head
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.lineTo(toX, toY);
+            ctx.fill();
+        }
+
+        function drawGrid(conf) {
+            const w = canvas.width;
+            const h = canvas.height;
+            const step = conf.gridStep;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Grid Background
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            ctx.font = '11px Arial';
+            ctx.fillStyle = '#888';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Vertical Lines (X)
+            const minLogicX = Math.floor((0 - conf.origin.x) / conf.scale);
+            const maxLogicX = Math.ceil((w - conf.origin.x) / conf.scale);
+
+            for(let i = minLogicX; i <= maxLogicX; i += step) {
+                const xPos = conf.origin.x + i * conf.scale;
+                ctx.beginPath();
+                ctx.moveTo(xPos, 0);
+                ctx.lineTo(xPos, h);
+                ctx.stroke();
+
+                if (i !== 0) ctx.fillText(i.toString(), xPos, conf.origin.y + 15);
+            }
+
+            // Horizontal Lines (Y)
+            const minLogicY = Math.floor((h - conf.origin.y) / (-conf.scale));
+            const maxLogicY = Math.ceil((0 - conf.origin.y) / (-conf.scale));
+
+            const yStart = Math.min(minLogicY, maxLogicY);
+            const yEnd = Math.max(minLogicY, maxLogicY);
+
+            for(let j = yStart; j <= yEnd; j += step) {
+                const yPos = conf.origin.y - j * conf.scale;
+                ctx.beginPath();
+                ctx.moveTo(0, yPos);
+                ctx.lineTo(w, yPos);
+                ctx.stroke();
+
+                if (j !== 0) ctx.fillText(j.toString(), conf.origin.x - 15, yPos);
+            }
+
+            // Main Axes
+            ctx.beginPath();
+            ctx.strokeStyle = '#444';
+            ctx.lineWidth = 2;
+
+            // X Axis
+            ctx.moveTo(0, conf.origin.y);
+            ctx.lineTo(w, conf.origin.y);
+
+            // Y Axis
+            ctx.moveTo(conf.origin.x, 0);
+            ctx.lineTo(conf.origin.x, h);
+            ctx.stroke();
+
+            // Origin Label
+            ctx.fillText("0", conf.origin.x - 10, conf.origin.y + 15);
+        }
+
+        function drawTrajectory(conf) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#aaa'; // Ghost path
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+
+            const samples = 400;
+            let first = true;
+            for(let i=0; i<=samples; i++) {
+                const tLocal = conf.tMin + (i/samples) * (conf.tMax - conf.tMin);
+                const pt = conf.fn(tLocal);
+                const scr = toScreen(pt.x, pt.y, conf);
+                if(first) { ctx.moveTo(scr.x, scr.y); first=false; }
+                else ctx.lineTo(scr.x, scr.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function renderFrame() {
+            const conf = getConf();
+
+            drawGrid(conf);
+            drawTrajectory(conf);
+
+            // Logic Position
+            const pt = conf.fn(state.t);
+            // Screen Position
+            const scr = toScreen(pt.x, pt.y, conf);
+
+            // 1. Position Vector (Blue Arrow) from Origin to Point
+            const origin = conf.origin;
+            drawArrow(ctx, origin.x, origin.y, scr.x, scr.y, '#1976d2');
+
+            // 2. Velocity Vector (Green Arrow) from Point
+            if(state.showVelocity) {
+                const vel = conf.d_fn(state.t);
+
+                // Scale velocity for visualization (logic units)
+                const visVelX = vel.x * conf.velScale;
+                const visVelY = vel.y * conf.velScale;
+
+                // Screen coordinates for velocity end point
+                // Note: dy is subtracted because screen Y is inverted relative to logic Y
+                const velEnd = {
+                    x: scr.x + visVelX * conf.scale,
+                    y: scr.y - visVelY * conf.scale
+                };
+
+                drawArrow(ctx, scr.x, scr.y, velEnd.x, velEnd.y, '#2e7d32', 3);
+            }
+
+            // Point Mass (Red Dot)
+            ctx.beginPath();
+            ctx.fillStyle = '#d32f2f';
+            ctx.arc(scr.x, scr.y, 6, 0, Math.PI*2);
+            ctx.fill();
+
+            // Label P(x, y)
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(`P`, scr.x + 10, scr.y - 10);
+
+            // Update UI
+            mathDisplay.innerText = conf.label;
+            tValDisplay.innerText = state.t.toFixed(2);
+        }
+
+        function updateSlider() {
+            const conf = getConf();
+            // Map t from [tMin, tMax] to slider [0, 1000]
+            const range = conf.tMax - conf.tMin;
+            const fraction = (state.t - conf.tMin) / range;
+            tSlider.value = fraction * 1000;
+        }
+
+        function loop() {
+            if (!state.isRunning) return;
+
+            const conf = getConf();
+            const dt = 0.01 * state.speed;
+            state.t += dt;
+
+            // Loop time
+            if (state.t > conf.tMax) {
+                state.t = conf.tMin;
+            }
+
+            updateSlider();
+            renderFrame();
+            state.animFrame = requestAnimationFrame(loop);
+        }
+
+        // --- Events ---
+
+        curveSelect.addEventListener('change', (e) => {
+            state.curveKey = e.target.value;
+            // Reset t
+            const conf = getConf();
+            state.t = conf.tMin;
+
+            // Reset UI
+            updateSlider();
+            renderFrame();
+        });
+
+        chkVelocity.addEventListener('change', (e) => {
+            state.showVelocity = e.target.checked;
+            renderFrame();
+        });
+
+        tSlider.addEventListener('input', (e) => {
+            // Pause on manual interaction
+            state.isRunning = false;
+            cancelAnimationFrame(state.animFrame);
+            btnStart.textContent = "Start";
+            btnStart.classList.remove('btn-pause');
+            btnStart.classList.add('btn-start');
+
+            const val = parseInt(e.target.value);
+            const conf = getConf();
+            const range = conf.tMax - conf.tMin;
+            state.t = conf.tMin + (val / 1000) * range;
+
+            renderFrame();
+        });
+
+        speedSlider.addEventListener('input', (e) => {
+            state.speed = parseFloat(e.target.value);
+        });
+
+        btnStart.addEventListener('click', () => {
+            state.isRunning = !state.isRunning;
+            if(state.isRunning) {
+                btnStart.textContent = "Pause";
+                btnStart.classList.remove('btn-start');
+                btnStart.classList.add('btn-pause');
+                loop();
+            } else {
+                btnStart.textContent = "Start";
+                btnStart.classList.remove('btn-pause');
+                btnStart.classList.add('btn-start');
+                cancelAnimationFrame(state.animFrame);
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            state.isRunning = false;
+            cancelAnimationFrame(state.animFrame);
+            btnStart.textContent = "Start";
+            btnStart.classList.remove('btn-pause');
+            btnStart.classList.add('btn-start');
+
+            const conf = getConf();
+            state.t = conf.tMin;
+            updateSlider();
+            renderFrame();
+        });
+
+        // Start
+        renderFrame();
+
+    })();
+    </script>
+</div>
+
+
+</body>
+</html>

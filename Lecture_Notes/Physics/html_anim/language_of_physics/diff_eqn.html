@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmonic Oscillator Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Namespace .harmonic-sim to isolate styles */
+        .harmonic-sim {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            color: #333;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        .harmonic-sim .sim-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .harmonic-sim .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .harmonic-sim canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            cursor: default;
+        }
+
+        /* --- Math Panel Styles --- */
+        .harmonic-sim .math-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px; /* ZMIANA: Panel przeniesiony na prawą stronę */
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #1976d2;
+            border-left: 5px solid #1976d2;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            pointer-events: none;
+            z-index: 10;
+            display: none;
+            line-height: 1.6;
+            text-align: right; /* Opcjonalnie: wyrównanie tekstu do prawej dla estetyki */
+        }
+
+        .harmonic-sim .math-label {
+            color: #666;
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+
+        .harmonic-sim .math-row {
+            white-space: nowrap;
+        }
+
+        .harmonic-sim .val-inertia { color: #757575; font-weight: bold; } /* Grey for straight line */
+        .harmonic-sim .val-force { color: #f57f17; font-weight: bold; }   /* Orange for force */
+        .harmonic-sim .val-new { color: #d32f2f; font-weight: bold; }     /* Red for result */
+
+        /* Controls */
+        .harmonic-sim .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+            background: #eee;
+            border-radius: 6px;
+        }
+
+        .harmonic-sim .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+
+        .harmonic-sim label {
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .harmonic-sim .val-display {
+            font-family: monospace;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .harmonic-sim .btn-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .harmonic-sim button {
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+            height: 40px;
+        }
+
+        .harmonic-sim #btn-restart { background-color: #1976d2; }
+        .harmonic-sim #btn-restart:hover { background-color: #1565c0; }
+        .harmonic-sim #btn-restart:disabled { background-color: #90caf9; cursor: not-allowed; }
+
+        .harmonic-sim #btn-clear { background-color: #757575; }
+        .harmonic-sim #btn-clear:hover { background-color: #616161; }
+
+        .harmonic-sim input[type=range] {
+            cursor: pointer;
+        }
+
+        .harmonic-sim .legend {
+            font-size: 0.85em;
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .harmonic-sim .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .harmonic-sim .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .harmonic-sim .line-sample { width: 20px; height: 3px; border-radius: 2px; }
+        .harmonic-sim .dashed-sample { width: 20px; height: 2px; border-bottom: 2px dashed #757575; }
+
+    </style>
+</head>
+<body>
+
+<div class="harmonic-sim">
+    <div class="sim-container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Position y(0): <span id="disp-y0" class="val-display">0.0</span></label>
+                <input type="range" id="input-y0" min="-5" max="5" step="0.5" value="5">
+            </div>
+            <div class="control-group">
+                <label>Velocity y'(0): <span id="disp-v0" class="val-display">0.0</span></label>
+                <input type="range" id="input-v0" min="-5" max="5" step="0.5" value="0">
+            </div>
+            <div class="control-group">
+                <label>Step size (h): <span id="disp-h" class="val-display">0.5</span></label>
+                <input type="range" id="input-h" min="0.1" max="1.5" step="0.1" value="0.5">
+            </div>
+            <div class="control-group">
+                <label>Speed</label>
+                <input type="range" id="input-speed" min="1" max="10" step="1" value="5">
+            </div>
+            <div class="btn-group">
+                <button id="btn-restart">Start</button>
+                <button id="btn-clear">Clear</button>
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="harmonicCanvas" width="800" height="450"></canvas>
+
+            <!-- LIVE MATH PANEL -->
+            <div id="mathPanel" class="math-panel">
+                <span class="math-label">2nd Order Step:</span>
+                <!-- y_new = 2y_n - y_{n-1} - h^2 y_n -->
+                <div class="math-row">
+                    y<sub>n+1</sub> =
+                    <span class="val-inertia">2y<sub>n</sub> - y<sub>n-1</sub></span>
+                    <span class="val-force">- h<sup>2</sup>y<sub>n</sub></span>
+                </div>
+                <div class="math-row" id="mathCalc"></div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="line-sample" style="background:#1976d2"></div> Exact (Harmonic)</div>
+            <div class="legend-item"><div class="dot" style="background:#d32f2f"></div><div class="line-sample" style="background:#d32f2f"></div> Numerical</div>
+            <div class="legend-item"><div class="dashed-sample"></div> Inertia (No force)</div>
+            <div class="legend-item"><div class="line-sample" style="background:#f57f17; height: 4px;"></div> Force (-h²y)</div>
+            <div class="legend-item"><div class="line-sample" style="background:#9e9e9e"></div> History</div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const wrapper = document.querySelector('.harmonic-sim');
+        const canvas = wrapper.querySelector('#harmonicCanvas');
+        const ctx = canvas.getContext('2d');
+        const mathPanel = wrapper.querySelector('#mathPanel');
+        const mathCalc = wrapper.querySelector('#mathCalc');
+
+        const inputY0 = wrapper.querySelector('#input-y0');
+        const inputV0 = wrapper.querySelector('#input-v0');
+        const inputH = wrapper.querySelector('#input-h');
+        const inputSpeed = wrapper.querySelector('#input-speed');
+        const btnRestart = wrapper.querySelector('#btn-restart');
+        const btnClear = wrapper.querySelector('#btn-clear');
+
+        const dispY0 = wrapper.querySelector('#disp-y0');
+        const dispV0 = wrapper.querySelector('#disp-v0');
+        const dispH = wrapper.querySelector('#disp-h');
+
+        // Coordinate System Config
+        const LOGIC_X_MIN = -0.5;
+        const LOGIC_X_MAX = 20.0;
+        const LOGIC_Y_MIN = -8;
+        const LOGIC_Y_MAX = 8;
+
+        let state = {
+            y0: 5,
+            v0: 0,
+            h: 0.5,
+            animationSpeed: 500,
+            currentStep: 0, // Starts at 0 (index of points array)
+            isAnimating: false,
+            points: [],   // {x, y}
+            history: [],
+            timer: null
+        };
+
+        // Exact solution: y'' = -y => y(x) = A sin(x) + B cos(x)
+        // y(0) = B
+        // y'(0) = A
+        function analytical(x, y0, v0) {
+            return v0 * Math.sin(x) + y0 * Math.cos(x);
+        }
+
+        function toScreen(lx, ly) {
+            const w = canvas.width;
+            const h = canvas.height;
+            const sx = ((lx - LOGIC_X_MIN) / (LOGIC_X_MAX - LOGIC_X_MIN)) * w;
+            const sy = h - ((ly - LOGIC_Y_MIN) / (LOGIC_Y_MAX - LOGIC_Y_MIN)) * h;
+            return { x: sx, y: sy };
+        }
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#666';
+
+            // Vertical lines
+            for(let x = 0; x <= LOGIC_X_MAX; x += 2) {
+                const p = toScreen(x, LOGIC_Y_MIN);
+                const top = toScreen(x, LOGIC_Y_MAX);
+                ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(top.x, top.y); ctx.stroke();
+                ctx.fillText(x, p.x + 2, p.y - 5);
+            }
+
+            // Horizontal lines
+            for(let y = -5; y <= 5; y += 2.5) {
+                if(y===0) continue; // Skip axis, draw later
+                const p = toScreen(LOGIC_X_MIN, y);
+                const right = toScreen(LOGIC_X_MAX, y);
+                ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(right.x, right.y); ctx.stroke();
+                ctx.fillText(y, p.x + 2, p.y - 2);
+            }
+
+            // Axes
+            const origin = toScreen(0, 0);
+            const xEnd = toScreen(LOGIC_X_MAX, 0);
+            const yStart = toScreen(0, LOGIC_Y_MAX);
+            const yEnd = toScreen(0, LOGIC_Y_MIN);
+
+            ctx.strokeStyle = '#333'; ctx.lineWidth = 2;
+            // X Axis
+            ctx.beginPath(); ctx.moveTo(toScreen(LOGIC_X_MIN, 0).x, origin.y); ctx.lineTo(xEnd.x, xEnd.y); ctx.stroke();
+            // Y Axis
+            ctx.beginPath(); ctx.moveTo(origin.x, yStart.y); ctx.lineTo(origin.x, yEnd.y); ctx.stroke();
+        }
+
+        function drawExactCurve() {
+            ctx.beginPath();
+            ctx.strokeStyle = '#1976d2';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([]);
+
+            let first = true;
+            for(let x = LOGIC_X_MIN; x <= LOGIC_X_MAX; x += 0.1) {
+                const y = analytical(x, state.y0, state.v0);
+                const p = toScreen(x, y);
+                if(first) { ctx.moveTo(p.x, p.y); first = false; }
+                else { ctx.lineTo(p.x, p.y); }
+            }
+            ctx.stroke();
+        }
+
+        function drawHistory() {
+            if (state.history.length === 0) return;
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#9e9e9e';
+            ctx.fillStyle = '#9e9e9e';
+
+            state.history.forEach(run => {
+                if(run.length < 2) return;
+                ctx.beginPath();
+                const p0 = toScreen(run[0].x, run[0].y);
+                ctx.moveTo(p0.x, p0.y);
+                for(let i=1; i<run.length; i++) {
+                    const p = toScreen(run[i].x, run[i].y);
+                    ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+            });
+        }
+
+        function drawNumericalSoFar() {
+            if (state.points.length === 0) return;
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#d32f2f';
+            ctx.lineWidth = 2;
+
+            let p0 = toScreen(state.points[0].x, state.points[0].y);
+            ctx.moveTo(p0.x, p0.y);
+
+            // We draw lines up to currentStep
+            // Note: points array includes the 'ghost' point at index 0 (x = -h)
+            // We usually want to visualize starting from x=0 (index 1)
+
+            const limit = Math.min(state.currentStep, state.points.length - 1);
+
+            // Start drawing from index 1 (x=0) if it exists, otherwise index 0
+            let startIdx = 1;
+            if(state.points.length < 2) startIdx = 0;
+
+            if(state.points.length > 1) {
+                let pStart = toScreen(state.points[startIdx].x, state.points[startIdx].y);
+                ctx.moveTo(pStart.x, pStart.y);
+
+                for(let i = startIdx + 1; i <= limit; i++) {
+                    const p = toScreen(state.points[i].x, state.points[i].y);
+                    ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#d32f2f';
+            for(let i = startIdx; i <= limit; i++) {
+                const p = toScreen(state.points[i].x, state.points[i].y);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+
+        function updateMathPanel(curr, prev, next) {
+            mathPanel.style.display = 'block';
+
+            // Formula: y_new = 2*y_n - y_{n-1} - h^2*y_n
+            // Which is: (Inertia part) + (Force part)
+            // Inertia: 2*curr - prev
+            // Force: -h^2 * curr
+
+            const inertiaVal = 2 * curr.y - prev.y;
+            const forceVal = -(state.h * state.h * curr.y);
+            const nextVal = next.y;
+
+            mathCalc.innerHTML = `
+                y<sub>new</sub> =
+                <span class="val-inertia">(${inertiaVal.toFixed(2)})</span>
+                <span class="val-force">+ (${forceVal.toFixed(2)})</span> <br>
+                y<sub>new</sub> = <span class="val-new">${nextVal.toFixed(2)}</span>
+            `;
+        }
+
+        function drawConstructionDetails() {
+            // We need at least 3 points to show the step: prev, curr, next
+
+            if (state.currentStep < 1 || state.currentStep >= state.points.length - 1) return;
+
+            const idx = state.currentStep;
+            const prev = state.points[idx - 1]; // y_{n-1}
+            const curr = state.points[idx];     // y_n
+            const next = state.points[idx + 1]; // y_{n+1}
+
+            const pPrev = toScreen(prev.x, prev.y);
+            const pCurr = toScreen(curr.x, curr.y);
+            const pNext = toScreen(next.x, next.y);
+
+            // 1. Inertia Point (Project straight line)
+            // y_inertia = 2*curr - prev = curr + (curr - prev)
+            const inertiaY = 2 * curr.y - prev.y;
+            const pInertia = toScreen(next.x, inertiaY);
+
+            updateMathPanel(curr, prev, next);
+
+            // Draw line extension (Inertia)
+            ctx.beginPath();
+            ctx.strokeStyle = '#757575';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            ctx.moveTo(pPrev.x, pPrev.y);
+            ctx.lineTo(pInertia.x, pInertia.y); // Pass through curr to inertia
+            ctx.stroke();
+
+            // Mark inertia point
+            ctx.fillStyle = '#757575';
+            ctx.beginPath(); ctx.arc(pInertia.x, pInertia.y, 3, 0, 6.28); ctx.fill();
+
+            // 2. Force Vector (Drop from Inertia to Next)
+            ctx.beginPath();
+            ctx.strokeStyle = '#f57f17'; // Orange
+            ctx.lineWidth = 3;
+            ctx.setLineDash([]);
+            ctx.moveTo(pInertia.x, pInertia.y);
+            ctx.lineTo(pNext.x, pNext.y);
+            ctx.stroke();
+
+            // Arrow head
+            const headLen = 6;
+            const angle = Math.atan2(pNext.y - pInertia.y, pNext.x - pInertia.x);
+            ctx.beginPath();
+            ctx.moveTo(pNext.x, pNext.y);
+            ctx.lineTo(pNext.x - headLen * Math.cos(angle - Math.PI/6), pNext.y - headLen * Math.sin(angle - Math.PI/6));
+            ctx.lineTo(pNext.x - headLen * Math.cos(angle + Math.PI/6), pNext.y - headLen * Math.sin(angle + Math.PI/6));
+            ctx.fillStyle = '#f57f17';
+            ctx.fill();
+
+            // Text Labels
+            ctx.font = '11px sans-serif';
+            ctx.fillStyle = '#757575';
+            ctx.fillText("Inertia", pInertia.x + 5, pInertia.y);
+
+            ctx.fillStyle = '#f57f17';
+            ctx.fillText("Force (-h²y)", pInertia.x + 5, (pInertia.y + pNext.y)/2);
+        }
+
+        function calculatePoints() {
+            state.points = [];
+
+            // We need y(0) and y(-h) to start.
+
+            const x0 = 0;
+            const y0 = state.y0;
+            const h = state.h;
+
+            // Ghost point at x = -h
+            const x_ghost = -h;
+            const y_ghost = y0 * (1 - 0.5 * h * h) - h * state.v0;
+
+            state.points.push({x: x_ghost, y: y_ghost}); // Index 0
+            state.points.push({x: x0, y: y0});           // Index 1 (Start)
+
+            let x = x0;
+            let y_curr = y0;
+            let y_prev = y_ghost;
+
+            while(x < LOGIC_X_MAX) {
+                // Verlet step: y_next = 2*y_curr - y_prev - h^2 * y_curr
+                //               = (2 - h^2)*y_curr - y_prev
+                const y_next = (2 - h*h) * y_curr - y_prev;
+                const x_next = x + h;
+
+                state.points.push({x: x_next, y: y_next});
+
+                y_prev = y_curr;
+                y_curr = y_next;
+                x = x_next;
+            }
+        }
+
+        function renderFrame() {
+            drawGrid();
+            drawHistory();
+            drawExactCurve();
+            drawNumericalSoFar();
+
+            if (state.isAnimating) {
+                drawConstructionDetails();
+            }
+        }
+
+        function nextAnimationStep() {
+            if (state.currentStep < state.points.length - 2) {
+                // We stop before the very last point so we can show construction of the last one
+                // currentStep tracks the "center" point of the verlet stencil
+                state.currentStep++;
+                renderFrame();
+                state.timer = setTimeout(nextAnimationStep, state.animationSpeed);
+            } else {
+                state.currentStep++; // Draw final state
+                state.isAnimating = false;
+                btnRestart.disabled = false;
+                renderFrame();
+            }
+        }
+
+        function startAnimation(shouldSaveHistory = true) {
+            if(state.timer) clearTimeout(state.timer);
+            mathPanel.style.display = 'none';
+
+            // Points array starts with ghost point (idx 0), then y0 (idx 1).
+            // We want to save history starting from idx 1 (actual trace)
+            if (shouldSaveHistory && state.points.length > 1) {
+                const visibleTrace = state.points.slice(1);
+                state.history.push(visibleTrace);
+                if(state.history.length > 8) state.history.shift();
+            }
+
+            state.y0 = parseFloat(inputY0.value);
+            state.v0 = parseFloat(inputV0.value);
+            state.h = parseFloat(inputH.value);
+
+            const speedVal = parseInt(inputSpeed.value);
+            state.animationSpeed = 1600 - (speedVal * 150);
+            if (state.animationSpeed < 50) state.animationSpeed = 50;
+
+            calculatePoints();
+
+            // Start animation from index 1 (x=0 is established, we show construction of x=h)
+            state.currentStep = 1;
+            state.isAnimating = true;
+            btnRestart.disabled = true;
+
+            renderFrame();
+            state.timer = setTimeout(nextAnimationStep, state.animationSpeed);
+        }
+
+        // --- LISTENERS ---
+        function updateDisplays() {
+            dispY0.innerText = parseFloat(inputY0.value).toFixed(1);
+            dispV0.innerText = parseFloat(inputV0.value).toFixed(1);
+            dispH.innerText = parseFloat(inputH.value).toFixed(1);
+        }
+
+        // Inputs trigger restart on change
+        [inputY0, inputV0, inputH].forEach(input => {
+            input.addEventListener('input', updateDisplays);
+            input.addEventListener('change', () => startAnimation(true));
+        });
+
+        inputSpeed.addEventListener('input', () => {
+             const speedVal = parseInt(inputSpeed.value);
+             state.animationSpeed = 1600 - (speedVal * 150);
+        });
+
+        btnRestart.addEventListener('click', () => startAnimation(true));
+
+        btnClear.addEventListener('click', () => {
+            state.history = [];
+            mathPanel.style.display = 'none';
+            renderFrame();
+        });
+
+        // Init
+        updateDisplays();
+        state.y0 = parseFloat(inputY0.value);
+        state.v0 = parseFloat(inputV0.value);
+        state.h = parseFloat(inputH.value);
+        calculatePoints();
+
+        // Initial render: show up to start point
+        state.currentStep = 1;
+        state.isAnimating = false;
+        renderFrame();
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>

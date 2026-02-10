@@ -1,0 +1,761 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<div class="numerical-oscillator-widget">
+    <style>
+        .numerical-oscillator-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 950px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .numerical-oscillator-widget h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .numerical-oscillator-widget .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        /* Panel Matematyczny */
+        .numerical-oscillator-widget .math-panel {
+            background: #f8f9fa;
+            border: 1px solid #dae0e5;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: fit-content;
+        }
+
+        .numerical-oscillator-widget .math-step {
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .numerical-oscillator-widget .math-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 4px;
+            display: block;
+            font-family: sans-serif;
+        }
+
+        .numerical-oscillator-widget .math-eq {
+            color: #1565c0;
+            background: #fff;
+            padding: 4px;
+            border-radius: 3px;
+            border: 1px solid #eee;
+            display: block;
+            margin-top: 2px;
+            white-space: pre-wrap; /* allow wrapping */
+        }
+
+        .numerical-oscillator-widget .math-val {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        /* Prawa kolumna */
+        .numerical-oscillator-widget .vis-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Fizyka */
+        .numerical-oscillator-widget .phys-container {
+            position: relative;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 140px;
+            width: 100%;
+        }
+
+        .numerical-oscillator-widget .phys-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Wykresy */
+        .numerical-oscillator-widget .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            height: 180px;
+        }
+
+        .numerical-oscillator-widget .chart-box {
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .numerical-oscillator-widget .chart-title {
+            font-size: 0.75em;
+            font-weight: bold;
+            text-align: center;
+            padding: 4px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .numerical-oscillator-widget .chart-box canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+        }
+
+        /* Panel sterowania */
+        .numerical-oscillator-widget .controls-panel {
+            grid-column: 1 / -1;
+            background: #eee;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .numerical-oscillator-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 100px;
+        }
+
+        .numerical-oscillator-widget label {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #444;
+        }
+
+        .numerical-oscillator-widget select {
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+        }
+
+        .numerical-oscillator-widget button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .numerical-oscillator-widget .btn-step { background-color: #f57f17; }
+        .numerical-oscillator-widget .btn-run { background-color: #2e7d32; }
+        .numerical-oscillator-widget .btn-reset { background-color: #607d8b; }
+
+        .numerical-oscillator-widget button:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        @media (max-width: 800px) {
+            .numerical-oscillator-widget .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .numerical-oscillator-widget .charts-grid {
+                height: auto;
+                grid-template-columns: 1fr;
+            }
+            .numerical-oscillator-widget .chart-box {
+                height: 140px;
+            }
+        }
+    </style>
+
+    <h3>Numerical Solution: Nonlinear Oscillator (F = -kx³)</h3>
+
+    <div class="main-layout">
+        <!-- Lewa kolumna: Wzory -->
+        <div class="math-panel">
+            <div class="math-step">
+                <span class="math-label">1. Integration Method:</span>
+                <div class="math-eq" id="math-method-name" style="font-weight:bold; color:#333;">Euler (1st Order)</div>
+            </div>
+
+            <div class="math-step">
+                <span class="math-label">2. Current State (n):</span>
+                <div class="math-eq">t = <span id="m-t" class="math-val">0.00</span></div>
+                <div class="math-eq">x = <span id="m-x" class="math-val">1.00</span></div>
+                <div class="math-eq">v = <span id="m-v" class="math-val">0.00</span></div>
+            </div>
+
+            <div class="math-step" id="math-euler-block">
+                <span class="math-label">3. Euler Step (n+1):</span>
+                <div class="math-eq">a<sub>n</sub> = -k·x<sub>n</sub>³ / m</div>
+                <div class="math-eq">x<sub>n+1</sub> = x<sub>n</sub> + v<sub>n</sub>·dt</div>
+                <div class="math-eq">= <span id="m-x-calc">...</span></div>
+                <div class="math-eq">v<sub>n+1</sub> = v<sub>n</sub> + a<sub>n</sub>·dt</div>
+                <div class="math-eq">= <span id="m-v-calc">...</span></div>
+            </div>
+
+            <div class="math-step" id="math-rk4-block" style="display:none;">
+                <span class="math-label">3. RK4 Step (Summary):</span>
+                <div class="math-eq">k1, k2, k3, k4 calculated...</div>
+                <div class="math-eq">x<sub>n+1</sub> = x<sub>n</sub> + <span style="font-size:0.8em">1/6</span>(k1<sub>x</sub>..k4<sub>x</sub>)dt</div>
+                <div class="math-eq">= <span id="m-rk-x">...</span></div>
+                <div class="math-eq">v<sub>n+1</sub> = v<sub>n</sub> + <span style="font-size:0.8em">1/6</span>(k1<sub>v</sub>..k4<sub>v</sub>)dt</div>
+                <div class="math-eq">= <span id="m-rk-v">...</span></div>
+            </div>
+        </div>
+
+        <!-- Prawa kolumna: Wizualizacja -->
+        <div class="vis-column">
+            <!-- Kulka -->
+            <div class="phys-container">
+                <canvas class="phys-canvas"></canvas>
+            </div>
+
+            <!-- Wykresy -->
+            <div class="charts-grid">
+                <div class="chart-box">
+                    <div class="chart-title" style="color:#1976d2">Position x(t)</div>
+                    <canvas class="chart-x"></canvas>
+                </div>
+                <div class="chart-box">
+                    <div class="chart-title" style="color:#2e7d32">Velocity v(t)</div>
+                    <canvas class="chart-v"></canvas>
+                </div>
+                <div class="chart-box">
+                    <div class="chart-title" style="color:#ef6c00">Acceleration a(t)</div>
+                    <canvas class="chart-a"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sterowanie -->
+        <div class="controls-panel">
+            <div class="control-group">
+                <label>Method:</label>
+                <select id="select-method">
+                    <option value="euler">Euler (Unstable)</option>
+                    <option value="rk4">Runge-Kutta 4 (Stable)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Time Step (Δt): <span id="lbl-dt">0.05</span></label>
+                <input type="range" id="slider-dt" min="0.01" max="0.2" step="0.01" value="0.05">
+            </div>
+
+            <div class="control-group">
+                <label>Constant (k): <span id="lbl-k">1.0</span></label>
+                <input type="range" id="slider-k" min="0.1" max="5.0" step="0.1" value="1.0">
+            </div>
+
+            <div class="control-group">
+                <label>Anim Speed: <span id="lbl-speed">Med</span></label>
+                <input type="range" id="slider-speed" min="1" max="20" step="1" value="5">
+            </div>
+
+            <button class="btn-step">Step</button>
+            <button class="btn-run">Run / Stop</button>
+            <button class="btn-reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+
+        // Refs
+        const physCanvas = widget.querySelector('.phys-canvas');
+        const chartXCanvas = widget.querySelector('.chart-x');
+        const chartVCanvas = widget.querySelector('.chart-v');
+        const chartACanvas = widget.querySelector('.chart-a');
+
+        const ctxPhys = physCanvas.getContext('2d');
+        const ctxX = chartXCanvas.getContext('2d');
+        const ctxV = chartVCanvas.getContext('2d');
+        const ctxA = chartACanvas.getContext('2d');
+
+        // Math Panel UI
+        const mathMethodName = widget.querySelector('#math-method-name');
+        const mathEulerBlock = widget.querySelector('#math-euler-block');
+        const mathRk4Block = widget.querySelector('#math-rk4-block');
+        const m_t = widget.querySelector('#m-t');
+        const m_x = widget.querySelector('#m-x');
+        const m_v = widget.querySelector('#m-v');
+        const m_x_calc = widget.querySelector('#m-x-calc');
+        const m_v_calc = widget.querySelector('#m-v-calc');
+        const m_rk_x = widget.querySelector('#m-rk-x');
+        const m_rk_v = widget.querySelector('#m-rk-v');
+
+        // Controls
+        const selectMethod = widget.querySelector('#select-method');
+        const sliderDt = widget.querySelector('#slider-dt');
+        const lblDt = widget.querySelector('#lbl-dt');
+        const sliderK = widget.querySelector('#slider-k');
+        const lblK = widget.querySelector('#lbl-k');
+        const sliderSpeed = widget.querySelector('#slider-speed');
+
+        const btnStep = widget.querySelector('.btn-step');
+        const btnRun = widget.querySelector('.btn-run');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        // State
+        let state = {
+            t: 0,
+            x: 1.0,
+            v: 0,
+            a: 0,
+            k: 1.0,
+            m: 1.0,
+            dt: 0.05,
+            history: [],
+            isRunning: false,
+            animId: null,
+            method: 'euler' // 'euler' or 'rk4'
+        };
+
+        function resizeCanvases() {
+            [physCanvas, chartXCanvas, chartVCanvas, chartACanvas].forEach(c => {
+                c.width = c.clientWidth || 300;
+                c.height = c.clientHeight || 150;
+            });
+            drawAll();
+        }
+        window.addEventListener('resize', resizeCanvases);
+
+        // --- MATH LOGIC ---
+
+        function getAcc(x, v) {
+            // F = -k * x^3
+            // a = F / m
+            return (-state.k * Math.pow(x, 3)) / state.m;
+        }
+
+        function calculateEuler() {
+            const currentAcc = getAcc(state.x, state.v);
+            state.a = currentAcc; // Log current acceleration
+
+            const nextX = state.x + state.v * state.dt;
+            const nextV = state.v + currentAcc * state.dt;
+
+            // UI Updates
+            m_x_calc.innerText = `${state.x.toFixed(2)} + (${state.v.toFixed(2)} * ${state.dt}) = ${nextX.toFixed(3)}`;
+            m_v_calc.innerText = `${state.v.toFixed(2)} + (${currentAcc.toFixed(2)} * ${state.dt}) = ${nextV.toFixed(3)}`;
+
+            return { x: nextX, v: nextV };
+        }
+
+        function calculateRK4() {
+            const dt = state.dt;
+            const x = state.x;
+            const v = state.v;
+
+            // k1
+            const a1 = getAcc(x, v);
+            const k1v = a1 * dt;
+            const k1x = v * dt;
+
+            // k2
+            const a2 = getAcc(x + k1x/2, v + k1v/2);
+            const k2v = a2 * dt;
+            const k2x = (v + k1v/2) * dt;
+
+            // k3
+            const a3 = getAcc(x + k2x/2, v + k2v/2);
+            const k3v = a3 * dt;
+            const k3x = (v + k2v/2) * dt;
+
+            // k4
+            const a4 = getAcc(x + k3x, v + k3v);
+            const k4v = a4 * dt;
+            const k4x = (v + k3v) * dt;
+
+            const nextX = x + (k1x + 2*k2x + 2*k3x + k4x) / 6;
+            const nextV = v + (k1v + 2*k2v + 2*k3v + k4v) / 6;
+
+            state.a = a1; // Display acceleration at start of step
+
+            // UI
+            m_rk_x.innerText = nextX.toFixed(3);
+            m_rk_v.innerText = nextV.toFixed(3);
+
+            return { x: nextX, v: nextV };
+        }
+
+        function step() {
+            let nextState;
+
+            // Update Math Panel displays
+            m_t.innerText = state.t.toFixed(3);
+            m_x.innerText = state.x.toFixed(3);
+            m_v.innerText = state.v.toFixed(3);
+
+            if (state.method === 'euler') {
+                mathEulerBlock.style.display = 'block';
+                mathRk4Block.style.display = 'none';
+                mathMethodName.innerText = "Euler (Explicit)";
+                mathMethodName.style.color = "#d32f2f"; // Warning color
+                nextState = calculateEuler();
+            } else {
+                mathEulerBlock.style.display = 'none';
+                mathRk4Block.style.display = 'block';
+                mathMethodName.innerText = "Runge-Kutta 4";
+                mathMethodName.style.color = "#2e7d32"; // Good color
+                nextState = calculateRK4();
+            }
+
+            // Commit
+            state.x = nextState.x;
+            state.v = nextState.v;
+            state.t += state.dt;
+
+            state.history.push({
+                t: state.t,
+                x: state.x,
+                v: state.v,
+                a: state.a
+            });
+
+            if (state.history.length > 500) state.history.shift();
+        }
+
+        // --- DRAWING ---
+
+        function drawAxes(ctx, width, height, yMin, yMax) {
+            ctx.clearRect(0, 0, width, height);
+
+            // Grid lines
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+
+            // Zero line
+            if (yMin < 0 && yMax > 0) {
+                const zeroY = map(0, yMin, yMax, height, 0);
+                ctx.beginPath();
+                ctx.strokeStyle = '#ccc';
+                ctx.moveTo(35, zeroY); // Leave space for labels
+                ctx.lineTo(width, zeroY);
+                ctx.stroke();
+            }
+
+            // Scale Labels
+            ctx.fillStyle = '#666';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'right';
+
+            // Top
+            ctx.fillText(yMax.toFixed(1), 30, 10);
+            // Middle
+            const mid = (yMin + yMax) / 2;
+            ctx.fillText(mid.toFixed(1), 30, height/2 + 3);
+            // Bottom
+            ctx.fillText(yMin.toFixed(1), 30, height - 5);
+
+            // Vertical line divider
+            ctx.beginPath();
+            ctx.strokeStyle = '#ccc';
+            ctx.moveTo(35, 0);
+            ctx.lineTo(35, height);
+            ctx.stroke();
+        }
+
+        function drawGraph(ctx, data, key, color) {
+            const w = ctx.canvas.width;
+            const h = ctx.canvas.height;
+
+            // Fixed range fallback, but lets try semi-dynamic
+            // To show instability, allow scale to grow
+            // Default range for start
+            let yMax = 2.0;
+            let yMin = -2.0;
+
+            if (key === 'v') { yMax = 4.0; yMin = -4.0; }
+            if (key === 'a') { yMax = 10.0; yMin = -10.0; }
+
+            // Check actual data max to expand scale if blowing up
+            if (data.length > 0) {
+                let dMax = -Infinity;
+                let dMin = Infinity;
+                // Only check visible window
+                const lookback = Math.min(data.length, 300);
+                for(let i=data.length-lookback; i<data.length; i++) {
+                    const val = data[i][key];
+                    if (val > dMax) dMax = val;
+                    if (val < dMin) dMin = val;
+                }
+
+                // Expand range if needed
+                if (dMax > yMax) yMax = dMax * 1.2;
+                if (dMin < yMin) yMin = dMin * 1.2;
+
+                // Keep symmetrical for oscillator
+                const absMax = Math.max(Math.abs(yMax), Math.abs(yMin));
+                yMax = absMax;
+                yMin = -absMax;
+            }
+
+            drawAxes(ctx, w, h, yMin, yMax);
+
+            if (data.length < 2) return;
+
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+
+            const maxPoints = 300;
+            const startIndex = Math.max(0, data.length - maxPoints);
+            const count = data.length - startIndex;
+            const drawAreaX = 35; // Offset for labels
+            const drawWidth = w - drawAreaX;
+
+            for (let i = 0; i < count; i++) {
+                const idx = startIndex + i;
+                const val = data[idx][key];
+
+                // Map x
+                const px = drawAreaX + (i / maxPoints) * drawWidth;
+                // Map y
+                const py = map(val, yMin, yMax, h, 0);
+
+                if (i===0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+
+            // Current dot
+            const lastIdx = count - 1;
+            const lastVal = data[startIndex + lastIdx][key];
+            const lx = drawAreaX + (lastIdx / maxPoints) * drawWidth;
+            const ly = map(lastVal, yMin, yMax, h, 0);
+
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.arc(lx, ly, 3, 0, Math.PI*2); ctx.fill();
+        }
+
+        function drawPhysics() {
+            const w = physCanvas.width;
+            const h = physCanvas.height;
+            const cy = h / 2;
+            const cx = w / 2;
+            const scale = 60;
+
+            ctxPhys.clearRect(0, 0, w, h);
+
+            // Equilibrium
+            ctxPhys.strokeStyle = '#ddd';
+            ctxPhys.setLineDash([5, 5]);
+            ctxPhys.beginPath(); ctxPhys.moveTo(cx, 0); ctxPhys.lineTo(cx, h); ctxPhys.stroke();
+            ctxPhys.setLineDash([]);
+
+            // Limit visualization range so ball doesn't fly off screen instantly
+            let visX = state.x;
+            if (visX > 5) visX = 5;
+            if (visX < -5) visX = -5;
+
+            const bx = cx + visX * scale;
+
+            // Spring
+            ctxPhys.strokeStyle = '#555';
+            ctxPhys.lineWidth = 2;
+            ctxPhys.beginPath();
+            ctxPhys.moveTo(0, cy);
+            const segs = 20;
+            const step = bx / segs;
+            for(let i=0; i<=segs; i++) {
+                const yOffset = (i%2===0) ? 0 : (i%4===1 ? -10 : 10);
+                if(i===0 || i===segs) ctxPhys.lineTo(i*step, cy);
+                else ctxPhys.lineTo(i*step, cy + yOffset);
+            }
+            ctxPhys.stroke();
+
+            // Ball
+            ctxPhys.fillStyle = '#1976d2';
+            ctxPhys.beginPath();
+            ctxPhys.arc(bx, cy, 15, 0, Math.PI*2);
+            ctxPhys.fill();
+
+            // Vectors
+            // v
+            if(Math.abs(state.v) > 0.01) drawArrow(ctxPhys, bx, cy - 25, state.v * 15, '#2e7d32');
+            // a
+            if(Math.abs(state.a) > 0.01) drawArrow(ctxPhys, bx, cy + 25, state.a * 15, '#ef6c00');
+        }
+
+        function drawArrow(ctx, x, y, len, color) {
+            // Limit visual length
+            if (len > 100) len = 100;
+            if (len < -100) len = -100;
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + len, y);
+            ctx.stroke();
+
+            const angle = len > 0 ? 0 : Math.PI;
+            const head = 8;
+            ctx.beginPath();
+            ctx.moveTo(x + len, y);
+            ctx.lineTo(x + len - head*Math.cos(angle-Math.PI/6), y - head*Math.sin(angle-Math.PI/6));
+            ctx.lineTo(x + len - head*Math.cos(angle+Math.PI/6), y - head*Math.sin(angle+Math.PI/6));
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function map(val, inMin, inMax, outMin, outMax) {
+            return (val - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+        }
+
+        function drawAll() {
+            drawPhysics();
+            drawGraph(ctxX, state.history, 'x', '#1976d2');
+            drawGraph(ctxV, state.history, 'v', '#2e7d32');
+            drawGraph(ctxA, state.history, 'a', '#ef6c00');
+        }
+
+        // --- Loop ---
+        function loop() {
+            if (!state.isRunning) return;
+
+            const speedVal = parseInt(sliderSpeed.value);
+            let steps = 1;
+
+            if (speedVal > 5) {
+                steps = (speedVal - 5) * 2;
+                for(let i=0; i<steps; i++) step();
+            } else {
+                state.frameCount = (state.frameCount || 0) + 1;
+                const skip = (6 - speedVal) * 3;
+                if (state.frameCount % skip === 0) step();
+                else {
+                    state.animId = requestAnimationFrame(loop);
+                    return;
+                }
+            }
+
+            drawAll();
+            state.animId = requestAnimationFrame(loop);
+        }
+
+        // Events
+        selectMethod.addEventListener('change', (e) => {
+            state.method = e.target.value;
+            // Redraw to update math panel label
+            drawAll();
+            // Trigger a dummy math update without stepping to refresh labels
+            if (!state.isRunning && state.history.length === 0) {
+                 // reset state visuals
+                 step(); // Hack to refresh UI labels, but will advance 1 step.
+                 // Better: just reset.
+                 btnReset.click();
+            }
+        });
+
+        btnStep.addEventListener('click', () => {
+            state.isRunning = false;
+            btnRun.innerText = "Run";
+            cancelAnimationFrame(state.animId);
+            step();
+            drawAll();
+        });
+
+        btnRun.addEventListener('click', () => {
+            state.isRunning = !state.isRunning;
+            if (state.isRunning) {
+                btnRun.innerText = "Stop";
+                loop();
+            } else {
+                btnRun.innerText = "Run";
+                cancelAnimationFrame(state.animId);
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            state.isRunning = false;
+            btnRun.innerText = "Run";
+            cancelAnimationFrame(state.animId);
+            state.t = 0;
+            state.x = 1.0;
+            state.v = 0;
+            state.a = 0;
+            state.history = [];
+
+            // Initial Labels
+            m_t.innerText = "0.00";
+            m_x.innerText = "1.00";
+            m_v.innerText = "0.00";
+            m_x_calc.innerText = "...";
+            m_v_calc.innerText = "...";
+            m_rk_x.innerText = "...";
+            m_rk_v.innerText = "...";
+
+            drawAll();
+        });
+
+        sliderDt.addEventListener('input', (e) => {
+            state.dt = parseFloat(e.target.value);
+            lblDt.innerText = state.dt.toFixed(2);
+        });
+
+        sliderK.addEventListener('input', (e) => {
+            state.k = parseFloat(e.target.value);
+            lblK.innerText = state.k.toFixed(1);
+        });
+
+        // Init
+        setTimeout(() => {
+            resizeCanvases();
+            btnReset.click();
+        }, 100);
+
+    })();
+    </script>
+</div>
+
+
+
+</body>
+</html>

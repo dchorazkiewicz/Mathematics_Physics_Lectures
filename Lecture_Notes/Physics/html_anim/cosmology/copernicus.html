@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copernican System Simulator (Heliocentric)</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Segoe UI', sans-serif;
+            display: flex; 
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        /* Views Container (Left side) */
+        #views-container { 
+            flex-grow: 1; 
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .view-panel {
+            width: 100%;
+            height: 50%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #333;
+        }
+        
+        .view-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #ccc;
+            pointer-events: none;
+            z-index: 5;
+            border: 1px solid #444;
+        }
+
+        /* Control Panel (Right side) */
+        #controls {
+            width: 340px;
+            min-width: 340px; 
+            background: #111;
+            padding: 20px;
+            border-left: 1px solid #333;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            height: 100vh;
+            overflow-y: auto; 
+            font-size: 13px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        h1 { font-size: 18px; margin: 0 0 10px 0; border-bottom: 1px solid #555; padding-bottom: 5px; color: #ffd700; }
+        h2 { font-size: 14px; margin: 15px 0 5px 0; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+
+        label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        input[type=range] { flex-grow: 1; margin: 0 10px; cursor: pointer; }
+        span.val { width: 50px; text-align: right; font-family: monospace; color: #00ffcc; }
+        
+        .legend { margin-top: 15px; font-size: 12px; line-height: 1.6; }
+        .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover { background: #555; }
+        
+        .info { font-size: 11px; color: #888; margin-top: 10px; font-style: italic; }
+
+        #controls::-webkit-scrollbar { width: 8px; }
+        #controls::-webkit-scrollbar-track { background: #111; }
+        #controls::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        #controls::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+    <!-- Import Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+<!-- Views Container -->
+<div id="views-container">
+    <div id="view-system" class="view-panel">
+        <div class="view-label">Heliocentric System View (Sun Center)</div>
+    </div>
+    <div id="view-earth" class="view-panel">
+        <div class="view-label">Geocentric View (View from Earth - Celestial Sphere)</div>
+    </div>
+</div>
+
+<!-- Side Panel -->
+<div id="controls">
+    <h1>Copernican System</h1>
+    <div class="info">Real parameters scaled for visualization.</div>
+    
+    <h2>Simulation</h2>
+    <!-- Speed changed to 0-1 range -->
+    <label>Time Speed <input type="range" id="speed" min="0" max="1" step="0.01" value="0.2"> <span class="val" id="val_speed">0.20x</span></label>
+    
+    <h2>Earth Orbit (Blue)</h2>
+    <label>Distance (AU) <input type="range" id="e_a" min="0.5" max="3.0" step="0.1" value="1.0"> <span class="val" id="val_e_a">1.0</span></label>
+    <label>Eccentricity <input type="range" id="e_e" min="0" max="0.5" step="0.001" value="0.017"> <span class="val" id="val_e_e">0.017</span></label>
+    
+    <h2>Mars Orbit (Red)</h2>
+    <label>Distance (AU) <input type="range" id="m_a" min="1.0" max="4.0" step="0.1" value="1.52"> <span class="val" id="val_m_a">1.52</span></label>
+    <label>Eccentricity <input type="range" id="m_e" min="0" max="0.5" step="0.001" value="0.093"> <span class="val" id="val_m_e">0.093</span></label>
+    <!-- Updated Inclination Range -7 to 7 -->
+    <label>Inclination <input type="range" id="m_i" min="-7" max="7" step="0.1" value="1.85"> <span class="val" id="val_m_i">1.85°</span></label>
+    
+    <h2>Visualization</h2>
+    <button id="resetTrail">Clear Sky Trail</button>
+    <button id="toggleVectors">Toggle Vectors</button>
+    <button id="resetCamera">Reset Cameras</button>
+
+    <div class="legend">
+        <div><span class="dot" style="background:#ffff00"></span>Sun</div>
+        <div><span class="dot" style="background:#2244ff"></span>Earth (Observer)</div>
+        <div><span class="dot" style="background:#ff3333"></span>Mars (Target)</div>
+        <div><span class="dot" style="border: 1px solid #00ff00; width:8px; height:8px;"></span>Line of Sight</div>
+    </div>
+    
+    <div class="info" style="margin-top: 20px;">
+        <strong>Observer Note:</strong><br>
+        The bottom view shows Mars projected onto the celestial sphere as seen from Earth. Notice the loop (retrograde motion) happens when Earth "overtakes" Mars on the inside track.
+    </div>
+</div>
+
+<script>
+/**
+ * COPERNICAN SYSTEM SIMULATOR
+ * Heliocentric Model using Keplerian approximations
+ */
+
+// Global Constants
+const AU_SCALE = 50; // 1 AU = 50 units in 3D space
+const TRAIL_LENGTH = 4000;
+
+// --- SCENE SETUP: HELIOCENTRIC (TOP) ---
+const containerSystem = document.getElementById('view-system');
+const sceneSystem = new THREE.Scene();
+
+// Camera moved further back to accommodate larger orbits
+const cameraSystem = new THREE.PerspectiveCamera(45, containerSystem.clientWidth / containerSystem.clientHeight, 1, 10000);
+cameraSystem.position.set(0, 300, 400); 
+
+const rendererSystem = new THREE.WebGLRenderer({ antialias: true });
+rendererSystem.setSize(containerSystem.clientWidth, containerSystem.clientHeight);
+containerSystem.appendChild(rendererSystem.domElement);
+
+const controlsSystem = new THREE.OrbitControls(cameraSystem, rendererSystem.domElement);
+controlsSystem.enableDamping = true;
+
+// --- SCENE SETUP: GEOCENTRIC (BOTTOM) ---
+const containerEarth = document.getElementById('view-earth');
+const sceneEarth = new THREE.Scene();
+sceneEarth.background = new THREE.Color(0x050510);
+
+const cameraEarth = new THREE.PerspectiveCamera(45, containerEarth.clientWidth / containerEarth.clientHeight, 1, 10000);
+// Camera positioned much further away to see the whole celestial sphere (Radius 200)
+cameraEarth.position.set(0, 100, 500); 
+
+const rendererEarth = new THREE.WebGLRenderer({ antialias: true });
+rendererEarth.setSize(containerEarth.clientWidth, containerEarth.clientHeight);
+containerEarth.appendChild(rendererEarth.domElement);
+
+// Use a separate control for the sky view, but pivot around Earth
+const controlsEarth = new THREE.OrbitControls(cameraEarth, rendererEarth.domElement);
+controlsEarth.enableDamping = true;
+controlsEarth.enablePan = false;
+controlsEarth.enableZoom = true;
+
+// --- OBJECTS ---
+
+// 1. Sun (Center)
+const sunGeo = new THREE.SphereGeometry(4, 32, 32);
+const sunMat = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+const sun = new THREE.Mesh(sunGeo, sunMat);
+// Sun glow
+const sunGlowGeo = new THREE.SphereGeometry(4.2, 32, 32);
+const sunGlowMat = new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.3 });
+sceneSystem.add(sun);
+sceneSystem.add(new THREE.Mesh(sunGlowGeo, sunGlowMat));
+
+// Light for 3D effect on planets
+const pointLight = new THREE.PointLight(0xffffff, 1.5, 500);
+sceneSystem.add(pointLight);
+sceneSystem.add(new THREE.AmbientLight(0x333333));
+
+// 2. Earth
+const earthGroup = new THREE.Group(); // Group to handle tilt and spin
+sceneSystem.add(earthGroup);
+
+const earthGeo = new THREE.SphereGeometry(2, 24, 24);
+// Simple wireframe to see rotation
+const earthMat = new THREE.MeshPhongMaterial({ color: 0x2244ff, wireframe: true }); 
+const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+earthGroup.add(earthMesh);
+
+// Earth Axis visualizer
+const axisGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, -3, 0), new THREE.Vector3(0, 3, 0)]);
+const axisLine = new THREE.Line(axisGeo, new THREE.LineBasicMaterial({ color: 0x88ccff }));
+earthGroup.add(axisLine);
+
+// 3. Mars
+const marsGeo = new THREE.SphereGeometry(1.5, 24, 24);
+const marsMat = new THREE.MeshPhongMaterial({ color: 0xff3333 });
+const marsMesh = new THREE.Mesh(marsGeo, marsMat);
+sceneSystem.add(marsMesh);
+
+// 4. Orbits (Paths)
+const earthOrbitLine = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x335599 }));
+sceneSystem.add(earthOrbitLine);
+
+const marsOrbitLine = new THREE.LineLoop(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0x994444 }));
+sceneSystem.add(marsOrbitLine);
+
+// 5. Vectors
+const vecMat = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.6 });
+const vectorLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), vecMat);
+sceneSystem.add(vectorLine);
+
+const sunEarthLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xffff00, opacity: 0.2, transparent: true }));
+sceneSystem.add(sunEarthLine);
+
+const sunMarsLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0xffff00, opacity: 0.2, transparent: true }));
+sceneSystem.add(sunMarsLine);
+
+// --- CELESTIAL SPHERE (Bottom View) ---
+const SKY_RADIUS = 200;
+
+// Stars
+const starsGeo = new THREE.BufferGeometry();
+const starCount = 1000;
+const starPos = [];
+for(let i=0; i<starCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = SKY_RADIUS;
+    starPos.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
+}
+starsGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 1.5 }));
+sceneEarth.add(stars);
+
+// Ecliptic Grid on Sky
+const skyGrid = new THREE.WireframeGeometry(new THREE.SphereGeometry(SKY_RADIUS, 24, 12));
+const skyGridMesh = new THREE.LineSegments(skyGrid, new THREE.LineBasicMaterial({ color: 0x333344, transparent: true, opacity: 0.2 }));
+sceneEarth.add(skyGridMesh);
+
+// Mars Projection on Sky
+const marsSkyDot = new THREE.Mesh(new THREE.SphereGeometry(3, 8, 8), new THREE.MeshBasicMaterial({ color: 0xff3333 }));
+sceneEarth.add(marsSkyDot);
+
+// Trail on Sky
+const skyTrailGeo = new THREE.BufferGeometry();
+const skyTrailPos = new Float32Array(TRAIL_LENGTH * 3);
+skyTrailGeo.setAttribute('position', new THREE.BufferAttribute(skyTrailPos, 3));
+const skyTrail = new THREE.Line(skyTrailGeo, new THREE.LineBasicMaterial({ color: 0xffaa00 }));
+sceneEarth.add(skyTrail);
+
+let trailIdx = 0;
+let trailCount = 0;
+
+// --- PHYSICS & MATH ---
+
+// Real parameters (approximate)
+// T (period) scales with a^1.5 (Kepler's 3rd Law)
+const orbitalParams = {
+    earth: { a: 1.0, e: 0.0167, i: 0.0, omega: 0, period: 1.0 },
+    mars: { a: 1.52, e: 0.0934, i: 1.85, omega: 286, period: 1.88 }, // omega is Longitude of Perihelion approx
+    speed: 0.2, // Default speed
+    time: 0,
+    showVectors: true
+};
+
+// Calculate position using Kepler approximations
+function getKeplerPosition(params, t) {
+    const a = params.a * AU_SCALE;
+    const e = params.e;
+    const i_rad = params.i * Math.PI / 180;
+    const omega_rad = params.omega * Math.PI / 180; // Orientation of orbit
+    
+    // Mean Anomaly (M)
+    // n = 2pi / T
+    const n = (2 * Math.PI) / params.period;
+    const M = n * t;
+    
+    // Eccentric Anomaly (E) - Approx solution E = M + e*sin(M)
+    // For higher e, we'd need Newton-Raphson, but for planets this is fine
+    let E = M + e * Math.sin(M); 
+    
+    // True Anomaly (nu) coordinates in orbital plane
+    // P = a(cos E - e)
+    // Q = a * sqrt(1-e^2) * sin E
+    const P = a * (Math.cos(E) - e);
+    const Q = a * Math.sqrt(1 - e*e) * Math.sin(E);
+    
+    // Rotate by Longitude of Perihelion (omega) in 2D
+    const x_orb = P * Math.cos(omega_rad) - Q * Math.sin(omega_rad);
+    const z_orb = P * Math.sin(omega_rad) + Q * Math.cos(omega_rad);
+    
+    // Apply Inclination (rotate around X axis, assuming Line of Nodes is X axis for simplicity)
+    // y = z_orb * sin(i)
+    // z = z_orb * cos(i)
+    
+    const x = x_orb;
+    const y = z_orb * Math.sin(i_rad);
+    const z = z_orb * Math.cos(i_rad);
+    
+    return new THREE.Vector3(x, y, z);
+}
+
+function updateOrbitPath(lineObj, params) {
+    const points = [];
+    const segments = 128;
+    // Simulate one full period 0 to T
+    for(let j=0; j<=segments; j++) {
+        const simTime = (j/segments) * params.period;
+        points.push(getKeplerPosition(params, simTime));
+    }
+    const positions = new Float32Array(points.length * 3);
+    for(let k=0; k<points.length; k++) {
+        positions[k*3] = points[k].x;
+        positions[k*3+1] = points[k].y;
+        positions[k*3+2] = points[k].z;
+    }
+    lineObj.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+}
+
+// --- MAIN LOOP ---
+
+function update() {
+    // 1. Calculate Time
+    const dt = 0.01 * orbitalParams.speed;
+    orbitalParams.time += dt;
+    const t = orbitalParams.time;
+
+    // 2. Planet Positions
+    const posE = getKeplerPosition(orbitalParams.earth, t);
+    const posM = getKeplerPosition(orbitalParams.mars, t);
+
+    // 3. Update Meshes
+    earthGroup.position.copy(posE);
+    // Earth Spin: 365 rotations per orbit. 
+    // t goes from 0 to 1 in one earth year.
+    // So rotation = t * 365 * 2PI
+    earthMesh.rotation.y = t * 365 * (Math.PI / 10); // Slowed down 10x for visual sanity, otherwise it blurs
+    // Tilt Earth axis (23.5 deg)
+    earthGroup.rotation.z = 23.5 * Math.PI / 180; 
+
+    marsMesh.position.copy(posM);
+
+    // 4. Update Vectors
+    if (orbitalParams.showVectors) {
+        updateLine(sunEarthLine, new THREE.Vector3(0,0,0), posE);
+        updateLine(sunMarsLine, new THREE.Vector3(0,0,0), posM);
+        updateLine(vectorLine, posE, posM);
+    } else {
+        setLineHidden(sunEarthLine);
+        setLineHidden(sunMarsLine);
+        setLineHidden(vectorLine);
+    }
+
+    // 5. Sky View Calculation (Projection)
+    // Vector from Earth to Mars
+    const relativeVec = new THREE.Vector3().subVectors(posM, posE);
+    const distance = relativeVec.length();
+    
+    // Normalize and project to Sky Sphere
+    const skyPos = relativeVec.clone().normalize().multiplyScalar(SKY_RADIUS);
+    marsSkyDot.position.copy(skyPos);
+
+    // Update Trail
+    updateSkyTrail(skyPos);
+
+    // Update Camera for Sky View (Center is Earth)
+    // We want the camera to stay at (0,0,0) in the Sky Scene (which represents the observer)
+    // But conceptually, the "SceneEarth" is centered on the observer.
+    // So we don't move the camera, we move the projection.
+}
+
+function updateLine(line, p1, p2) {
+    const arr = line.geometry.attributes.position.array;
+    arr[0] = p1.x; arr[1] = p1.y; arr[2] = p1.z;
+    arr[3] = p2.x; arr[4] = p2.y; arr[5] = p2.z;
+    line.geometry.attributes.position.needsUpdate = true;
+    line.visible = true;
+}
+
+function setLineHidden(line) {
+    line.visible = false;
+}
+
+function updateSkyTrail(newPos) {
+    const arr = skyTrail.geometry.attributes.position.array;
+    
+    // Shift buffer
+    // Simple shift for visualization
+    if (trailCount < TRAIL_LENGTH) {
+        arr[trailCount*3] = newPos.x;
+        arr[trailCount*3+1] = newPos.y;
+        arr[trailCount*3+2] = newPos.z;
+        trailCount++;
+    } else {
+        for(let i=0; i<(TRAIL_LENGTH-1)*3; i++) {
+            arr[i] = arr[i+3];
+        }
+        arr[(TRAIL_LENGTH-1)*3] = newPos.x;
+        arr[(TRAIL_LENGTH-1)*3+1] = newPos.y;
+        arr[(TRAIL_LENGTH-1)*3+2] = newPos.z;
+    }
+    skyTrail.geometry.setDrawRange(0, trailCount);
+    skyTrail.geometry.attributes.position.needsUpdate = true;
+}
+
+// --- UI HANDLERS ---
+function bindInput(id, obj, key) {
+    const el = document.getElementById(id);
+    const valEl = document.getElementById('val_' + id);
+    el.addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        obj[key] = v;
+        valEl.innerText = v.toFixed(2) + (id.includes('_i') ? '°' : '') + (id === 'speed' ? 'x' : '');
+        
+        // Recalculate orbit paths instantly if needed
+        if (id !== 'speed') {
+            updateOrbitPath(earthOrbitLine, orbitalParams.earth);
+            updateOrbitPath(marsOrbitLine, orbitalParams.mars);
+            trailCount = 0;
+            skyTrail.geometry.setDrawRange(0, 0);
+        }
+    });
+}
+
+bindInput('speed', orbitalParams, 'speed');
+bindInput('e_a', orbitalParams.earth, 'a');
+bindInput('e_e', orbitalParams.earth, 'e');
+bindInput('m_a', orbitalParams.mars, 'a');
+bindInput('m_e', orbitalParams.mars, 'e');
+bindInput('m_i', orbitalParams.mars, 'i');
+
+document.getElementById('resetTrail').addEventListener('click', () => {
+    trailCount = 0;
+    skyTrail.geometry.setDrawRange(0, 0);
+});
+
+document.getElementById('toggleVectors').addEventListener('click', () => {
+    orbitalParams.showVectors = !orbitalParams.showVectors;
+});
+
+document.getElementById('resetCamera').addEventListener('click', () => {
+    cameraSystem.position.set(0, 300, 400); // Updated reset pos
+    cameraSystem.lookAt(0,0,0);
+    cameraEarth.position.set(0, 100, 500); // Updated reset pos
+    cameraEarth.lookAt(0,0,0);
+    controlsEarth.target.set(0,0,0);
+    controlsSystem.update();
+    controlsEarth.update();
+});
+
+// Resize
+window.addEventListener('resize', () => {
+    const w = containerSystem.clientWidth;
+    const h = containerSystem.clientHeight;
+    cameraSystem.aspect = w / h;
+    cameraSystem.updateProjectionMatrix();
+    rendererSystem.setSize(w, h);
+    cameraEarth.aspect = w / h;
+    cameraEarth.updateProjectionMatrix();
+    rendererEarth.setSize(w, h);
+});
+
+// Initial Path Draw
+updateOrbitPath(earthOrbitLine, orbitalParams.earth);
+updateOrbitPath(marsOrbitLine, orbitalParams.mars);
+
+// Ensure cameras look at center
+cameraSystem.lookAt(0,0,0);
+cameraEarth.lookAt(0,0,0);
+
+function animate() {
+    requestAnimationFrame(animate);
+    update();
+    rendererSystem.render(sceneSystem, cameraSystem);
+    rendererEarth.render(sceneEarth, cameraEarth);
+    controlsSystem.update();
+    controlsEarth.update();
+}
+
+animate();
+
+</script>
+</body>
+</html>

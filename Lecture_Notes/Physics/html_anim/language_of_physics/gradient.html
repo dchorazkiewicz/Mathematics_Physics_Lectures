@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Descent Explorer 1D</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Namespace .gd-1d-sim */
+        .gd-1d-sim {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0 auto;
+            background-color: #fcfcfc;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            color: #333;
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .gd-1d-sim header {
+            background-color: #fff;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .gd-1d-sim h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .gd-1d-sim .main-content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .gd-1d-sim canvas {
+            display: block;
+            background: #ffffff;
+            cursor: crosshair;
+            width: 100%;
+            height: 400px; /* Fixed height for canvas logic */
+        }
+
+        /* CONTROLS & MATH CONTAINER */
+        .gd-1d-sim .controls {
+            padding: 20px;
+            background: #f1f3f4;
+            border-top: 1px solid #ddd;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* NEW MATH PANEL STYLE (Embedded in controls) */
+        .gd-1d-sim .math-panel {
+            width: 100%; /* Take full width of the controls container */
+            background: #fff;
+            border: 1px solid #ccc;
+            border-left: 4px solid #d32f2f;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            display: none; /* Hidden by default */
+        }
+
+        .gd-1d-sim .math-row {
+            margin-bottom: 8px;
+        }
+        .gd-1d-sim .math-title {
+            font-family: sans-serif;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+        }
+
+        .gd-1d-sim .val-x { color: #1976d2; font-weight: bold; }
+        .gd-1d-sim .val-slope { color: #d32f2f; font-weight: bold; }
+        .gd-1d-sim .val-lr { color: #2e7d32; font-weight: bold; }
+        .gd-1d-sim .val-new { color: #333; font-weight: bold; background: #eee; padding: 0 4px; }
+
+        /* INPUTS & BUTTONS */
+        .gd-1d-sim .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .gd-1d-sim label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .gd-1d-sim input[type=range] {
+            cursor: pointer;
+            width: 150px;
+        }
+
+        .gd-1d-sim button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .gd-1d-sim .btn-step {
+            background-color: #f57c00;
+            color: white;
+            min-width: 120px;
+        }
+        .gd-1d-sim .btn-step:hover { background-color: #ef6c00; }
+        .gd-1d-sim .btn-step:active { transform: translateY(1px); }
+
+        .gd-1d-sim .btn-run {
+            background-color: #2e7d32;
+            color: white;
+            min-width: 100px;
+        }
+        .gd-1d-sim .btn-run:hover { background-color: #1b5e20; }
+
+        .gd-1d-sim .btn-reset {
+            background-color: #607d8b;
+            color: white;
+        }
+        .gd-1d-sim .btn-reset:hover { background-color: #455a64; }
+
+        .gd-1d-sim .instructions {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="gd-1d-sim">
+    <header>
+        <h3>Gradient Descent: Finding the Minimum</h3>
+    </header>
+
+    <div class="main-content">
+        <canvas id="gdCanvas" width="900" height="400"></canvas>
+    </div>
+
+    <div class="controls">
+        <!-- MATH PANEL MOVED HERE -->
+        <div class="math-panel" id="mathBox">
+            <span class="math-title">Current Calculation</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                <div class="math-row">
+                    Slope (f'(x)) = <span id="disp-slope" class="val-slope">0.00</span>
+                </div>
+                <div class="math-row">
+                    x<sub>new</sub> = <span id="disp-x-old" class="val-x">0.00</span> - (<span id="disp-lr" class="val-lr">0.1</span> &middot; <span class="val-slope">Slope</span>)
+                </div>
+                <div class="math-row">
+                    &rarr; x<sub>new</sub> = <span id="disp-x-new" class="val-new">0.00</span>
+                </div>
+            </div>
+            <div style="font-size: 0.8em; color: #777; margin-top:5px;">
+                <em>Ball rolls opposite to the slope (Gradient Descent Step).</em>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Learning Rate (Step Size)</label>
+            <input type="range" id="lrSlider" min="0.01" max="1.0" step="0.01" value="0.2">
+            <span style="font-size: 0.8rem; color:#555; text-align: center;" id="lrVal">0.20</span>
+        </div>
+
+        <button class="btn-step" id="btnStep">Take 1 Step</button>
+        <button class="btn-run" id="btnRun">Auto Run</button>
+        <button class="btn-reset" id="btnReset">Clear</button>
+
+        <div class="instructions">
+            <strong>Click anywhere on the curve</strong> to place the ball, then use controls to descend.
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const canvas = document.getElementById('gdCanvas');
+        const ctx = canvas.getContext('2d');
+        const mathBox = document.getElementById('mathBox');
+
+        // Displays
+        const dispSlope = document.getElementById('disp-slope');
+        const dispXOld = document.getElementById('disp-x-old');
+        const dispLr = document.getElementById('disp-lr');
+        const dispXNew = document.getElementById('disp-x-new');
+        const lrSlider = document.getElementById('lrSlider');
+        const lrVal = document.getElementById('lrVal');
+
+        // Buttons
+        const btnStep = document.getElementById('btnStep');
+        const btnRun = document.getElementById('btnRun');
+        const btnReset = document.getElementById('btnReset');
+
+        // Simulation State
+        const LOGIC_X_MIN = -4;
+        const LOGIC_X_MAX = 4;
+        // Y range determined dynamically or fixed
+        const LOGIC_Y_MIN = -2;
+        const LOGIC_Y_MAX = 6;
+
+        let ball = {
+            x: null, // Logic X
+            exists: false,
+            path: [] // History of points
+        };
+
+        let isRunning = false;
+        let animationFrame = null;
+
+        // --- THE FUNCTION ---
+        // f(x) = 0.3*x^2 + cos(3*x) + 0.5*x
+        function f(x) {
+            return 0.3 * x * x - Math.cos(2 * x) + 0.5 * Math.sin(x) + 1.5;
+        }
+
+        // Derivative f'(x)
+        function df(x) {
+            return 0.6 * x + 2 * Math.sin(2 * x) + 0.5 * Math.cos(x);
+        }
+
+        // --- Coordinates ---
+        function toScreen(lx, ly) {
+            const w = canvas.width;
+            const h = canvas.height;
+            const padding = 40;
+
+            const sx = padding + ((lx - LOGIC_X_MIN) / (LOGIC_X_MAX - LOGIC_X_MIN)) * (w - 2*padding);
+            const sy = h - padding - ((ly - LOGIC_Y_MIN) / (LOGIC_Y_MAX - LOGIC_Y_MIN)) * (h - 2*padding);
+            return { x: sx, y: sy };
+        }
+
+        function toLogic(sx, sy) {
+            const w = canvas.width;
+            const h = canvas.height;
+            const padding = 40;
+
+            const lx = LOGIC_X_MIN + ((sx - padding) / (w - 2*padding)) * (LOGIC_X_MAX - LOGIC_X_MIN);
+            return lx;
+        }
+
+        // --- Drawing ---
+        function drawCurve() {
+            ctx.beginPath();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+
+            let first = true;
+            const step = (LOGIC_X_MAX - LOGIC_X_MIN) / 400;
+
+            for(let x = LOGIC_X_MIN; x <= LOGIC_X_MAX; x += step) {
+                const y = f(x);
+                const p = toScreen(x, y);
+                if (first) { ctx.moveTo(p.x, p.y); first = false; }
+                else { ctx.lineTo(p.x, p.y); }
+            }
+            ctx.stroke();
+        }
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const origin = toScreen(0, 0);
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#eee';
+            ctx.lineWidth = 1;
+
+            // Y Axis
+            ctx.moveTo(origin.x, 0);
+            ctx.lineTo(origin.x, canvas.height);
+
+            // X Axis
+            const y0 = toScreen(0, 0).y;
+            ctx.moveTo(0, y0);
+            ctx.lineTo(canvas.width, y0);
+            ctx.stroke();
+        }
+
+        function drawBall() {
+            if (!ball.exists) return;
+
+            const y = f(ball.x);
+            const p = toScreen(ball.x, y);
+            const slope = df(ball.x);
+
+            // 1. Draw Tangent Line (Red)
+            const tanLen = 0.8;
+            const x1 = ball.x - tanLen;
+            const y1 = slope * (x1 - ball.x) + y;
+            const x2 = ball.x + tanLen;
+            const y2 = slope * (x2 - ball.x) + y;
+
+            const p1 = toScreen(x1, y1);
+            const p2 = toScreen(x2, y2);
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#d32f2f';
+            ctx.lineWidth = 2;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+
+            // 2. Draw Movement Vector (Green Arrow)
+            const lr = parseFloat(lrSlider.value);
+            const stepX = -lr * slope;
+            const visScale = 1.0;
+            const vecEnd = toScreen(ball.x + stepX * visScale, y);
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#2e7d32';
+            ctx.lineWidth = 4;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(vecEnd.x, vecEnd.y);
+            ctx.stroke();
+
+            // Arrowhead
+            const angle = stepX > 0 ? 0 : Math.PI;
+            ctx.beginPath();
+            ctx.fillStyle = '#2e7d32';
+            ctx.moveTo(vecEnd.x, vecEnd.y);
+            if (stepX > 0) {
+                ctx.lineTo(vecEnd.x - 8, vecEnd.y - 5);
+                ctx.lineTo(vecEnd.x - 8, vecEnd.y + 5);
+            } else {
+                ctx.lineTo(vecEnd.x + 8, vecEnd.y - 5);
+                ctx.lineTo(vecEnd.x + 8, vecEnd.y + 5);
+            }
+            ctx.fill();
+
+
+            // 3. Draw Path (Ghost trails)
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            for(let pt of ball.path) {
+                const pp = toScreen(pt.x, f(pt.x));
+                ctx.beginPath();
+                ctx.arc(pp.x, pp.y, 3, 0, Math.PI*2);
+                ctx.fill();
+            }
+
+            // 4. Draw Ball
+            ctx.beginPath();
+            ctx.fillStyle = '#d32f2f';
+            ctx.arc(p.x, p.y, 8, 0, Math.PI*2);
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Update Math Panel
+            updateMath(ball.x, slope, stepX);
+        }
+
+        function updateMath(x, slope, step) {
+            mathBox.style.display = 'block';
+            dispXOld.innerText = x.toFixed(3);
+            dispSlope.innerText = slope.toFixed(3);
+            dispLr.innerText = parseFloat(lrSlider.value).toFixed(2);
+
+            // x_new = x + step
+            const xNew = x + step;
+            dispXNew.innerText = xNew.toFixed(3);
+        }
+
+        function render() {
+            drawGrid();
+            drawCurve();
+            drawBall();
+        }
+
+        // --- Algorithms ---
+
+        function calculateStep() {
+            if (!ball.exists) return;
+
+            const lr = parseFloat(lrSlider.value);
+            const slope = df(ball.x);
+
+            ball.path.push({x: ball.x});
+
+            const step = -lr * slope;
+            ball.x += step;
+
+            // Boundary checks
+            if (ball.x < LOGIC_X_MIN) ball.x = LOGIC_X_MIN;
+            if (ball.x > LOGIC_X_MAX) ball.x = LOGIC_X_MAX;
+
+            render();
+
+            // Check convergence
+            if (Math.abs(slope) < 0.001) {
+                return false;
+            }
+            return true;
+        }
+
+        function runAnimation() {
+            if (!isRunning) return;
+            const keepGoing = calculateStep();
+
+            if (keepGoing) {
+                animationFrame = requestAnimationFrame(() => {
+                    setTimeout(runAnimation, 100);
+                });
+            } else {
+                isRunning = false;
+                btnRun.innerText = "Auto Run";
+            }
+        }
+
+        // --- Interaction ---
+
+        canvas.addEventListener('mousedown', (e) => {
+            isRunning = false;
+            cancelAnimationFrame(animationFrame);
+            btnRun.innerText = "Auto Run";
+
+            const rect = canvas.getBoundingClientRect();
+            const lx = toLogic(e.clientX - rect.left, e.clientY - rect.top);
+
+            ball.x = lx;
+            ball.exists = true;
+            ball.path = [];
+
+            render();
+        });
+
+        btnStep.addEventListener('click', () => {
+            if (!ball.exists) {
+                alert("Click on the graph first to place the ball!");
+                return;
+            }
+            isRunning = false;
+            calculateStep();
+        });
+
+        btnRun.addEventListener('click', () => {
+            if (!ball.exists) {
+                alert("Click on the graph first to place the ball!");
+                return;
+            }
+
+            if (isRunning) {
+                isRunning = false;
+                cancelAnimationFrame(animationFrame);
+                btnRun.innerText = "Auto Run";
+            } else {
+                isRunning = true;
+                btnRun.innerText = "Stop";
+                runAnimation();
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            ball.exists = false;
+            ball.path = [];
+            mathBox.style.display = 'none';
+            isRunning = false;
+            btnRun.innerText = "Auto Run";
+            render();
+        });
+
+        lrSlider.addEventListener('input', () => {
+            lrVal.innerText = parseFloat(lrSlider.value).toFixed(2);
+            if (ball.exists) render();
+        });
+
+        // Init
+        render();
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>
