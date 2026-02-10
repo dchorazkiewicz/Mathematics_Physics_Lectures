@@ -3,6 +3,9 @@ title: Cosmology and Astrophysics
 format:
   html:
     theme: flatly
+    grid:
+      body-width: 1000px      # Domyślnie jest to ok. 800-900px
+      margin-width: 250px  
     toc: true
     toc-depth: 3
     highlight-style: tango
@@ -21,101 +24,154 @@ format:
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
 
-## Introduction
 
-[cite_start]Cosmology is the scientific study of the origin, evolution, and eventual fate of the Universe[cite: 617]. Unlike astronomy, which often focuses on individual celestial objects, cosmology looks at the Universe as a whole entity.
+<iframe src="html_anim/cosmology/kepler.html" width="100%" height="500px"></iframe>
 
-It asks the biggest questions:
-- How did it begin?
-- What is it made of?
-- How will it end?
+[html_anim/cosmology/kepler.html](html_anim/cosmology/kepler.html)
 
-## Milestones in Astronomy and Cosmology
+## Mathematical Model of the Ptolemaic System
 
-[cite_start]Our understanding of the Universe has evolved drastically over millennia, moving from Earth-centered views to the realization of a dynamic, expanding cosmos[cite: 923].
+This description defines the geocentric system using vector algebra and analytic geometry. It is designed to be directly translatable into code (e.g., JavaScript/GLSL) for a 3D simulation.
 
-### 1. Ancient and Geocentric Models
-* **Mesopotamian Astronomy (circa 1800 BCE):** The earliest records of astronomical predictions.
-* **Ptolemy (2nd century CE):** In his work "Almagest", he presented the **Geocentric Model**, where Earth is stationary at the center of the Universe. [cite_start]This view dominated for over a millennium[cite: 924].
+The model calculates the position of a planet $P$ relative to the Earth $E$ at the origin $(0,0,0)$.
 
-### 2. The Heliocentric Revolution
-* **Nicolaus Copernicus (1473-1543):** Proposed the **Heliocentric Model**, placing the Sun at the center. [cite_start]This simplified the description of planetary motion (retrograde motion)[cite: 925].
-* [cite_start]**Galileo Galilei (1564-1642):** Using the telescope, he discovered Jupiter's moons, proving that not everything orbits the Earth[cite: 926].
+### 1. System Parameters
 
-### 3. The Laws of Motion
-* **Johannes Kepler (1571-1630):** Formulated three laws of planetary motion. Crucially, he showed that orbits are ellipses, not circles. His third law relates the orbital period $T$ to the distance from the Sun $R$:
-    [cite_start]$$T^2 \propto R^3$$ [cite: 927]
-* **Isaac Newton (1643-1727):** Developed the theory of Universal Gravitation. He provided the physical mechanism explaining *why* planets follow Kepler's laws:
-    [cite_start]$$F = G \frac{m_1 m_2}{r^2}$$ [cite: 928]
+For each planet, the following scalar constants must be defined:
 
-### 4. Modern Cosmology
-* **Albert Einstein (1915):** Formulated **General Relativity**. Gravity is not a force, but the curvature of spacetime caused by mass and energy. [cite_start]This is the mathematical framework for the entire Universe[cite: 929].
+* $R$: Radius of the deferent (the major orbital circle).
+* $r$: Radius of the epicycle (the minor orbital circle).
+* $e$: Eccentricity (distance from Earth to the Deferent Center).
+* $\lambda_0$: Mean longitude at epoch (starting angle on the deferent).
+* $\beta_0$: Mean anomaly at epoch (starting angle on the epicycle).
+* $\Omega$: Longitude of the ascending node.
+* $i$: Inclination of the deferent plane relative to the ecliptic.
+* $n_d$: Mean angular velocity of the epicycle center (deferent motion).
+* $n_e$: Mean angular velocity of the planet (epicycle motion).
 
-## The Expanding Universe
+### 2. Coordinate System and Key Points
 
-### Hubble's Discovery
-In 1929, Edwin Hubble observed distant galaxies and noticed a pattern called **Redshift**. [cite_start]The light from these galaxies was shifted toward the red end of the spectrum, indicating they are moving away from us (Doppler effect)[cite: 930].
+We assume a right-handed Cartesian coordinate system where the Earth is stationary at the origin.
 
-He discovered a linear relationship: **The farther a galaxy is, the faster it recedes.**
+* **Earth ($E$):** $(0, 0, 0)$
+* **Deferent Center ($C$):** $(e, 0, 0)$
+* **Equant Point ($Q$):** $(2e, 0, 0)$
 
-### Hubble's Law
-This relationship is described by the equation:
+Note: The centers are aligned along the $X$ axis (the line of apsides) for the initial calculation. We will rotate the entire system later to match the longitude of the apogee.
+
+### 3. Calculating the Epicycle Center ($K$)
+
+The center of the epicycle, point $K$, moves along the deferent (a circle of radius $R$ centered at $C$). However, its angular motion is uniform relative to the **Equant** ($Q$), not the geometric center ($C$).
+
+At time $t$, the mean anomaly angle $M$ is:
 
 $$
-v = H_0 \cdot d
+M(t) = \lambda_0 + n_d \cdot t
 $$
 
-Where:
-* $v$ is the recession velocity (typically in km/s).
-* $d$ is the distance to the galaxy (in Megaparsecs, Mpc).
-* $H_0$ is the **Hubble Constant**. [cite_start]Current measurements estimate it around $H_0 \approx 70$ km/s/Mpc[cite: 931].
+To find the coordinates of $K$, we must find the intersection of a ray originating from $Q$ at angle $M(t)$ with the circle centered at $C$.
 
-**Implication:** If galaxies are moving apart, the Universe is expanding. If we reverse time, they must have originated from a single point. This leads directly to the concept of the Big Bang.
+Vector equation for the ray from the Equant:
 
-## The Big Bang Theory
+$$
+\vec{Q} = [2e, 0, 0]
+$$
 
-[cite_start]The Big Bang theory posits that the Universe began as an infinitely hot and dense singularity approximately 13.8 billion years ago[cite: 934].
+$$
+\vec{v}_{dir} = [\cos(M), \sin(M), 0]
+$$
 
-### Timeline of the Early Universe
+We need to find the distance $\rho$ from the Equant to the Deferent such that the point $K = Q + \rho \cdot \vec{v}_{dir}$ lies on the circle defined by $|K - C|^2 = R^2$.
 
-1.  **Planck Epoch ($t < 10^{-43}$ s):** The laws of physics as we know them do not apply. Gravity is unified with other forces.
-2.  **Inflation Era ($t \approx 10^{-35}$ s):** The Universe underwent a period of exponential expansion, growing faster than light. This explains why the Universe looks uniform in all directions.
-3.  **Nucleosynthesis ($t \approx 3$ minutes):** The Universe cooled enough for protons and neutrons to fuse. The first atomic nuclei (Hydrogen, Helium, and traces of Lithium) were formed.
-4.  **Recombination ($t \approx 380,000$ years):** Electrons bound to nuclei to form neutral atoms. [cite_start]The Universe became transparent, allowing light to travel freely for the first time[cite: 935].
+Substituting the coordinates results in a quadratic equation for $\rho$:
 
-### Cosmic Microwave Background (CMB)
-This "first light" from the Recombination era is still visible today. It has been redshifted by the expansion of the Universe into the microwave spectrum.
-Discovered by **Arno Penzias and Robert Wilson** in 1965, the CMB is the strongest evidence for the Big Bang. [cite_start]It is a nearly uniform radiation with a temperature of $2.7$ K filling the entire sky[cite: 932].
+$$
+\rho^2 + (2e \cos M) \rho + (3e^2 - R^2) = 0
+$$
 
-## Composition of the Universe
+Solving for $\rho$ (taking the positive root):
 
-[cite_start]Observations of the rotation speeds of galaxies and the rate of cosmic expansion have revealed that "normal" matter makes up only a fraction of the cosmos[cite: 933].
+$$
+\rho = \frac{-(2e \cos M) + \sqrt{(2e \cos M)^2 - 4(1)(3e^2 - R^2)}}{2}
+$$
 
-1.  **Normal Matter (~5%):** Everything we can see: atoms, stars, planets, gas, and us.
-2.  **Dark Matter (~27%):** Invisible mass that does not interact with light (does not emit or reflect it). We know it exists because of its gravitational pull on galaxies. Without it, galaxies would fly apart.
-3.  **Dark Energy (~68%):** A mysterious form of energy that permeates all of space and exerts a "negative pressure," causing the expansion of the Universe to **accelerate**.
+Once $\rho$ is known, the position of the epicycle center $K$ in the orbital plane is:
 
-## Astrophysics: Life Cycle of Stars
+$$
+x_k = 2e + \rho \cos M
+$$
 
-Stars are the engines of the Universe, forging heavy elements necessary for life. [cite_start]A star's life is a constant battle between **Gravity** (pulling inward) and **Nuclear Pressure** (pushing outward)[cite: 940].
+$$
+y_k = \rho \sin M
+$$
 
-### Star Formation
-Stars form from the gravitational collapse of giant molecular clouds (nebulae). As the cloud collapses, it heats up until nuclear fusion ignites in the core.
+$$
+z_k = 0
+$$
 
-### The Fate of our Sun (Low to Medium Mass Stars)
-The Sun is currently fusing Hydrogen into Helium.
-1.  **Red Giant:** In about 5 billion years, hydrogen will run out. The core will contract, and the outer layers will expand and cool.
-2.  **Planetary Nebula:** The outer layers will be ejected into space, creating colorful shells of gas.
-3.  [cite_start]**White Dwarf:** The core remains as a small, dense object (about the size of Earth), slowly cooling over trillions of years[cite: 941].
+### 4. Calculating the Planet Position on the Epicycle ($P$)
 
-### The Fate of Massive Stars
-Stars with mass $> 8 \times M_{Sun}$ burn fuel much faster and have a violent end.
-1.  **Supernova:** When iron accumulates in the core, fusion stops. Gravity instantly collapses the core, resulting in a colossal explosion.
-2.  **Neutron Star:** If the remaining core is between 1.4 and 3 solar masses, it becomes a neutron star—a city-sized object with immense density.
-3.  **Black Hole:** If the core is heavier than ~3 solar masses, gravity overcomes all forces. [cite_start]The core collapses into a singularity, a point of infinite density from which not even light can escape[cite: 942].
+The planet moves uniformly on the epicycle relative to the line connecting the Equant to the epicycle center (in some versions) or relative to the deferent center. For a standard analytic implementation, we define the local epicyclic angle $\gamma$.
 
-## References
+$$
+\gamma(t) = \beta_0 + n_e \cdot t
+$$
 
-* [Hubble Extreme Deep Field](https://en.wikipedia.org/wiki/Hubble_Extreme_Deep_Field)
-* [Timeline of the early universe](https://en.wikipedia.org/wiki/Timeline_of_the_early_universe)
-* [NASA Universe Overview](https://science.nasa.gov/universe/overview/)
+The local position of the planet relative to the center $K$ is:
+
+$$
+\vec{p}_{local} = [r \cos \gamma, r \sin \gamma, 0]
+$$
+
+The combined position in the 2D orbital plane (before inclination) is:
+
+$$
+P_{orb} = [x_k, y_k, 0] + \vec{p}_{local}
+$$
+
+So:
+
+$$
+x_{orb} = 2e + \rho \cos M + r \cos \gamma
+$$
+
+$$
+y_{orb} = \rho \sin M + r \sin \gamma
+$$
+
+### 5. 3D Transformations (Inclination and Node)
+
+To place the planet in 3D space relative to the ecliptic, we apply rotation matrices.
+
+1.  **Inclination ($i$):** Rotate around the $X$ axis (assuming the line of nodes is initially the X-axis).
+2.  **Longitude of Ascending Node ($\Omega$):** Rotate around the $Z$ axis to orient the orbit in the sky.
+
+**Step A: Apply Inclination**
+
+$$
+x' = x_{orb}
+$$
+
+$$
+y' = y_{orb} \cos i
+$$
+
+$$
+z' = y_{orb} \sin i
+$$
+
+**Step B: Apply Longitude of Ascending Node**
+
+$$
+X = x' \cos \Omega - y' \sin \Omega
+$$
+
+$$
+Y = x' \sin \Omega + y' \cos \Omega
+$$
+
+$$
+Z = z'
+$$
+
+The vector $\vec{P}_{final} = [X, Y, Z]$ represents the final coordinates of the planet in the 3D simulation space.
