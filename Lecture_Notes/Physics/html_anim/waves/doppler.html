@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doppler Effect Simulation</title>
+    <style>
+        .doppler-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .doppler-app * {
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.6rem;
+        }
+
+        .canvas-container {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #dopplerCanvas {
+            background-color: #ffffff;
+            cursor: default;
+            width: 100%;
+            height: 400px;
+            display: block;
+        }
+
+        /* Overlay info like current Mach number */
+        .info-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .controls-panel {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .slider-row label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .buttons-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .preset-btn {
+            padding: 8px 16px;
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            color: #495057;
+        }
+
+        .preset-btn:hover {
+            background: #dee2e6;
+            border-color: #adb5bd;
+        }
+
+        .control-btn {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            min-width: 100px;
+        }
+
+        .btn-play { background-color: #28a745; }
+        .btn-play:hover { background-color: #218838; }
+
+        .btn-pause { background-color: #dc3545; }
+        .btn-pause:hover { background-color: #c82333; }
+
+        .btn-reset { background-color: #6c757d; }
+        .btn-reset:hover { background-color: #5a6268; }
+
+    </style>
+</head>
+<body>
+
+<div class="doppler-app">
+    <div class="app-header">
+        <h2>Doppler Effect Simulation</h2>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="dopplerCanvas"></canvas>
+        <div class="info-overlay" id="status-display">Mach: 0.00</div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="slider-row">
+            <label>
+                Source Velocity (Mach Number)
+                <span id="val-mach" style="color: #007bff;">0.00</span>
+            </label>
+            <input type="range" id="slider-mach" min="0" max="2.5" step="0.1" value="0">
+        </div>
+
+        <div class="buttons-row">
+            <button class="preset-btn" onclick="setMach(0)">Stationary (v=0)</button>
+            <button class="preset-btn" onclick="setMach(0.5)">Subsonic (v=0.5c)</button>
+            <button class="preset-btn" onclick="setMach(1.0)">Sonic Boom (v=1.0c)</button>
+            <button class="preset-btn" onclick="setMach(1.5)">Supersonic (v=1.5c)</button>
+            <button class="preset-btn" onclick="setMach(2.0)">Mach 2.0</button>
+        </div>
+
+        <div class="buttons-row" style="border: none; padding-top: 5px;">
+            <button id="btn-play" class="control-btn btn-pause">Pause</button>
+            <button id="btn-reset" class="control-btn btn-reset">Reset</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('dopplerCanvas');
+        const ctx = canvas.getContext('2d');
+        const statusDisplay = document.getElementById('status-display');
+
+        // Controls
+        const sliderMach = document.getElementById('slider-mach');
+        const valMach = document.getElementById('val-mach');
+        const btnPlay = document.getElementById('btn-play');
+        const btnReset = document.getElementById('btn-reset');
+
+        // Physics Constants
+        const WAVE_SPEED = 2.0; // Pixels per frame
+        const EMISSION_INTERVAL = 15; // Frames between wave emissions
+
+        // State
+        let width, height;
+        let isRunning = true;
+        let frameCount = 0;
+
+        // Simulation State
+        let machNumber = 0.0;
+        let sourceX = 0;
+        let sourceY = 0;
+
+        // Array of wave objects: { x: number, y: number, r: number, opacity: number }
+        let waves = [];
+
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            // High DPI support
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            // Logical size
+            width = rect.width;
+            height = rect.height;
+
+            // Reset position to center if stationary, or left if moving
+            resetSim();
+        }
+
+        function resetSim() {
+            waves = [];
+            sourceY = height / 2;
+
+            // Initial position depends on speed strategy.
+            // For this sim, we will start center-left to allow movement to the right.
+            if (machNumber === 0) {
+                sourceX = width / 2;
+            } else {
+                sourceX = width * 0.2;
+            }
+        }
+
+        function update() {
+            if (!isRunning) return;
+
+            // Update Waves (Expansion)
+            for (let i = waves.length - 1; i >= 0; i--) {
+                waves[i].r += WAVE_SPEED;
+                waves[i].opacity -= 0.002; // Slow fade
+                if (waves[i].opacity <= 0 || waves[i].r > width * 1.5) {
+                    waves.splice(i, 1);
+                }
+            }
+
+            // Emit new wave
+            if (frameCount % EMISSION_INTERVAL === 0) {
+                waves.push({
+                    x: sourceX,
+                    y: sourceY,
+                    r: 0,
+                    opacity: 1.0
+                });
+            }
+
+            // Move Source
+            const sourceSpeed = machNumber * WAVE_SPEED;
+            sourceX += sourceSpeed;
+
+            // Loop / Auto-reset logic
+            // If source goes too far off screen, reset to start to create a loop effect
+            if (sourceX > width + 100) {
+                 // Soft reset: Move source back, clear waves that are too far gone?
+                 // Or hard reset. Hard reset is cleaner for loop visualization.
+                 resetSim();
+            }
+
+            frameCount++;
+        }
+
+        function draw() {
+            // Clear
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Grid (Optional, faint)
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for(let x=0; x<width; x+=50) { ctx.moveTo(x,0); ctx.lineTo(x,height); }
+            for(let y=0; y<height; y+=50) { ctx.moveTo(0,y); ctx.lineTo(width,y); }
+            ctx.stroke();
+
+            // Draw Waves
+            ctx.lineWidth = 2;
+
+            for (const wave of waves) {
+                ctx.beginPath();
+                ctx.arc(wave.x, wave.y, wave.r, 0, Math.PI * 2);
+                // Color logic: blue-ish
+                ctx.strokeStyle = `rgba(0, 123, 255, ${wave.opacity})`;
+                ctx.stroke();
+            }
+
+            // Draw Source
+            ctx.beginPath();
+            ctx.arc(sourceX, sourceY, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#dc3545'; // Red
+            ctx.fill();
+
+            // Draw Velocity Vector (Visual aid)
+            if (machNumber > 0) {
+                ctx.beginPath();
+                ctx.moveTo(sourceX, sourceY);
+                ctx.lineTo(sourceX + 30, sourceY);
+                ctx.strokeStyle = '#dc3545';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                // Arrowhead
+                ctx.beginPath();
+                ctx.moveTo(sourceX + 30, sourceY);
+                ctx.lineTo(sourceX + 25, sourceY - 3);
+                ctx.lineTo(sourceX + 25, sourceY + 3);
+                ctx.fill();
+            }
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        // --- Interaction ---
+
+        window.setMach = function(val) {
+            sliderMach.value = val;
+            updateParams();
+            // Force reset on major mode change to make it clean
+            resetSim();
+        };
+
+        function updateParams() {
+            machNumber = parseFloat(sliderMach.value);
+            valMach.textContent = machNumber.toFixed(2);
+            statusDisplay.textContent = `Mach: ${machNumber.toFixed(2)}`;
+
+            // Dynamic labels based on physics
+            if (machNumber === 0) statusDisplay.textContent += " (Stationary)";
+            else if (machNumber < 1) statusDisplay.textContent += " (Subsonic)";
+            else if (Math.abs(machNumber - 1.0) < 0.05) statusDisplay.textContent += " (Sonic Boom)";
+            else statusDisplay.textContent += " (Supersonic)";
+        }
+
+        sliderMach.addEventListener('input', updateParams);
+
+        btnPlay.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                btnPlay.textContent = "Pause";
+                btnPlay.classList.remove('btn-play');
+                btnPlay.classList.add('btn-pause');
+            } else {
+                btnPlay.textContent = "Resume";
+                btnPlay.classList.remove('btn-pause');
+                btnPlay.classList.add('btn-play');
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            resetSim();
+            if (!isRunning) {
+                draw();
+            }
+        });
+
+        window.addEventListener('resize', resize);
+
+        // Init
+        resize();
+        loop();
+
+    })();
+</script>
+
+</body>
+</html>
