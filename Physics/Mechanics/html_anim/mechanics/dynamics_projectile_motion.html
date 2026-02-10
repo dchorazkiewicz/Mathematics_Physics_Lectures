@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<div class="projectile-motion-widget">
+    <style>
+        .projectile-motion-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .projectile-motion-widget h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Canvas */
+        .projectile-motion-widget .canvas-container {
+            position: relative;
+            background: #fdfdfd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 400px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .projectile-motion-widget canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Info Overlay */
+        .projectile-motion-widget .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        .projectile-motion-widget .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 4px;
+        }
+        .projectile-motion-widget .info-label { font-weight: bold; color: #555; }
+        .projectile-motion-widget .info-val { color: #1565c0; font-weight: bold; }
+
+        /* Controls */
+        .projectile-motion-widget .controls-panel {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .projectile-motion-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 140px;
+        }
+
+        .projectile-motion-widget label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .projectile-motion-widget input[type=range] {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .projectile-motion-widget button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+            min-width: 100px;
+        }
+
+        .projectile-motion-widget .btn-fire { background-color: #d32f2f; }
+        .projectile-motion-widget .btn-fire:hover { background-color: #b71c1c; transform: scale(1.05); }
+
+        .projectile-motion-widget .btn-reset { background-color: #607d8b; }
+        .projectile-motion-widget .btn-reset:hover { background-color: #455a64; transform: scale(1.05); }
+
+        .projectile-motion-widget .value-span {
+            color: #1976d2;
+        }
+
+        /* Legend for vectors */
+        .projectile-motion-widget .vector-legend {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: #444;
+            display: flex;
+            gap: 15px;
+        }
+        .projectile-motion-widget .v-leg-item { display: flex; align-items: center; gap: 5px; }
+        .projectile-motion-widget .v-dot { width: 10px; height: 3px; }
+
+        @media (max-width: 700px) {
+            .projectile-motion-widget .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+
+    <h3>Projectile Motion (Analytical Solution)</h3>
+
+    <div class="canvas-container">
+        <canvas class="proj-canvas"></canvas>
+        <div class="info-panel">
+            <div class="info-row"><span class="info-label">Time (t):</span> <span class="info-val" id="disp-t">0.00 s</span></div>
+            <div class="info-row"><span class="info-label">Pos X:</span> <span class="info-val" id="disp-x">0.00 m</span></div>
+            <div class="info-row"><span class="info-label">Pos Y:</span> <span class="info-val" id="disp-y">0.00 m</span></div>
+            <div style="margin-top:5px; border-top:1px dashed #ccc; padding-top:5px;"></div>
+            <div class="info-row"><span class="info-label">Max Height:</span> <span class="info-val" id="disp-hmax">-</span></div>
+            <div class="info-row"><span class="info-label">Range:</span> <span class="info-val" id="disp-range">-</span></div>
+        </div>
+        <div class="vector-legend">
+            <div class="v-leg-item"><div class="v-dot" style="background:#2e7d32"></div>Velocity</div>
+            <div class="v-leg-item"><div class="v-dot" style="background:#ef6c00"></div>Acceleration</div>
+        </div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="control-group">
+            <label>Initial Height (y₀): <span class="value-span" id="val-y0">0 m</span></label>
+            <input type="range" id="slider-y0" min="0" max="100" step="1" value="0">
+        </div>
+
+        <div class="control-group">
+            <label>Initial Speed (v₀): <span class="value-span" id="val-v0">50 m/s</span></label>
+            <input type="range" id="slider-v0" min="1" max="100" step="1" value="50">
+        </div>
+
+        <div class="control-group">
+            <label>Angle (θ): <span class="value-span" id="val-angle">45°</span></label>
+            <input type="range" id="slider-angle" min="0" max="90" step="1" value="45">
+        </div>
+
+        <div class="control-group">
+            <label>Gravity (g): <span class="value-span" id="val-g">9.81 m/s²</span></label>
+            <input type="range" id="slider-g" min="1.6" max="20" step="0.1" value="9.8">
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button class="btn-fire">FIRE</button>
+            <button class="btn-reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.proj-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI References
+        const sliderY0 = widget.querySelector('#slider-y0');
+        const sliderV0 = widget.querySelector('#slider-v0');
+        const sliderAngle = widget.querySelector('#slider-angle');
+        const sliderG = widget.querySelector('#slider-g');
+
+        const valY0 = widget.querySelector('#val-y0');
+        const valV0 = widget.querySelector('#val-v0');
+        const valAngle = widget.querySelector('#val-angle');
+        const valG = widget.querySelector('#val-g');
+
+        const dispT = widget.querySelector('#disp-t');
+        const dispX = widget.querySelector('#disp-x');
+        const dispY = widget.querySelector('#disp-y');
+        const dispHmax = widget.querySelector('#disp-hmax');
+        const dispRange = widget.querySelector('#disp-range');
+
+        const btnFire = widget.querySelector('.btn-fire');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        // State
+        let state = {
+            y0: 0,
+            v0: 50,
+            angle: 45,
+            g: 9.81,
+
+            t: 0,
+            isRunning: false,
+            path: [],
+            animId: null,
+
+            // Simulation Parameters
+            scale: 3.5, // pixels per meter
+            simSpeed: 4.0 // time multiplier for visualization
+        };
+
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            draw();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // --- Physics (Analytical Solution) ---
+
+        function getPositionAt(t) {
+            const rad = state.angle * Math.PI / 180;
+            const v0x = state.v0 * Math.cos(rad);
+            const v0y = state.v0 * Math.sin(rad);
+
+            // Analytical formulas
+            const x = v0x * t;
+            const y = state.y0 + (v0y * t) - (0.5 * state.g * t * t);
+
+            // Velocities
+            const vx = v0x;
+            const vy = v0y - state.g * t;
+
+            return { x, y, vx, vy };
+        }
+
+        function calculateStats() {
+            const rad = state.angle * Math.PI / 180;
+            const v0y = state.v0 * Math.sin(rad);
+            const v0x = state.v0 * Math.cos(rad);
+
+            // Max Height
+            const t_apex = v0y / state.g;
+            const h_max = state.y0 + (v0y * t_apex) - (0.5 * state.g * t_apex * t_apex);
+
+            // Range (Time of flight)
+            const delta = Math.sqrt(v0y*v0y + 2*state.g*state.y0);
+            const t_flight = (v0y + delta) / state.g;
+            const range = v0x * t_flight;
+
+            return { h_max, range, t_flight };
+        }
+
+        // --- Drawing ---
+
+        function toScreen(x, y) {
+            return {
+                x: 50 + x * state.scale,
+                y: canvas.height - 50 - y * state.scale
+            };
+        }
+
+        function drawArrow(x, y, vx, vy, color) {
+            const endX = x + vx;
+            const endY = y - vy; // Screen Y is flipped relative to vector
+
+            const dx = endX - x;
+            const dy = endY - y;
+            const angle = Math.atan2(dy, dx);
+            const head = 8;
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 2;
+
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(endX, endY); ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - head*Math.cos(angle-Math.PI/6), endY - head*Math.sin(angle-Math.PI/6));
+            ctx.lineTo(endX - head*Math.cos(angle+Math.PI/6), endY - head*Math.sin(angle+Math.PI/6));
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawGridAndField() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const groundY = h - 50;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // --- Gravitational Vector Field ---
+            const gridStep = 50;
+            ctx.save();
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.fillStyle = '#e0e0e0';
+            for (let x = 20; x < w; x += gridStep) {
+                for (let y = 20; y < groundY; y += gridStep) {
+                    // Draw small downward arrow
+                    const arrowLen = 15;
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y + arrowLen);
+                    ctx.stroke();
+                    // Arrowhead
+                    ctx.beginPath();
+                    ctx.moveTo(x, y + arrowLen);
+                    ctx.lineTo(x - 3, y + arrowLen - 4);
+                    ctx.lineTo(x + 3, y + arrowLen - 4);
+                    ctx.fill();
+                }
+            }
+            ctx.restore();
+
+            // --- Ground ---
+            ctx.fillStyle = '#f5f5f5';
+            ctx.fillRect(0, groundY, w, 50);
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, groundY);
+            ctx.lineTo(w, groundY);
+            ctx.stroke();
+
+            // --- Axes & Labels ---
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.font = '11px Arial';
+            ctx.fillStyle = '#555';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+
+            // Y Axis
+            ctx.beginPath();
+            ctx.moveTo(50, 0);
+            ctx.lineTo(50, h);
+            ctx.stroke();
+
+            // Y Labels (every 20m)
+            const yStepM = 20;
+            const maxM = (h - 50) / state.scale;
+            for(let ym = 0; ym <= maxM; ym += yStepM) {
+                const sy = groundY - ym * state.scale;
+                ctx.beginPath();
+                ctx.moveTo(45, sy);
+                ctx.lineTo(50, sy);
+                ctx.stroke();
+                ctx.fillText(ym + "m", 42, sy);
+            }
+
+            // X Labels (every 20m)
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            const xStepM = 20;
+            const maxXM = (w - 50) / state.scale;
+            for(let xm = 0; xm <= maxXM; xm += xStepM) {
+                const sx = 50 + xm * state.scale;
+                ctx.beginPath();
+                ctx.moveTo(sx, groundY);
+                ctx.lineTo(sx, groundY + 5);
+                ctx.stroke();
+                if (xm > 0) ctx.fillText(xm + "m", sx, groundY + 8);
+            }
+            // Origin
+            ctx.fillText("0", 50, groundY + 8);
+        }
+
+        function drawGhostPath() {
+            // Predict path
+            const stats = calculateStats();
+            const totalT = stats.t_flight;
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#bbb';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+
+            const steps = 60;
+            for(let i=0; i<=steps; i++) {
+                const t = (i/steps) * totalT;
+                const pos = getPositionAt(t);
+                const s = toScreen(pos.x, pos.y);
+                if(i===0) ctx.moveTo(s.x, s.y);
+                else ctx.lineTo(s.x, s.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function draw() {
+            drawGridAndField();
+
+            // Draw trajectory so far
+            if (state.path.length > 0) {
+                ctx.beginPath();
+                ctx.strokeStyle = '#1976d2';
+                ctx.lineWidth = 3;
+                const start = toScreen(state.path[0].x, state.path[0].y);
+                ctx.moveTo(start.x, start.y);
+                for (let p of state.path) {
+                    const s = toScreen(p.x, p.y);
+                    ctx.lineTo(s.x, s.y);
+                }
+                ctx.stroke();
+            } else if (!state.isRunning) {
+                // If reset, show ghost path
+                drawGhostPath();
+            }
+
+            // Draw Object
+            const pos = getPositionAt(state.t);
+            const scr = toScreen(pos.x, pos.y);
+
+            // Cannon/Start Point
+            const startScr = toScreen(0, state.y0);
+            ctx.fillStyle = '#555';
+            ctx.fillRect(startScr.x - 10, startScr.y, 20, canvas.height - startScr.y - 50);
+
+            // Ball
+            ctx.beginPath();
+            ctx.fillStyle = '#d32f2f';
+            ctx.arc(scr.x, scr.y, 8, 0, Math.PI*2);
+            ctx.fill();
+
+            // Vectors
+            if (pos.y >= 0) {
+                // Velocity (Green)
+                const vScale = 1.0;
+                drawArrow(scr.x, scr.y, pos.vx * vScale, pos.vy * vScale, '#2e7d32');
+
+                // Acceleration (Orange) [0, -g]
+                // Scale up g for visibility
+                const aScale = 4.0;
+                drawArrow(scr.x, scr.y, 0, -state.g * aScale, '#ef6c00');
+            }
+        }
+
+        function updateLoop() {
+            if (!state.isRunning) return;
+
+            // Update Time (dt = 16ms approx * speed)
+            const dt = 0.016 * state.simSpeed;
+            state.t += dt;
+
+            // Get Pos
+            const pos = getPositionAt(state.t);
+
+            // Record path
+            state.path.push(pos);
+
+            // Check collision
+            if (pos.y < 0) {
+                state.isRunning = false;
+                // Clamp to ground
+                const stats = calculateStats();
+                state.t = stats.t_flight;
+                const finalPos = getPositionAt(state.t);
+                state.path.push(finalPos);
+
+                updateInfo(finalPos);
+                draw();
+                return;
+            }
+
+            updateInfo(pos);
+            draw();
+            state.animId = requestAnimationFrame(updateLoop);
+        }
+
+        function updateInfo(pos) {
+            dispT.innerText = state.t.toFixed(2) + " s";
+            dispX.innerText = pos.x.toFixed(2) + " m";
+            dispY.innerText = Math.max(0, pos.y).toFixed(2) + " m";
+        }
+
+        // --- Events ---
+
+        function updateStatsDisplay() {
+            const stats = calculateStats();
+            dispHmax.innerText = stats.h_max.toFixed(2) + " m";
+            dispRange.innerText = stats.range.toFixed(2) + " m";
+        }
+
+        sliderY0.addEventListener('input', (e) => {
+            state.y0 = parseFloat(e.target.value);
+            valY0.innerText = state.y0 + " m";
+            resetSim();
+        });
+
+        sliderV0.addEventListener('input', (e) => {
+            state.v0 = parseFloat(e.target.value);
+            valV0.innerText = state.v0 + " m/s";
+            resetSim();
+        });
+
+        sliderAngle.addEventListener('input', (e) => {
+            state.angle = parseFloat(e.target.value);
+            valAngle.innerText = state.angle + "°";
+            resetSim();
+        });
+
+        sliderG.addEventListener('input', (e) => {
+            state.g = parseFloat(e.target.value);
+            valG.innerText = state.g + " m/s²";
+            resetSim();
+        });
+
+        btnFire.addEventListener('click', () => {
+            if (state.isRunning) return;
+            resetSim(false); // don't full reset, just prep
+            state.isRunning = true;
+            updateLoop();
+        });
+
+        btnReset.addEventListener('click', () => {
+            resetSim();
+        });
+
+        function resetSim(fullReset = true) {
+            state.isRunning = false;
+            cancelAnimationFrame(state.animId);
+
+            if (fullReset) {
+                state.t = 0;
+                state.path = [];
+                updateInfo({x: 0, y: state.y0});
+            } else {
+                state.t = 0;
+                state.path = [];
+            }
+
+            updateStatsDisplay();
+            draw();
+        }
+
+        // Init
+        setTimeout(() => {
+            resizeCanvas();
+            updateStatsDisplay();
+            resetSim();
+        }, 100);
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>

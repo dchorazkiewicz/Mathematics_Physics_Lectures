@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<!-- PENDULUM FORCES LAB COMPONENT START -->
+<div id="force-app-wrapper">
+    <style>
+        /* IZOLACJA STYLÓW (SCOPED CSS) */
+        #force-app-wrapper {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            /* ZMIANA: height: auto zamiast 100%, aby uniknąć problemów w Quarto */
+            height: auto;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative; /* Dla bezpieczeństwa */
+        }
+
+        #force-app-wrapper * {
+            box-sizing: border-box;
+        }
+
+        /* LAYOUT */
+        #force-app-wrapper .app-layout {
+            display: flex;
+            flex-direction: column;
+            /* ZMIANA: height: 100% zastąpione min-height, by wypełniał wrapper */
+            min-height: 700px;
+            flex: 1;
+        }
+
+        @media (min-width: 900px) {
+            #force-app-wrapper .app-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* CANVAS AREA */
+        #force-app-wrapper .canvas-area {
+            flex: 1;
+            /* ZMIANA: position relative jest kluczowe dla absolute dziecka */
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            min-height: 400px;
+            cursor: grab;
+            order: 2;
+        }
+
+        #force-app-wrapper .canvas-area:active {
+            cursor: grabbing;
+        }
+
+        #force-app-wrapper canvas {
+            display: block;
+            /* ZMIANA: position absolute wyjmuje canvas z przepływu dokumentu -> STOP WZROSTU */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* CONTROLS AREA */
+        #force-app-wrapper .controls-area {
+            width: 100%;
+            background-color: #f1f5f9;
+            border-right: 1px solid #cbd5e1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            /* ZMIANA: zamiast overflow na kontenerze, tutaj zarządzamy scrollem */
+            overflow-y: auto;
+            max-height: 700px; /* Limit wysokości panelu na mobile */
+            order: 1;
+        }
+
+        @media (min-width: 900px) {
+            #force-app-wrapper .controls-area {
+                width: 320px;
+                flex-shrink: 0;
+                height: auto; /* Na desktopie wysokość dopasowana do flexa */
+                max-height: none;
+            }
+        }
+
+        /* TYPOGRAPHY & UI ELEMENTS */
+        #force-app-wrapper h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        #force-app-wrapper .section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.25rem;
+        }
+
+        #force-app-wrapper .control-group {
+            margin-bottom: 1rem;
+        }
+
+        #force-app-wrapper label {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #force-app-wrapper input[type="checkbox"] {
+            margin-right: 0.75rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #2563eb;
+            cursor: pointer;
+        }
+
+        #force-app-wrapper input[type="range"] {
+            width: 100%;
+            margin-top: 0.25rem;
+            accent-color: #475569;
+            cursor: pointer;
+        }
+
+        #force-app-wrapper .val-display {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #334155;
+            margin-left: auto;
+        }
+
+        #force-app-wrapper button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #force-app-wrapper .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+        #force-app-wrapper .btn-primary:hover { background-color: #1d4ed8; }
+
+        #force-app-wrapper .btn-secondary {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+        }
+        #force-app-wrapper .btn-secondary:hover { background-color: #f8fafc; border-color: #94a3b8; }
+
+        /* LEGEND COLORS */
+        #force-app-wrapper .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        /* VECTOR INFO OVERLAY */
+        #force-app-wrapper .overlay-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+            border: 1px solid #e2e8f0;
+            z-index: 10;
+        }
+
+        /* Specific vector colors used in CSS for legends */
+        #force-app-wrapper .c-gravity { background-color: #ef4444; } /* Red */
+        #force-app-wrapper .c-tension { background-color: #854d0e; } /* Brown */
+        #force-app-wrapper .c-net { background-color: #9333ea; }     /* Purple */
+        #force-app-wrapper .c-velocity { background-color: #16a34a; }/* Green */
+        #force-app-wrapper .c-accel { background-color: #f97316; }   /* Orange */
+        #force-app-wrapper .c-comp { background-color: #94a3b8; }    /* Slate */
+    </style>
+
+    <div class="app-layout">
+        <!-- Controls Panel (First in code = Left side) -->
+        <div class="controls-area">
+            <div>
+                <h2>Forces Lab</h2>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top:0;">Dynamic simulation of a simple pendulum.</p>
+            </div>
+
+            <div class="control-group">
+                <button id="btn-play-pause" class="btn-primary">START</button>
+                <button id="btn-reset" class="btn-secondary">RESET</button>
+            </div>
+
+            <div>
+                <div class="section-title">Vectors (Show/Hide)</div>
+
+                <label>
+                    <span class="color-dot c-gravity"></span> Gravity Force (mg)
+                    <input type="checkbox" id="chk-gravity" checked style="margin-left: auto; margin-right: 0;">
+                </label>
+
+                <label>
+                    <span class="color-dot c-comp"></span> Gravity Comp. (Tan/Rad)
+                    <input type="checkbox" id="chk-components" style="margin-left: auto; margin-right: 0;">
+                </label>
+
+                <label>
+                    <span class="color-dot c-tension"></span> Tension (T)
+                    <input type="checkbox" id="chk-tension" checked style="margin-left: auto; margin-right: 0;">
+                </label>
+
+                <label>
+                    <span class="color-dot c-net"></span> Net Force (F_net)
+                    <input type="checkbox" id="chk-net" style="margin-left: auto; margin-right: 0;">
+                </label>
+
+                <div style="margin: 0.5rem 0; border-top: 1px dashed #cbd5e1;"></div>
+
+                <label>
+                    <span class="color-dot c-velocity"></span> Velocity (v)
+                    <input type="checkbox" id="chk-velocity" style="margin-left: auto; margin-right: 0;">
+                </label>
+
+                <label>
+                    <span class="color-dot c-accel"></span> Acceleration (a)
+                    <input type="checkbox" id="chk-accel" style="margin-left: auto; margin-right: 0;">
+                </label>
+            </div>
+
+            <div>
+                <div class="section-title">Parameters</div>
+
+                <div class="control-group">
+                    <label>
+                        Simulation Speed
+                        <span id="val-speed" class="val-display">1.0x</span>
+                    </label>
+                    <input type="range" id="rng-sim-speed" min="0.1" max="1.0" step="0.1" value="1.0">
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        String Length
+                        <span id="val-length" class="val-display">2.0m</span>
+                    </label>
+                    <input type="range" id="rng-length" min="1.0" max="4.0" step="0.1" value="2.0">
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        Vector Scale
+                        <span id="val-vscale" class="val-display">80%</span>
+                    </label>
+                    <input type="range" id="rng-vector-scale" min="0.2" max="1.5" step="0.1" value="0.8">
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualization Canvas (Second in code = Right side) -->
+        <div class="canvas-area">
+            <canvas id="forces-canvas"></canvas>
+            <div class="overlay-info">
+                Angle: <span id="info-theta">0</span>°<br>
+                G-Force: <span id="info-gforce">1.0</span> g
+            </div>
+            <!-- Instruction for user -->
+            <div style="position:absolute; bottom:10px; left:10px; font-size:0.75rem; color:#94a3b8; pointer-events:none;">
+                Tip: Drag with mouse to set angle.
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        // --- CONFIGURATION & VARIABLES ---
+        const wrapper = document.getElementById('force-app-wrapper');
+        const canvas = document.getElementById('forces-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI Elements
+        const btnPlay = document.getElementById('btn-play-pause');
+        const btnReset = document.getElementById('btn-reset');
+
+        const chkGravity = document.getElementById('chk-gravity');
+        const chkComponents = document.getElementById('chk-components');
+        const chkTension = document.getElementById('chk-tension');
+        const chkNet = document.getElementById('chk-net');
+        const chkVelocity = document.getElementById('chk-velocity');
+        const chkAccel = document.getElementById('chk-accel');
+
+        const rngSpeed = document.getElementById('rng-sim-speed');
+        const rngLength = document.getElementById('rng-length');
+        const rngVScale = document.getElementById('rng-vector-scale');
+
+        const valSpeed = document.getElementById('val-speed');
+        const valLength = document.getElementById('val-length');
+        const valVScale = document.getElementById('val-vscale');
+
+        const infoTheta = document.getElementById('info-theta');
+        const infoGForce = document.getElementById('info-gforce');
+
+        // Physics Constants
+        const g = 9.81;
+        const dt_base = 0.016; // 60 FPS target
+
+        let simState = {
+            running: false,
+            theta: Math.PI / 4, // 45 degrees start
+            omega: 0,
+            L: 2.0, // meters
+            timeScale: 1.0,
+            vectorScale: 0.8, // Default scale
+            dragging: false
+        };
+
+        // Drawing params
+        let originX, originY, scalePixels; // Pixels per meter
+
+        // --- PHYSICS UPDATE ---
+        function updatePhysics() {
+            if (!simState.running || simState.dragging) return;
+
+            // Effective dt with slow-motion
+            const dt = dt_base * simState.timeScale;
+
+            // Semi-Implicit Euler
+            const damping = 0.999;
+            const alpha = -(g / simState.L) * Math.sin(simState.theta);
+
+            simState.omega += alpha * dt;
+            simState.omega *= damping;
+            simState.theta += simState.omega * dt;
+        }
+
+        // --- VECTOR DRAWING HELPER ---
+        function drawVector(ctx, x, y, vx, vy, color, label, isDashed = false) {
+            const headLen = 8;
+            const len = Math.sqrt(vx*vx + vy*vy);
+
+            if (len < 1) return;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 2;
+            if (isDashed) ctx.setLineDash([5, 3]);
+
+            // Line
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + vx, y + vy);
+            ctx.stroke();
+
+            // Arrow head
+            ctx.setLineDash([]);
+            const angle = Math.atan2(vy, vx);
+            ctx.beginPath();
+            ctx.moveTo(x + vx, y + vy);
+            ctx.lineTo(x + vx - headLen * Math.cos(angle - Math.PI / 6), y + vy - headLen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x + vx - headLen * Math.cos(angle + Math.PI / 6), y + vy - headLen * Math.sin(angle + Math.PI / 6));
+            ctx.fill();
+
+            // Label
+            if (label) {
+                ctx.font = "bold 11px Arial";
+                ctx.fillStyle = color;
+                ctx.fillText(label, x + vx + 8, y + vy);
+            }
+            ctx.restore();
+        }
+
+        // --- MAIN DRAW LOOP ---
+        function draw() {
+            // FIX: Use canvas dimensions directly, which match the container due to ResizeObserver
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Coordinate System
+            originX = width / 2;
+            originY = height * 0.2;
+            const maxL_pixels = Math.min(width/2 - 40, height * 0.75);
+            scalePixels = maxL_pixels / 4.0;
+
+            // Bob Position
+            const bobX = originX + simState.L * scalePixels * Math.sin(simState.theta);
+            const bobY = originY + simState.L * scalePixels * Math.cos(simState.theta);
+
+            // 1. Ceiling & Pivot
+            ctx.strokeStyle = "#94a3b8";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(originX - 50, originY);
+            ctx.lineTo(originX + 50, originY);
+            ctx.stroke();
+
+            // Vertical Dash Line
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = "#e2e8f0";
+            ctx.beginPath();
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 2. String
+            ctx.strokeStyle = "#334155";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(bobX, bobY);
+            ctx.stroke();
+
+            // Pivot Point
+            ctx.fillStyle = "#64748b";
+            ctx.beginPath();
+            ctx.arc(originX, originY, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 3. Bob
+            ctx.fillStyle = "#f59e0b";
+            ctx.beginPath();
+            ctx.arc(bobX, bobY, 15, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // --- VECTOR CALCULATIONS ---
+            const vScale = 35 * simState.vectorScale;
+
+            const sinT = Math.sin(simState.theta);
+            const cosT = Math.cos(simState.theta);
+
+            // A. Gravity (mg)
+            const Fg_mag = g;
+            const Fg_x = 0;
+            const Fg_y = Fg_mag * vScale;
+
+            // B. Gravity Components
+            const Fg_rad_mag = g * cosT;
+            const Fg_rad_x = Fg_rad_mag * sinT * vScale;
+            const Fg_rad_y = Fg_rad_mag * cosT * vScale;
+
+            const Fg_tan_mag = -g * sinT;
+            const Fg_tan_x = Fg_tan_mag * cosT * vScale;
+            const Fg_tan_y = Fg_tan_mag * (-sinT) * vScale;
+
+            // C. Tension
+            const v = simState.omega * simState.L;
+            const a_centripetal = (v * v) / simState.L;
+            const T_mag = g * cosT + a_centripetal;
+            const T_x = -sinT * T_mag * vScale;
+            const T_y = -cosT * T_mag * vScale;
+
+            // D. Net Force
+            const Fnet_x = T_x + Fg_x;
+            const Fnet_y = T_y + Fg_y;
+
+            // E. Velocity
+            const vel_x = v * cosT * (vScale * 0.5);
+            const vel_y = v * (-sinT) * (vScale * 0.5);
+
+            // F. Acceleration
+            const acc_tan_mag = -g * sinT;
+            const acc_rad_mag = (v * v) / simState.L;
+
+            const acc_tan_x = acc_tan_mag * cosT;
+            const acc_tan_y = acc_tan_mag * (-sinT);
+            const acc_rad_x = -acc_rad_mag * sinT;
+            const acc_rad_y = -acc_rad_mag * cosT;
+
+            const acc_total_x = (acc_tan_x + acc_rad_x) * vScale;
+            const acc_total_y = (acc_tan_y + acc_rad_y) * vScale;
+
+
+            // --- SEQUENTIAL DRAWING ---
+
+            // 1. Gravity Components (dashed underlay)
+            if (chkComponents.checked) {
+                drawVector(ctx, bobX, bobY, Fg_rad_x, Fg_rad_y, "#94a3b8", "mg cosθ", true);
+                ctx.save();
+                ctx.setLineDash([5, 3]);
+                ctx.strokeStyle = "#94a3b8";
+                ctx.beginPath();
+                ctx.moveTo(bobX + Fg_rad_x, bobY + Fg_rad_y);
+                ctx.lineTo(bobX + Fg_rad_x + Fg_tan_x, bobY + Fg_rad_y + Fg_tan_y);
+                ctx.stroke();
+                drawVector(ctx, bobX + Fg_rad_x, bobY + Fg_rad_y, Fg_tan_x, Fg_tan_y, "#94a3b8", "", true);
+                ctx.restore();
+            }
+
+            // 2. Gravity
+            if (chkGravity.checked) {
+                drawVector(ctx, bobX, bobY, Fg_x, Fg_y, "#ef4444", "Fg");
+            }
+
+            // 3. Tension
+            if (chkTension.checked) {
+                drawVector(ctx, bobX, bobY, T_x, T_y, "#854d0e", "T");
+            }
+
+            // 4. Net Force
+            if (chkNet.checked) {
+                drawVector(ctx, bobX, bobY, Fnet_x, Fnet_y, "#9333ea", "F_net");
+            }
+
+            // 5. Velocity
+            if (chkVelocity.checked) {
+                drawVector(ctx, bobX, bobY, vel_x, vel_y, "#16a34a", "v");
+            }
+
+            // 6. Acceleration
+            if (chkAccel.checked) {
+                drawVector(ctx, bobX, bobY, acc_total_x, acc_total_y, "#f97316", "a");
+            }
+
+            // --- TEXT UI UPDATE ---
+            let deg = Math.round(simState.theta * 180 / Math.PI);
+            infoTheta.innerText = deg;
+
+            const gForce = T_mag / g;
+            infoGForce.innerText = gForce.toFixed(2);
+        }
+
+        // --- ANIMATION LOOP ---
+        function loop() {
+            updatePhysics();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        // --- INTERACTION ---
+
+        // Resize Canvas properly - DEBOUNCED / RAF
+        let resizeRequestId = null;
+        const resizeObserver = new ResizeObserver(() => {
+            if (!resizeRequestId) {
+                resizeRequestId = window.requestAnimationFrame(() => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    // Set canvas props to match the parent div
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+
+                    if (!simState.running) draw();
+                    resizeRequestId = null;
+                });
+            }
+        });
+        // OBSERVE THE WRAPPER OR CANVAS PARENT, NOT WINDOW
+        resizeObserver.observe(canvas.parentElement);
+
+        // Dragging Bob
+        function getMousePos(evt) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = evt.clientX || evt.touches[0].clientX;
+            const clientY = evt.clientY || evt.touches[0].clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function handleStart(evt) {
+            const pos = getMousePos(evt);
+            const bobX = originX + simState.L * scalePixels * Math.sin(simState.theta);
+            const bobY = originY + simState.L * scalePixels * Math.cos(simState.theta);
+
+            const dist = Math.hypot(pos.x - bobX, pos.y - bobY);
+            if (dist < 40) {
+                simState.dragging = true;
+                simState.running = false;
+                btnPlay.textContent = "START";
+            }
+        }
+
+        function handleMove(evt) {
+            if (!simState.dragging) return;
+            evt.preventDefault();
+            const pos = getMousePos(evt);
+
+            const dx = pos.x - originX;
+            const dy = pos.y - originY;
+            let angle = Math.atan2(dx, dy);
+
+            if (angle > Math.PI/1.8) angle = Math.PI/1.8;
+            if (angle < -Math.PI/1.8) angle = -Math.PI/1.8;
+
+            simState.theta = angle;
+            simState.omega = 0;
+            draw();
+        }
+
+        function handleEnd() {
+            simState.dragging = false;
+        }
+
+        canvas.addEventListener('mousedown', handleStart);
+        canvas.addEventListener('mousemove', handleMove);
+        window.addEventListener('mouseup', handleEnd);
+
+        canvas.addEventListener('touchstart', handleStart, {passive: false});
+        canvas.addEventListener('touchmove', handleMove, {passive: false});
+        window.addEventListener('touchend', handleEnd);
+
+        // --- CONTROLS LISTENERS ---
+        btnPlay.addEventListener('click', () => {
+            simState.running = !simState.running;
+            btnPlay.textContent = simState.running ? "PAUSE" : "START";
+        });
+
+        btnReset.addEventListener('click', () => {
+            simState.running = false;
+            btnPlay.textContent = "START";
+            simState.theta = Math.PI / 4;
+            simState.omega = 0;
+            draw();
+        });
+
+        rngSpeed.addEventListener('input', (e) => {
+            simState.timeScale = parseFloat(e.target.value);
+            valSpeed.textContent = simState.timeScale.toFixed(1) + "x";
+        });
+
+        rngLength.addEventListener('input', (e) => {
+            simState.L = parseFloat(e.target.value);
+            valLength.textContent = simState.L.toFixed(1) + "m";
+            if (!simState.running) draw();
+        });
+
+        rngVScale.addEventListener('input', (e) => {
+            simState.vectorScale = parseFloat(e.target.value);
+            valVScale.textContent = Math.round(simState.vectorScale * 100) + "%";
+            if (!simState.running) draw();
+        });
+
+        [chkGravity, chkComponents, chkTension, chkNet, chkVelocity, chkAccel].forEach(chk => {
+            chk.addEventListener('change', () => {
+                if (!simState.running) draw();
+            });
+        });
+
+        // Start loop
+        loop();
+
+    })();
+    </script>
+</div>
+<!-- PENDULUM FORCES LAB COMPONENT END -->
+
+
+
+</body>
+</html>

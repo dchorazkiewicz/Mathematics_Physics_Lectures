@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmonic Oscillator Visualization</title>
+</head>
+<body>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+<div class="integration-vis-container" style="font-family: sans-serif; border: 1px solid #ddd; border-radius: 8px; background: #fff; margin: 20px 0; overflow: hidden; max-width: 100%;">
+
+    <!-- TABS HEADER -->
+    <div style="display: flex; background: #f5f5f5; border-bottom: 1px solid #ddd;">
+        <button id="btn-tab-riemann" style="flex: 1; padding: 15px; border: none; background: transparent; cursor: pointer; font-weight: bold; color: #555; border-bottom: 3px solid transparent;">
+            1. Definite Integral (Area)
+        </button>
+        <button id="btn-tab-line" style="flex: 1; padding: 15px; border: none; background: transparent; cursor: pointer; font-weight: bold; color: #555; border-bottom: 3px solid transparent;">
+            2. Line Integral (Work)
+        </button>
+    </div>
+
+    <!-- TAB 1: RIEMANN SUMS -->
+    <div id="content-riemann" style="display: block; padding: 15px;">
+        <div style="background: #fafafa; padding: 10px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 4px;">
+            <label style="font-weight: bold;">Rectangles (N): <span id="disp-rie-n">5</span></label>
+            <input type="range" id="input-rie-n" min="2" max="50" step="1" value="5" style="vertical-align: middle; margin-left: 10px;">
+            <div style="margin-top: 5px; font-family: monospace; color: #333;">
+                Area ≈ <span id="disp-rie-sum" style="color: #d32f2f; font-weight: bold;">0.00</span>
+                <span style="color: #777; font-size: 0.9em; margin-left: 10px;">( f(x) = 1 + 0.1x² + 0.5sin(2x) )</span>
+            </div>
+        </div>
+        <!-- IMPORTANT: Explicit height prevents collapse -->
+        <div id="plot-riemann-div" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <!-- TAB 2: LINE INTEGRAL -->
+    <div id="content-line" style="display: none; padding: 15px;">
+        <div style="background: #fafafa; padding: 10px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 4px; display: flex; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <label style="font-weight: bold;">Segments (N): <span id="disp-line-n">10</span></label>
+                <input type="range" id="input-line-n" min="2" max="40" step="1" value="10" style="vertical-align: middle;">
+            </div>
+            <button id="btn-clear-path" style="background: #d32f2f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold;">Clear Path</button>
+            <div style="font-family: monospace; color: #333;">
+                Work ≈ <span id="disp-line-work" style="color: #d32f2f; font-weight: bold;">0.00</span>
+            </div>
+        </div>
+
+        <!-- Canvas Container with explicit relative positioning -->
+        <div id="canvas-wrapper" style="width: 100%; height: 400px; position: relative; border: 1px solid #eee; background: #fff;">
+            <canvas id="canvas-line" style="display: block; width: 100%; height: 100%; cursor: crosshair; touch-action: none;"></canvas>
+            <div style="position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.9); padding: 5px 8px; pointer-events: none; border: 1px solid #ccc; font-size: 0.85em; border-radius: 4px;">
+                Draw with mouse/touch<br>
+                <span style="color: #d32f2f; font-weight: bold;">Red: Force</span> | <span style="color: #2e7d32; font-weight: bold;">Green: Displacement</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Use IIFE to isolate variables from the rest of the page
+(function() {
+    // --- ELEMENTS ---
+    const btnTabRie = document.getElementById('btn-tab-riemann');
+    const btnTabLine = document.getElementById('btn-tab-line');
+    const contentRie = document.getElementById('content-riemann');
+    const contentLine = document.getElementById('content-line');
+
+    const inputRieN = document.getElementById('input-rie-n');
+    const dispRieN = document.getElementById('disp-rie-n');
+    const dispRieSum = document.getElementById('disp-rie-sum');
+    const plotRieDiv = document.getElementById('plot-riemann-div');
+
+    const inputLineN = document.getElementById('input-line-n');
+    const dispLineN = document.getElementById('disp-line-n');
+    const dispLineWork = document.getElementById('disp-line-work');
+    const btnClearPath = document.getElementById('btn-clear-path');
+    const canvas = document.getElementById('canvas-line');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+    const ctx = canvas.getContext('2d');
+
+    // --- TAB LOGIC ---
+    function setActiveTab(tab) {
+        if (tab === 'riemann') {
+            contentRie.style.display = 'block';
+            contentLine.style.display = 'none';
+            btnTabRie.style.borderBottomColor = '#1976d2';
+            btnTabRie.style.color = '#1976d2';
+            btnTabLine.style.borderBottomColor = 'transparent';
+            btnTabLine.style.color = '#555';
+
+            // Trigger Plotly resize after tab switch
+            if (window.Plotly) Plotly.Plots.resize(plotRieDiv);
+        } else {
+            contentRie.style.display = 'none';
+            contentLine.style.display = 'block';
+            btnTabRie.style.borderBottomColor = 'transparent';
+            btnTabRie.style.color = '#555';
+            btnTabLine.style.borderBottomColor = '#1976d2';
+            btnTabLine.style.color = '#1976d2';
+
+            resizeCanvas();
+        }
+    }
+
+    btnTabRie.onclick = () => setActiveTab('riemann');
+    btnTabLine.onclick = () => setActiveTab('line');
+
+    // ==========================================
+    // 1. RIEMANN SUMS
+    // ==========================================
+    function f(x) {
+        return 1 + 0.1 * x * x + 0.5 * Math.sin(2 * x);
+    }
+
+    function updateRiemann() {
+        const N = parseInt(inputRieN.value);
+        dispRieN.innerText = N;
+
+        const a = 0, b = 6;
+        const dx = (b - a) / N;
+
+        // Curve
+        const xSmooth = [], ySmooth = [];
+        for(let x=a; x<=b; x+=0.05) {
+            xSmooth.push(x);
+            ySmooth.push(f(x));
+        }
+
+        // Rectangles
+        const xRect = [], yRect = [];
+        let area = 0;
+        for(let i=0; i<N; i++) {
+            let xi = a + i*dx;
+            let val = f(xi);
+            xRect.push(xi + dx/2);
+            yRect.push(val);
+            area += val * dx;
+        }
+
+        dispRieSum.innerText = area.toFixed(4);
+
+        const data = [
+            {
+                x: xRect, y: yRect, width: dx*0.9, type: 'bar',
+                marker: { color: 'rgba(50, 171, 96, 0.6)', line: {color: 'rgba(50, 171, 96, 1)', width: 1} },
+                name: 'Riemann Sum'
+            },
+            {
+                x: xSmooth, y: ySmooth, mode: 'lines',
+                line: { color: '#1976d2', width: 3 },
+                name: 'f(x)'
+            }
+        ];
+
+        const layout = {
+            margin: { t: 10, l: 40, r: 10, b: 30 },
+            xaxis: { title: 'x' },
+            yaxis: { title: 'f(x)', range: [0, 5] },
+            showlegend: false,
+            autosize: true
+        };
+
+        Plotly.newPlot(plotRieDiv, data, layout, {responsive: true, displayModeBar: false});
+    }
+
+    inputRieN.addEventListener('input', updateRiemann);
+
+    // ==========================================
+    // 2. LINE INTEGRAL (CANVAS)
+    // ==========================================
+    let pathPoints = [];
+    let isDrawing = false;
+
+    function resizeCanvas() {
+        const rect = canvasWrapper.getBoundingClientRect();
+        if(rect.width > 0 && rect.height > 0) {
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            drawScene();
+        }
+    }
+
+    function getField(cx, cy, w, h) {
+        // Simple rotation field relative to center
+        const mx = (cx - w/2) / (w/4);
+        const my = -(cy - h/2) / (h/4); // Y inverted for math
+        return { fx: -my, fy: mx * 0.5 };
+    }
+
+    function drawArrow(x, y, dx, dy, color) {
+        const head = 6;
+        const angle = Math.atan2(dy, dx);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + dx, y + dy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.moveTo(x + dx, y + dy);
+        ctx.lineTo(x + dx - head*Math.cos(angle-Math.PI/6), y + dy - head*Math.sin(angle-Math.PI/6));
+        ctx.lineTo(x + dx - head*Math.cos(angle+Math.PI/6), y + dy - head*Math.sin(angle+Math.PI/6));
+        ctx.fill();
+    }
+
+    function drawScene() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0,0,w,h);
+
+        // Grid (Field)
+        const step = 40;
+        for(let y=20; y<h; y+=step) {
+            for(let x=20; x<w; x+=step) {
+                const f = getField(x,y,w,h);
+                drawArrow(x, y, f.fx*15, -f.fy*15, '#e0e0e0');
+            }
+        }
+
+        // Path
+        if(pathPoints.length > 1) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#1976d2';
+            ctx.lineWidth = 2;
+            ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
+            for(let i=1; i<pathPoints.length; i++) ctx.lineTo(pathPoints[i].x, pathPoints[i].y);
+            ctx.stroke();
+        }
+
+        // Vectors & Work
+        if(pathPoints.length > 1) {
+            const N = parseInt(inputLineN.value);
+            dispLineN.innerText = N;
+
+            // Calc Lengths
+            let dists = [0], totalLen = 0;
+            for(let i=1; i<pathPoints.length; i++) {
+                let dx = pathPoints[i].x - pathPoints[i-1].x;
+                let dy = pathPoints[i].y - pathPoints[i-1].y;
+                totalLen += Math.sqrt(dx*dx + dy*dy);
+                dists.push(totalLen);
+            }
+
+            // Resample
+            let work = 0;
+            let samplePts = [];
+            for(let k=0; k<=N; k++) {
+                let target = (k/N) * totalLen;
+                // Find index
+                let idx = 0;
+                while(idx < dists.length-1 && dists[idx+1] < target) idx++;
+                let t = (target - dists[idx]) / (dists[idx+1] - dists[idx] || 1);
+                let p1 = pathPoints[idx];
+                let p2 = pathPoints[idx+1] || p1;
+                samplePts.push({
+                    x: p1.x + (p2.x - p1.x)*t,
+                    y: p1.y + (p2.y - p1.y)*t
+                });
+            }
+
+            // Draw
+            for(let i=0; i<N; i++) {
+                let p1 = samplePts[i];
+                let p2 = samplePts[i+1];
+                let dx = p2.x - p1.x;
+                let dy = p2.y - p1.y;
+
+                let mx = (p1.x+p2.x)/2;
+                let my = (p1.y+p2.y)/2;
+                let f = getField(mx, my, w, h);
+
+                // Work calc (normalized)
+                work += (f.fx * (dx/100) + f.fy * (-dy/100));
+
+                drawArrow(p1.x, p1.y, dx, dy, '#2e7d32'); // Disp
+                drawArrow(p1.x, p1.y, f.fx*25, -f.fy*25, '#d32f2f'); // Force
+
+                ctx.fillStyle='black'; ctx.beginPath(); ctx.arc(p1.x, p1.y, 3, 0, 6.28); ctx.fill();
+            }
+            dispLineWork.innerText = (work*5).toFixed(2);
+        }
+    }
+
+    // Interaction
+    function getXY(e) {
+        const r = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - r.left, y: clientY - r.top };
+    }
+
+    canvas.addEventListener('mousedown', e => { isDrawing=true; pathPoints=[getXY(e)]; drawScene(); });
+    window.addEventListener('mousemove', e => {
+        if(!isDrawing) return;
+        pathPoints.push(getXY(e));
+        drawScene();
+    });
+    window.addEventListener('mouseup', () => { isDrawing=false; drawScene(); });
+
+    // Touch
+    canvas.addEventListener('touchstart', e => {
+        e.preventDefault(); // Stop scroll inside canvas ONLY
+        isDrawing=true;
+        pathPoints=[getXY(e)];
+        drawScene();
+    }, {passive:false});
+
+    window.addEventListener('touchmove', e => {
+        if(isDrawing) {
+             e.preventDefault();
+             pathPoints.push(getXY(e));
+             drawScene();
+        }
+    }, {passive:false});
+
+    window.addEventListener('touchend', () => isDrawing=false);
+
+    btnClearPath.onclick = () => { pathPoints=[]; dispLineWork.innerText="0.00"; drawScene(); };
+    inputLineN.oninput = drawScene;
+
+    // INIT
+    setActiveTab('riemann');
+    updateRiemann();
+    // Safety timeout for Plotly to render after DOM placement
+    setTimeout(() => {
+        updateRiemann();
+        resizeCanvas();
+    }, 500);
+
+})();
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendulum Force Analysis - Corrected Physics</title>
+</head>
+<body>
+
+<div id="pendulum-lab-wrapper">
+    <style>
+        /* Component Styling */
+        #pendulum-lab-wrapper {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 1rem;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #pendulum-lab-wrapper * { box-sizing: border-box; }
+
+        .lab-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: 100%;
+            min-height: 0;
+        }
+
+        @media (min-width: 900px) {
+            .lab-layout { flex-direction: row; }
+        }
+
+        /* Control Panel */
+        .controls-panel {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            flex: 0 0 auto;
+        }
+
+        @media (min-width: 900px) {
+            .controls-panel { width: 340px; }
+        }
+
+        .controls-panel h2 {
+            margin: 0; padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+            font-size: 1.2rem; color: #2c3e50;
+        }
+
+        .control-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .control-group label { font-weight: 600; font-size: 0.9rem; display: flex; justify-content: space-between; }
+        .slider-row { display: flex; align-items: center; gap: 10px; }
+        input[type=range] { flex: 1; cursor: pointer; }
+        .val-display { font-family: monospace; font-weight: bold; width: 60px; text-align: right; }
+
+        .btn-row { display: flex; gap: 10px; margin-top: 5px; }
+        button {
+            flex: 1; padding: 10px; border: none; border-radius: 5px;
+            font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-start { background-color: #27ae60; color: white; }
+        .btn-start:hover { background-color: #219150; }
+        .btn-pause { background-color: #7f8c8d; color: white; }
+        .btn-pause:hover { background-color: #636e72; }
+
+        .checkbox-row {
+            display: flex; align-items: center; gap: 10px;
+            background: #eef2f3; padding: 8px; border-radius: 5px;
+        }
+
+        .info-box {
+            margin-top: auto; font-size: 0.85rem; background: #f1f2f6;
+            padding: 10px; border-radius: 5px; border-left: 4px solid #3498db;
+        }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .text-red { color: #c0392b; font-weight: bold; }
+        .text-blue { color: #2980b9; font-weight: bold; }
+
+        .canvas-container {
+            flex: 1; position: relative; background: #fff;
+            border: 1px solid #ccc; border-radius: 8px; overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+        canvas {
+            display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+        }
+        .legend-overlay {
+            position: absolute; top: 10px; left: 10px;
+            background: rgba(255,255,255,0.9); padding: 8px 12px;
+            border-radius: 5px; font-size: 0.8rem; pointer-events: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+
+    <div class="lab-layout">
+        <div class="controls-panel">
+            <h2>Pendulum Parameters</h2>
+
+            <div class="control-group">
+                <label>Length (L) <span id="disp-L" class="val-display">2.0 m</span></label>
+                <div class="slider-row">
+                    <input type="range" id="inp-L" min="0.5" max="3.0" step="0.1" value="2.0">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Start Angle <span id="disp-A" class="val-display">45°</span></label>
+                <div class="slider-row">
+                    <input type="range" id="inp-A" min="-179" max="179" step="1" value="45">
+                </div>
+            </div>
+
+            <div class="control-group" style="border-top: 1px solid #eee; padding-top: 10px;">
+                <label>Time Speed <span id="disp-Speed" class="val-display">1.0x</span></label>
+                <div class="slider-row">
+                    <input type="range" id="inp-Speed" min="0.1" max="2.0" step="0.1" value="1.0">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="checkbox-row">
+                    <input type="checkbox" id="chk-Vectors" checked>
+                    <label for="chk-Vectors" style="cursor:pointer;">Show Tangential Force Vectors</label>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button id="btn-start" class="btn-start">START / RESET</button>
+                <button id="btn-pause" class="btn-pause">PAUSE</button>
+            </div>
+
+            <div class="info-box">
+                <div class="info-row">
+                    <span class="text-blue">Real Force (sin θ):</span>
+                    <span id="stat-F-real">0.00 g</span>
+                </div>
+                <div class="info-row">
+                    <span class="text-red">Linear Force (θ):</span>
+                    <span id="stat-F-lin">0.00 g</span>
+                </div>
+                <hr style="border:0; border-top:1px solid #ccc; margin:5px 0;">
+                <div class="info-row" style="font-size: 0.8rem;">
+                    Linear Model Error: <strong id="stat-diff" style="color:#333">0%</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="sim-canvas"></canvas>
+            <div class="legend-overlay">
+                <div><span style="color:#2980b9; font-weight:900;">●</span> Real Model (F ~ sin θ)</div>
+                <div><span style="color:#c0392b; font-weight:900;">●</span> Linear Model (F ~ θ)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const canvas = document.getElementById('sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI References
+        const inpL = document.getElementById('inp-L');
+        const inpA = document.getElementById('inp-A');
+        const inpSpeed = document.getElementById('inp-Speed');
+        const chkVectors = document.getElementById('chk-Vectors');
+
+        const dispL = document.getElementById('disp-L');
+        const dispA = document.getElementById('disp-A');
+        const dispSpeed = document.getElementById('disp-Speed');
+
+        const btnStart = document.getElementById('btn-start');
+        const btnPause = document.getElementById('btn-pause');
+
+        const statFReal = document.getElementById('stat-F-real');
+        const statFLin = document.getElementById('stat-F-lin');
+        const statDiff = document.getElementById('stat-diff');
+
+        // Physics Constants
+        const g = 9.81;
+        const baseDt = 0.016;
+
+        let isRunning = false;
+        let isPaused = false;
+        let animId;
+
+        let L = 2.0;
+        let startAngleRad = Math.PI / 4;
+        let speedFactor = 1.0;
+
+        const pReal = { theta: 0, omega: 0 };
+        const pLin  = { theta: 0, omega: 0 };
+
+        let originX = 0, originY = 0;
+        let pxPerMeter = 100;
+
+        // --- PHYSICS ---
+        function updatePhysics() {
+            const dt = baseDt * speedFactor;
+
+            // 1. Real (Sine)
+            const accReal = -(g / L) * Math.sin(pReal.theta);
+            pReal.omega += accReal * dt;
+            pReal.theta += pReal.omega * dt;
+
+            // 2. Linear (Angle)
+            const accLin = -(g / L) * pLin.theta;
+            pLin.omega += accLin * dt;
+            pLin.theta += pLin.omega * dt;
+
+            // Force Stats (Normalized to g=1)
+            statFReal.innerText = Math.abs(Math.sin(pReal.theta)).toFixed(3) + " g";
+            statFLin.innerText  = Math.abs(pLin.theta).toFixed(3) + " g";
+        }
+
+        // --- DRAWING ---
+        function resize() {
+            if (!canvas.parentElement) return;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            originX = rect.width / 2;
+            originY = rect.height * 0.15; // Anchor at top
+
+            // Scale: fit 3.0m pendulum in window
+            pxPerMeter = (rect.height * 0.8) / 3.0;
+
+            if (!isRunning) draw();
+        }
+
+        function drawForceVector(startX, startY, theta, forceMag, color) {
+            // Draw tangent vector.
+            // Tangential Force F = mg * sin(theta) (magnitude).
+            // Direction: Always towards equilibrium point (downwards).
+
+            const visualScale = 80;
+            let fx, fy;
+
+            // Calculate vector components
+            // forceMag passed from caller includes sign (negative = restoring).
+
+            // Tangent unit vector (in direction of increasing angle):
+            // In Canvas Y is down.
+            // x = sin(theta) -> dx = cos(theta)
+            // y = cos(theta) -> dy = -sin(theta)
+
+            fx = Math.cos(theta) * forceMag * visualScale;
+            fy = -Math.sin(theta) * forceMag * visualScale;
+
+            // Draw line
+            const endX = startX + fx;
+            const endY = startY + fy;
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            // Draw Arrow Head
+            const angleVec = Math.atan2(fy, fx);
+            const headLen = 8;
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - headLen * Math.cos(angleVec - Math.PI/6), endY - headLen * Math.sin(angleVec - Math.PI/6));
+            ctx.lineTo(endX - headLen * Math.cos(angleVec + Math.PI/6), endY - headLen * Math.sin(angleVec + Math.PI/6));
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        function drawBob(state, color, isGhost) {
+            const lenPx = L * pxPerMeter;
+            const x = originX + Math.sin(state.theta) * lenPx;
+            const y = originY + Math.cos(state.theta) * lenPx;
+
+            // String
+            ctx.beginPath();
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(x, y);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = isGhost ? "#fab1a0" : "#74b9ff"; // Lighter string colors
+            if (isGhost) ctx.setLineDash([5, 5]);
+            else ctx.setLineDash([]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Bob
+            ctx.beginPath();
+            ctx.arc(x, y, 12, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Vectors
+            if (chkVectors.checked) {
+                // Restoring force (with sign!)
+                // F < 0 pulls left (reduces angle), F > 0 pulls right.
+                let force;
+                if (isGhost) {
+                    force = -state.theta; // Linear Model
+                } else {
+                    force = -Math.sin(state.theta); // Real Model
+                }
+                drawForceVector(x, y, state.theta, force, color);
+            }
+        }
+
+        function draw() {
+            const w = canvas.width / (window.devicePixelRatio||1);
+            const h = canvas.height / (window.devicePixelRatio||1);
+            ctx.clearRect(0, 0, w, h);
+
+            // Ceiling
+            ctx.fillStyle = "#2c3e50";
+            ctx.fillRect(originX - 40, originY - 4, 80, 4);
+
+            // Draw Linear (Underneath)
+            drawBob(pLin, "#e74c3c", true);
+            // Draw Real (On top)
+            drawBob(pReal, "#3498db", false);
+        }
+
+        function loop() {
+            if (isRunning && !isPaused) {
+                updatePhysics();
+            }
+            draw();
+            animId = requestAnimationFrame(loop);
+        }
+
+        function resetSim() {
+            isRunning = false;
+            isPaused = false;
+            cancelAnimationFrame(animId);
+            btnStart.textContent = "START";
+            btnPause.textContent = "PAUSE";
+
+            L = parseFloat(inpL.value);
+            // Degrees to Radians
+            const deg = parseFloat(inpA.value);
+            startAngleRad = deg * (Math.PI / 180);
+
+            speedFactor = parseFloat(inpSpeed.value);
+
+            // Reset Position
+            pReal.theta = startAngleRad; pReal.omega = 0;
+            pLin.theta  = startAngleRad; pLin.omega  = 0;
+
+            // Calculate Error
+            // Error = |(theta - sin theta) / sin theta|
+            let err = 0;
+            const s = Math.sin(startAngleRad);
+            if (Math.abs(s) > 1e-4) {
+                err = Math.abs((startAngleRad - s)/s) * 100;
+            } else if (Math.abs(startAngleRad) > 1e-4) {
+                err = 100; // Division by zero approx
+            }
+            statDiff.innerText = err.toFixed(1) + "%";
+            statDiff.style.color = err > 10 ? "#c0392b" : "#27ae60";
+
+            statFReal.innerText = Math.abs(Math.sin(startAngleRad)).toFixed(3) + " g";
+            statFLin.innerText  = Math.abs(startAngleRad).toFixed(3) + " g";
+
+            draw();
+        }
+
+        // Event Listeners
+        inpL.addEventListener('input', (e) => {
+            dispL.innerText = parseFloat(e.target.value).toFixed(1) + " m";
+            resetSim();
+        });
+        inpA.addEventListener('input', (e) => {
+            dispA.innerText = e.target.value + "°";
+            resetSim();
+        });
+        inpSpeed.addEventListener('input', (e) => {
+            dispSpeed.innerText = e.target.value + "x";
+            speedFactor = parseFloat(e.target.value);
+        });
+        chkVectors.addEventListener('change', draw);
+
+        btnStart.addEventListener('click', () => {
+            if (isRunning) {
+                resetSim();
+            } else {
+                isRunning = true;
+                btnStart.textContent = "RESET";
+                loop();
+            }
+        });
+
+        btnPause.addEventListener('click', () => {
+            if (!isRunning) return;
+            isPaused = !isPaused;
+            btnPause.textContent = isPaused ? "RESUME" : "PAUSE";
+        });
+
+        const ro = new ResizeObserver(() => requestAnimationFrame(resize));
+        ro.observe(document.getElementById('pendulum-lab-wrapper'));
+
+        resetSim();
+        resize();
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>

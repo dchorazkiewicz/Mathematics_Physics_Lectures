@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+<!-- NEWTON'S CANNON SIMULATOR START -->
+<div class="newton-cannon-wrapper" style="width:100%; height:auto; min-height:650px; display:flex; flex-direction:column; border:1px solid #cbd5e1; border-radius:8px; overflow:hidden; position:relative; font-family:'Segoe UI', sans-serif; background-color:#ffffff; color:#334155;">
+    <style>
+        /* Scoped styles using class to avoid global pollution */
+        .newton-cannon-wrapper * { box-sizing: border-box; }
+
+        .newton-cannon-wrapper .app-layout { display: flex; flex-direction: column; min-height: 650px; flex: 1; }
+        @media (min-width: 900px) { .newton-cannon-wrapper .app-layout { flex-direction: row; } }
+
+        /* Controls */
+        .newton-cannon-wrapper .controls-area {
+            width: 100%; background-color: #f8fafc; border-right: 1px solid #cbd5e1; padding: 1.5rem;
+            display: flex; flex-direction: column; gap: 1.25rem; overflow-y: auto; order: 1; z-index: 2;
+        }
+        @media (min-width: 900px) { .newton-cannon-wrapper .controls-area { width: 340px; flex-shrink: 0; height: auto; max-height: none; } }
+
+        /* Canvas */
+        .newton-cannon-wrapper .canvas-area {
+            flex: 1; position: relative; background-color: #ffffff; overflow: hidden; min-height: 400px; cursor: default; order: 2;
+        }
+        .newton-cannon-wrapper canvas { display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* UI */
+        .newton-cannon-wrapper h2 { margin: 0 0 0.25rem 0; font-size: 1.5rem; color: #0f172a; font-weight: 700; }
+        .newton-cannon-wrapper .subtitle { font-size: 0.85rem; color: #64748b; margin-bottom: 1rem; }
+        .newton-cannon-wrapper .section-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; font-weight: 700; margin-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem; }
+
+        /* Buttons */
+        .newton-cannon-wrapper .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+        .newton-cannon-wrapper button {
+            padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; font-size: 0.85rem; background-color: #ffffff; color: #334155;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .newton-cannon-wrapper button:hover { background-color: #f1f5f9; border-color: #94a3b8; }
+        .newton-cannon-wrapper button.active { background-color: #eff6ff; border-color: #3b82f6; color: #1d4ed8; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); }
+
+        .newton-cannon-wrapper .btn-fire {
+            width: 100%; background-color: #dc2626; border-color: #b91c1c; color: white; margin-top: 0.5rem;
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .newton-cannon-wrapper .btn-fire:hover { background-color: #b91c1c; }
+
+        /* Sliders */
+        .newton-cannon-wrapper .control-group { margin-bottom: 1rem; }
+        .newton-cannon-wrapper label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem; color: #475569; font-weight: 500; }
+
+        .newton-cannon-wrapper input[type="range"] {
+            width: 100%; accent-color: #0f172a; cursor: pointer; height: 6px; background: #e2e8f0; border-radius: 3px; appearance: none;
+        }
+        .newton-cannon-wrapper input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; background: #0f172a; border-radius: 50%;
+            cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.2); margin-top: -6px;
+        }
+
+        .newton-cannon-wrapper .slider-markers {
+            display: flex; justify-content: space-between; font-size: 0.7rem; color: #94a3b8; margin-top: 4px; position: relative; height: 15px;
+        }
+        .newton-cannon-wrapper .marker { position: absolute; transform: translateX(-50%); text-align: center; }
+
+        /* Info Overlay */
+        .newton-cannon-wrapper .overlay-info {
+            position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.95);
+            padding: 12px; border-radius: 6px; font-size: 0.85rem; border: 1px solid #cbd5e1;
+            pointer-events: none; color: #334155; font-family: 'Segoe UI', sans-serif; min-width: 160px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .newton-cannon-wrapper .status-indicator { font-weight: bold; margin-top: 5px; padding-top: 5px; border-top: 1px solid #e2e8f0; }
+    </style>
+
+    <div class="app-layout">
+        <!-- CONTROL PANEL -->
+        <div class="controls-area">
+            <div>
+                <h2>Newton's Cannon</h2>
+                <div class="subtitle">Orbital Thought Experiment</div>
+            </div>
+
+            <!-- Launch Parameters -->
+            <div>
+                <div class="section-header">Launch Velocity Control</div>
+
+                <div class="control-group">
+                    <label>
+                        Velocity (v)
+                        <span class="disp-velocity" style="color:#0f172a; font-weight:bold;">---</span>
+                    </label>
+                    <input type="range" class="rng-velocity" min="0.85" max="1.6" step="0.001" value="0.85">
+
+                    <div class="slider-markers">
+                        <div class="marker" style="left: 0%">0.85v₁</div>
+                        <div class="marker" style="left: 20%">v₁</div>
+                        <div class="marker" style="left: 75.2%">v₂</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Presets -->
+            <div>
+                <div class="section-header">Quick Presets</div>
+                <div class="presets-grid">
+                    <button class="btn-fall">Fall<br>(v = 0.9)</button>
+                    <button class="btn-circle">Circular Orbit<br>(v = v₁)</button>
+                    <button class="btn-ellipse">Ellipse<br>(v₁ &lt; v &lt; v₂)</button>
+                    <button class="btn-escape">Escape<br>(v &ge; v₂)</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="section-header">Simulation Parameters</div>
+
+                <label>
+                    Time Speed
+                    <span class="disp-time">1.0x</span>
+                </label>
+                <input type="range" class="rng-timescale" min="0.1" max="3.0" step="0.1" value="1.0">
+
+                <div style="height: 10px;"></div>
+
+                <label>
+                    Camera Zoom
+                    <span class="disp-zoom">100%</span>
+                </label>
+                <input type="range" class="rng-zoom" min="0.1" max="2.5" step="0.1" value="1.5">
+            </div>
+
+            <button class="btn-fire">FIRE / RESET</button>
+
+            <div style="margin-top: 1rem; font-size: 0.8rem; color: #64748b; line-height: 1.4;">
+                <strong>Legend:</strong><br>
+                v₁ = 1st Cosmic Velocity (Circular)<br>
+                v₂ = 2nd Cosmic Velocity (Escape)<br>
+                Tower height is 10% of Earth's radius.
+            </div>
+        </div>
+
+        <!-- VISUALIZATION -->
+        <div class="canvas-area">
+            <canvas class="cannon-canvas"></canvas>
+
+            <div class="overlay-info">
+                <div>Altitude (h): <span class="info-h" style="font-weight:bold;">---</span> km</div>
+                <div>Velocity (v): <span class="info-v">---</span> km/s</div>
+                <div class="info-status status-indicator" style="color: #64748b;">Ready to fire</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        // --- SCOPED INITIALIZATION ---
+        // Find the specific wrapper for this instance of the script
+        const wrapper = document.currentScript.parentElement;
+        const canvas = wrapper.querySelector('.cannon-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Scoped UI Elements lookup
+        const rngVelocity = wrapper.querySelector('.rng-velocity');
+        const rngTimeScale = wrapper.querySelector('.rng-timescale');
+        const rngZoom = wrapper.querySelector('.rng-zoom');
+
+        const dispVelocity = wrapper.querySelector('.disp-velocity');
+        const dispTime = wrapper.querySelector('.disp-time');
+        const dispZoom = wrapper.querySelector('.disp-zoom');
+
+        const btnFire = wrapper.querySelector('.btn-fire');
+        const btnFall = wrapper.querySelector('.btn-fall');
+        const btnCircle = wrapper.querySelector('.btn-circle');
+        const btnEllipse = wrapper.querySelector('.btn-ellipse');
+        const btnEscape = wrapper.querySelector('.btn-escape');
+
+        const infoH = wrapper.querySelector('.info-h');
+        const infoV = wrapper.querySelector('.info-v');
+        const infoStatus = wrapper.querySelector('.info-status');
+
+        // --- PHYSICS & GEOMETRY CONSTANTS ---
+        const EARTH_RADIUS = 80;
+        const TOWER_HEIGHT = 8;
+        const LAUNCH_RADIUS = EARTH_RADIUS + TOWER_HEIGHT;
+
+        const V1_BASE = 4.0;
+        const GM = V1_BASE * V1_BASE * LAUNCH_RADIUS;
+        const V2_BASE = V1_BASE * Math.sqrt(2);
+
+        // Simulation State
+        let state = {
+            running: false, crashed: false, x: 0, y: -LAUNCH_RADIUS, vx: 0, vy: 0,
+            trail: [], zoom: 1.5, simSpeed: 1.0
+        };
+
+        let animationId;
+
+        // --- LOGIC ---
+        function initShot() {
+            const multiplier = parseFloat(rngVelocity.value);
+            const startV = V1_BASE * multiplier;
+            state.running = true; state.crashed = false;
+            state.x = 0; state.y = -LAUNCH_RADIUS;
+            state.vx = startV; state.vy = 0;
+            state.trail = [{x: state.x, y: state.y}];
+            infoStatus.textContent = "In flight...";
+            infoStatus.style.color = "#2563eb";
+            btnFire.textContent = "RESET";
+        }
+
+        function resetSim() {
+            state.running = false; state.crashed = false;
+            state.x = 0; state.y = -LAUNCH_RADIUS;
+            state.trail = [];
+            infoStatus.textContent = "Ready";
+            infoStatus.style.color = "#64748b";
+            btnFire.textContent = "FIRE";
+            draw();
+        }
+
+        function updatePhysics() {
+            if (!state.running || state.crashed) return;
+            const substeps = 4;
+            const dt = (0.5 * state.simSpeed) / substeps;
+
+            for(let i=0; i<substeps; i++) {
+                const r2 = state.x*state.x + state.y*state.y;
+                const r = Math.sqrt(r2);
+                if (r <= EARTH_RADIUS) {
+                    state.crashed = true; state.running = false;
+                    infoStatus.textContent = "IMPACT";
+                    infoStatus.style.color = "#dc2626";
+                    const factor = EARTH_RADIUS / r;
+                    state.x *= factor; state.y *= factor;
+                    break;
+                }
+                const acc = GM / (r2 * r);
+                state.vx += (-acc * state.x) * dt;
+                state.vy += (-acc * state.y) * dt;
+                state.x += state.vx * dt;
+                state.y += state.vy * dt;
+            }
+
+            if (state.trail.length === 0) {
+                state.trail.push({x: state.x, y: state.y});
+            } else {
+                const last = state.trail[state.trail.length-1];
+                if ((state.x - last.x)**2 + (state.y - last.y)**2 > 10) {
+                    state.trail.push({x: state.x, y: state.y});
+                    if (state.trail.length > 2000) state.trail.shift();
+                }
+            }
+        }
+
+        function updateInfo() {
+            if (!state.running && !state.crashed && btnFire.textContent === "FIRE") {
+                const mult = parseFloat(rngVelocity.value);
+                const realV = (mult * 7.91).toFixed(2);
+                infoV.innerText = `${realV} km/s`;
+                infoH.innerText = "---";
+                return;
+            }
+            const r = Math.sqrt(state.x*state.x + state.y*state.y);
+            const vCurrent = Math.sqrt(state.vx*state.vx + state.vy*state.vy);
+            const altitudePx = r - EARTH_RADIUS;
+            const altitudeKm = (altitudePx / EARTH_RADIUS) * 6371;
+            const realV = (vCurrent / V1_BASE) * 7.91;
+            infoH.innerText = Math.max(0, altitudeKm).toFixed(0);
+            infoV.innerText = realV.toFixed(2);
+        }
+
+        function draw() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const minDim = Math.min(width, height) || 400; // Fallback to prevent 0 scale
+            const baseScale = minDim / (3.5 * EARTH_RADIUS);
+            const scale = baseScale * state.zoom;
+            const cx = width / 2;
+            const cy = height / 2;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.scale(scale, scale);
+
+            // Earth
+            ctx.fillStyle = "#e2e8f0"; ctx.beginPath(); ctx.arc(0, 0, EARTH_RADIUS * 1.1, 0, Math.PI*2); ctx.fill();
+            ctx.fillStyle = "#3b82f6"; ctx.beginPath(); ctx.arc(0, 0, EARTH_RADIUS, 0, Math.PI*2); ctx.fill();
+            ctx.strokeStyle = "rgba(255,255,255,0.3)"; ctx.lineWidth = 1; ctx.beginPath();
+            ctx.moveTo(-EARTH_RADIUS, 0); ctx.lineTo(EARTH_RADIUS, 0); ctx.moveTo(0, -EARTH_RADIUS); ctx.lineTo(0, EARTH_RADIUS); ctx.stroke();
+
+            // Tower
+            ctx.fillStyle = "#64748b"; ctx.fillRect(-2, -LAUNCH_RADIUS, 4, TOWER_HEIGHT);
+            ctx.fillStyle = "#1e293b"; ctx.beginPath(); ctx.arc(0, -LAUNCH_RADIUS, 4, 0, Math.PI*2); ctx.fill();
+
+            // Trail
+            if (state.trail.length > 1) {
+                ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 2 / scale; ctx.beginPath();
+                ctx.moveTo(state.trail[0].x, state.trail[0].y);
+                for (let i = 1; i < state.trail.length; i++) ctx.lineTo(state.trail[i].x, state.trail[i].y);
+                ctx.stroke();
+            }
+
+            // Projectile
+            if (state.running || state.crashed) {
+                ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.arc(state.x, state.y, 5 / scale, 0, Math.PI*2); ctx.fill();
+            }
+            if (state.crashed) {
+                ctx.fillStyle = "yellow"; ctx.font = `bold ${14/scale}px Arial`; ctx.textAlign = "center";
+                ctx.textBaseline = "middle"; ctx.fillText("💥", state.x, state.y);
+            }
+            ctx.restore();
+        }
+
+        function loop() {
+            updatePhysics(); updateInfo(); draw();
+            animationId = requestAnimationFrame(loop);
+        }
+
+        // --- SCOPED LISTENERS ---
+        let resizeRequestId = null;
+        const resizeObserver = new ResizeObserver(() => {
+            if (!resizeRequestId) {
+                resizeRequestId = window.requestAnimationFrame(() => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                    if (!state.running) draw();
+                    resizeRequestId = null;
+                });
+            }
+        });
+        resizeObserver.observe(canvas.parentElement);
+
+        rngVelocity.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            let label = "";
+            if (val < 1.0) label = `v < v₁ (${val.toFixed(3)})`;
+            else if (Math.abs(val - 1.0) < 0.002) label = `v ≈ v₁ (Orbit)`;
+            else if (val < 1.414) label = `v₁ < v < v₂ (${val.toFixed(3)})`;
+            else label = `v > v₂ (Escape)`;
+            dispVelocity.textContent = label;
+            if (!state.running) updateInfo();
+        });
+
+        rngTimeScale.addEventListener('input', (e) => {
+            state.simSpeed = parseFloat(e.target.value);
+            dispTime.textContent = state.simSpeed.toFixed(1) + "x";
+        });
+
+        rngZoom.addEventListener('input', (e) => {
+            state.zoom = parseFloat(e.target.value);
+            dispZoom.textContent = Math.round(state.zoom * 100) + "%";
+            if (!state.running) draw();
+        });
+
+        btnFire.addEventListener('click', () => {
+            if (state.running || state.crashed) resetSim(); else initShot();
+        });
+
+        function setPreset(val) {
+            rngVelocity.value = val;
+            rngVelocity.dispatchEvent(new Event('input'));
+            resetSim();
+        }
+
+        btnFall.addEventListener('click', () => setPreset(0.9));
+        btnCircle.addEventListener('click', () => setPreset(1.0));
+        btnEllipse.addEventListener('click', () => setPreset(1.2));
+        btnEscape.addEventListener('click', () => setPreset(1.45));
+
+        resetSim();
+        rngVelocity.dispatchEvent(new Event('input'));
+        loop();
+
+    })();
+    </script>
+</div>
+<!-- NEWTON'S CANNON SIMULATOR END -->
+
+
+</body>
+</html>

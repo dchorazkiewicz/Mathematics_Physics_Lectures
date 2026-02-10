@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<div class="newton-dynamics-widget">
+    <style>
+        .newton-dynamics-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 850px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .newton-dynamics-widget h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .newton-dynamics-widget .canvas-container {
+            position: relative;
+            margin: 10px 0 15px 0;
+            background: #fdfdfd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .newton-dynamics-widget canvas {
+            display: block;
+        }
+
+        .newton-dynamics-widget .overlay-msg {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #333;
+            pointer-events: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: opacity 0.3s;
+            border: 1px solid #ddd;
+            z-index: 2;
+        }
+
+        .newton-dynamics-widget .field-formula {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #c62828;
+            border: 1px solid #ddd;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .newton-dynamics-widget .data-monitor {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #333;
+            border: 1px solid #ddd;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 140px;
+        }
+
+        .newton-dynamics-widget .data-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .newton-dynamics-widget .data-label { font-weight: bold; margin-right: 8px; }
+        .newton-dynamics-widget .data-val { text-align: right; }
+
+        .newton-dynamics-widget .controls-panel {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .newton-dynamics-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .newton-dynamics-widget label {
+            font-weight: 600;
+            font-size: 0.8em;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .newton-dynamics-widget select {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .newton-dynamics-widget input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .newton-dynamics-widget .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newton-dynamics-widget button {
+            padding: 0 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            height: 36px;
+        }
+
+        .newton-dynamics-widget .btn-reset {
+            background-color: #607d8b;
+        }
+        .newton-dynamics-widget .btn-reset:hover {
+            background-color: #455a64;
+        }
+
+        .newton-dynamics-widget .btn-replay {
+            background-color: #1976d2;
+        }
+        .newton-dynamics-widget .btn-replay:hover:not(:disabled) {
+            background-color: #1565c0;
+        }
+        .newton-dynamics-widget .btn-replay:disabled {
+            background-color: #bbdefb;
+            cursor: not-allowed;
+        }
+
+        .newton-dynamics-widget .legend {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.85em;
+            margin-top: 5px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .newton-dynamics-widget .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .newton-dynamics-widget .color-line { width: 20px; height: 3px; border-radius: 2px; }
+        .newton-dynamics-widget .color-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        @media (max-width: 800px) {
+            .newton-dynamics-widget .controls-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+
+    <h3>Force Field Simulation (Newton's Laws)</h3>
+
+    <div class="canvas-container">
+        <canvas class="sim-canvas" width="800" height="450"></canvas>
+
+        <div class="overlay-msg">Click and drag to launch (Slingshot)</div>
+        <div class="field-formula">F = ...</div>
+
+        <div class="data-monitor">
+            <div class="data-row">
+                <span class="data-label">Time:</span>
+                <span class="data-val" id="val-t">0.00 s</span>
+            </div>
+            <div class="data-row" style="color:#1976d2">
+                <span class="data-label">Pos(r):</span>
+                <span class="data-val" id="val-r">[0, 0]</span>
+            </div>
+            <div class="data-row" style="color:#2e7d32">
+                <span class="data-label">Vel(v):</span>
+                <span class="data-val" id="val-v">[0, 0]</span>
+            </div>
+            <div class="data-row" style="color:#ef6c00">
+                <span class="data-label">Acc(a):</span>
+                <span class="data-val" id="val-a">[0, 0]</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="control-group">
+            <label>Force Field:</label>
+            <select class="field-select">
+                <option value="gravity">Gravity (Constant Down)</option>
+                <option value="sine">Sinusoidal</option>
+                <option value="decay">Linear Decay</option>
+                <option value="center">Central Point</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Field Intensity: <span class="val-strength" style="color:#1976d2">1.0x</span></label>
+            <input type="range" class="slider-strength" min="0" max="5.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="control-group">
+            <label>Time Speed: <span class="val-speed" style="color:#555">1.0x</span></label>
+            <input type="range" class="slider-speed" min="0.1" max="1.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-replay" disabled>Replay</button>
+            <button class="btn-reset">Reset</button>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="color-dot" style="background: #d32f2f;"></div> Particle</div>
+        <div class="legend-item"><div class="color-line" style="background: #2e7d32;"></div> Velocity</div>
+        <div class="legend-item"><div class="color-line" style="background: #ef6c00;"></div> Acceleration</div>
+        <div class="legend-item"><div class="color-line" style="background: #aaa; border: 1px dashed #aaa;"></div> Path</div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.sim-canvas');
+        const ctx = canvas.getContext('2d');
+        const msgBox = widget.querySelector('.overlay-msg');
+        const formulaBox = widget.querySelector('.field-formula');
+
+        // Data Monitor Refs
+        const valT = widget.querySelector('#val-t');
+        const valR = widget.querySelector('#val-r');
+        const valV = widget.querySelector('#val-v');
+        const valA = widget.querySelector('#val-a');
+
+        const selectField = widget.querySelector('.field-select');
+        const sliderStrength = widget.querySelector('.slider-strength');
+        const valStrength = widget.querySelector('.val-strength');
+        const sliderSpeed = widget.querySelector('.slider-speed');
+        const valSpeed = widget.querySelector('.val-speed');
+        const btnReset = widget.querySelector('.btn-reset');
+        const btnReplay = widget.querySelector('.btn-replay');
+
+        const config = {
+            baseDt: 0.1,
+            mass: 1.0,
+            gridSpacing: 50,
+            wallBounce: 1.0,
+            radius: 6,
+            dragForceFactor: 0.15,
+            vectorVisualScale: 3.0
+        };
+
+        const fields = {
+            gravity: {
+                // Gravity pulls DOWN (Negative Y in Cartesian)
+                fn: (x, y) => ({ x: 0, y: -5 }),
+                maxRef: 5,
+                formula: "F = [0, -5]"
+            },
+            sine: {
+                fn: (x, y) => ({ x: 0, y: 10 * Math.sin(x / 50) }),
+                maxRef: 10,
+                formula: "F = [0, 10·sin(x/50)]"
+            },
+            decay: {
+                // Linear Decay: Strong at bottom (y=0), Zero at top (y=h)
+                // Force is Down (negative)
+                fn: (x, y) => {
+                    const h = canvas.height;
+                    // Physics y=0 is bottom.
+                    const normalizedY = y / h;
+                    // Strength decreases as we go up
+                    const strength = 15 * (1 - normalizedY);
+                    // Force is downwards
+                    return { x: 0, y: -Math.max(0, strength) };
+                },
+                maxRef: 15,
+                formula: "F = [0, -15·(1 - y/h)]"
+            },
+            center: {
+                fn: (x, y) => {
+                    const cx = canvas.width / 2;
+                    const cy = canvas.height / 2;
+                    const dx = cx - x;
+                    const dy = cy - y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 5) return {x:0, y:0};
+                    const F = 10 * (dist / 300);
+                    return { x: F * (dx/dist), y: F * (dy/dist) };
+                },
+                maxRef: 10,
+                formula: "F ~ Dist to Center"
+            }
+        };
+
+        let state = {
+            status: 'IDLE',
+            fieldKey: 'gravity',
+            strengthMultiplier: 1.0,
+            timeSpeed: 1.0,
+            timeElapsed: 0,
+
+            // PHYSICS COORDINATES (0,0 at Bottom-Left)
+            pos: { x: 100, y: 100 },
+            vel: { x: 0, y: 0 },
+            acc: { x: 0, y: 0 },
+            path: [],
+
+            // MOUSE / SCREEN INTERACTION
+            dragStartPhysics: { x: 0, y: 0 },
+            dragCurrentPhysics: { x: 0, y: 0 },
+
+            lastShot: {
+                exists: false,
+                startPos: { x: 0, y: 0 },
+                startVel: { x: 0, y: 0 }
+            },
+
+            animId: null
+        };
+
+        // --- Coordinate Helpers ---
+        // Converts Physics Coords (Y-Up) to Screen Coords (Y-Down, 0 at top)
+        function toScreen(x, y) {
+            return {
+                x: x,
+                y: canvas.height - y
+            };
+        }
+
+        // Converts Screen Coords (MouseEvent) to Physics Coords (Y-Up)
+        function toPhysics(screenX, screenY) {
+            return {
+                x: screenX,
+                y: canvas.height - screenY
+            };
+        }
+
+        function getForce(x, y) {
+            const field = fields[state.fieldKey];
+            const baseF = field.fn(x, y);
+            return {
+                x: baseF.x * state.strengthMultiplier,
+                y: baseF.y * state.strengthMultiplier
+            };
+        }
+
+        function updatePhysics() {
+            const dt = config.baseDt * state.timeSpeed;
+            state.timeElapsed += dt;
+
+            const F = getForce(state.pos.x, state.pos.y);
+            const a = { x: F.x / config.mass, y: F.y / config.mass };
+            state.acc = a;
+
+            // Euler-Cromer
+            state.vel.x += a.x * dt;
+            state.vel.y += a.y * dt;
+
+            state.pos.x += state.vel.x * dt;
+            state.pos.y += state.vel.y * dt;
+
+            if (state.animId % (Math.floor(3/state.timeSpeed)) === 0) {
+                state.path.push({ ...state.pos });
+            }
+
+            // Wall Bounce
+            const r = config.radius;
+            const w = canvas.width;
+            const h = canvas.height;
+            const bounce = config.wallBounce;
+
+            if (state.pos.x < r) {
+                state.pos.x = r;
+                state.vel.x *= -bounce;
+            } else if (state.pos.x > w - r) {
+                state.pos.x = w - r;
+                state.vel.x *= -bounce;
+            }
+
+            // Ground/Ceiling
+            if (state.pos.y < r) {
+                state.pos.y = r;
+                state.vel.y *= -bounce;
+            } else if (state.pos.y > h - r) {
+                state.pos.y = h - r;
+                state.vel.y *= -bounce;
+            }
+        }
+
+        function updateDataMonitor() {
+            valT.innerText = state.timeElapsed.toFixed(2) + ' s';
+            const fmt = (v) => `[${v.x.toFixed(0)}, ${v.y.toFixed(0)}]`;
+
+            if (state.status === 'RUNNING' || state.status === 'DRAGGING') {
+                valR.innerText = fmt(state.pos);
+                valV.innerText = fmt(state.vel);
+                valA.innerText = fmt(state.acc);
+            } else if (state.status === 'IDLE' && state.lastShot.exists) {
+                 valR.innerText = fmt(state.lastShot.startPos);
+                 valV.innerText = fmt(state.lastShot.startVel);
+                 valA.innerText = "[0, 0]";
+            }
+        }
+
+        function drawAxes() {
+            ctx.save();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#333';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+
+            // Y Axis (Logic X=0)
+            const p0 = toScreen(0, 0);
+            const pTop = toScreen(0, canvas.height);
+
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(pTop.x, pTop.y);
+            ctx.stroke();
+
+            for(let y=0; y<=canvas.height; y+=50) {
+                const s = toScreen(0, y);
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y);
+                ctx.lineTo(s.x + 6, s.y);
+                ctx.stroke();
+                if(y > 0) ctx.fillText(y, s.x + 30, s.y);
+            }
+
+            // X Axis (Logic Y=0 is at bottom of screen)
+            const pRight = toScreen(canvas.width, 0);
+
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(pRight.x, pRight.y);
+            ctx.stroke();
+
+            for(let x=0; x<=canvas.width; x+=50) {
+                const s = toScreen(x, 0);
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y);
+                ctx.lineTo(s.x, s.y - 6);
+                ctx.stroke();
+                if(x > 0) ctx.fillText(x, s.x, s.y - 15);
+            }
+
+            ctx.font = 'bold 12px sans-serif';
+            const xLabel = toScreen(canvas.width - 40, 0);
+            ctx.fillText("X (px)", xLabel.x, xLabel.y - 30);
+
+            ctx.save();
+            const yLabel = toScreen(0, canvas.height - 40);
+            ctx.translate(yLabel.x + 15, yLabel.y);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText("Y (px)", 0, 0);
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        function drawArrow(physX, physY, vx, vy, color, lineWidth = 2, alpha = 1.0) {
+            const len = Math.sqrt(vx*vx + vy*vy);
+            if (len < 1) return;
+
+            // Convert Start Point to Screen
+            const start = toScreen(physX, physY);
+
+            // Calculate End Point in Physics, then Convert to Screen
+            // (Note: Canvas Y is inverted, so physics Up is screen Up (smaller Y))
+            const endPhysX = physX + vx;
+            const endPhysY = physY + vy;
+            const end = toScreen(endPhysX, endPhysY);
+
+            const dx = end.x - start.x;
+            const dy = end.y - start.y;
+            const angle = Math.atan2(dy, dx);
+            const headLen = 8;
+
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = lineWidth;
+
+            ctx.beginPath(); ctx.moveTo(start.x, start.y); ctx.lineTo(end.x, end.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(end.x, end.y);
+            ctx.lineTo(end.x - headLen * Math.cos(angle - Math.PI/6), end.y - headLen * Math.sin(angle - Math.PI/6));
+            ctx.lineTo(end.x - headLen * Math.cos(angle + Math.PI/6), end.y - headLen * Math.sin(angle + Math.PI/6));
+            ctx.lineTo(end.x, end.y); ctx.fill();
+            ctx.restore();
+        }
+
+        function drawField() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawAxes();
+
+            const spacing = config.gridSpacing;
+            const currentField = fields[state.fieldKey];
+
+            for (let x = spacing/2; x < canvas.width; x += spacing) {
+                for (let y = spacing/2; y < canvas.height; y += spacing) {
+                    const baseF = currentField.fn(x, y);
+                    const Fx = baseF.x * state.strengthMultiplier;
+                    const Fy = baseF.y * state.strengthMultiplier;
+
+                    const mag = Math.sqrt(Fx*Fx + Fy*Fy);
+                    const refMag = currentField.maxRef * Math.max(1, state.strengthMultiplier);
+
+                    if (mag > 0.05) {
+                        const scale = 25 / refMag;
+                        drawArrow(x, y, Fx * scale, Fy * scale, '#cfd8dc', 1.5, 0.6);
+                    } else {
+                        const s = toScreen(x, y);
+                        ctx.fillStyle = '#eceff1'; ctx.fillRect(s.x-1, s.y-1, 2, 2);
+                    }
+                }
+            }
+        }
+
+        function drawScene() {
+            drawField();
+
+            // Ghost of last shot
+            if (state.status === 'IDLE' && state.lastShot.exists) {
+                const ls = state.lastShot;
+                const s = toScreen(ls.startPos.x, ls.startPos.y);
+
+                ctx.save();
+                ctx.globalAlpha = 0.4;
+                ctx.beginPath(); ctx.fillStyle = '#d32f2f';
+                ctx.arc(s.x, s.y, config.radius, 0, Math.PI*2);
+                ctx.fill();
+
+                drawArrow(ls.startPos.x, ls.startPos.y, ls.startVel.x * config.vectorVisualScale, ls.startVel.y * config.vectorVisualScale, '#2e7d32', 2, 0.4);
+
+                ctx.restore();
+            }
+
+            // Path
+            if (state.path.length > 1) {
+                ctx.beginPath();
+                ctx.strokeStyle = '#78909c';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([4, 4]);
+
+                const start = toScreen(state.path[0].x, state.path[0].y);
+                ctx.moveTo(start.x, start.y);
+
+                for (let i = 1; i < state.path.length; i++) {
+                    const p = toScreen(state.path[i].x, state.path[i].y);
+                    ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // DRAGGING
+            if (state.status === 'DRAGGING') {
+                const startS = toScreen(state.dragStartPhysics.x, state.dragStartPhysics.y);
+                const currS = toScreen(state.dragCurrentPhysics.x, state.dragCurrentPhysics.y);
+
+                // Slingshot line
+                ctx.beginPath();
+                ctx.strokeStyle = '#444'; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+                ctx.moveTo(startS.x, startS.y);
+                ctx.lineTo(currS.x, currS.y);
+                ctx.stroke(); ctx.setLineDash([]);
+
+                // Physics Vector: Start - Current
+                const vx = (state.dragStartPhysics.x - state.dragCurrentPhysics.x) * config.dragForceFactor;
+                const vy = (state.dragStartPhysics.y - state.dragCurrentPhysics.y) * config.dragForceFactor;
+
+                drawArrow(state.dragStartPhysics.x, state.dragStartPhysics.y, vx * config.vectorVisualScale, vy * config.vectorVisualScale, '#2e7d32', 2);
+
+                ctx.beginPath(); ctx.fillStyle = '#d32f2f';
+                ctx.arc(startS.x, startS.y, config.radius, 0, Math.PI*2); ctx.fill();
+            }
+
+            // RUNNING
+            if (state.status === 'RUNNING') {
+                const p = state.pos;
+                const s = toScreen(p.x, p.y);
+
+                ctx.beginPath(); ctx.fillStyle = '#d32f2f';
+                ctx.arc(s.x, s.y, config.radius, 0, Math.PI*2); ctx.fill();
+
+                drawArrow(p.x, p.y, state.vel.x * config.vectorVisualScale, state.vel.y * config.vectorVisualScale, '#2e7d32', 2);
+
+                const F = getForce(p.x, p.y);
+                // Draw acceleration vector
+                drawArrow(p.x, p.y, (F.x/config.mass) * 4, (F.y/config.mass) * 4, '#ef6c00', 2);
+            }
+
+            updateDataMonitor();
+        }
+
+        function loop() {
+            if (state.status !== 'RUNNING') return;
+            updatePhysics();
+            drawScene();
+            state.animId = requestAnimationFrame(loop);
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (state.status === 'RUNNING') cancelAnimationFrame(state.animId);
+
+            const rect = canvas.getBoundingClientRect();
+            const sx = e.clientX - rect.left;
+            const sy = e.clientY - rect.top;
+
+            const phys = toPhysics(sx, sy);
+
+            state.status = 'DRAGGING';
+            state.dragStartPhysics = phys;
+            state.dragCurrentPhysics = phys;
+
+            state.pos = phys;
+            state.vel = { x: 0, y: 0 };
+            state.acc = { x: 0, y: 0 };
+            state.timeElapsed = 0;
+            state.path = [];
+
+            msgBox.style.opacity = '0';
+            drawScene();
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (state.status !== 'DRAGGING') return;
+            const rect = canvas.getBoundingClientRect();
+            const sx = e.clientX - rect.left;
+            const sy = e.clientY - rect.top;
+
+            state.dragCurrentPhysics = toPhysics(sx, sy);
+
+            // Live update for dragging
+            state.pos = state.dragStartPhysics;
+            updateDataMonitor();
+
+            drawScene();
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (state.status !== 'DRAGGING') return;
+
+            state.vel = {
+                x: (state.dragStartPhysics.x - state.dragCurrentPhysics.x) * config.dragForceFactor,
+                y: (state.dragStartPhysics.y - state.dragCurrentPhysics.y) * config.dragForceFactor
+            };
+
+            state.lastShot.exists = true;
+            state.lastShot.startPos = { ...state.dragStartPhysics };
+            state.lastShot.startVel = { ...state.vel };
+
+            btnReplay.disabled = false;
+            btnReplay.innerText = "Replay Shot";
+
+            state.status = 'RUNNING';
+            loop();
+        });
+
+        selectField.addEventListener('change', (e) => {
+            state.fieldKey = e.target.value;
+            reset();
+        });
+
+        sliderStrength.addEventListener('input', (e) => {
+            state.strengthMultiplier = parseFloat(e.target.value);
+            valStrength.innerText = state.strengthMultiplier.toFixed(1) + 'x';
+            if (state.status === 'IDLE') drawScene();
+        });
+
+        sliderSpeed.addEventListener('input', (e) => {
+            state.timeSpeed = parseFloat(e.target.value);
+            valSpeed.innerText = Math.round(state.timeSpeed * 100) + '%';
+        });
+
+        btnReset.addEventListener('click', reset);
+
+        btnReplay.addEventListener('click', () => {
+            if (!state.lastShot.exists) return;
+            if (state.status === 'RUNNING') cancelAnimationFrame(state.animId);
+
+            state.pos = { ...state.lastShot.startPos };
+            state.vel = { ...state.lastShot.startVel };
+            state.timeElapsed = 0;
+            state.path = [];
+
+            msgBox.style.opacity = '0';
+            state.status = 'RUNNING';
+            loop();
+        });
+
+        function reset() {
+            state.status = 'IDLE';
+            cancelAnimationFrame(state.animId);
+            state.path = [];
+            state.pos = { x: 400, y: 225 }; // Center ish
+            state.timeElapsed = 0;
+            msgBox.innerText = "Click and drag to launch (Slingshot)";
+            msgBox.style.opacity = '1';
+
+            formulaBox.innerText = fields[state.fieldKey].formula;
+
+            drawScene();
+        }
+
+        formulaBox.innerText = fields[state.fieldKey].formula;
+        drawScene();
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>

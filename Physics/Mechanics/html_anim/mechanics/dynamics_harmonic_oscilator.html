@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<div class="harmonic-oscillator-widget">
+    <style>
+        .harmonic-oscillator-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .harmonic-oscillator-widget h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sekcja Symulacji */
+        .harmonic-oscillator-widget .sim-container {
+            position: relative;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .harmonic-oscillator-widget canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .harmonic-oscillator-widget .sim-legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #444;
+            display: flex;
+            gap: 15px;
+            border: 1px solid #ddd;
+        }
+        .harmonic-oscillator-widget .leg-item { display: flex; align-items: center; gap: 6px; }
+        .harmonic-oscillator-widget .line { width: 20px; height: 3px; }
+
+        /* Sekcja Wykresów */
+        .harmonic-oscillator-widget .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 220px;
+        }
+
+        .harmonic-oscillator-widget .chart-box {
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .harmonic-oscillator-widget .chart-title {
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+            padding: 5px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+            z-index: 10;
+        }
+
+        /* Current Value Overlay on Charts */
+        .harmonic-oscillator-widget .chart-val {
+            position: absolute;
+            top: 30px;
+            right: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* Panel Sterowania */
+        .harmonic-oscillator-widget .controls {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .harmonic-oscillator-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 140px;
+        }
+
+        .harmonic-oscillator-widget label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .harmonic-oscillator-widget input[type=range] {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .harmonic-oscillator-widget button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .harmonic-oscillator-widget .btn-start { background-color: #2e7d32; }
+        .harmonic-oscillator-widget .btn-start:hover { background-color: #1b5e20; transform: scale(1.05); }
+
+        .harmonic-oscillator-widget .btn-reset { background-color: #607d8b; }
+        .harmonic-oscillator-widget .btn-reset:hover { background-color: #455a64; transform: scale(1.05); }
+
+        .harmonic-oscillator-widget .val-display { color: #1565c0; }
+
+        @media (max-width: 700px) {
+            .harmonic-oscillator-widget .charts-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .harmonic-oscillator-widget .chart-box {
+                height: 180px;
+            }
+        }
+    </style>
+
+    <h3>Harmonic Oscillator (Spring-Mass System)</h3>
+
+    <!-- Symulacja -->
+    <div class="sim-container">
+        <canvas class="sim-canvas"></canvas>
+        <div class="sim-legend">
+            <div class="leg-item"><div class="line" style="background:#2e7d32"></div> Velocity (v)</div>
+            <div class="leg-item"><div class="line" style="background:#ef6c00"></div> Acceleration (a)</div>
+        </div>
+    </div>
+
+    <!-- Wykresy -->
+    <div class="charts-container">
+        <div class="chart-box">
+            <div class="chart-title" style="color:#1976d2">Position x(t) [m]</div>
+            <div class="chart-val" id="val-x-live" style="color:#1976d2">0.00</div>
+            <canvas class="chart-x"></canvas>
+        </div>
+        <div class="chart-box">
+            <div class="chart-title" style="color:#2e7d32">Velocity v(t) [m/s]</div>
+            <div class="chart-val" id="val-v-live" style="color:#2e7d32">0.00</div>
+            <canvas class="chart-v"></canvas>
+        </div>
+    </div>
+
+    <!-- Sterowanie -->
+    <div class="controls">
+        <div class="control-group">
+            <label>Spring Constant (k): <span class="val-display" id="val-k">2.0 N/m</span></label>
+            <input type="range" id="slider-k" min="0.5" max="10.0" step="0.1" value="2.0">
+        </div>
+
+        <div class="control-group">
+            <label>Mass (m): <span class="val-display" id="val-m">1.0 kg</span></label>
+            <input type="range" id="slider-m" min="0.1" max="5.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="control-group">
+            <label>Anim Speed: <span class="val-display" id="val-speed">1.0x</span></label>
+            <input type="range" id="slider-speed" min="0.1" max="3.0" step="0.1" value="1.0">
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-start">Start / Stop</button>
+            <button class="btn-reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+
+        // Canvas refs
+        const simCanvas = widget.querySelector('.sim-canvas');
+        const chartXCanvas = widget.querySelector('.chart-x');
+        const chartVCanvas = widget.querySelector('.chart-v');
+
+        const ctxSim = simCanvas.getContext('2d');
+        const ctxX = chartXCanvas.getContext('2d');
+        const ctxV = chartVCanvas.getContext('2d');
+
+        // UI refs
+        const sliderK = widget.querySelector('#slider-k');
+        const sliderM = widget.querySelector('#slider-m');
+        const sliderSpeed = widget.querySelector('#slider-speed');
+        const valK = widget.querySelector('#val-k');
+        const valM = widget.querySelector('#val-m');
+        const valSpeed = widget.querySelector('#val-speed');
+
+        const valXLive = widget.querySelector('#val-x-live');
+        const valVLive = widget.querySelector('#val-v-live');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        // State
+        let state = {
+            t: 0,
+            x: 3.0,
+            v: 0,
+            a: 0,
+            k: 2.0,
+            m: 1.0,
+            dt: 0.016, // approx 60fps step base
+            timeScale: 1.0,
+            history: [],
+            isRunning: false,
+            animId: null
+        };
+
+        function resizeCanvases() {
+            [simCanvas, chartXCanvas, chartVCanvas].forEach(c => {
+                c.width = c.clientWidth;
+                c.height = c.clientHeight;
+            });
+            drawAll();
+        }
+        window.addEventListener('resize', resizeCanvases);
+
+        // --- Physics Engine ---
+        function updatePhysics() {
+            // Apply time scaling
+            const effectiveDt = state.dt * state.timeScale;
+
+            // Symplectic Euler
+            state.a = -(state.k / state.m) * state.x;
+            state.v += state.a * effectiveDt;
+            state.x += state.v * effectiveDt;
+            state.t += effectiveDt;
+
+            state.history.push({ t: state.t, x: state.x, v: state.v });
+
+            // Maintain history buffer (approx 5-6 seconds of data)
+            // If dt is small, history grows fast.
+            // Let's keep fixed number of points for graph width
+            if (state.history.length > 400) state.history.shift();
+        }
+
+        // --- Drawing ---
+
+        function drawArrow(ctx, x, y, len, color) {
+            if (Math.abs(len) < 5) return;
+            const dir = len > 0 ? 1 : -1;
+            const endX = x + len;
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, y);
+            ctx.stroke();
+
+            // Head
+            const head = 8;
+            ctx.beginPath();
+            ctx.moveTo(endX, y);
+            ctx.lineTo(endX - head*dir, y - 5);
+            ctx.lineTo(endX - head*dir, y + 5);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawSimulation() {
+            const w = simCanvas.width;
+            const h = simCanvas.height;
+            const cx = w / 2;
+            const cy = h / 2 - 20;
+            const scale = 40; // px per meter (zoomed out a bit)
+
+            ctxSim.clearRect(0, 0, w, h);
+
+            // Floor / Ruler
+            const floorY = cy + 40;
+            ctxSim.fillStyle = '#f0f0f0';
+            ctxSim.fillRect(0, floorY, w, h-floorY);
+            ctxSim.strokeStyle = '#999';
+            ctxSim.beginPath(); ctxSim.moveTo(0, floorY); ctxSim.lineTo(w, floorY); ctxSim.stroke();
+
+            // Ruler Ticks
+            ctxSim.fillStyle = '#666';
+            ctxSim.font = '10px monospace';
+            ctxSim.textAlign = 'center';
+            for (let i = -8; i <= 8; i++) {
+                const tx = cx + i * scale;
+                if (tx < 0 || tx > w) continue;
+                ctxSim.beginPath(); ctxSim.moveTo(tx, floorY); ctxSim.lineTo(tx, floorY + 8); ctxSim.stroke();
+                ctxSim.fillText(i, tx, floorY + 20);
+            }
+
+            // Equilibrium Line
+            ctxSim.strokeStyle = '#1976d2';
+            ctxSim.lineWidth = 1;
+            ctxSim.setLineDash([5, 3]);
+            ctxSim.beginPath(); ctxSim.moveTo(cx, 20); ctxSim.lineTo(cx, floorY); ctxSim.stroke();
+            ctxSim.setLineDash([]);
+            ctxSim.fillStyle = '#1976d2';
+            ctxSim.fillText("0", cx, 15);
+
+            // Mass position
+            const massX = cx + state.x * scale;
+            const massW = 50;
+            const massH = 50;
+
+            // Spring
+            ctxSim.strokeStyle = '#444';
+            ctxSim.lineWidth = 2;
+            ctxSim.beginPath();
+            ctxSim.moveTo(0, cy);
+            const endSpringX = massX - massW/2;
+            const coils = 16;
+            const coilW = (endSpringX) / coils;
+
+            for(let i=0; i<coils; i++) {
+                const x = i * coilW;
+                ctxSim.lineTo(x + coilW/2, cy + (i%2===0 ? 12 : -12));
+                ctxSim.lineTo(x + coilW, cy);
+            }
+            ctxSim.lineTo(endSpringX, cy);
+            ctxSim.stroke();
+
+            // Mass
+            ctxSim.fillStyle = '#37474f';
+            ctxSim.fillRect(massX - massW/2, cy - massH/2, massW, massH);
+            ctxSim.strokeStyle = '#263238';
+            ctxSim.strokeRect(massX - massW/2, cy - massH/2, massW, massH);
+
+            ctxSim.fillStyle = 'white';
+            ctxSim.font = 'bold 16px Arial';
+            ctxSim.fillText("M", massX, cy);
+
+            // VECTORS (Scaled for visibility)
+            drawArrow(ctxSim, massX, cy + 35, state.v * 10, '#2e7d32');
+            drawArrow(ctxSim, massX, cy + 50, state.a * 10, '#ef6c00');
+        }
+
+        function drawAxes(ctx, w, h, min, max) {
+            ctx.clearRect(0, 0, w, h);
+            const padLeft = 40;
+            const padBottom = 20;
+            const graphH = h - padBottom;
+
+            // Grid
+            ctx.strokeStyle = '#eee';
+            ctx.lineWidth = 1;
+            const zeroY = graphH - ((0 - min) / (max - min)) * graphH;
+
+            // Zero Line
+            if (zeroY >= 0 && zeroY <= graphH) {
+                ctx.strokeStyle = '#bbb';
+                ctx.beginPath(); ctx.moveTo(padLeft, zeroY); ctx.lineTo(w, zeroY); ctx.stroke();
+            }
+
+            // Labels Y
+            ctx.fillStyle = '#666';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'right';
+            ctx.fillText(max.toFixed(1), padLeft - 5, 10);
+            if (Math.abs(min) > 0.1 && Math.abs(max) > 0.1) ctx.fillText("0.0", padLeft - 5, zeroY + 3);
+            ctx.fillText(min.toFixed(1), padLeft - 5, graphH);
+
+            // Axes lines
+            ctx.strokeStyle = '#888';
+            ctx.beginPath();
+            ctx.moveTo(padLeft, 0); ctx.lineTo(padLeft, graphH); // Y axis
+            ctx.moveTo(padLeft, graphH); ctx.lineTo(w, graphH); // X axis
+            ctx.stroke();
+
+            return { x: padLeft, y: 0, w: w - padLeft, h: graphH };
+        }
+
+        function drawGraph(ctx, data, key, color) {
+            const w = ctx.canvas.width;
+            const h = ctx.canvas.height;
+
+            if (data.length === 0) return;
+
+            // Auto-scale
+            let maxVal = 0.5; // Minimum range
+            for(let d of data) {
+                if (Math.abs(d[key]) > maxVal) maxVal = Math.abs(d[key]);
+            }
+            maxVal *= 1.2;
+            const minVal = -maxVal;
+
+            const area = drawAxes(ctx, w, h, minVal, maxVal);
+
+            if (data.length < 2) return;
+
+            // Plot
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            const maxPts = 400;
+            const stepX = area.w / (maxPts - 1);
+
+            // Start drawing from right to left or fix right edge?
+            // "Current" is at right edge (index length-1).
+            // We draw the whole buffer.
+
+            for (let i = 0; i < data.length; i++) {
+                const val = data[i][key];
+                const y = area.h - ((val - minVal) / (maxVal - minVal)) * area.h;
+                // Align right: The last point should be at w.
+                // x = area.x + area.w - (data.length - 1 - i) * stepX
+                const x = area.x + area.w - (data.length - 1 - i) * stepX;
+
+                if (x < area.x) continue; // Clip left
+
+                if (i === 0 || x < area.x + stepX) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Current value MARKER
+            const last = data[data.length-1];
+            const ly = area.h - ((last[key] - minVal) / (maxVal - minVal)) * area.h;
+            const lx = area.x + area.w; // Always at right edge
+
+            // Draw vertical guide line
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.setLineDash([2, 2]);
+            ctx.beginPath(); ctx.moveTo(lx, 0); ctx.lineTo(lx, area.h); ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Draw Dot
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.arc(lx, ly, 5, 0, Math.PI*2); ctx.fill();
+
+            // Pulse ring
+            ctx.strokeStyle = color;
+            ctx.beginPath(); ctx.arc(lx, ly, 8, 0, Math.PI*2); ctx.stroke();
+        }
+
+        function drawAll() {
+            drawSimulation();
+            drawGraph(ctxX, state.history, 'x', '#1976d2');
+            drawGraph(ctxV, state.history, 'v', '#2e7d32');
+
+            // Update Live Values
+            valXLive.innerText = state.x.toFixed(2);
+            valVLive.innerText = state.v.toFixed(2);
+        }
+
+        function loop() {
+            if (!state.isRunning) return;
+            updatePhysics(); // One step per frame for smoothness combined with timeScale
+            drawAll();
+            state.animId = requestAnimationFrame(loop);
+        }
+
+        // Events
+        sliderK.addEventListener('input', (e) => {
+            state.k = parseFloat(e.target.value);
+            valK.innerText = state.k.toFixed(1) + " N/m";
+            if (!state.isRunning) drawAll();
+        });
+
+        sliderM.addEventListener('input', (e) => {
+            state.m = parseFloat(e.target.value);
+            valM.innerText = state.m.toFixed(1) + " kg";
+            if (!state.isRunning) drawAll();
+        });
+
+        sliderSpeed.addEventListener('input', (e) => {
+            state.timeScale = parseFloat(e.target.value);
+            valSpeed.innerText = state.timeScale.toFixed(1) + "x";
+        });
+
+        btnStart.addEventListener('click', () => {
+            state.isRunning = !state.isRunning;
+            if (state.isRunning) loop();
+            else cancelAnimationFrame(state.animId);
+        });
+
+        btnReset.addEventListener('click', () => {
+            state.isRunning = false;
+            cancelAnimationFrame(state.animId);
+            state.t = 0;
+            state.x = 3.0;
+            state.v = 0;
+            state.history = [];
+            drawAll();
+        });
+
+        setTimeout(() => {
+            resizeCanvases();
+            drawAll();
+        }, 100);
+
+    })();
+    </script>
+</div>
+
+</body>
+</html>

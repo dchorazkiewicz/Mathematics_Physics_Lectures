@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<!-- ORBITAL MECHANICS SIMULATOR START -->
+<div id="orbit-sim-wrapper">
+    <style>
+        /* SCOPED CSS FOR ORBIT SIMULATOR - LIGHT THEME */
+        #orbit-sim-wrapper {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #334155; /* Slate-700 text */
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #cbd5e1; /* Lighter border */
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #orbit-sim-wrapper * {
+            box-sizing: border-box;
+        }
+
+        /* LAYOUT */
+        #orbit-sim-wrapper .app-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+            flex: 1;
+        }
+
+        @media (min-width: 900px) {
+            #orbit-sim-wrapper .app-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* CONTROLS AREA (LEFT) */
+        #orbit-sim-wrapper .controls-area {
+            width: 100%;
+            background-color: #f8fafc; /* Slate-50 */
+            border-right: 1px solid #cbd5e1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            overflow-y: auto;
+            order: 1;
+            z-index: 2;
+        }
+
+        @media (min-width: 900px) {
+            #orbit-sim-wrapper .controls-area {
+                width: 320px;
+                flex-shrink: 0;
+                height: auto;
+                max-height: none;
+            }
+        }
+
+        /* CANVAS AREA (RIGHT) */
+        #orbit-sim-wrapper .canvas-area {
+            flex: 1;
+            position: relative;
+            background-color: #ffffff; /* White canvas */
+            overflow: hidden;
+            min-height: 400px;
+            cursor: crosshair;
+            order: 2;
+        }
+
+        #orbit-sim-wrapper canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* UI ELEMENTS */
+        #orbit-sim-wrapper h2 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1.5rem;
+            color: #0f172a; /* Slate-900 */
+            font-weight: 700;
+        }
+
+        #orbit-sim-wrapper .subtitle {
+            font-size: 0.85rem;
+            color: #64748b; /* Slate-500 */
+            margin-bottom: 1rem;
+        }
+
+        #orbit-sim-wrapper .section-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #475569; /* Slate-600 */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.25rem;
+        }
+
+        /* BUTTONS GRID */
+        #orbit-sim-wrapper .presets-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #orbit-sim-wrapper button {
+            padding: 0.6rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            background-color: #ffffff;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        #orbit-sim-wrapper button:hover {
+            background-color: #f1f5f9;
+            border-color: #94a3b8;
+        }
+
+        #orbit-sim-wrapper button.active {
+            background-color: #f0f9ff; /* Very light blue bg for active state base */
+            border-color: currentColor;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Custom Colors for Buttons when active - darker text for readability on light */
+        #orbit-sim-wrapper #btn-circle.active { color: #16a34a; border-color: #16a34a; background-color: #dcfce7; }
+        #orbit-sim-wrapper #btn-ellipse.active { color: #0284c7; border-color: #0284c7; background-color: #e0f2fe; }
+        #orbit-sim-wrapper #btn-parabola.active { color: #d97706; border-color: #d97706; background-color: #fef3c7; }
+        #orbit-sim-wrapper #btn-hyperbola.active { color: #dc2626; border-color: #dc2626; background-color: #fee2e2; }
+
+        #orbit-sim-wrapper .btn-reset {
+            width: 100%;
+            background-color: #ef4444; /* Red-500 */
+            border-color: #dc2626;
+            color: white;
+            margin-top: 0.5rem;
+        }
+        #orbit-sim-wrapper .btn-reset:hover { background-color: #dc2626; }
+
+        /* CONTROLS */
+        #orbit-sim-wrapper .control-group {
+            margin-bottom: 0.75rem;
+        }
+
+        #orbit-sim-wrapper label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            color: #475569;
+        }
+
+        #orbit-sim-wrapper input[type="range"] {
+            width: 100%;
+            accent-color: #0284c7; /* Sky-600 */
+            cursor: pointer;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            appearance: none;
+        }
+
+        #orbit-sim-wrapper input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #0284c7;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        #orbit-sim-wrapper input[type="checkbox"] {
+            accent-color: #0284c7;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        #orbit-sim-wrapper .checkbox-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        #orbit-sim-wrapper .checkbox-row span {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* INFO OVERLAY */
+        #orbit-sim-wrapper .overlay-info {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid #cbd5e1;
+            pointer-events: none;
+            color: #334155;
+            font-family: 'Segoe UI', sans-serif;
+            min-width: 150px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #orbit-sim-wrapper .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        #orbit-sim-wrapper .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+    </style>
+
+    <div class="app-layout">
+        <!-- CONTROLS -->
+        <div class="controls-area">
+            <div>
+                <h2>Gravity Lab</h2>
+                <div class="subtitle">Multi-Orbit Comparison</div>
+            </div>
+
+            <!-- Orbit Toggles -->
+            <div>
+                <div class="section-header">Visible Orbits (Toggle)</div>
+                <div class="presets-grid">
+                    <button id="btn-circle" class="active">
+                        <span class="legend-dot" style="background-color: #16a34a;"></span> Circle
+                    </button>
+                    <button id="btn-ellipse" class="active">
+                        <span class="legend-dot" style="background-color: #0284c7;"></span> Ellipse
+                    </button>
+                    <button id="btn-parabola" class="active">
+                        <span class="legend-dot" style="background-color: #d97706;"></span> Parabola
+                    </button>
+                    <button id="btn-hyperbola" class="active">
+                        <span class="legend-dot" style="background-color: #dc2626;"></span> Hyperbola
+                    </button>
+                </div>
+            </div>
+
+            <!-- Parameters -->
+            <div>
+                <div class="section-header">Parameters</div>
+
+                <div class="control-group">
+                    <label>
+                        Simulation Speed
+                        <span id="disp-speed">1.0x</span>
+                    </label>
+                    <input type="range" id="rng-speed" min="0" max="5.0" step="0.1" value="1.0">
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        Zoom Level
+                        <span id="disp-zoom">100%</span>
+                    </label>
+                    <input type="range" id="rng-zoom" min="0.1" max="3.0" step="0.1" value="1.0">
+                </div>
+            </div>
+
+            <!-- Visualization Options -->
+            <div>
+                <div class="section-header">Visuals</div>
+
+                <label class="checkbox-row">
+                    <input type="checkbox" id="chk-vectors" checked>
+                    <span>Show Vectors</span>
+                </label>
+
+                <label class="checkbox-row">
+                    <input type="checkbox" id="chk-trail" checked>
+                    <span>Show Trails</span>
+                </label>
+            </div>
+
+            <button id="btn-reset-sim" class="btn-reset">Reset All Positions</button>
+        </div>
+
+        <!-- CANVAS -->
+        <div class="canvas-area">
+            <canvas id="orbit-canvas"></canvas>
+
+            <div class="overlay-info">
+                <div class="section-header" style="margin-top:0; border-bottom: 1px solid #e2e8f0; color: #64748b;">Legend</div>
+                <div class="legend-item" style="color: #16a34a;"><span class="legend-dot" style="background-color: #16a34a;"></span> Circle (e=0)</div>
+                <div class="legend-item" style="color: #0284c7;"><span class="legend-dot" style="background-color: #0284c7;"></span> Ellipse (e=0.6)</div>
+                <div class="legend-item" style="color: #d97706;"><span class="legend-dot" style="background-color: #d97706;"></span> Parabola (e=1.0)</div>
+                <div class="legend-item" style="color: #dc2626;"><span class="legend-dot" style="background-color: #dc2626;"></span> Hyperbola (e=1.4)</div>
+            </div>
+
+            <div style="position:absolute; bottom:10px; right:10px; font-size:0.75rem; color:#64748b;">
+                Open orbits loop automatically
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        // --- SETUP ---
+        const wrapper = document.getElementById('orbit-sim-wrapper');
+        const canvas = document.getElementById('orbit-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI Refs
+        const btnCircle = document.getElementById('btn-circle');
+        const btnEllipse = document.getElementById('btn-ellipse');
+        const btnParabola = document.getElementById('btn-parabola');
+        const btnHyperbola = document.getElementById('btn-hyperbola');
+        const btnResetSim = document.getElementById('btn-reset-sim');
+
+        const rngSpeed = document.getElementById('rng-speed');
+        const rngZoom = document.getElementById('rng-zoom');
+
+        const dispSpeed = document.getElementById('disp-speed');
+        const dispZoom = document.getElementById('disp-zoom');
+
+        const chkVectors = document.getElementById('chk-vectors');
+        const chkTrail = document.getElementById('chk-trail');
+
+        // --- PHYSICS CONSTANTS ---
+        const GM = 5000;
+        const r_p = 150; // Periapsis distance
+        const RESET_DISTANCE = 1500; // Distance to reset open orbits
+
+        // --- SIMULATION STATE ---
+        let simState = {
+            timeScale: 1.0,
+            zoom: 1.0,
+            bodies: []
+        };
+
+        // --- INITIALIZATION ---
+        function createBody(type, ecc, color) {
+            const vp = Math.sqrt((GM / r_p) * (1 + ecc));
+
+            return {
+                type: type,
+                e: ecc,
+                color: color,
+                visible: true,
+                x: r_p,
+                y: 0,
+                vx: 0,
+                vy: -vp,
+                trail: []
+            };
+        }
+
+        function initSim() {
+            // Using darker colors for visibility on white background
+            simState.bodies = [
+                createBody('Circle', 0.0, '#16a34a'),   // Green-600
+                createBody('Ellipse', 0.6, '#0284c7'),  // Sky-600
+                createBody('Parabola', 1.0, '#d97706'), // Amber-600
+                createBody('Hyperbola', 1.4, '#dc2626') // Red-600
+            ];
+
+            updateButtonState(btnCircle, 0);
+            updateButtonState(btnEllipse, 1);
+            updateButtonState(btnParabola, 2);
+            updateButtonState(btnHyperbola, 3);
+        }
+
+        function resetPositions() {
+            simState.bodies.forEach(b => {
+                const vp = Math.sqrt((GM / r_p) * (1 + b.e));
+                b.x = r_p;
+                b.y = 0;
+                b.vx = 0;
+                b.vy = -vp;
+                b.trail = [];
+            });
+        }
+
+        // --- PHYSICS ENGINE ---
+        function updatePhysics() {
+            if (simState.timeScale === 0) return;
+
+            const substeps = 8;
+            const dt = (0.1 * simState.timeScale) / substeps;
+
+            for (let i = 0; i < substeps; i++) {
+                simState.bodies.forEach(body => {
+                    if (!body.visible) return;
+
+                    const r2 = body.x * body.x + body.y * body.y;
+                    const r = Math.sqrt(r2);
+
+                    if (body.e >= 1.0 && r > RESET_DISTANCE) {
+                        const movingAway = (body.x * body.vx + body.y * body.vy) > 0;
+                        if (movingAway) {
+                            body.x = body.x;
+                            body.y = -body.y;
+                            body.vx = -body.vx;
+                            body.vy = body.vy;
+                            body.trail = [];
+                            return;
+                        }
+                    }
+
+                    if (r < 15) return;
+
+                    const accMag = GM / (r2 * r);
+                    const ax = -accMag * body.x;
+                    const ay = -accMag * body.y;
+
+                    body.vx += ax * dt;
+                    body.vy += ay * dt;
+                    body.x += body.vx * dt;
+                    body.y += body.vy * dt;
+                });
+            }
+
+            if (chkTrail.checked) {
+                simState.bodies.forEach(body => {
+                    if (!body.visible) return;
+
+                    if (body.trail.length === 0) {
+                        body.trail.push({x: body.x, y: body.y});
+                    } else {
+                        const last = body.trail[body.trail.length - 1];
+                        const d2 = (body.x - last.x)**2 + (body.y - last.y)**2;
+                        if (d2 > 25) {
+                            body.trail.push({x: body.x, y: body.y});
+                            if (body.trail.length > 800) body.trail.shift();
+                        }
+                    }
+                });
+            } else {
+                simState.bodies.forEach(b => b.trail = []);
+            }
+        }
+
+        // --- DRAWING ---
+        function draw() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const cx = width / 2;
+            const cy = height / 2;
+
+            // Calculate inverse zoom for consistent screen-size elements
+            const invZoom = 1 / simState.zoom;
+
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.scale(simState.zoom, simState.zoom);
+
+            // 1. Grid (Light gray for light theme)
+            ctx.strokeStyle = "#e2e8f0"; // Slate-200
+            ctx.lineWidth = 1 * invZoom; // Maintain 1px screen width
+            ctx.beginPath();
+            const gridSize = 100;
+            const limit = Math.max(width, height) / simState.zoom;
+            for(let i = -limit; i < limit; i+=gridSize) {
+                ctx.moveTo(i, -limit); ctx.lineTo(i, limit);
+                ctx.moveTo(-limit, i); ctx.lineTo(limit, i);
+            }
+            ctx.stroke();
+
+            // 2. Sun (Adapted for white background)
+            const grad = ctx.createRadialGradient(0, 0, 5, 0, 0, 30);
+            grad.addColorStop(0, "rgba(251, 146, 60, 0.8)"); // Orange-400
+            grad.addColorStop(1, "rgba(251, 146, 60, 0)");
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            // Sun glow scales with zoom but keeps some base size
+            ctx.arc(0, 0, 30, 0, Math.PI*2);
+            ctx.fill();
+
+            ctx.fillStyle = "#f97316"; // Orange-500
+            ctx.beginPath();
+            ctx.arc(0, 0, 8 * invZoom, 0, Math.PI*2); // Sun core constant screen size
+            ctx.fill();
+
+            // 3. Bodies
+            simState.bodies.forEach(body => {
+                if (!body.visible) return;
+
+                // Trail
+                if (body.trail.length > 1) {
+                    ctx.strokeStyle = body.color;
+                    ctx.globalAlpha = 0.6; // Slightly more visible opacity
+                    ctx.lineWidth = 3 * invZoom; // Constant 3px screen width for trails
+                    ctx.beginPath();
+                    ctx.moveTo(body.trail[0].x, body.trail[0].y);
+                    for (let i = 1; i < body.trail.length; i++) {
+                        ctx.lineTo(body.trail[i].x, body.trail[i].y);
+                    }
+                    ctx.stroke();
+                    ctx.globalAlpha = 1.0;
+                }
+
+                // Planet
+                ctx.fillStyle = body.color;
+                ctx.beginPath();
+                // Ensure constant screen size (~8px radius) regardless of zoom
+                ctx.arc(body.x, body.y, 8 * invZoom, 0, Math.PI*2);
+                ctx.fill();
+
+                // Vectors
+                if (chkVectors.checked) {
+                    // Velocity
+                    drawArrow(ctx, body.x, body.y, body.vx * 15, body.vy * 15, body.color, invZoom);
+
+                    // Force (Gravity) - Dark gray arrow for contrast
+                    const r = Math.hypot(body.x, body.y);
+                    const fx = -(body.x/r) * 40;
+                    const fy = -(body.y/r) * 40;
+                    drawArrow(ctx, body.x, body.y, fx, fy, "rgba(100, 116, 139, 0.5)", invZoom); // Slate-500 semi-transparent
+                }
+            });
+
+            ctx.restore();
+        }
+
+        function drawArrow(ctx, x, y, dx, dy, color, scaleFactor) {
+            const len = Math.hypot(dx, dy);
+            // Don't draw if vector is too small on screen
+            if (len * (1/scaleFactor) < 3) return;
+
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 2 * scaleFactor; // Constant screen width lines
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + dx, y + dy);
+            ctx.stroke();
+
+            const angle = Math.atan2(dy, dx);
+            // Head size scales to remain constant on screen
+            const head = 8 * scaleFactor;
+            ctx.beginPath();
+            ctx.moveTo(x + dx, y + dy);
+            ctx.lineTo(x + dx - head * Math.cos(angle - Math.PI/6), y + dy - head * Math.sin(angle - Math.PI/6));
+            ctx.lineTo(x + dx - head * Math.cos(angle + Math.PI/6), y + dy - head * Math.sin(angle + Math.PI/6));
+            ctx.fill();
+        }
+
+        // --- UI HELPERS ---
+        function toggleBody(index, btn) {
+            simState.bodies[index].visible = !simState.bodies[index].visible;
+            updateButtonState(btn, index);
+        }
+
+        function updateButtonState(btn, index) {
+            if (simState.bodies[index].visible) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        }
+
+        // --- LOOP ---
+        function loop() {
+            updatePhysics();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        // --- EVENT LISTENERS ---
+        let resizeRequestId = null;
+        const resizeObserver = new ResizeObserver(() => {
+            if (!resizeRequestId) {
+                resizeRequestId = window.requestAnimationFrame(() => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                    resizeRequestId = null;
+                });
+            }
+        });
+        resizeObserver.observe(canvas.parentElement);
+
+        btnCircle.addEventListener('click', () => toggleBody(0, btnCircle));
+        btnEllipse.addEventListener('click', () => toggleBody(1, btnEllipse));
+        btnParabola.addEventListener('click', () => toggleBody(2, btnParabola));
+        btnHyperbola.addEventListener('click', () => toggleBody(3, btnHyperbola));
+
+        btnResetSim.addEventListener('click', resetPositions);
+
+        rngSpeed.addEventListener('input', (e) => {
+            simState.timeScale = parseFloat(e.target.value);
+            dispSpeed.textContent = simState.timeScale.toFixed(1) + "x";
+        });
+
+        rngZoom.addEventListener('input', (e) => {
+            simState.zoom = parseFloat(e.target.value);
+            dispZoom.textContent = Math.round(simState.zoom * 100) + "%";
+        });
+
+        // INIT
+        initSim();
+        loop();
+
+    })();
+    </script>
+</div>
+<!-- ORBITAL MECHANICS SIMULATOR END -->
+
+
+</body>
+</html>

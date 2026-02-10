@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+
+<div class="numerical-approx-widget">
+    <style>
+        .numerical-approx-widget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 850px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .numerical-approx-widget h3 {
+            margin-top: 0;
+            color: #444;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .numerical-approx-widget .canvas-wrapper {
+            position: relative;
+            margin: 10px 0 20px 0;
+            background: #fdfdfd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .numerical-approx-widget canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        .numerical-approx-widget .controls-panel {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .numerical-approx-widget .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .numerical-approx-widget label {
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .numerical-approx-widget select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .numerical-approx-widget input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .numerical-approx-widget .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #444;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .numerical-approx-widget input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .numerical-approx-widget .legend {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .numerical-approx-widget .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .numerical-approx-widget .color-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .numerical-approx-widget .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .numerical-approx-widget .controls-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Numerical Differentiation & Approximation</h3>
+
+    <div class="canvas-wrapper">
+        <canvas class="approx-canvas" width="800" height="450"></canvas>
+    </div>
+
+    <div class="controls-panel">
+        <div class="control-group">
+            <label>Select Function / Curve:</label>
+            <select class="curve-select">
+                <option value="parabola">Parabola (y = x²)</option>
+                <option value="sine">Sine Wave (y = sin x)</option>
+                <option value="circle">Circle</option>
+                <option value="spiral">Archimedean Spiral</option>
+            </select>
+
+            <label title="Number of intervals (N)">
+                Resolution (N points): <span class="val-N" style="color:#1976d2">30</span>
+            </label>
+            <input type="range" class="slider-N" min="5" max="200" step="1" value="30">
+        </div>
+
+        <div class="control-group">
+            <label title="Show every K-th vector to reduce clutter">
+                Vector Visibility (Show every): <span class="val-density" style="color:#555">1</span>
+            </label>
+            <input type="range" class="slider-density" min="1" max="20" step="1" value="1">
+
+            <div style="margin-top: 10px;"><strong>Display Options:</strong></div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" class="chk-points">
+                <span>Show Discrete Points (P<sub>i</sub>)</span>
+            </label>
+
+            <label class="checkbox-row">
+                <input type="checkbox" class="chk-vel" checked>
+                <span style="color: #2e7d32;">Show 1st Derivative (Gradient)</span>
+            </label>
+
+            <label class="checkbox-row">
+                <input type="checkbox" class="chk-acc" checked>
+                <span style="color: #ef6c00;">Show 2nd Derivative (Curvature)</span>
+            </label>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="color-line" style="background: #ccc; border: 1px dashed #999;"></div> Exact Curve</div>
+            <div class="legend-item"><div class="color-line" style="background: #666; height: 2px;"></div> Approximation</div>
+            <div class="legend-item"><div class="color-line" style="background: #2e7d32;"></div> 1st Diff (Δr)</div>
+            <div class="legend-item"><div class="color-line" style="background: #ef6c00;"></div> 2nd Diff (Δv)</div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.approx-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI References
+        const curveSelect = widget.querySelector('.curve-select');
+        const sliderN = widget.querySelector('.slider-N');
+        const sliderDensity = widget.querySelector('.slider-density');
+        const valN = widget.querySelector('.val-N');
+        const valDensity = widget.querySelector('.val-density');
+
+        const chkVel = widget.querySelector('.chk-vel');
+        const chkAcc = widget.querySelector('.chk-acc');
+        const chkPoints = widget.querySelector('.chk-points');
+
+        // State
+        let state = {
+            curveKey: 'parabola',
+            N: 30,
+            densityStep: 1,
+            showVel: true,
+            showAcc: true,
+            showPoints: false
+        };
+
+        // Configuration for Curves
+        const curves = {
+            parabola: {
+                fn: (t) => ({ x: t, y: 0.3*t*t - t }),
+                tMin: -6, tMax: 6,
+                baseScale: 50,
+                origin: { x: 400, y: 350 },
+                velScale: 0.5,
+                accScale: 2.0
+            },
+            sine: {
+                fn: (t) => ({ x: t, y: 2*Math.sin(t) }),
+                tMin: -6, tMax: 6,
+                baseScale: 60,
+                origin: { x: 400, y: 225 },
+                velScale: 0.5,
+                accScale: 0.5
+            },
+            circle: {
+                fn: (t) => ({ x: 3*Math.cos(t), y: 3*Math.sin(t) }),
+                tMin: 0, tMax: 2*Math.PI,
+                baseScale: 60,
+                origin: { x: 400, y: 225 },
+                velScale: 0.4,
+                accScale: 0.4
+            },
+            spiral: {
+                fn: (t) => ({ x: 0.4*t*Math.cos(t), y: 0.4*t*Math.sin(t) }),
+                tMin: 0, tMax: 6*Math.PI,
+                baseScale: 40,
+                origin: { x: 400, y: 225 },
+                velScale: 0.5,
+                accScale: 0.5
+            }
+        };
+
+        // --- Core Math ---
+
+        function calculateData() {
+            const conf = curves[state.curveKey];
+            const dt = (conf.tMax - conf.tMin) / (state.N - 1);
+
+            // 1. Generate Discrete Points
+            let points = [];
+            for (let i = 0; i < state.N; i++) {
+                const t = conf.tMin + i * dt;
+                const p = conf.fn(t);
+                points.push(p);
+            }
+
+            // 2. Approximate 1st Derivative (Difference Quotient)
+            let vels = [];
+            for (let i = 0; i < state.N - 1; i++) {
+                const dx = points[i+1].x - points[i].x;
+                const dy = points[i+1].y - points[i].y;
+                vels.push({ x: dx/dt, y: dy/dt });
+            }
+            if (vels.length > 0) vels.push(vels[vels.length - 1]);
+
+            // 3. Approximate 2nd Derivative
+            let accs = [];
+            for (let i = 0; i < state.N - 2; i++) {
+                const dvx = vels[i+1].x - vels[i].x;
+                const dvy = vels[i+1].y - vels[i].y;
+                accs.push({ x: dvx/dt, y: dvy/dt });
+            }
+            if (accs.length > 0) {
+                accs.push(accs[accs.length - 1]);
+                accs.push(accs[accs.length - 1]);
+            }
+
+            return { points, vels, accs, conf };
+        }
+
+        // --- Drawing ---
+
+        function toScreen(pt, conf) {
+            return {
+                x: conf.origin.x + pt.x * conf.baseScale,
+                y: conf.origin.y - pt.y * conf.baseScale // Flip Y
+            };
+        }
+
+        function drawArrow(x, y, vx, vy, color, scale) {
+            const dx = vx * scale;
+            const dy = -vy * scale; // Flip Y
+
+            const endX = x + dx;
+            const endY = y + dy;
+
+            const len = Math.sqrt(dx*dx + dy*dy);
+            if(len < 3) return; // Ignore tiny arrows
+
+            const angle = Math.atan2(dy, dx);
+            const headLen = 8;
+
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 2;
+
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - headLen * Math.cos(angle - Math.PI/6), endY - headLen * Math.sin(angle - Math.PI/6));
+            ctx.lineTo(endX - headLen * Math.cos(angle + Math.PI/6), endY - headLen * Math.sin(angle + Math.PI/6));
+            ctx.lineTo(endX, endY);
+            ctx.fill();
+        }
+
+        function drawExactCurve(conf) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+
+            const steps = 400;
+            let first = true;
+            for(let i=0; i<=steps; i++) {
+                const t = conf.tMin + (i/steps) * (conf.tMax - conf.tMin);
+                const p = conf.fn(t);
+                const s = toScreen(p, conf);
+                if(first) { ctx.moveTo(s.x, s.y); first = false; }
+                else ctx.lineTo(s.x, s.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function draw() {
+            const w = canvas.width;
+            const h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+
+            const data = calculateData();
+            const { points, vels, accs, conf } = data;
+
+            // 1. Grid
+            ctx.strokeStyle = '#f5f5f5';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            const center = conf.origin;
+            ctx.moveTo(center.x, 0); ctx.lineTo(center.x, h);
+            ctx.moveTo(0, center.y); ctx.lineTo(w, center.y);
+            ctx.stroke();
+
+            // 2. Exact Curve
+            drawExactCurve(conf);
+
+            // 3. Approximation
+            ctx.beginPath();
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 2;
+            for(let i=0; i<points.length; i++) {
+                const s = toScreen(points[i], conf);
+                if(i===0) ctx.moveTo(s.x, s.y);
+                else ctx.lineTo(s.x, s.y);
+            }
+            ctx.stroke();
+
+            // 4. Vectors & Points
+            for(let i=0; i<points.length; i++) {
+                const s = toScreen(points[i], conf);
+
+                if(state.showPoints) {
+                    ctx.beginPath();
+                    ctx.fillStyle = '#333';
+                    ctx.arc(s.x, s.y, 4, 0, Math.PI*2);
+                    ctx.fill();
+                }
+
+                if (i % state.densityStep !== 0 && i !== points.length-1) continue;
+
+                if(state.showVel && vels[i]) {
+                    // Removed extra factor, using baseScale * velScale
+                    drawArrow(s.x, s.y, vels[i].x, vels[i].y, '#2e7d32', conf.baseScale * conf.velScale);
+                }
+
+                if(state.showAcc && accs[i]) {
+                    drawArrow(s.x, s.y, accs[i].x, accs[i].y, '#ef6c00', conf.baseScale * conf.accScale);
+                }
+            }
+        }
+
+        // Listeners
+        curveSelect.addEventListener('change', (e) => {
+            state.curveKey = e.target.value;
+            draw();
+        });
+
+        sliderN.addEventListener('input', (e) => {
+            state.N = parseInt(e.target.value);
+            valN.textContent = state.N;
+            draw();
+        });
+
+        sliderDensity.addEventListener('input', (e) => {
+            state.densityStep = parseInt(e.target.value);
+            valDensity.textContent = state.densityStep;
+            draw();
+        });
+
+        chkVel.addEventListener('change', (e) => {
+            state.showVel = e.target.checked;
+            draw();
+        });
+
+        chkAcc.addEventListener('change', (e) => {
+            state.showAcc = e.target.checked;
+            draw();
+        });
+
+        chkPoints.addEventListener('change', (e) => {
+            state.showPoints = e.target.checked;
+            draw();
+        });
+
+        draw();
+
+    })();
+    </script>
+</div>
+
+
+
+
+</body>
+</html>

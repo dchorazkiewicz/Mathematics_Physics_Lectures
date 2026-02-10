@@ -1,0 +1,297 @@
+<div class="river-simulation">
+    <style>
+        /* Zmieniono selektor z 'body' na klasę kontenera, aby nie psuć reszty strony */
+        .river-simulation {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+            user-select: none; /* To teraz działa tylko wewnątrz symulacji */
+        }
+
+        .river-simulation .container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .river-simulation canvas {
+            border-left: 0;
+            border-right: 0;
+            background-color: #e3f2fd;
+            cursor: crosshair;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            display: block;
+            touch-action: none; /* Important for touch dragging */
+        }
+
+        .river-simulation .river-bank {
+            height: 20px;
+            width: 100%;
+            max-width: 600px;
+            background-color: #5d4037;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .river-simulation .bank-top { border-radius: 4px 4px 0 0; border-bottom: 2px solid #3e2723; }
+        .river-simulation .bank-bottom { border-radius: 0 0 4px 4px; border-top: 2px solid #3e2723; }
+
+        .river-simulation .controls {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .river-simulation button {
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+            min-width: 100px;
+        }
+
+        .river-simulation button:hover { opacity: 0.9; }
+
+        .river-simulation .btn-pause { background-color: #f57c00; }
+        .river-simulation .btn-resume { background-color: #2e7d32; }
+        .river-simulation .btn-clear { background-color: #d32f2f; }
+
+        .river-simulation .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .river-simulation label {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .river-simulation input[type=range] {
+            cursor: pointer;
+        }
+
+        .river-simulation .status {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+
+    <div class="container">
+        <div class="controls">
+            <button id="pauseBtn" class="btn-pause">Pause</button>
+            <button id="clearBtn" class="btn-clear">Clear Particles</button>
+
+            <div class="slider-group">
+                <label for="speedSlider">Flow Speed (V<sub>max</sub>): <span id="speedVal">5.0</span></label>
+                <input type="range" id="speedSlider" min="0" max="15" step="0.5" value="5">
+            </div>
+        </div>
+
+        <div class="river-bank bank-top"></div>
+        <canvas id="simulationCanvas" width="600" height="300"></canvas>
+        <div class="river-bank bank-bottom"></div>
+
+        <p class="status">Click and drag to place particles. Pause to arrange them, then Resume.</p>
+    </div>
+
+    <script>
+        (function() { // Funkcja IIFE, żeby zmienne nie wyciekały globalnie
+            const canvas = document.getElementById('simulationCanvas');
+            const ctx = canvas.getContext('2d');
+            const speedSlider = document.getElementById('speedSlider');
+            const speedVal = document.getElementById('speedVal');
+            const clearBtn = document.getElementById('clearBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+
+            // Simulation State
+            let particles = [];
+            let maxSpeed = parseFloat(speedSlider.value);
+            let isPaused = false;
+            let isDragging = false;
+
+            // Constants
+            const GRID_SPACING = 40;
+            const PARTICLE_COLOR = '#d32f2f';
+            const VECTOR_COLOR = 'rgba(0, 60, 160, 0.4)';
+
+            // --- Physics & Math ---
+
+            // Velocity profile: V(y) = Vmax * sin(y_normalized * PI)
+            function getVelocity(y) {
+                const H = canvas.height;
+                // Map y to 0..PI range
+                const arg = (y / H) * Math.PI;
+                // Prevent negative speeds (just in case)
+                if (arg < 0 || arg > Math.PI) return 0;
+                return maxSpeed * Math.sin(arg);
+            }
+
+            // --- Drawing ---
+
+            function drawArrow(x, y, vel) {
+                const visualScale = 6.0;
+                const length = vel * visualScale;
+
+                // Do not draw tiny arrows
+                if (length < 2) return;
+
+                ctx.strokeStyle = VECTOR_COLOR;
+                ctx.fillStyle = VECTOR_COLOR;
+                ctx.lineWidth = 2;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + length, y);
+                ctx.stroke();
+
+                // Arrowhead
+                const headSize = 5;
+                ctx.beginPath();
+                ctx.moveTo(x + length, y);
+                ctx.lineTo(x + length - headSize, y - headSize * 0.6);
+                ctx.lineTo(x + length - headSize, y + headSize * 0.6);
+                ctx.fill();
+            }
+
+            function drawVectorField() {
+                // Draw a grid of vectors
+                for (let y = GRID_SPACING / 2; y < canvas.height; y += GRID_SPACING) {
+                    for (let x = GRID_SPACING / 2; x < canvas.width; x += GRID_SPACING) {
+                        const v = getVelocity(y);
+                        drawArrow(x, y, v);
+                    }
+                }
+            }
+
+            function drawParticles() {
+                ctx.fillStyle = PARTICLE_COLOR;
+                for (let p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // --- Main Loop ---
+
+            function update() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 1. Draw Background (Vector Field)
+                drawVectorField();
+
+                // 2. Physics Update (only if running)
+                if (!isPaused) {
+                    for (let p of particles) {
+                        const v = getVelocity(p.y);
+                        p.x += v;
+                    }
+                    // Remove particles that went off-screen
+                    particles = particles.filter(p => p.x < canvas.width + 10);
+                }
+
+                // 3. Draw Particles
+                drawParticles();
+                requestAnimationFrame(update);
+            }
+
+            // --- Interaction ---
+
+            function addParticle(clientX, clientY) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                const x = (clientX - rect.left) * scaleX;
+                const y = (clientY - rect.top) * scaleY;
+
+                // Simple collision check to prevent stacking too many particles in one spot
+                const tooClose = particles.some(p => Math.abs(p.x - x) < 5 && Math.abs(p.y - y) < 5);
+                if (!tooClose) {
+                    particles.push({ x, y });
+                }
+            }
+
+            // Mouse Events
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                addParticle(e.clientX, e.clientY);
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    addParticle(e.clientX, e.clientY);
+                }
+            });
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Touch Events (for mobile/tablet)
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Prevent scrolling
+                isDragging = true;
+                addParticle(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: false });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (isDragging) {
+                    addParticle(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            // UI Controls
+            pauseBtn.addEventListener('click', () => {
+                isPaused = !isPaused;
+                if (isPaused) {
+                    pauseBtn.innerText = "Resume";
+                    pauseBtn.className = "btn-resume";
+                } else {
+                    pauseBtn.innerText = "Pause";
+                    pauseBtn.className = "btn-pause";
+                }
+            });
+
+            clearBtn.addEventListener('click', () => {
+                particles = [];
+            });
+
+            speedSlider.addEventListener('input', (e) => {
+                maxSpeed = parseFloat(e.target.value);
+                speedVal.innerText = maxSpeed.toFixed(1);
+            });
+
+            // Start
+            update();
+        })();
+    </script>
+</div>
