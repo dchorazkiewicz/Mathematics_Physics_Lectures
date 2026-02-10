@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Waves Simulation</title>
+    <style>
+        .mech-wave-app {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h2 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 1.6rem;
+        }
+
+        .app-header p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .canvas-container {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+            cursor: crosshair;
+            overflow: hidden;
+            touch-action: none; /* Prevent scrolling while drawing */
+        }
+
+        #mechCanvas {
+            display: block;
+            width: 100%;
+            height: 400px;
+            background: #ffffff;
+        }
+
+        .drawing-hint {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .val-display {
+            font-family: monospace;
+            color: #007bff;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .actions-row {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-primary:hover { background-color: #0056b3; }
+
+        .btn-secondary { background-color: #6c757d; color: white; }
+        .btn-secondary:hover { background-color: #5a6268; }
+
+        .btn-outline { background-color: transparent; border-color: #ced4da; color: #495057; }
+        .btn-outline:hover { background-color: #e9ecef; border-color: #adb5bd; }
+
+        .btn-pause { background-color: #dc3545; color: white; }
+        .btn-pause:hover { background-color: #c82333; }
+
+        .mode-indicator {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            font-style: italic;
+            color: #666;
+            height: 1.2em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="mech-wave-app">
+    <div class="app-header">
+        <h2>Chain of Harmonic Oscillators</h2>
+        <p>Transition from discrete system to continuous wave</p>
+    </div>
+
+    <div class="canvas-container" id="canvasContainer">
+        <canvas id="mechCanvas"></canvas>
+        <div class="drawing-hint" id="drawingHint">Drawing Mode: Drag to shape the wave</div>
+    </div>
+    
+    <div class="mode-indicator" id="modeInfo">Simulation active. Press "Pause" to draw your own shape.</div>
+
+    <div class="controls-grid">
+        <div class="control-group">
+            <div class="control-label">
+                <label>Number of Masses (N)</label>
+                <span id="val-n" class="val-display">50</span>
+            </div>
+            <input type="range" id="slider-n" min="10" max="200" step="1" value="50">
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label>Spring Stiffness (k)</label>
+                <span id="val-k" class="val-display">0.050</span>
+            </div>
+            <input type="range" id="slider-k" min="0.005" max="0.100" step="0.005" value="0.050">
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label>Damping</label>
+                <span id="val-damp" class="val-display">0.00005</span>
+            </div>
+            <!-- Scaled down by 100x -->
+            <input type="range" id="slider-damp" min="0.00000" max="0.00050" step="0.00001" value="0.00005">
+        </div>
+
+        <div class="actions-row">
+            <button id="btn-play" class="btn btn-pause">Pause</button>
+            <button id="btn-reset" class="btn btn-secondary">Reset (Flat)</button>
+            <div style="width: 10px;"></div> <!-- Spacer -->
+            <button class="btn btn-outline" onclick="setShape('gauss')">Gaussian Pulse</button>
+            <button class="btn btn-outline" onclick="setShape('sine')">Sine Pulse</button>
+            <button class="btn btn-outline" onclick="setShape('triangle')">Triangle Pulse</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('mechCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('canvasContainer');
+        const drawingHint = document.getElementById('drawingHint');
+        const modeInfo = document.getElementById('modeInfo');
+
+        // UI Refs
+        const sliderN = document.getElementById('slider-n');
+        const sliderK = document.getElementById('slider-k');
+        const sliderDamp = document.getElementById('slider-damp');
+        const valN = document.getElementById('val-n');
+        const valK = document.getElementById('val-k');
+        const valDamp = document.getElementById('val-damp');
+        const btnPlay = document.getElementById('btn-play');
+        const btnReset = document.getElementById('btn-reset');
+
+        // Physics State
+        let N = 50;
+        let k = 0.05; // Tension/Stiffness parameter (Scaled down)
+        let damping = 0.00005; // Damping scaled down 100x
+        let positions = []; // Current Y positions
+        let velocities = []; // Current Y velocities
+        
+        let isRunning = true;
+        let isDrawing = false;
+        let animationId;
+        
+        let width, height;
+
+        function initArray(size) {
+            N = size;
+            positions = new Float32Array(N);
+            velocities = new Float32Array(N);
+            // Initialize flat
+            for(let i=0; i<N; i++) {
+                positions[i] = 0;
+                velocities[i] = 0;
+            }
+        }
+
+        function resize() {
+            const rect = container.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            width = rect.width;
+            height = rect.height;
+        }
+
+        // Verlet integration / Semi-implicit Euler for coupled oscillators
+        // Eq: a[i] = k * (y[i-1] + y[i+1] - 2*y[i]) - damping * v[i]
+        function updatePhysics() {
+            if (!isRunning && !isDrawing) return;
+            if (isDrawing) return; // Do not update physics while drawing
+
+            // Multiple steps for stability and speed
+            const subSteps = 5; 
+            
+            for (let step = 0; step < subSteps; step++) {
+                // Calculate accelerations
+                const accelerations = new Float32Array(N);
+                
+                for (let i = 1; i < N - 1; i++) {
+                    const force = k * (positions[i-1] + positions[i+1] - 2*positions[i]);
+                    const dampForce = -damping * velocities[i];
+                    accelerations[i] = force + dampForce;
+                }
+
+                // Update positions and velocities
+                for (let i = 1; i < N - 1; i++) {
+                    velocities[i] += accelerations[i];
+                    positions[i] += velocities[i];
+                }
+                
+                // Fixed ends
+                positions[0] = 0;
+                positions[N-1] = 0;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            const centerY = height / 2;
+            const spacing = width / (N - 1);
+
+            // Draw equilibrium line
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.strokeStyle = '#e9ecef';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Draw Springs (Connecting lines)
+            ctx.beginPath();
+            ctx.strokeStyle = '#007bff';
+            ctx.lineWidth = 2;
+            ctx.moveTo(0, centerY + positions[0]);
+            
+            for (let i = 1; i < N; i++) {
+                const x = i * spacing;
+                const y = centerY - positions[i]; // Invert Y so positive is up
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Draw Masses (Dots)
+            ctx.fillStyle = '#dc3545';
+            const radius = N > 100 ? 1.5 : (N > 50 ? 2.5 : 4);
+            
+            for (let i = 0; i < N; i++) {
+                const x = i * spacing;
+                const y = centerY - positions[i];
+                
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw "Fixed" mounts
+            ctx.fillStyle = '#333';
+            ctx.fillRect(0, centerY - 10, 4, 20);
+            ctx.fillRect(width - 4, centerY - 10, 4, 20);
+        }
+
+        function loop() {
+            updatePhysics();
+            draw();
+            animationId = requestAnimationFrame(loop);
+        }
+
+        // --- Interaction ---
+
+        window.setShape = function(type) {
+            // Stop, reset velocities, set positions
+            isRunning = false;
+            updatePlayBtn();
+            
+            // Reset state
+            for(let i=0; i<N; i++) {
+                velocities[i] = 0;
+                positions[i] = 0;
+            }
+
+            const center = Math.floor(N / 2);
+            const amplitude = 100;
+
+            if (type === 'gauss') {
+                const sigma = N / 10;
+                for (let i = 1; i < N - 1; i++) {
+                    positions[i] = amplitude * Math.exp(-Math.pow(i - center, 2) / (2 * sigma * sigma));
+                }
+            } else if (type === 'sine') {
+                for (let i = 1; i < N - 1; i++) {
+                    // One full sine wave? Or half? Let's do a pulse
+                    positions[i] = amplitude * Math.sin(Math.PI * i / (N-1));
+                }
+            } else if (type === 'triangle') {
+                const w = Math.floor(N / 4);
+                for (let i = 1; i < N - 1; i++) {
+                    if (i > center - w && i < center + w) {
+                        positions[i] = amplitude * (1 - Math.abs(i - center) / w);
+                    }
+                }
+            }
+            
+            draw();
+            modeInfo.textContent = "Shape set. Press Start to run.";
+        };
+
+        function handleDrawing(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Handle touch or mouse
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            if (clientX === undefined) return;
+
+            const mouseX = clientX - rect.left;
+            const mouseY = clientY - rect.top;
+            
+            // Map mouseX to index
+            const spacing = rect.width / (N - 1);
+            let idx = Math.round(mouseX / spacing);
+            
+            // Clamp index
+            if (idx < 1) idx = 1;
+            if (idx >= N - 1) idx = N - 2; // Keep ends fixed
+            
+            // Map mouseY to displacement
+            // Canvas Y is down, Physics Y is up. CenterY is 0 physics.
+            const centerY = rect.height / 2;
+            const displacement = -(mouseY - centerY); // Invert
+            
+            // Set position
+            positions[idx] = displacement;
+            velocities[idx] = 0; // Stop it while drawing
+            
+            // Smoothing neighbor (optional, makes drawing nicer)
+            if (idx > 1) positions[idx-1] = (positions[idx-1] + positions[idx]) / 2;
+            if (idx < N-2) positions[idx+1] = (positions[idx+1] + positions[idx]) / 2;
+        }
+
+        // Mouse Events
+        container.addEventListener('mousedown', (e) => {
+            if (isRunning) return; // Only draw when paused
+            isDrawing = true;
+            drawingHint.style.opacity = 1;
+            handleDrawing(e);
+        });
+        
+        window.addEventListener('mousemove', (e) => {
+            if (isDrawing) handleDrawing(e);
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                drawingHint.style.opacity = 0;
+            }
+        });
+
+        // Touch Events
+        container.addEventListener('touchstart', (e) => {
+            if (isRunning) return;
+            isDrawing = true;
+            drawingHint.style.opacity = 1;
+            handleDrawing(e);
+        }, {passive: false});
+
+        window.addEventListener('touchmove', (e) => {
+            if (isDrawing) {
+                e.preventDefault(); // Prevent scroll
+                handleDrawing(e);
+            }
+        }, {passive: false});
+
+        window.addEventListener('touchend', () => {
+            isDrawing = false;
+            drawingHint.style.opacity = 0;
+        });
+
+
+        // Controls Logic
+        function updatePlayBtn() {
+            if (isRunning) {
+                btnPlay.textContent = "Pause";
+                btnPlay.className = "btn btn-pause";
+                modeInfo.textContent = "Simulation active...";
+            } else {
+                btnPlay.textContent = "Start";
+                btnPlay.className = "btn btn-primary";
+                modeInfo.textContent = "Paused. You can now draw on the graph with your mouse.";
+            }
+        }
+
+        btnPlay.addEventListener('click', () => {
+            isRunning = !isRunning;
+            updatePlayBtn();
+        });
+
+        btnReset.addEventListener('click', () => {
+            isRunning = false;
+            updatePlayBtn();
+            initArray(N);
+            draw();
+            modeInfo.textContent = "Reset. Draw a shape or choose a preset.";
+        });
+
+        sliderN.addEventListener('input', (e) => {
+            N = parseInt(e.target.value);
+            valN.textContent = N;
+            initArray(N);
+            isRunning = false;
+            updatePlayBtn();
+            draw();
+        });
+
+        sliderK.addEventListener('input', (e) => {
+            k = parseFloat(e.target.value);
+            valK.textContent = k.toFixed(3);
+        });
+
+        sliderDamp.addEventListener('input', (e) => {
+            damping = parseFloat(e.target.value);
+            valDamp.textContent = damping.toFixed(5);
+        });
+
+        // Start
+        resize();
+        initArray(50);
+        window.addEventListener('resize', resize);
+        loop();
+
+    })();
+</script>
+
+</body>
+</html>
