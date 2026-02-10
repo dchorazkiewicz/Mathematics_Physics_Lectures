@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Frames: Helio vs Geo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Controls */
+        .sidebar {
+            width: 320px;
+            background-color: #1e293b;
+            border-right: 1px solid #334155;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            z-index: 10;
+            overflow-y: auto;
+        }
+
+        h2 {
+            margin: 0 0 5px 0;
+            color: #60a5fa;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        /* Control Groups */
+        .control-group {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #cbd5e1;
+        }
+
+        /* Mode Buttons */
+        .mode-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-mode {
+            flex: 1;
+            padding: 10px;
+            background: #334155;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-mode:hover { background: #475569; }
+
+        .btn-mode.active {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Range Input */
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Checkbox */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Legend */
+        .legend {
+            margin-top: auto;
+            font-size: 0.8rem;
+            border-top: 1px solid #334155;
+            padding-top: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Canvas Area */
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            cursor: crosshair;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .view-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.1);
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div>
+        <h2>Reference Frames</h2>
+        <div class="description">
+            Switch views to observe how the choice of reference frame affects the trajectory shape.
+            The physics (motion around the Sun) remains constant; only the coordinate origin (0,0) changes.
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>System Center (Origin):</label>
+        <div class="mode-buttons">
+            <button class="btn-mode active" onclick="setMode('helio')">☀️ Sun</button>
+            <button class="btn-mode" onclick="setMode('geo')">🌍 Earth</button>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Simulation Parameters:</label>
+
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: normal; font-size: 0.75rem; margin-bottom: 4px;">Time Speed:</label>
+            <input type="range" id="speedRange" min="0" max="4" step="0.1" value="1.5">
+        </div>
+
+        <div>
+            <label style="font-weight: normal; font-size: 0.75rem; margin-bottom: 4px;">Trail Length (History):</label>
+            <input type="range" id="trailLenRange" min="10" max="600" step="10" value="400">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label>Visualization:</label>
+        <div class="checkbox-wrapper" onclick="toggleTrails()">
+            <input type="checkbox" id="trailCheck" checked>
+            <span>Show Trails</span>
+        </div>
+        <div class="checkbox-wrapper" onclick="toggleLine()">
+            <input type="checkbox" id="lineCheck" checked>
+            <span>Earth-Mars Line</span>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="dot" style="background:#fbbf24; box-shadow:0 0 5px #fbbf24"></div> Sun (Center of Mass)</div>
+        <div class="legend-item"><div class="dot" style="background:#3b82f6"></div> Earth (T<sub>E</sub> = 1 yr)</div>
+        <div class="legend-item"><div class="dot" style="background:#ef4444"></div> Mars (T<sub>M</sub> &approx; 1.88 yr)</div>
+    </div>
+</div>
+
+<div class="canvas-container">
+    <div class="view-label" id="viewLabel">Heliocentric</div>
+    <canvas id="simCanvas"></canvas>
+</div>
+
+<script>
+    /**
+     * Configuration & Globals
+     */
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // UI Refs
+    const viewLabel = document.getElementById('viewLabel');
+    const btnHelio = document.querySelector("button[onclick=\"setMode('helio')\"]");
+    const btnGeo = document.querySelector("button[onclick=\"setMode('geo')\"]");
+    const speedInput = document.getElementById('speedRange');
+    const trailLenInput = document.getElementById('trailLenRange');
+    const checkTrails = document.getElementById('trailCheck');
+    const checkLine = document.getElementById('lineCheck');
+
+    // Simulation State
+    let mode = 'helio'; // 'helio' | 'geo'
+    let time = 0;
+    let width, height, cx, cy;
+
+    // Orbital Constants
+    const EARTH = { r: 120, w: 0.02, color: '#3b82f6', size: 6 };
+    const MARS = { r: 190, w: 0.0106, color: '#ef4444', size: 5 };
+    const SUN = { color: '#fbbf24', size: 15 };
+
+    // Trail History
+    const history = [];
+
+    /**
+     * Main Loop
+     */
+    function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    function update() {
+        const dt = parseFloat(speedInput.value);
+        if (dt === 0) return;
+
+        time += dt;
+
+        // 1. Calculate Absolute Heliocentric Positions
+        const ex = Math.cos(time * EARTH.w) * EARTH.r;
+        const ey = Math.sin(time * EARTH.w) * EARTH.r;
+
+        const mx = Math.cos(time * MARS.w) * MARS.r;
+        const my = Math.sin(time * MARS.w) * MARS.r;
+
+        // 2. Add to History
+        if (checkTrails.checked) {
+            history.push({ ex, ey, mx, my });
+
+            const maxHistory = parseInt(trailLenInput.value);
+            while (history.length > maxHistory) {
+                history.shift();
+            }
+        } else {
+            if (history.length > 0) history.length = 0;
+            history.push({ ex, ey, mx, my });
+        }
+    }
+
+    function draw() {
+        // Clear Screen
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, width, height);
+
+        // Calculate Current Positions
+        const currEx = Math.cos(time * EARTH.w) * EARTH.r;
+        const currEy = Math.sin(time * EARTH.w) * EARTH.r;
+        const currMx = Math.cos(time * MARS.w) * MARS.r;
+        const currMy = Math.sin(time * MARS.w) * MARS.r;
+
+        // Shift vector
+        let shiftX = 0;
+        let shiftY = 0;
+
+        if (mode === 'geo') {
+            shiftX = -currEx;
+            shiftY = -currEy;
+        }
+
+        // --- Draw Static Background Grid (Screen Space) ---
+        // This is drawn BEFORE translation so it stays fixed to the screen
+        drawGrid();
+
+        // --- Draw Simulation Scene ---
+        ctx.save();
+        ctx.translate(cx, cy); // Center origin on screen
+
+        // Draw Trails
+        if (checkTrails.checked && history.length > 1) {
+            ctx.lineWidth = 2;
+            ctx.lineJoin = 'round';
+
+            // Mars Trail
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)';
+
+            for (let i = 0; i < history.length; i++) {
+                const p = history[i];
+                let drawX, drawY;
+
+                if (mode === 'helio') {
+                    drawX = p.mx;
+                    drawY = p.my;
+                } else {
+                    drawX = p.mx - p.ex;
+                    drawY = p.my - p.ey;
+                }
+
+                if (i === 0) ctx.moveTo(drawX, drawY);
+                else ctx.lineTo(drawX, drawY);
+            }
+            ctx.stroke();
+
+            // Sun / Earth Trail
+            if (mode === 'geo') {
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(251, 191, 36, 0.2)';
+                for (let i = 0; i < history.length; i++) {
+                    const p = history[i];
+                    ctx.lineTo(-p.ex, -p.ey);
+                }
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+                for (let i = 0; i < history.length; i++) {
+                    const p = history[i];
+                    ctx.lineTo(p.ex, p.ey);
+                }
+                ctx.stroke();
+            }
+        }
+
+        // Draw Bodies
+        drawBody(0 + shiftX, 0 + shiftY, SUN.size, SUN.color, mode === 'helio');
+        drawBody(currEx + shiftX, currEy + shiftY, EARTH.size, EARTH.color, mode === 'geo');
+        drawBody(currMx + shiftX, currMy + shiftY, MARS.size, MARS.color, false);
+
+        // Connecting Line
+        if (checkLine.checked) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.setLineDash([4, 4]);
+            ctx.moveTo(currEx + shiftX, currEy + shiftY);
+            ctx.lineTo(currMx + shiftX, currMy + shiftY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        ctx.restore();
+    }
+
+    function drawBody(x, y, r, color, glow) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        if (glow) {
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = color;
+        } else {
+            ctx.shadowBlur = 0;
+        }
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    }
+
+    // Static Grid Function
+    function drawGrid() {
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+        const step = 50;
+
+        ctx.beginPath();
+        // Draw vertical lines covering the whole screen
+        for (let x = 0; x <= width; x += step) {
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+        }
+        // Draw horizontal lines
+        for (let y = 0; y <= height; y += step) {
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+        }
+        ctx.stroke();
+    }
+
+    function setMode(newMode) {
+        mode = newMode;
+        if (mode === 'helio') {
+            btnHelio.classList.add('active');
+            btnGeo.classList.remove('active');
+            viewLabel.innerText = "HELIOCENTRIC";
+            viewLabel.style.color = "rgba(251, 191, 36, 0.1)";
+        } else {
+            btnGeo.classList.add('active');
+            btnHelio.classList.remove('active');
+            viewLabel.innerText = "GEOCENTRIC";
+            viewLabel.style.color = "rgba(59, 130, 246, 0.1)";
+        }
+    }
+
+    function toggleTrails() {}
+    function toggleLine() {}
+
+    function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        width = canvas.width;
+        height = canvas.height;
+        cx = width / 2;
+        cy = height / 2;
+    }
+
+    window.addEventListener('resize', resize);
+
+    // Init
+    resize();
+    loop();
+
+</script>
+
+</body>
+</html>
