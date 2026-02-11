@@ -24,160 +24,319 @@ format:
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
 
+## Mathematical Model of the Ptolemaic System
+
+This section describes the geocentric system using vector algebra and analytic geometry. It is designed to be directly translatable into code (e.g., JavaScript/GLSL) for a 3D simulation.
+
+### 1. Vector Superposition Principle
+
+In the Ptolemaic system, the complex motion of a planet is constructed by summing rotating vectors. This approach allows us to analytically derive the position of a planet $P$ relative to the stationary Earth $E$ at the origin $(0,0,0)$.
+
+The position vector $\vec{P}$ of a planet is the sum of three fundamental vectors:
+
+$$
+\vec{P} = \vec{E} + \vec{D} + \vec{e}
+$$
+
+Where:
+
+* **$\vec{E}$ (Eccentricity):** A static offset vector representing the displacement of the Deferent's center from Earth.
+* **$\vec{D}$ (Deferent):** A rotating vector representing the motion of the Epicycle's center along the Deferent.
+* **$\vec{e}$ (Epicycle):** A rapidly rotating vector representing the planet's motion around the Epicycle center.
+
+### 2. 3D Vector Implementation
+
+To visualize this in a 3D simulation (where the $XY$ plane is the ecliptic and $Z$ is the altitude), we define the components of each vector.
+
+Let:
+
+* $e$: Eccentricity (distance Earth-Deferent Center)
+* $R$: Radius of the Deferent
+* $r$: Radius of the Epicycle
+* $M$: Mean Anomaly (angle of the Deferent vector)
+* $\gamma$: Epicyclic Anomaly (angle of the Epicycle vector)
+* $i$: Inclination of the Deferent plane relative to the ecliptic
+
+#### A. The Eccentricity Vector ($\vec{E}$)
+
+This vector is constant and lies along the line of apsides (X-axis). It shifts the entire system off-center.
+
+$$
+\vec{E} = \begin{bmatrix} e \\ 0 \\ 0 \end{bmatrix}
+$$
+
+#### B. The Deferent Vector ($\vec{D}$)
+
+This vector rotates with angle $M$. Because the orbit is tilted by inclination $i$, the vector has a vertical $Z$ component.
+
+$$
+\vec{D} = \begin{bmatrix} R \cos(M) \\ R \sin(M) \cos(i) \\ R \sin(M) \sin(i) \end{bmatrix}
+$$
+
+#### C. The Epicycle Vector ($\vec{e}$)
+
+This vector rotates with angle $\gamma$. For simplicity, we assume the epicycle lies in the same plane as the deferent (though historically complex, this approximation suffices for basic visualization).
+
+$$
+\vec{e} = \begin{bmatrix} r \cos(\gamma) \\ r \sin(\gamma) \cos(i) \\ r \sin(\gamma) \sin(i) \end{bmatrix}
+$$
+
+### 3. Final Planet Position
+
+By summing the components, we obtain the parametric equations for the planet's coordinates $(x, y, z)$ as a function of time:
+
+$$
+x(t) = e + R \cos(M) + r \cos(\gamma)
+$$
+
+$$
+y(t) = \left[ R \sin(M) + r \sin(\gamma) \right] \cos(i)
+$$
+
+$$
+z(t) = \left[ R \sin(M) + r \sin(\gamma) \right] \sin(i)
+$$
+
+### 4. Retrograde Motion Condition
+
+The looping motion (retrograde) occurs when the projected velocity of the planet opposes the general rotation of the system. This happens when the planet is at the perigee of its epicycle (closest to Earth).
+
+Analytically, a loop forms if the linear velocity on the epicycle ($v_e$) exceeds the linear velocity on the deferent ($v_d$):
+
+$$
+v_e > v_d \quad \Rightarrow \quad \omega_{epi} \cdot r > \omega_{def} \cdot R
+$$
+
+In 3D space, this manifests as the planet physically reversing its $x$ and $y$ velocity components relative to the observer, creating the characteristic loop on the celestial sphere.
+
+### 5. Deviation from the Ecliptic (Celestial Latitude)
+
+A critical feature of this 3D model is that the planet is **not confined to the ecliptic line**.
+
+In a 2D simplification, the planet would always lie on the Sun's path ($z=0$). However, due to the inclination term $\sin(i)$ in the $z(t)$ equation, the planet possesses a vertical component called **Celestial Latitude**.
+
+* **Above the Ecliptic:** When $z(t) > 0$, the planet is observed "above" the Sun's path (North).
+* **Below the Ecliptic:** When $z(t) < 0$, the planet is observed "below" the Sun's path (South).
+* **On the Ecliptic:** The planet is strictly on the ecliptic **only** when it crosses the orbital nodes (where $z(t) = 0$).
+
+Consequently, an observer on Earth sees the planet wandering slightly up and down relative to the background stars of the Zodiac, rather than following a perfect line.
 
 <iframe src="html_anim/cosmology/ptolomeo.html" width="100%" height="700px"></iframe>
 [html_anim/cosmology/ptolomeo.html](html_anim/cosmology/ptolomeo.html)
 
+
+
+## Mathematical Model of the Copernican System (Heliocentric)
+
+The system of Nicolaus Copernicus introduces a fundamental change of reference frame. By shifting the center of the Universe (and the coordinate system origin) to the Sun, we drastically simplify the mathematical description of planetary motions, eliminating the need for large epicycles to explain retrograde motion.
+
+### 1. Main Assumptions
+
+In an analytic approach, this model relies on the following axioms:
+
+* **Sun ($S$):** Is the stationary center of the system $(0,0,0)$.
+* **Orbits:** Planets (including Earth) move in orbits around the Sun.
+    * *Historical Note:* Copernicus still used circles (and small epicycles for speed correction), but in this simplified didactic model (and the later Keplerian one), we assume single closed curves (circles or ellipses).
+* **Earth ($E$):** Is no longer a static reference point but one of the planets, possessing its own motion vector.
+
+### 2. Vector Description (Complexity Reduction)
+
+Unlike the Ptolemaic system, where a planet's position was the sum of three vectors (Eccentricity + Deferent + Epicycle), in the heliocentric system, the position of a planet $\vec{P}$ relative to the Sun is described by **only one vector**.
+
+$$
+\vec{P}_{helio} = \vec{O}
+$$
+
+Where $\vec{O}$ is the orbital vector.
+
+### 3. 3D Implementation (Heliocentric Coordinates)
+
+For each planet (Mercury, Venus, Earth, Mars, etc.), we define its orbital parameters relative to the Sun.
+
+Let:
+* $R$: Orbital radius (distance from the Sun)
+* $\Omega$: Angular velocity (related to the orbital period $T$ by $\Omega = 2\pi/T$)
+* $i$: Inclination (tilt of the orbit relative to the ecliptic plane—Earth's orbital plane)
+* $t$: Time
+
+The parametric equations for the planet's position $[x, y, z]$ in the sun-centered system are:
+
+$$
+x(t) = R \cdot \cos(\Omega \cdot t)
+$$
+
+$$
+y(t) = R \cdot \sin(\Omega \cdot t) \cdot \cos(i)
+$$
+
+$$
+z(t) = R \cdot \sin(\Omega \cdot t) \cdot \sin(i)
+$$
+
+*Compared to Ptolemy, these equations are trivial. There are no nested trigonometric functions (cosine within cosine).*
+
+### 4. Transformation to the Geocentric Frame (Earth as Observer)
+
+While the physics is simple in the heliocentric frame, our observations are made from Earth, which is itself moving. To understand what an astronomer sees, we must perform a **vector coordinate transformation**.
+
+We define two position vectors relative to the Sun (Origin):
+1.  **Earth's Vector ($\vec{E}$):** Assumed to be on the fundamental plane ($i_E = 0, z=0$).
+2.  **Planet's Vector ($\vec{P}$):** The target planet we are observing.
+
+$$
+\vec{E}_{helio} = \begin{bmatrix} R_E \cos(\Omega_E \cdot t) \\ R_E \sin(\Omega_E \cdot t) \\ 0 \end{bmatrix}, \quad
+\vec{P}_{helio} = \begin{bmatrix} R_P \cos(\Omega_P \cdot t) \\ R_P \sin(\Omega_P \cdot t) \cos(i) \\ R_P \sin(\Omega_P \cdot t) \sin(i) \end{bmatrix}
+$$
+
+To find the position of the Planet as seen from Earth ($\vec{P}_{obs}$), we simply subtract Earth's vector from the Planet's vector:
+
+$$
+\vec{P}_{obs} = \vec{P}_{helio} - \vec{E}_{helio}
+$$
+
+**The Parametric Equations for the Observer:**
+
+This vector subtraction yields the coordinates $(x', y', z')$ relative to the observer:
+
+$$
+x'(t) = \underbrace{R_P \cos(\Omega_P t)}_{\text{Planet Motion}} - \underbrace{R_E \cos(\Omega_E t)}_{\text{Parallax (Earth Motion)}}
+$$
+
+$$
+y'(t) = \underbrace{R_P \sin(\Omega_P t) \cos(i)}_{\text{Planet Motion}} - \underbrace{R_E \sin(\Omega_E t)}_{\text{Parallax (Earth Motion)}}
+$$
+
+$$
+z'(t) = R_P \sin(\Omega_P t) \sin(i) \quad \text{(Unchanged, as Earth has } z=0 \text{)}
+$$
+
+**Physical Interpretation:**
+This mathematical operation is crucial. The term $-\vec{E}_{helio}$ adds a rotational component to the planet's apparent motion.
+
+* In the Ptolemaic system, this component was modeled artificially by the **Epicycle**.
+* In the Copernican system, this component appears naturally as a result of the **moving observer**.
+
+When Earth ($R_E, \Omega_E$) "overtakes" an outer planet ($R_P, \Omega_P$), the relative velocity momentarily reverses direction in the $x'$ or $y'$ axis, creating the loop (retrograde motion) without any physical change in the planet's actual orbit.
+
+### 5. Mechanism of Retrograde Motion (Overtaking)
+
+In the Copernican system, loops in the sky are not "real" planetary motions (like Ptolemy's epicycles). They are optical illusions resulting from the difference in linear velocities.
+
+* Planets closer to the Sun move faster (Kepler's 3rd Law, though intuitively understood by Copernicus).
+* When Earth overtakes an outer planet (e.g., Mars) or is overtaken by an inner planet (e.g., Venus), the line of sight changes angle such that the planet appears to move backward against the background stars.
+
+Mathematically, this does not require extra formulas in the physical model—it emerges naturally from vector subtraction, which we will discuss in the next section regarding the change of reference frame.
+
+### 6. Vector Summary
+
+| Feature | Ptolemaic System | Copernican System |
+| :--- | :--- | :--- |
+| **Center $(0,0,0)$** | Earth | Sun |
+| **Vector Structure** | $\vec{P} = \vec{E}_{ecc} + \vec{D}_{def} + \vec{e}_{epi}$ | $\vec{P} = \vec{O}_{orb}$ |
+| **Source of Loops** | Real motion on a small circle (Epicycle) | Parallax effect (Earth's motion) |
+| **Computational Complexity** | High (summing multiple motions) | Low (single rotational motion) |
+
+
+
+
 <iframe src="html_anim/cosmology/copernicus.html" width="100%" height="700px"></iframe>
 [html_anim/cosmology/copernicus.html](html_anim/cosmology/copernicus.html)
+
+<iframe src="html_anim/cosmology/copernicus_from_earth.html" width="100%" height="700px"></iframe>
+[html_anim/cosmology/copernicus_from_earth.html](html_anim/cosmology/copernicus_from_earth.html)
+
+
+## Johannes Kepler: The Laws of Planetary Motion
+
+While Copernicus correctly identified the Sun as the center of the system, his model still relied on perfect circles and uniform speeds, which failed to perfectly match observations (specifically, the position of Mars). Johannes Kepler, analyzing the precise data of Tycho Brahe, abandoned the ancient dogma of circular motion.
+
+He formulated three fundamental laws that describe orbital mechanics with mathematical precision.
+
+### 1. Kepler's First Law: The Law of Ellipses
+
+**The orbit of a planet is an ellipse with the Sun at one of the two foci.**
+
+In the Ptolemaic and Copernican models, the distance between a planet and the center was constant ($R$). In Kepler's model, this distance $r$ varies continuously. 
+
+[Image of Kepler's first law diagram]
+
+
+* **Ellipse Geometry:** An ellipse is defined by two points (foci). The sum of distances from any point on the curve to the two foci is constant.
+* **Sun's Position:** The Sun is **not** at the center of the ellipse, but at one focus. The other focus is empty.
+
+**Mathematical Formulation (Polar Coordinates):**
+If we place the Sun at the origin $(0,0)$, the distance $r$ as a function of the angle $\theta$ (True Anomaly) is:
+
+$$
+r(\theta) = \frac{a(1 - e^2)}{1 + e \cos \theta}
+$$
+
+Where:
+* $a$: **Semi-major axis** (average distance).
+* $e$: **Eccentricity** (shape parameter, $0 \le e < 1$).
+    * If $e=0$, the orbit is a circle.
+    * As $e \to 1$, the orbit becomes a highly elongated ellipse.
+
+### 2. Kepler's Second Law: The Law of Equal Areas
+
+**A line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time.** 
+
+[Image of Kepler's second law equal areas]
+
+
+This law destroyed the concept of "uniform circular motion." It implies that **orbital velocity is not constant**.
+
+* **Perihelion (Closest approach):** The planet moves fastest.
+* **Aphelion (Farthest point):** The planet moves slowest.
+
+**Mathematical Formulation:**
+The rate of change of the area $A$ swept by the radius vector is constant:
+
+$$
+\frac{dA}{dt} = \text{const}
+$$
+
+In terms of physics (which Newton would later prove), this is a direct consequence of the **Conservation of Angular Momentum**:
+
+$$
+L = m \cdot r \cdot v_{\perp} = \text{const}
+$$
+
+As the distance $r$ decreases, the velocity $v$ must increase to conserve momentum.
+
+### 3. Kepler's Third Law: The Law of Harmonies
+
+**The square of the orbital period of a planet is directly proportional to the cube of the semi-major axis of its orbit.** 
+
+This law connects the motion of all planets in the system into a unified physical mechanism. It implies that planets further from the Sun travel slower and have longer paths.
+
+**Mathematical Formulation:**
+
+$$
+T^2 \propto a^3
+$$
+
+Or, comparing two planets (1 and 2):
+
+$$
+\left( \frac{T_1}{T_2} \right)^2 = \left( \frac{a_1}{a_2} \right)^3
+$$
+
+Where:
+* $T$: Orbital Period (time to complete one full orbit).
+* $a$: Semi-major axis.
+
+### Summary of the Evolution of Models
+
+| Feature | Ptolemy | Copernicus | Kepler |
+| :--- | :--- | :--- | :--- |
+| **Shape** | Circle (+ Epicycles) | Circle (+ Epicycles) | **Ellipse** |
+| **Sun Position** | Orbiting Earth | Center (Geometric) | **Focus (Off-center)** |
+| **Velocity** | Uniform (relative to Equant) | Uniform | **Variable** (Max at Perihelion) |
+| **Mechanism** | Geometry | Geometry | **Physics (Precursor)** |
+
+
 
 <iframe src="html_anim/cosmology/kepler.html" width="100%" height="700px"></iframe>
 [html_anim/cosmology/kepler.html](html_anim/cosmology/kepler.html)
 
-
-## Mathematical Model of the Ptolemaic System
-
-This description defines the geocentric system using vector algebra and analytic geometry. It is designed to be directly translatable into code (e.g., JavaScript/GLSL) for a 3D simulation.
-
-The model calculates the position of a planet $P$ relative to the Earth $E$ at the origin $(0,0,0)$.
-
-### 1. System Parameters
-
-For each planet, the following scalar constants must be defined:
-
-* $R$: Radius of the deferent (the major orbital circle).
-* $r$: Radius of the epicycle (the minor orbital circle).
-* $e$: Eccentricity (distance from Earth to the Deferent Center).
-* $\lambda_0$: Mean longitude at epoch (starting angle on the deferent).
-* $\beta_0$: Mean anomaly at epoch (starting angle on the epicycle).
-* $\Omega$: Longitude of the ascending node.
-* $i$: Inclination of the deferent plane relative to the ecliptic.
-* $n_d$: Mean angular velocity of the epicycle center (deferent motion).
-* $n_e$: Mean angular velocity of the planet (epicycle motion).
-
-### 2. Coordinate System and Key Points
-
-We assume a right-handed Cartesian coordinate system where the Earth is stationary at the origin.
-
-* **Earth ($E$):** $(0, 0, 0)$
-* **Deferent Center ($C$):** $(e, 0, 0)$
-* **Equant Point ($Q$):** $(2e, 0, 0)$
-
-Note: The centers are aligned along the $X$ axis (the line of apsides) for the initial calculation. We will rotate the entire system later to match the longitude of the apogee.
-
-### 3. Calculating the Epicycle Center ($K$)
-
-The center of the epicycle, point $K$, moves along the deferent (a circle of radius $R$ centered at $C$). However, its angular motion is uniform relative to the **Equant** ($Q$), not the geometric center ($C$).
-
-At time $t$, the mean anomaly angle $M$ is:
-
-$$
-M(t) = \lambda_0 + n_d \cdot t
-$$
-
-To find the coordinates of $K$, we must find the intersection of a ray originating from $Q$ at angle $M(t)$ with the circle centered at $C$.
-
-Vector equation for the ray from the Equant:
-
-$$
-\vec{Q} = [2e, 0, 0]
-$$
-
-$$
-\vec{v}_{dir} = [\cos(M), \sin(M), 0]
-$$
-
-We need to find the distance $\rho$ from the Equant to the Deferent such that the point $K = Q + \rho \cdot \vec{v}_{dir}$ lies on the circle defined by $|K - C|^2 = R^2$.
-
-Substituting the coordinates results in a quadratic equation for $\rho$:
-
-$$
-\rho^2 + (2e \cos M) \rho + (3e^2 - R^2) = 0
-$$
-
-Solving for $\rho$ (taking the positive root):
-
-$$
-\rho = \frac{-(2e \cos M) + \sqrt{(2e \cos M)^2 - 4(1)(3e^2 - R^2)}}{2}
-$$
-
-Once $\rho$ is known, the position of the epicycle center $K$ in the orbital plane is:
-
-$$
-x_k = 2e + \rho \cos M
-$$
-
-$$
-y_k = \rho \sin M
-$$
-
-$$
-z_k = 0
-$$
-
-### 4. Calculating the Planet Position on the Epicycle ($P$)
-
-The planet moves uniformly on the epicycle relative to the line connecting the Equant to the epicycle center (in some versions) or relative to the deferent center. For a standard analytic implementation, we define the local epicyclic angle $\gamma$.
-
-$$
-\gamma(t) = \beta_0 + n_e \cdot t
-$$
-
-The local position of the planet relative to the center $K$ is:
-
-$$
-\vec{p}_{local} = [r \cos \gamma, r \sin \gamma, 0]
-$$
-
-The combined position in the 2D orbital plane (before inclination) is:
-
-$$
-P_{orb} = [x_k, y_k, 0] + \vec{p}_{local}
-$$
-
-So:
-
-$$
-x_{orb} = 2e + \rho \cos M + r \cos \gamma
-$$
-
-$$
-y_{orb} = \rho \sin M + r \sin \gamma
-$$
-
-### 5. 3D Transformations (Inclination and Node)
-
-To place the planet in 3D space relative to the ecliptic, we apply rotation matrices.
-
-1.  **Inclination ($i$):** Rotate around the $X$ axis (assuming the line of nodes is initially the X-axis).
-2.  **Longitude of Ascending Node ($\Omega$):** Rotate around the $Z$ axis to orient the orbit in the sky.
-
-**Step A: Apply Inclination**
-
-$$
-x' = x_{orb}
-$$
-
-$$
-y' = y_{orb} \cos i
-$$
-
-$$
-z' = y_{orb} \sin i
-$$
-
-**Step B: Apply Longitude of Ascending Node**
-
-$$
-X = x' \cos \Omega - y' \sin \Omega
-$$
-
-$$
-Y = x' \sin \Omega + y' \cos \Omega
-$$
-
-$$
-Z = z'
-$$
-
-The vector $\vec{P}_{final} = [X, Y, Z]$ represents the final coordinates of the planet in the 3D simulation space.
