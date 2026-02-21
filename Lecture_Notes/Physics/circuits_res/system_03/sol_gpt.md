@@ -6,27 +6,27 @@ Tak — **jeżeli w układzie nie ma żadnych źródeł (ani napięciowych, ani 
 
 Równania oczkowe mają postać:
 
-[
+$$
 \mathbf{R},\mathbf{I} = \mathbf{E}
-]
+$$
 
 gdzie:
 
-* (\mathbf{R}) — macierz rezystancyjna (dodatnio określona),
-* (\mathbf{I}) — wektor prądów oczkowych,
-* (\mathbf{E}) — wektor wymuszeń (sum napięć źródeł w oczkach).
+* $\mathbf{R}$ — macierz rezystancyjna (dodatnio określona),
+* $\mathbf{I}$ — wektor prądów oczkowych,
+* $\mathbf{E}$ — wektor wymuszeń (sum napięć źródeł w oczkach).
 
 Jeżeli:
 
-[
+$$
 \mathbf{E} = 0
-]
+$$
 
 to dostajemy układ jednorodny:
 
-[
+$$
 \mathbf{R},\mathbf{I} = 0
-]
+$$
 
 ---
 
@@ -34,16 +34,16 @@ to dostajemy układ jednorodny:
 
 Dla fizycznego obwodu rezystancyjnego:
 
-* wszystkie (R_k > 0),
-* macierz (\mathbf{R}) jest symetryczna,
-* (\det \mathbf{R} \neq 0),
+* wszystkie $R_k > 0$,
+* macierz $\mathbf{R}$ jest symetryczna,
+* $\det \mathbf{R} \neq 0$,
 * macierz jest dodatnio określona.
 
 To oznacza, że jedynym rozwiązaniem układu jednorodnego jest:
 
-[
+$$
 I_1 = I_2 = I_3 = 0
-]
+$$
 
 a więc:
 
@@ -68,7 +68,7 @@ Rezystory **nie generują energii**, więc bez źródła nie ma przepływu prąd
 
 Nietrywialne rozwiązanie przy braku źródeł mogłoby istnieć tylko wtedy, gdyby:
 
-* macierz była osobliwa (np. (R=0) gdzieś),
+* macierz była osobliwa (np. $R=0$ gdzieś),
 * w układzie były elementy aktywne,
 * albo rozpatrywalibyśmy obwód dynamiczny z energią początkową (np. cewki, kondensatory).
 
