@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="700"
+  height="530">
+  <defs>
+    <!-- portatore negativo -->
+    <g
+      id="portatore_negativo">
+      <path
+        d="M0 0.7h40v3.3l8-4-8-4v3.3h-40z"
+        style="fill:#00f"/>
+      <circle
+         r="10"
+         style="fill:#77f;stroke:#00f;stroke-width:1.5"/>
+      <path d="M4 1v-2h-8v2z"/>
+    </g>
+    <!-- punta -->
+    <marker
+      id="punta"
+      orient="auto"
+      viewBox="0 0 2 2"
+      markerWidth="5.5"
+      markerHeight="5.5"
+      refY="1">
+      <path d="M0 0l2 1-2 1z"/>
+    </marker>
+  </defs>
+  <!-- conduttore -->
+  <rect
+    style="fill:#ddd;fill-opacity:0.2;stroke:#000;stroke-width:2"
+    x="100"
+    y="70"
+    width="500"
+    height="100"
+    rx="20"/>
+  <!-- portatori di carica-->
+  <use
+    xlink:href="#portatore_negativo"
+    x="435"
+    y="121"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="307"
+    y="90"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="187"
+    y="145"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="230"
+    y="110"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="270"
+    y="132"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="123"
+    y="96"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="369"
+    y="149"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="395"
+    y="99"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="501"
+    y="145"/>
+  <use
+    xlink:href="#portatore_negativo"
+    x="533"
+    y="94"/>
+  <!-- cavi -->
+  <filter id="cavo">
+    <feGaussianBlur stdDeviation="1"/>
+  </filter>
+  <g style="fill:none;filter:#cavo;stroke-width:4">
+    <path
+      d="M100 120q-70 0-40 50 12 20 0 40-24 40 40 40h110q50 0 50 70v10"
+      style="stroke:#04f"/>
+    <path
+      d="M600 120q70 0 40 50-12 20 0 40 24 40-40 40h-110q-50 0-50 70v10" 
+      style="stroke:#f00"/>
+  </g>
+  <!-- generatore -->
+  <path
+    d="M200 370v130h300v-130h-40v-40h-40v40h-140v-40h-40v40z" 
+    style="fill:#444;stroke:#000;stroke-linejoin:round;stroke-width:2"/>
+  <!-- scritta e poli del generatore -->
+  <g style="fill:#ff0">
+    <text
+      style="font-family:sans-serif;font-size:25px;text-anchor:middle"
+      y="426.5">
+      <tspan x="350">generatore</tspan><tspan x="350" dy="1.2em">di tensione</tspan></text
+    >
+    <path d="M250 352h20v-4h-20zM442 352h8v-4h-8v-8h-4v8h-8v4h8v8h4"/>
+  </g>
+  <!-- frecce -->
+  <path
+    d="M420 50h-140"
+    style="fill:none;marker-end:url(#punta);stroke:#000;stroke-width:1.5"/>
+  <path
+    d="M420 310h-140"
+    style="fill:none;marker-end:url(#punta);stroke:#000;stroke-width:1.5"/>
+  <!-- scritte -->
+  <text
+    style="font-family:sans-serif;font-size:25px;font-style:italic;text-anchor:middle" 
+    x="350"
+    y="40">corrente</text>
+  <text
+    style="font-family:sans-serif;font-size:25px;text-anchor:middle" 
+    x="350"
+    y="300">tensione</text>
+</svg>
