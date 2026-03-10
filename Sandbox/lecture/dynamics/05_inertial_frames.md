@@ -37,21 +37,15 @@ $$
 
 If two frames move at constant velocity relative to each other (no relative acceleration), then both are inertial. In 1D, if:
 
-$$
-x' = x - ut,
-$$
+$x' = x - ut,$
 
 with constant u, then differentiating gives:
 
-$$
-v' = v - u,
-$$
+$v' = v - u,$
 
 and:
 
-$$
-a' = a.
-$$
+$a' = a.$
 
 So acceleration is the same in both frames, which is why Newton’s laws keep the same form in any inertial frame.
 
@@ -105,9 +99,7 @@ In the ground frame, at the moment of release the ball already has the train’s
 
 The two frames move at constant velocity relative to each other, so both are inertial. They agree on acceleration:
 
-$$
-a_x = 0, \qquad a_y = -g.
-$$
+$a_x = 0, \qquad a_y = -g.$
 
 They disagree on velocity (because of the constant shift u), but that does not affect the force–acceleration relation in Newtonian mechanics. This is why Newton’s laws have the same form in any inertial frame.
 

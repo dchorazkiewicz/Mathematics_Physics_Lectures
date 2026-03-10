@@ -33,17 +33,15 @@ In mechanics we often:
 
 ### Vectors, components, and unit vectors
 
-In 2D we commonly choose perpendicular axes with unit vectors $$\hat{i}$$ (x-direction) and $$\hat{j}$$ (y-direction). A general vector can be written as:
+In 2D we commonly choose perpendicular axes with unit vectors $\hat{i}$ (x-direction) and $\hat{j}$ (y-direction). A general vector can be written as:
 
-$$
-\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}
-$$
+$\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}$
 
-The numbers $$A_x$$ and $$A_y$$ are the **components** of $$\vec{A}$$ in this coordinate system.
+The numbers $A_x$ and $A_y$ are the **components** of $\vec{A}$ in this coordinate system.
 
 ### Magnitude (length) of a vector
 
-The magnitude of $$\vec{A}$$ is:
+The magnitude of $\vec{A}$ is:
 
 $$
 |\vec{A}| = \sqrt{A_x^2 + A_y^2}
@@ -55,15 +53,11 @@ This is just the Pythagorean theorem: components form a right triangle.
 
 The position of a particle in the plane can be described by a position vector:
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}$
 
-If the particle is at positions $$\vec{r}(t_1)$$ and $$\vec{r}(t_2)$$ at two times, the **displacement vector** is:
+If the particle is at positions $\vec{r}(t_1)$ and $\vec{r}(t_2)$ at two times, the **displacement vector** is:
 
-$$
-\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)
-$$
+$\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)$
 
 In components:
 
@@ -81,9 +75,7 @@ $$
 
 then
 
-$$
-\vec{A} + \vec{B} = (A_x+B_x)\,\hat{i} + (A_y+B_y)\,\hat{j}.
-$$
+$\vec{A} + \vec{B} = (A_x+B_x)\,\hat{i} + (A_y+B_y)\,\hat{j}.$
 
 This is the practical reason we use components: many geometric vector rules reduce to ordinary arithmetic once axes are chosen.
 
@@ -97,16 +89,14 @@ $$
 
 Forces model interactions that “push” or “pull” in a direction, so force is also a vector quantity:
 
-$$
-\vec{F}
-$$
+$\vec{F}$
 
 Later, dynamics connects force and acceleration in vector form.
 
 ## Interpretation
 
 - A vector is not just a pair of numbers; it is a geometric quantity that **points**.
-- Components depend on the chosen axes, but the **physical vector** does not. Rotating axes changes $$A_x$$ and $$A_y$$, but not the vector itself.
+- Components depend on the chosen axes, but the **physical vector** does not. Rotating axes changes $A_x$ and $A_y$, but not the vector itself.
 - The displacement vector tells you the change in position from start to end, regardless of the path taken. The distance traveled is generally larger than or equal to the displacement magnitude.
 
 ## Typical examples
@@ -127,25 +117,19 @@ Later, dynamics connects force and acceleration in vector form.
 
 ## Worked example
 
-A particle moves in the plane. At time $$t_1$$ its position is
+A particle moves in the plane. At time $t_1$ its position is
 
-$$
-\vec{r}(t_1) = (2\,\text{m})\,\hat{i} + (1\,\text{m})\,\hat{j}.
-$$
+$\vec{r}(t_1) = (2\,\text{m})\,\hat{i} + (1\,\text{m})\,\hat{j}.$
 
-At a later time $$t_2$$ its position is
+At a later time $t_2$ its position is
 
-$$
-\vec{r}(t_2) = (8\,\text{m})\,\hat{i} + (5\,\text{m})\,\hat{j}.
-$$
+$\vec{r}(t_2) = (8\,\text{m})\,\hat{i} + (5\,\text{m})\,\hat{j}.$
 
-Assume $$t_2 - t_1 = 3\,\text{s}$$.
+Assume $t_2 - t_1 = 3\,\text{s}$.
 
 ### Step 1: Compute the displacement vector
 
-$$
-\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)
-$$
+$\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)$
 
 Subtract components:
 
@@ -169,7 +153,7 @@ $$
 
 ### Step 3: Find the direction (angle) of the displacement
 
-Let $$\theta$$ be the angle measured from the +x axis toward the +y axis. Then:
+Let $\theta$ be the angle measured from the +x axis toward the +y axis. Then:
 
 $$
 \tan\theta = \frac{\Delta y}{\Delta x} = \frac{4}{6} = \frac{2}{3}.

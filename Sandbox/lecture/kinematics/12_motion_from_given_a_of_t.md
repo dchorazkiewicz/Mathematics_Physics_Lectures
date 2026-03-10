@@ -1,10 +1,10 @@
-# Motion from a given $$a(t)$$
+# Motion from a given $a(t)$
 
 ## Learning goals
 
-- Reconstruct $$v(t)$$ from a given acceleration $$a(t)$$ by integration.
-- Reconstruct $$x(t)$$ by integrating again, using **initial conditions** to fix constants.
-- Understand why two initial conditions are needed to determine a unique position function from $$a(t)$$.
+- Reconstruct $v(t)$ from a given acceleration $a(t)$ by integration.
+- Reconstruct $x(t)$ by integrating again, using **initial conditions** to fix constants.
+- Understand why two initial conditions are needed to determine a unique position function from $a(t)$.
 - Work confidently with common acceleration laws (polynomial and simple trigonometric forms).
 
 ## Why this matters
@@ -33,8 +33,8 @@ $$
 
 So:
 
-- integrating $$a(t)$$ accumulates changes in velocity,
-- integrating $$v(t)$$ accumulates changes in position.
+- integrating $a(t)$ accumulates changes in velocity,
+- integrating $v(t)$ accumulates changes in position.
 
 Because you integrate twice, you need **two pieces of initial information** to pin down the motion, typically:
 
@@ -46,7 +46,7 @@ $$
 
 ### Step 1: Velocity from acceleration
 
-Given $$a(t)$$ and $$v(t_0)=v_0$$:
+Given $a(t)$ and $v(t_0)=v_0$:
 
 $$
 v(t) = v_0 + \int_{t_0}^{t} a(\tau)\,d\tau.
@@ -54,19 +54,15 @@ $$
 
 ### Step 2: Position from velocity
 
-Given also $$x(t_0)=x_0$$:
+Given also $x(t_0)=x_0$:
 
 $$
 x(t) = x_0 + \int_{t_0}^{t} v(\tau)\,d\tau.
-$$
-
-Combining both steps:
-
-$$
+$Combining both steps:$
 x(t) = x_0 + \int_{t_0}^{t} \left(v_0 + \int_{t_0}^{\tau} a(s)\,ds\right)d\tau.
 $$
 
-This expression looks nested, but the workflow is simple: integrate once to get $$v(t)$$, then integrate again to get $$x(t)$$.
+This expression looks nested, but the workflow is simple: integrate once to get $v(t)$, then integrate again to get $x(t)$.
 
 ### A practical note on constants
 
@@ -80,7 +76,7 @@ $$
 x(t) = \int v(t)\,dt + C_2.
 $$
 
-Use the initial conditions to determine $$C_1$$ and $$C_2$$. Without them, there are infinitely many motions consistent with the same acceleration law.
+Use the initial conditions to determine $C_1$ and $C_2$. Without them, there are infinitely many motions consistent with the same acceleration law.
 
 ## Interpretation
 
@@ -96,21 +92,21 @@ $$
 x(t_2)-x(t_1) = \int_{t_1}^{t_2} v(t)\,dt.
 $$
 
-- If you only know $$a(t)$$, you cannot locate the motion in space: you still need initial position and velocity.
+- If you only know $a(t)$, you cannot locate the motion in space: you still need initial position and velocity.
 
 ## Typical examples
 
-1) **Polynomial acceleration:** $$a(t)=kt$$ gives quadratic velocity and cubic position.
+1) **Polynomial acceleration:** $a(t)=kt$ gives quadratic velocity and cubic position.
 
-2) **Sinusoidal acceleration:** $$a(t)=A\cos(\omega t)$$ leads to sinusoidal velocity and position with phase shifts. This previews periodic motion.
+2) **Sinusoidal acceleration:** $a(t)=A\cos(\omega t)$ leads to sinusoidal velocity and position with phase shifts. This previews periodic motion.
 
-3) **Constant acceleration:** $$a(t)=a_0$$ returns the uniformly accelerated motion formulas from Section 07.
+3) **Constant acceleration:** $a(t)=a_0$ returns the uniformly accelerated motion formulas from Section 07.
 
 ## Common mistakes
 
 - Forgetting one of the two constants (integrating twice but applying only one initial condition).
-- Using $$v(t)=\int a(t)dt$$ without adding the initial velocity.
-- Using an initial condition at a different time than the one used in the integral limits (mixing $$t_0$$ values).
+- Using $v(t)=\int a(t)dt$ without adding the initial velocity.
+- Using an initial condition at a different time than the one used in the integral limits (mixing $t_0$ values).
 - Losing sign information: acceleration can be positive or negative depending on the chosen axis.
 - Treating the integral of acceleration as “distance” rather than “velocity change.”
 
@@ -118,18 +114,14 @@ $$
 
 An object moves along a line with acceleration:
 
-$$
-a(t) = 2t
-$$
+$a(t) = 2t$
 
-with $$a$$ in m/s² and $$t$$ in s. At $$t=0$$:
+with $a$ in m/s² and $t$ in s. At $t=0$:
 
-$$
-v(0) = 1\,\text{m/s}, \qquad x(0)=0.
-$$
+$v(0) = 1\,\text{m/s}, \qquad x(0)=0.$
 
-1) Find $$v(t)$$ and $$x(t)$$.  
-2) Find the displacement from $$t=0$$ to $$t=3$$.
+1) Find $v(t)$ and $x(t)$.  
+2) Find the displacement from $t=0$ to $t=3$.
 
 ### Step 1: Integrate acceleration to get velocity
 
@@ -147,9 +139,7 @@ $$
 
 So:
 
-$$
-v(t) = 1 + t^2.
-$$
+$v(t) = 1 + t^2.$
 
 ### Step 2: Integrate velocity to get position
 
@@ -173,7 +163,7 @@ $$
 
 ### Step 3: Displacement from 0 to 3
 
-Displacement is $$x(3)-x(0)=x(3)$$:
+Displacement is $x(3)-x(0)=x(3)$:
 
 $$
 x(3) = 3 + \frac{1}{3}(27) = 3 + 9 = 12\,\text{m}.
@@ -183,9 +173,7 @@ $$
 
 Velocity change from 0 to 3 is:
 
-$$
-v(3)-v(0) = (1+9)-1 = 9\,\text{m/s},
-$$
+$v(3)-v(0) = (1+9)-1 = 9\,\text{m/s},$
 
 and also:
 
@@ -207,7 +195,7 @@ $$
 x(t) = x_0 + \int_{t_0}^{t} v(\tau)\,d\tau.
 $$
 
-- You generally need two initial conditions (one for $$v$$, one for $$x$$).
+- You generally need two initial conditions (one for $v$, one for $x$).
 - Integrals have clear meanings:
-  - area under $$a(t)$$ gives velocity change,
-  - area under $$v(t)$$ gives displacement.
+  - area under $a(t)$ gives velocity change,
+  - area under $v(t)$ gives displacement.

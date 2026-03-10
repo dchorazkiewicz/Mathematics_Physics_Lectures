@@ -22,13 +22,13 @@ Over a time interval, you can ask:
 
 But motion can vary within an interval. To describe the motion at a particular instant, you need:
 
-- instantaneous velocity: the velocity “at time $$t$$,” which is the limit of average velocity over smaller and smaller time intervals.
+- instantaneous velocity: the velocity “at time $t$,” which is the limit of average velocity over smaller and smaller time intervals.
 
 ## Mathematical formulation
 
 ### Average velocity (1D)
 
-If the position in 1D is $$x(t)$$, then over the interval from $$t_1$$ to $$t_2$$:
+If the position in 1D is $x(t)$, then over the interval from $t_1$ to $t_2$:
 
 $$
 v_{\text{avg}} = \frac{\Delta x}{\Delta t} = \frac{x(t_2)-x(t_1)}{t_2-t_1}.
@@ -38,7 +38,7 @@ This is a single number (with sign) describing the net rate of change over that 
 
 ### Average velocity (vector form)
 
-In 2D/3D, position is a vector $$\vec{r}(t)$$. Average velocity is:
+In 2D/3D, position is a vector $\vec{r}(t)$. Average velocity is:
 
 $$
 \vec{v}_{\text{avg}} = \frac{\Delta\vec{r}}{\Delta t} = \frac{\vec{r}(t_2)-\vec{r}(t_1)}{t_2-t_1}.
@@ -46,13 +46,13 @@ $$
 
 ### Instantaneous velocity as a limit (definition)
 
-Instantaneous velocity at time $$t$$ is the limit of average velocity as the time interval shrinks to zero:
+Instantaneous velocity at time $t$ is the limit of average velocity as the time interval shrinks to zero:
 
 $$
 v(t) = \lim_{\Delta t\to 0} \frac{x(t+\Delta t)-x(t)}{\Delta t}.
 $$
 
-This is exactly the derivative of $$x(t)$$:
+This is exactly the derivative of $x(t)$:
 
 $$
 v(t) = \frac{dx}{dt}.
@@ -66,10 +66,10 @@ $$
 
 ### Graphical meaning (slope)
 
-On a graph of $$x$$ versus $$t$$:
+On a graph of $x$ versus $t$:
 
-- the average velocity over $$[t_1,t_2]$$ is the **slope of the secant line** connecting the two points,
-- the instantaneous velocity at $$t$$ is the **slope of the tangent line** at that point.
+- the average velocity over $[t_1,t_2]$ is the **slope of the secant line** connecting the two points,
+- the instantaneous velocity at $t$ is the **slope of the tangent line** at that point.
 
 So:
 
@@ -81,15 +81,11 @@ So:
 
 In 1D:
 
-$$
-\text{speed} = |v(t)|.
-$$
+$\text{speed} = |v(t)|.$
 
 In 2D/3D:
 
-$$
-\text{speed} = |\vec{v}(t)|.
-$$
+$\text{speed} = |\vec{v}(t)|.$
 
 Speed is always nonnegative; velocity can be negative in 1D or point in different directions in 2D/3D.
 
@@ -123,31 +119,23 @@ Speed is always nonnegative; velocity can be negative in 1D or point in differen
 
 A particle moves along a line with position:
 
-$$
-x(t) = 4t - t^2
-$$
+$x(t) = 4t - t^2$
 
-where $$x$$ is in meters and $$t$$ is in seconds.
+where $x$ is in meters and $t$ is in seconds.
 
 ### Step 1: Compute average velocity on a time interval
 
-Find the average velocity from $$t_1=1\,\text{s}$$ to $$t_2=3\,\text{s}$$.
+Find the average velocity from $t_1=1\,\text{s}$ to $t_2=3\,\text{s}$.
 
 Compute positions:
 
-$$
-x(1) = 4(1) - 1^2 = 3\,\text{m},
-$$
+$x(1) = 4(1) - 1^2 = 3\,\text{m},$
 
-$$
-x(3) = 4(3) - 3^2 = 12 - 9 = 3\,\text{m}.
-$$
+$x(3) = 4(3) - 3^2 = 12 - 9 = 3\,\text{m}.$
 
 So displacement is zero:
 
-$$
-\Delta x = x(3)-x(1) = 0.
-$$
+$\Delta x = x(3)-x(1) = 0.$
 
 Therefore:
 
@@ -165,29 +153,25 @@ $$
 v(t) = \frac{dx}{dt} = 4 - 2t.
 $$
 
-At $$t=1\,\text{s}$$:
+At $t=1\,\text{s}$:
 
-$$
-v(1) = 4 - 2 = 2\,\text{m/s}.
-$$
+$v(1) = 4 - 2 = 2\,\text{m/s}.$
 
-At $$t=3\,\text{s}$$:
+At $t=3\,\text{s}$:
 
-$$
-v(3) = 4 - 6 = -2\,\text{m/s}.
-$$
+$v(3) = 4 - 6 = -2\,\text{m/s}.$
 
-So the particle is moving in the positive direction at $$t=1$$ and in the negative direction at $$t=3$$.
+So the particle is moving in the positive direction at $t=1$ and in the negative direction at $t=3$.
 
 ### Step 3: Find the turning time (where velocity is zero)
 
-Set $$v(t)=0$$:
+Set $v(t)=0$:
 
 $$
 4 - 2t = 0 \;\Rightarrow\; t = 2\,\text{s}.
 $$
 
-At $$t=2\,\text{s}$$, the particle’s velocity is zero: it is the instant when the motion reverses direction.
+At $t=2\,\text{s}$, the particle’s velocity is zero: it is the instant when the motion reverses direction.
 
 ## Mini recap
 
@@ -203,5 +187,5 @@ $$
 v(t) = \frac{dx}{dt}, \qquad \vec{v}(t) = \frac{d\vec{r}}{dt}.
 $$
 
-- Graphically: velocity is the slope of the $$x(t)$$ graph (secant for average, tangent for instantaneous).
-- Speed is magnitude: $$|v|$$ or $$|\vec{v}|$$; velocity includes sign/direction.
+- Graphically: velocity is the slope of the $x(t)$ graph (secant for average, tangent for instantaneous).
+- Speed is magnitude: $|v|$ or $|\vec{v}|$; velocity includes sign/direction.

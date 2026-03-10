@@ -38,9 +38,7 @@ $$
 
 If a force of magnitude F makes angle theta with the +x axis, then its components are:
 
-$$
-F_x = F\cos\theta, \qquad F_y = F\sin\theta.
-$$
+$F_x = F\cos\theta, \qquad F_y = F\sin\theta.$
 
 You must decide what theta is measured from and keep that consistent.
 
@@ -55,15 +53,11 @@ Then the weight mg decomposes into:
 
 parallel component:
 
-$$
-(mg)_\parallel = mg\sin\theta,
-$$
+$(mg)_\parallel = mg\sin\theta,$
 
 perpendicular component:
 
-$$
-(mg)_\perp = mg\cos\theta.
-$$
+$(mg)_\perp = mg\cos\theta.$
 
 Directions:
 
@@ -120,15 +114,11 @@ Forces:
 
 Parallel component magnitude:
 
-$$
-(mg)_x = mg\sin\theta.
-$$
+$(mg)_x = mg\sin\theta.$
 
 Perpendicular component magnitude:
 
-$$
-(mg)_y = mg\cos\theta.
-$$
+$(mg)_y = mg\cos\theta.$
 
 ### Step 3: Perpendicular equation to find N
 
@@ -140,15 +130,11 @@ $$
 
 So:
 
-$$
-N = mg\cos\theta.
-$$
+$N = mg\cos\theta.$
 
 ### Step 4: Friction magnitude
 
-$$
-f_k = \mu_k N = \mu_k mg\cos\theta.
-$$
+$f_k = \mu_k N = \mu_k mg\cos\theta.$
 
 ### Step 5: Parallel equation to find acceleration
 
@@ -160,27 +146,19 @@ $$
 
 Substitute f_k:
 
-$$
-mg\sin\theta - \mu_k mg\cos\theta = ma.
-$$
+$mg\sin\theta - \mu_k mg\cos\theta = ma.$
 
 Cancel m:
 
-$$
-g(\sin\theta - \mu_k\cos\theta) = a.
-$$
+$g(\sin\theta - \mu_k\cos\theta) = a.$
 
 Now plug in numbers: sin 30 degrees = 0.5, cos 30 degrees approximately 0.866:
 
-$$
-a = 9.8(0.5 - 0.20\cdot 0.866).
-$$
+$a = 9.8(0.5 - 0.20\cdot 0.866).$
 
 Compute:
 
-$$
-0.20\cdot 0.866 = 0.1732,
-$$
+$0.20\cdot 0.866 = 0.1732,$
 
 $$
 a \approx 9.8(0.3268) \approx 3.20\,\text{m/s}^2.
@@ -193,14 +171,10 @@ Interpretation: friction reduces the downslope acceleration below g sin theta = 
 - Choose axes aligned with constraints (inclines: parallel/perpendicular).
 - Resolve forces with sine/cosine consistently:
 
-$$
-F_x = F\cos\theta, \qquad F_y = F\sin\theta.
-$$
+$F_x = F\cos\theta, \qquad F_y = F\sin\theta.$
 
 - For an incline angle theta:
 
-$$
-(mg)_\parallel = mg\sin\theta, \qquad (mg)_\perp = mg\cos\theta.
-$$
+$(mg)_\parallel = mg\sin\theta, \qquad (mg)_\perp = mg\cos\theta.$
 
 - Check limiting cases theta = 0 and theta = 90 degrees to catch trig errors.

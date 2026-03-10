@@ -100,9 +100,7 @@ Dynamics introduces those inputs through interaction models (forces), and then c
 
 You observe a cart moving along a line. Its position is measured (or fitted) as:
 
-$$
-x(t) = 2 + 3t + 0.50t^2
-$$
+$x(t) = 2 + 3t + 0.50t^2$
 
 with x in meters and t in seconds.
 
@@ -126,9 +124,7 @@ $$
 
 So the acceleration is constant:
 
-$$
-a = 1.0\,\text{m/s}^2.
-$$
+$a = 1.0\,\text{m/s}^2.$
 
 ### Step 2: Why the cause is not determined by kinematics
 
@@ -143,9 +139,7 @@ Many other combinations are possible. Kinematics does not include “incline ang
 
 If you now adopt Newton’s second law as a model for particle motion, then:
 
-$$
-F_{\text{net}} = ma = (4.0)(1.0) = 4.0\,\text{N}.
-$$
+$F_{\text{net}} = ma = (4.0)(1.0) = 4.0\,\text{N}.$
 
 This is still not a complete force analysis (it does not tell you which individual forces sum to 4.0 N), but it is already a dynamics statement: it connects the observed acceleration to a required net interaction.
 

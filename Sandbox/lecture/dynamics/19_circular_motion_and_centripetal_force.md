@@ -115,9 +115,7 @@ $$
 
 Compute:
 
-$$
-T = (0.50)(20) = 10\,\text{N}.
-$$
+$T = (0.50)(20) = 10\,\text{N}.$
 
 Interpretation: tension provides exactly the inward net force needed to continuously change the velocity direction.
 

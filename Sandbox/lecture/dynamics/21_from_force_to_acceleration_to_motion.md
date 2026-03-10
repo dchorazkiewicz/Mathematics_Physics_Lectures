@@ -31,9 +31,7 @@ $$
 
 4) Use kinematics to turn acceleration into motion:
 
-$$
-\vec{a}(t) \rightarrow \vec{v}(t) \rightarrow \vec{r}(t),
-$$
+$\vec{a}(t) \rightarrow \vec{v}(t) \rightarrow \vec{r}(t),$
 
 with initial conditions.
 
@@ -45,9 +43,7 @@ If the net force is constant, acceleration is constant and you can use constant-
 
 Start with a force model:
 
-$$
-F_{\text{net}}(x, v, t).
-$$
+$F_{\text{net}}(x, v, t).$
 
 Newton’s second law gives:
 
@@ -69,9 +65,7 @@ $$
 
 In a kinematics-only problem, you might be told:
 
-$$
-a(t) = a_0
-$$
+$a(t) = a_0$
 
 and asked to find x(t).
 
@@ -111,9 +105,7 @@ A 4.0 kg block is pulled to the right along a horizontal surface by a constant h
 
 At time t=0:
 
-$$
-x(0)=0, \qquad v(0)=1.0\,\text{m/s}.
-$$
+$x(0)=0, \qquad v(0)=1.0\,\text{m/s}.$
 
 Find:
 
@@ -125,21 +117,15 @@ Find:
 
 Vertical forces balance (a_y = 0), so:
 
-$$
-N = mg = (4.0)(9.8) = 39.2\,\text{N}.
-$$
+$N = mg = (4.0)(9.8) = 39.2\,\text{N}.$
 
 Kinetic friction magnitude:
 
-$$
-f_k = \mu_k N = 0.20(39.2) = 7.84\,\text{N}.
-$$
+$f_k = \mu_k N = 0.20(39.2) = 7.84\,\text{N}.$
 
 Horizontal net force:
 
-$$
-F_{\text{net}} = F - f_k = 30 - 7.84 = 22.16\,\text{N}.
-$$
+$F_{\text{net}} = F - f_k = 30 - 7.84 = 22.16\,\text{N}.$
 
 Direction: to the right, so acceleration is positive in the chosen x direction.
 
@@ -155,9 +141,7 @@ This is constant because both F and f_k are constant in this model.
 
 With constant acceleration:
 
-$$
-v(t) = v(0) + at = 1.0 + 5.54t.
-$$
+$v(t) = v(0) + at = 1.0 + 5.54t.$
 
 $$
 x(t) = x(0) + v(0)t + \frac{1}{2}at^2 = 0 + (1.0)t + \frac{1}{2}(5.54)t^2.
@@ -165,15 +149,11 @@ $$
 
 So:
 
-$$
-x(t) = t + 2.77t^2.
-$$
+$x(t) = t + 2.77t^2.$
 
 ### Step 4: Evaluate at t = 5.0 s
 
-$$
-x(5) = 5 + 2.77(25) = 5 + 69.25 = 74.25\,\text{m}.
-$$
+$x(5) = 5 + 2.77(25) = 5 + 69.25 = 74.25\,\text{m}.$
 
 Interpretation: the block already has some initial speed and then accelerates strongly due to a sizeable net force.
 

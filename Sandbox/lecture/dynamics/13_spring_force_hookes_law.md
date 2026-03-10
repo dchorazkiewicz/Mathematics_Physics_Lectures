@@ -30,9 +30,7 @@ Choose an x-axis along the spring. Let x = 0 correspond to the spring’s equili
 
 Hooke’s law (ideal spring) is:
 
-$$
-F_{\text{spring}} = -kx,
-$$
+$F_{\text{spring}} = -kx,$
 
 where:
 
@@ -42,17 +40,13 @@ where:
 
 Vector form along the axis (if you want to emphasize direction):
 
-$$
-\vec{F}_{\text{spring}} = -kx\,\hat{i}.
-$$
+$\vec{F}_{\text{spring}} = -kx\,\hat{i}.$
 
 ### Units
 
 Since force is N and x is m, k must have units:
 
-$$
-[k] = \text{N/m}.
-$$
+$[k] = \text{N/m}.$
 
 ### Combining with Newton’s second law
 
@@ -92,15 +86,11 @@ Hooke’s law is an approximation that works well for small deformations in many
 
 A 2.0 kg block is attached to a horizontal spring with spring constant:
 
-$$
-k = 120\,\text{N/m}.
-$$
+$k = 120\,\text{N/m}.$
 
 The surface is frictionless. The block is displaced to the right by:
 
-$$
-x = 0.15\,\text{m}
-$$
+$x = 0.15\,\text{m}$
 
 from equilibrium and released. At the release instant:
 
@@ -111,15 +101,11 @@ from equilibrium and released. At the release instant:
 
 Hooke’s law:
 
-$$
-F_{\text{spring}} = -kx.
-$$
+$F_{\text{spring}} = -kx.$
 
 So:
 
-$$
-F_{\text{spring}} = -(120)(0.15) = -18\,\text{N}.
-$$
+$F_{\text{spring}} = -(120)(0.15) = -18\,\text{N}.$
 
 Interpretation: the negative sign means the force is to the left (toward equilibrium).
 
@@ -143,9 +129,7 @@ The block accelerates leftward toward equilibrium.
 
 - Ideal spring force (1D about equilibrium):
 
-$$
-F_{\text{spring}} = -kx.
-$$
+$F_{\text{spring}} = -kx.$
 
 - The sign encodes restoring direction.
 - k has units N/m and Hooke’s law has a regime of validity.

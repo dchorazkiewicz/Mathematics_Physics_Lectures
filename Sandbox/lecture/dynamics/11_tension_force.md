@@ -76,9 +76,7 @@ In diagrams, you label that force as T. You do not decide its magnitude by guess
 
 Atwood machine (ideal). Two masses m_1 and m_2 hang from a light rope over a frictionless, massless pulley. Let:
 
-$$
-m_2 > m_1.
-$$
+$m_2 > m_1.$
 
 Assume the rope does not stretch. Find:
 
@@ -96,9 +94,7 @@ For m_1 (moving up):
 
 Newton’s second law:
 
-$$
-T - m_1 g = m_1 a.
-$$
+$T - m_1 g = m_1 a.$
 
 For m_2 (moving down; we chose downward as positive for this mass):
 
@@ -107,23 +103,17 @@ For m_2 (moving down; we chose downward as positive for this mass):
 
 Newton’s second law:
 
-$$
-m_2 g - T = m_2 a.
-$$
+$m_2 g - T = m_2 a.$
 
 ### Step 2: Solve the coupled equations
 
 Add the equations:
 
-$$
-(T - m_1 g) + (m_2 g - T) = m_1 a + m_2 a.
-$$
+$(T - m_1 g) + (m_2 g - T) = m_1 a + m_2 a.$
 
 Simplify:
 
-$$
-(m_2 - m_1)g = (m_1 + m_2)a.
-$$
+$(m_2 - m_1)g = (m_1 + m_2)a.$
 
 So:
 
@@ -135,9 +125,7 @@ $$
 
 Use the m_1 equation:
 
-$$
-T = m_1 g + m_1 a = m_1(g + a).
-$$
+$T = m_1 g + m_1 a = m_1(g + a).$
 
 Substitute a:
 

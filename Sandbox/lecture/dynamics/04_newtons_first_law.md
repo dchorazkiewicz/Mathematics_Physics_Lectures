@@ -52,9 +52,7 @@ In a Newtonian framework, “zero net force” and “zero acceleration” go to
 
 Rest is just the special case of constant velocity with:
 
-$$
-\vec{v}=\vec{0}.
-$$
+$\vec{v}=\vec{0}.$
 
 From the viewpoint of dynamics, “at rest” and “moving at constant velocity” are equivalent in the sense that neither requires a net force.
 
@@ -97,9 +95,7 @@ The object can still move horizontally at constant velocity while these vertical
 
 A crate is pulled across a floor at constant velocity. The rope pulls horizontally with tension magnitude:
 
-$$
-T = 50\,\text{N}.
-$$
+$T = 50\,\text{N}.$
 
 The crate’s motion is constant velocity (so acceleration is zero). Assume the only horizontal forces are tension (forward) and kinetic friction (backward).
 
@@ -110,35 +106,25 @@ The crate’s motion is constant velocity (so acceleration is zero). Assume the 
 
 Constant velocity implies:
 
-$$
-a_x = 0.
-$$
+$a_x = 0.$
 
 Newton’s first law (or the “no change in velocity means no net force” idea) tells you:
 
-$$
-F_{\text{net},x} = 0.
-$$
+$F_{\text{net},x} = 0.$
 
 ### Step 2: Write the force balance in x
 
 Let friction magnitude be f_k, acting opposite the motion. Then:
 
-$$
-T - f_k = 0.
-$$
+$T - f_k = 0.$
 
 So:
 
-$$
-f_k = T = 50\,\text{N}.
-$$
+$f_k = T = 50\,\text{N}.$
 
 ### Step 3: Net force
 
-$$
-F_{\text{net},x} = T - f_k = 0.
-$$
+$F_{\text{net},x} = T - f_k = 0.$
 
 Interpretation: the crate can move at constant speed even though forces act, as long as they balance.
 

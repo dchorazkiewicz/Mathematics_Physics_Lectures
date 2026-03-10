@@ -27,7 +27,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** write after 01; used by 03+ and all 2D sections (16–19).
 
 - [x] `lecture/kinematics/03_trajectory_and_position_function.md`  
-  **Purpose:** Separate geometric path (trajectory) from the time-dependent law of motion $$\vec{r}(t)$$.  
+  **Purpose:** Separate geometric path (trajectory) from the time-dependent law of motion $\vec{r}(t)$.  
   **Dependencies:** after 01–02.
 
 - [x] `lecture/kinematics/04_average_and_instantaneous_velocity.md`  
@@ -55,7 +55,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 04–05 (and preferably after 06–07).
 
 - [x] `lecture/kinematics/10_motion_from_given_x_of_t.md`  
-  **Purpose:** Differentiate $$x(t)$$ or $$\vec{r}(t)$$ to find velocity/acceleration and interpret turning points and monotonicity.  
+  **Purpose:** Differentiate $x(t)$ or $\vec{r}(t)$ to find velocity/acceleration and interpret turning points and monotonicity.  
   **Dependencies:** after 04–05.
 
 - [x] `lecture/kinematics/11_motion_from_given_v_of_t.md`  
@@ -71,7 +71,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 10–12; uses graph/derivative ideas.
 
 - [x] `lecture/kinematics/14_graphical_interpretation_x_v_a.md`  
-  **Purpose:** Use slope/area interpretations to move between graphs of $$x(t), v(t), a(t)$$ without full algebra.  
+  **Purpose:** Use slope/area interpretations to move between graphs of $x(t), v(t), a(t)$ without full algebra.  
   **Dependencies:** after 04–05; helpful before problem sets.
 
 - [x] `lecture/kinematics/15_relative_motion_intro.md`  
@@ -103,7 +103,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 20 and 04–05.
 
 - [x] `lecture/kinematics/22_kinematics_summary.md`  
-  **Purpose:** Synthesize the kinematics toolbox and the relationships among $$x, v, a$$ (and vector analogs).  
+  **Purpose:** Synthesize the kinematics toolbox and the relationships among $x, v, a$ (and vector analogs).  
   **Dependencies:** after all kinematics concept sections.
 
 - [x] `lecture/kinematics/23_kinematics_problem_set.md`  
@@ -133,7 +133,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 04; draws on kinematics 15.
 
 - [x] `lecture/dynamics/06_newtons_second_law.md`  
-  **Purpose:** Introduce $$\sum \vec{F} = m\vec{a}$$ in vector and component form; teach careful interpretation.  
+  **Purpose:** Introduce $\sum \vec{F} = m\vec{a}$ in vector and component form; teach careful interpretation.  
   **Dependencies:** after 05; uses kinematics acceleration concepts.
 
 - [x] `lecture/dynamics/07_equation_of_motion.md`  
@@ -149,7 +149,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 06 and 08.
 
 - [x] `lecture/dynamics/10_normal_force.md`  
-  **Purpose:** Interpret normal force as a constraint/contact force; show when it differs from $$mg$$.  
+  **Purpose:** Interpret normal force as a constraint/contact force; show when it differs from $mg$.  
   **Dependencies:** after 09.
 
 - [x] `lecture/dynamics/11_tension_force.md`  

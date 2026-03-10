@@ -10,9 +10,7 @@
 
 - Use **display math** for important formulas:
 
-$$
-\text{use this, not inline TeX for key equations}
-$$
+$\text{use this, not inline TeX for key equations}$
 
 - When calculus appears, briefly remind the reader what a derivative/integral *means physically* (rate of change; accumulation/area), without assuming perfect recall.
 - Always distinguish **scalar** vs **vector** equations and say explicitly when a statement is component-wise.
@@ -21,16 +19,16 @@ $$
 
 ## Notation defaults (global)
 
-- time: $$t$$
-- position in 1D: $$x(t)$$
-- position vector: $$\vec{r}(t)$$
-- velocity in 1D: $$v(t)$$
-- velocity vector: $$\vec{v}(t)$$
-- acceleration in 1D: $$a(t)$$
-- acceleration vector: $$\vec{a}(t)$$
-- force: $$\vec{F}$$
-- mass: $$m$$
-- gravitational acceleration magnitude near Earth: $$g$$
+- time: $t$
+- position in 1D: $x(t)$
+- position vector: $\vec{r}(t)$
+- velocity in 1D: $v(t)$
+- velocity vector: $\vec{v}(t)$
+- acceleration in 1D: $a(t)$
+- acceleration vector: $\vec{a}(t)$
+- force: $\vec{F}$
+- mass: $m$
+- gravitational acceleration magnitude near Earth: $g$
 
 ## Section structure (concept files)
 

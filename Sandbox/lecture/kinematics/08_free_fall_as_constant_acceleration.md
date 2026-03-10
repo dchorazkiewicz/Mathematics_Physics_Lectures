@@ -14,7 +14,7 @@ Free fall is one of the most important constant-acceleration applications. It is
 Learning to handle free fall cleanly builds a skill you will use throughout mechanics:
 
 - choose a coordinate axis and stick with it,
-- write $$a$$ with the correct sign,
+- write $a$ with the correct sign,
 - interpret results physically (especially velocity sign and turning points).
 
 ## Core idea
@@ -22,14 +22,14 @@ Learning to handle free fall cleanly builds a skill you will use throughout mech
 In the ideal free-fall model near Earth:
 
 - the only significant influence is gravity,
-- the acceleration has (approximately) constant magnitude $$g$$,
+- the acceleration has (approximately) constant magnitude $g$,
 - and it points downward.
 
 So the vertical motion can be modeled as 1D constant-acceleration motion.
 
 This is a **model**, so it comes with assumptions:
 
-- height changes are not so large that $$g$$ varies significantly,
+- height changes are not so large that $g$ varies significantly,
 - air resistance is neglected (or is small over the time interval),
 - the object’s rotation/shape is not relevant (particle model).
 
@@ -42,30 +42,24 @@ You must choose an axis direction and keep it consistent.
 **Choice A (often used): upward is positive.**  
 Then the acceleration due to gravity is:
 
-$$
-a(t) = -g.
-$$
+$a(t) = -g.$
 
 **Choice B: downward is positive.**  
 Then:
 
-$$
-a(t) = +g.
-$$
+$a(t) = +g.$
 
 Both are correct; the physics is the same. The algebra only works if you stay consistent.
 
-In either case, once you have the correct sign for $$a$$, you can use the constant-acceleration relations from the previous section.
+In either case, once you have the correct sign for $a$, you can use the constant-acceleration relations from the previous section.
 
 ### Equations (using Choice A: upward positive)
 
-Let $$t_0=0$$ for simplicity. With $$a=-g$$:
+Let $t_0=0$ for simplicity. With $a=-g$:
 
 Velocity:
 
-$$
-v(t) = v_0 - gt.
-$$
+$v(t) = v_0 - gt.$
 
 Position:
 
@@ -75,14 +69,12 @@ $$
 
 Time-free relation:
 
-$$
-v^2 = v_0^2 - 2g(x-x_0).
-$$
+$v^2 = v_0^2 - 2g(x-x_0).$
 
 ### Meaning of signs
 
-- If $$v>0$$ (in Choice A), the object is moving upward.
-- If $$v<0$$, it is moving downward.
+- If $v>0$ (in Choice A), the object is moving upward.
+- If $v<0$, it is moving downward.
 - The acceleration is negative at all times in free fall (Choice A), even at the top, because gravity still points downward.
 
 ## Interpretation
@@ -91,15 +83,11 @@ $$
 
 When an object is thrown upward, there is an instant at the highest point where:
 
-$$
-v = 0.
-$$
+$v = 0.$
 
 But acceleration is still:
 
-$$
-a = -g.
-$$
+$a = -g.$
 
 Velocity can be zero at an instant without acceleration being zero. This is the key conceptual point that prevents a huge class of errors.
 
@@ -109,45 +97,39 @@ With significant air resistance, acceleration is not constant: it changes with s
 
 ## Typical examples
 
-1) **Dropped from rest:** $$v_0=0$$ at release, acceleration is constant downward. Solve for time to hit the ground and impact speed.
+1) **Dropped from rest:** $v_0=0$ at release, acceleration is constant downward. Solve for time to hit the ground and impact speed.
 
-2) **Thrown upward:** $$v_0>0$$ (if up is positive). Find time to reach maximum height, maximum height itself, and speed on return to the starting point.
+2) **Thrown upward:** $v_0>0$ (if up is positive). Find time to reach maximum height, maximum height itself, and speed on return to the starting point.
 
-3) **Thrown downward:** $$v_0<0$$ (in Choice A). Same equations; the sign tells the initial direction.
+3) **Thrown downward:** $v_0<0$ (in Choice A). Same equations; the sign tells the initial direction.
 
 ## Common mistakes
 
 - Switching sign conventions mid-solution (“up is positive” in one equation, “down is positive” in another).
 - Setting acceleration to zero at the top because velocity is zero.
-- Using $$g$$ as a signed quantity sometimes and as a magnitude other times without stating which.
+- Using $g$ as a signed quantity sometimes and as a magnitude other times without stating which.
 - Forgetting that the quadratic position equation can yield two times (on the way up and on the way down) for the same height.
-- Using the time-free formula and then choosing the wrong sign for $$v$$ after taking a square root.
+- Using the time-free formula and then choosing the wrong sign for $v$ after taking a square root.
 
 ## Worked example
 
 An object is thrown straight upward from a balcony. Choose upward as positive (Choice A). At release:
 
-$$
-x_0 = 12\,\text{m}, \qquad v_0 = 14\,\text{m/s}.
-$$
+$x_0 = 12\,\text{m}, \qquad v_0 = 14\,\text{m/s}.$
 
 Take:
 
-$$
-g = 9.8\,\text{m/s}^2.
-$$
+$g = 9.8\,\text{m/s}^2.$
 
 1) How long until the object reaches its highest point?  
 2) What is the maximum height?  
-3) When does it hit the ground ($$x=0$$), and what is its velocity just before impact?
+3) When does it hit the ground ($x=0$), and what is its velocity just before impact?
 
 ### Step 1: Time to the highest point
 
-At the top, $$v=0$$. Use:
+At the top, $v=0$. Use:
 
-$$
-v(t) = v_0 - gt.
-$$
+$v(t) = v_0 - gt.$
 
 Set to zero:
 
@@ -163,7 +145,7 @@ $$
 x(t) = x_0 + v_0 t - \frac{1}{2}gt^2.
 $$
 
-At $$t=t_{\text{top}}$$:
+At $t=t_{\text{top}}$:
 
 $$
 x_{\text{max}} = 12 + 14(1.43) - \frac{1}{2}(9.8)(1.43)^2.
@@ -187,7 +169,7 @@ $$
 
 ### Step 3: Time to hit the ground
 
-Set $$x(t)=0$$:
+Set $x(t)=0$:
 
 $$
 0 = 12 + 14t - \frac{1}{2}(9.8)t^2.
@@ -195,15 +177,11 @@ $$
 
 Multiply by 2 to simplify:
 
-$$
-0 = 24 + 28t - 9.8t^2.
-$$
+$0 = 24 + 28t - 9.8t^2.$
 
 Rearrange:
 
-$$
-9.8t^2 - 28t - 24 = 0.
-$$
+$9.8t^2 - 28t - 24 = 0.$
 
 Solve the quadratic:
 
@@ -213,9 +191,7 @@ $$
 
 Compute the discriminant:
 
-$$
-(-28)^2 - 4(9.8)(-24) = 784 + 940.8 = 1724.8.
-$$
+$(-28)^2 - 4(9.8)(-24) = 784 + 940.8 = 1724.8.$
 
 $$
 \sqrt{1724.8} \approx 41.53.
@@ -243,9 +219,7 @@ $$
 
 Use:
 
-$$
-v(t) = v_0 - gt.
-$$
+$v(t) = v_0 - gt.$
 
 So:
 
@@ -257,12 +231,12 @@ Interpretation: the negative sign means the object is moving downward at impact 
 
 ## Mini recap
 
-- Free fall (ideal) near Earth is constant acceleration of magnitude $$g$$ directed downward.
+- Free fall (ideal) near Earth is constant acceleration of magnitude $g$ directed downward.
 - Choose a sign convention and keep it consistent. If upward is positive:
 
 $$
 a=-g, \qquad v(t)=v_0-gt, \qquad x(t)=x_0+v_0t-\frac{1}{2}gt^2.
 $$
 
-- At the top of an upward throw: $$v=0$$ but $$a=-g$$ still.
-- Watch for two times at the same height and for sign loss when taking square roots in $$v^2$$ relations.
+- At the top of an upward throw: $v=0$ but $a=-g$ still.
+- Watch for two times at the same height and for sign loss when taking square roots in $v^2$ relations.

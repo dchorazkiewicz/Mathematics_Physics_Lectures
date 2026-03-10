@@ -23,8 +23,8 @@ A **reference frame** is the backdrop relative to which you describe motion. In 
 
 Once a frame is chosen, the state “where is the object?” becomes a mathematical object:
 
-- in 1D: a single coordinate $$x(t)$$,
-- in 2D/3D: a position vector $$\vec{r}(t)$$ or a set of coordinates such as $$x(t), y(t)$$.
+- in 1D: a single coordinate $x(t)$,
+- in 2D/3D: a position vector $\vec{r}(t)$ or a set of coordinates such as $x(t), y(t)$.
 
 The **physical object** is real; the **numbers** you assign to represent its position are part of your description, and they depend on your chosen frame.
 
@@ -34,54 +34,42 @@ The **physical object** is real; the **numbers** you assign to represent its pos
 
 Choose:
 
-- an origin (where $$x=0$$),
+- an origin (where $x=0$),
 - a positive direction (for example, “to the right is positive”).
 
 Then the position of a particle is described by a function of time:
 
-$$
-x(t)
-$$
+$x(t)$
 
 ### Position in 2D (planar motion)
 
-Choose perpendicular axes (for example, east as $$x$$ and north as $$y$$). The particle’s position can be written as a vector:
+Choose perpendicular axes (for example, east as $x$ and north as $y$). The particle’s position can be written as a vector:
 
-$$
-\vec{r}(t)
-$$
+$\vec{r}(t)$
 
 or in components (Cartesian coordinates):
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}$
 
-where $$\hat{i}$$ and $$\hat{j}$$ are unit vectors along the chosen axes.
+where $\hat{i}$ and $\hat{j}$ are unit vectors along the chosen axes.
 
 ### Displacement (change in position)
 
 Displacement is the difference between two positions (vector difference in 2D/3D, scalar difference in 1D). In 1D:
 
-$$
-\Delta x = x(t_2) - x(t_1)
-$$
+$\Delta x = x(t_2) - x(t_1)$
 
 In vector form:
 
-$$
-\Delta \vec{r} = \vec{r}(t_2) - \vec{r}(t_1)
-$$
+$\Delta \vec{r} = \vec{r}(t_2) - \vec{r}(t_1)$
 
 Displacement is not “distance traveled.” Distance accumulates along the path; displacement depends only on the start and end positions.
 
 ### Changing the origin (same physical point, different coordinate)
 
-Suppose you shift your origin by a constant amount. In 1D, if the new origin is located at coordinate $$x_0$$ in the old system, then the new coordinate is:
+Suppose you shift your origin by a constant amount. In 1D, if the new origin is located at coordinate $x_0$ in the old system, then the new coordinate is:
 
-$$
-x'(t) = x(t) - x_0
-$$
+$x'(t) = x(t) - x_0$
 
 This changes the numbers you call “position,” but it does not change the physical location of the particle. Importantly, displacement is unchanged by this shift:
 
@@ -95,15 +83,15 @@ $$
 
 2) **Coordinates are labels, not physical substances.** The particle does not “have” a negative position; negative simply means “on the negative side of the chosen origin.”
 
-3) **The particle model is a choice.** When we write $$x(t)$$ or $$\vec{r}(t)$$, we assume the object’s size/rotation can be neglected for the question at hand. If the object’s orientation matters (e.g., a rolling wheel), a richer model is needed.
+3) **The particle model is a choice.** When we write $x(t)$ or $\vec{r}(t)$, we assume the object’s size/rotation can be neglected for the question at hand. If the object’s orientation matters (e.g., a rolling wheel), a richer model is needed.
 
 4) **Some quantities are less sensitive to origin choices.** Position changes if you move the origin, but displacement does not. Later, you will see that velocity and acceleration are also unaffected by shifting the origin by a constant amount.
 
 ## Typical examples
 
-1) **1D motion along a hallway.** Choose the door as $$x=0$$ and “toward the window” as positive. A student walking back and forth can have $$x(t)$$ that increases, decreases, and changes sign.
+1) **1D motion along a hallway.** Choose the door as $x=0$ and “toward the window” as positive. A student walking back and forth can have $x(t)$ that increases, decreases, and changes sign.
 
-2) **2D motion on a map.** Choose axes east/north and an origin at a landmark. A runner’s position is a pair $$\big(x(t), y(t)\big)$$, or a vector $$\vec{r}(t)$$.
+2) **2D motion on a map.** Choose axes east/north and an origin at a landmark. A runner’s position is a pair $\big(x(t), y(t)\big)$, or a vector $\vec{r}(t)$.
 
 3) **Same situation, different convenience.** For a problem about motion near a particular point (a stop sign, a spring’s equilibrium point), placing the origin there often simplifies the algebra and the interpretation.
 
@@ -121,29 +109,23 @@ A bicycle moves along a straight street. You choose a reference frame with:
 
 - origin at a stop sign,
 - positive direction pointing east,
-- time $$t$$ measured in seconds.
+- time $t$ measured in seconds.
 
-At $$t=0$$ the bicycle is 20 m west of the stop sign. At $$t=5\,\text{s}$$ it is 30 m east of the stop sign.
+At $t=0$ the bicycle is 20 m west of the stop sign. At $t=5\,\text{s}$ it is 30 m east of the stop sign.
 
 ### Step 1: Translate the words into coordinates
 
 “20 m west” means the coordinate is negative:
 
-$$
-x(0) = -20\,\text{m}
-$$
+$x(0) = -20\,\text{m}$
 
 “30 m east” means the coordinate is positive:
 
-$$
-x(5) = +30\,\text{m}
-$$
+$x(5) = +30\,\text{m}$
 
 ### Step 2: Compute displacement
 
-$$
-\Delta x = x(5) - x(0) = 30 - (-20) = 50\,\text{m}
-$$
+$\Delta x = x(5) - x(0) = 30 - (-20) = 50\,\text{m}$
 
 Interpretation: the bicycle’s net change in position is 50 m to the east (in this chosen coordinate sense).
 
@@ -161,38 +143,28 @@ This is a *kinematic* statement about how position changed; it does not yet expl
 
 Now choose a new origin at a tree that is 10 m east of the stop sign. In the old coordinates, the tree is at:
 
-$$
-x_0 = +10\,\text{m}
-$$
+$x_0 = +10\,\text{m}$
 
 Define the new coordinate:
 
-$$
-x'(t) = x(t) - x_0
-$$
+$x'(t) = x(t) - x_0$
 
 Compute the bicycle’s positions in the new coordinates:
 
-$$
-x'(0) = x(0) - 10 = -20 - 10 = -30\,\text{m}
-$$
+$x'(0) = x(0) - 10 = -20 - 10 = -30\,\text{m}$
 
-$$
-x'(5) = x(5) - 10 = 30 - 10 = 20\,\text{m}
-$$
+$x'(5) = x(5) - 10 = 30 - 10 = 20\,\text{m}$
 
 Compute displacement in the new coordinates:
 
-$$
-\Delta x' = x'(5) - x'(0) = 20 - (-30) = 50\,\text{m}
-$$
+$\Delta x' = x'(5) - x'(0) = 20 - (-30) = 50\,\text{m}$
 
 The numerical positions changed (because the origin moved), but the displacement did not. This is exactly what you should expect: displacement compares two positions within the *same* frame, so shifting the origin by a constant cancels out.
 
 ## Mini recap
 
 - A reference frame specifies an origin, axes (positive directions), and a clock.
-- Position is frame-dependent: $$x(t)$$ in 1D, $$\vec{r}(t)$$ in 2D/3D.
+- Position is frame-dependent: $x(t)$ in 1D, $\vec{r}(t)$ in 2D/3D.
 - Displacement is the difference of positions:
 
 $$

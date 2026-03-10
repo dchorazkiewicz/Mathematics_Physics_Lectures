@@ -41,9 +41,7 @@ Newton’s second law becomes a second-order differential equation for x(t).
 
 Suppose the net force along x is modeled as:
 
-$$
-F_{\text{net}} = F(x, v, t).
-$$
+$F_{\text{net}} = F(x, v, t).$
 
 Then Newton’s second law gives:
 
@@ -112,9 +110,7 @@ The physics content is in the force model. The mathematics content is in solving
 
 A block of mass m slides on a horizontal frictionless surface. A constant horizontal force of magnitude F acts on it to the right. At t=0:
 
-$$
-x(0)=0,\qquad v(0)=0.
-$$
+$x(0)=0,\qquad v(0)=0.$
 
 1) Write the equation of motion.  
 2) Solve for v(t) and x(t).  
@@ -124,9 +120,7 @@ $$
 
 Frictionless surface means no friction force. Horizontally, the only force is the applied force:
 
-$$
-F_{\text{net}} = F.
-$$
+$F_{\text{net}} = F.$
 
 ### Step 2: Equation of motion
 

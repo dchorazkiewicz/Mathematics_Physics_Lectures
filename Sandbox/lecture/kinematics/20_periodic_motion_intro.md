@@ -33,17 +33,13 @@ So you should be clear what is meant by “repeats” in a given context.
 
 We say that position is periodic with period T if:
 
-$$
-x(t+T) = x(t)
-$$
+$x(t+T) = x(t)$
 
 for all t in the interval of interest.
 
 For vector motion (2D/3D):
 
-$$
-\vec{r}(t+T) = \vec{r}(t).
-$$
+$\vec{r}(t+T) = \vec{r}(t).$
 
 ### Period, frequency, angular frequency
 
@@ -66,9 +62,7 @@ These are different ways to describe the same “rate of repetition,” but the 
 
 If a motion has frequency f, then the number of cycles completed in time interval Delta t is:
 
-$$
-N = f\,\Delta t.
-$$
+$N = f\,\Delta t.$
 
 If you know the period T instead:
 
@@ -114,9 +108,7 @@ Find:
 
 2 minutes is:
 
-$$
-120\,\text{s}.
-$$
+$120\,\text{s}.$
 
 Frequency is revolutions per second:
 

@@ -36,9 +36,7 @@ $$
 
 Then:
 
-$$
-\theta(t) = \theta_0 + \omega t.
-$$
+$\theta(t) = \theta_0 + \omega t.$
 
 The period T is the time for one full revolution (2pi radians):
 
@@ -54,9 +52,7 @@ $$
 
 So:
 
-$$
-\omega = 2\pi f.
-$$
+$\omega = 2\pi f.$
 
 ### Speed and tangential velocity
 
@@ -78,9 +74,7 @@ $$
 
 Using v = R omega, this can also be written as:
 
-$$
-a = R\omega^2.
-$$
+$a = R\omega^2.$
 
 These formulas give the magnitude. The direction is toward the center of the circle.
 
@@ -110,15 +104,11 @@ These formulas give the magnitude. The direction is toward the center of the cir
 
 A car drives around a flat circular track of radius:
 
-$$
-R = 50\,\text{m}.
-$$
+$R = 50\,\text{m}.$
 
 Its speed is constant:
 
-$$
-v = 15\,\text{m/s}.
-$$
+$v = 15\,\text{m/s}.$
 
 Find:
 
@@ -144,9 +134,7 @@ $$
 
 One revolution distance is the circumference:
 
-$$
-2\pi R.
-$$
+$2\pi R.$
 
 At constant speed, time for one revolution is:
 

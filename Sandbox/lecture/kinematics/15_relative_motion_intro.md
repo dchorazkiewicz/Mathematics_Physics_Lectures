@@ -40,9 +40,7 @@ Let:
 
 We write:
 
-$$
-\vec{v}_{A/B}
-$$
+$\vec{v}_{A/B}$
 
 for “velocity of A relative to B.”
 
@@ -50,9 +48,7 @@ for “velocity of A relative to B.”
 
 In classical mechanics (at ordinary speeds), the velocities add as:
 
-$$
-\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.
-$$
+$\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.$
 
 This can be understood component-wise in any chosen coordinate system.
 
@@ -60,9 +56,7 @@ This can be understood component-wise in any chosen coordinate system.
 
 Similarly for position vectors:
 
-$$
-\vec{r}_{A/C} = \vec{r}_{A/B} + \vec{r}_{B/C}.
-$$
+$\vec{r}_{A/C} = \vec{r}_{A/B} + \vec{r}_{B/C}.$
 
 In many intro problems you can treat this as “vector from C to A equals vector from C to B plus vector from B to A,” but you should keep the labels consistent.
 
@@ -72,9 +66,7 @@ In many intro problems you can treat this as “vector from C to A equals vector
 - Direction matters: all velocities are vectors (in 1D, signed scalars).
 - If you reverse “who is relative to whom,” the sign changes:
 
-$$
-\vec{v}_{A/B} = -\vec{v}_{B/A}.
-$$
+$\vec{v}_{A/B} = -\vec{v}_{B/A}.$
 
 ## Typical examples
 
@@ -97,17 +89,13 @@ A person walks on a moving walkway in a straight corridor (1D). Choose the posit
 
 - The walkway moves at
 
-$$
-v_{W/G} = 1.2\,\text{m/s}
-$$
+$v_{W/G} = 1.2\,\text{m/s}$
 
 relative to the ground (G), where W denotes the walkway.
 
 - The person walks at
 
-$$
-v_{P/W} = 0.8\,\text{m/s}
-$$
+$v_{P/W} = 0.8\,\text{m/s}$
 
 relative to the walkway, in the positive direction.
 
@@ -118,15 +106,11 @@ relative to the walkway, in the positive direction.
 
 Use:
 
-$$
-v_{P/G} = v_{P/W} + v_{W/G}.
-$$
+$v_{P/G} = v_{P/W} + v_{W/G}.$
 
 So:
 
-$$
-v_{P/G} = 0.8 + 1.2 = 2.0\,\text{m/s}.
-$$
+$v_{P/G} = 0.8 + 1.2 = 2.0\,\text{m/s}.$
 
 ### Step 2: Use uniform motion for travel time
 
@@ -140,15 +124,11 @@ $$
 
 If the person walks opposite the belt direction with
 
-$$
-v_{P/W} = -0.8\,\text{m/s},
-$$
+$v_{P/W} = -0.8\,\text{m/s},$
 
 then:
 
-$$
-v_{P/G} = -0.8 + 1.2 = 0.4\,\text{m/s},
-$$
+$v_{P/G} = -0.8 + 1.2 = 0.4\,\text{m/s},$
 
 and the same 60 m would take:
 
@@ -160,12 +140,10 @@ This illustrates why sign conventions and labels matter: the same walking effort
 
 ## Mini recap
 
-- Relative velocity notation: $$\vec{v}_{A/B}$$ means “A relative to B.”
+- Relative velocity notation: $\vec{v}_{A/B}$ means “A relative to B.”
 - Classical velocity addition:
 
-$$
-\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.
-$$
+$\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.$
 
-- Reverse relation flips sign: $$\vec{v}_{A/B}=-\vec{v}_{B/A}$$.
+- Reverse relation flips sign: $\vec{v}_{A/B}=-\vec{v}_{B/A}$.
 - In 1D, treat velocities as signed; in 2D/3D, add vectors component-wise.

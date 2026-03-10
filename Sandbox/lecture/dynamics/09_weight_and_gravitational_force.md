@@ -32,9 +32,7 @@ So:
 
 Near Earth, gravitational force on a mass m is:
 
-$$
-\vec{W} = m\vec{g}.
-$$
+$\vec{W} = m\vec{g}.$
 
 Here \vec{g} is the gravitational acceleration vector, pointing downward. Its magnitude is approximately:
 
@@ -44,15 +42,11 @@ $$
 
 If you choose y positive upward, then:
 
-$$
-\vec{g} = -g\,\hat{j},
-$$
+$\vec{g} = -g\,\hat{j},$
 
 so the weight force is:
 
-$$
-\vec{W} = -mg\,\hat{j}.
-$$
+$\vec{W} = -mg\,\hat{j}.$
 
 ### Weight vs “apparent weight”
 
@@ -65,15 +59,11 @@ If you stand on a scale in an elevator, the vertical forces on you are:
 
 Newton’s second law in y (taking y upward) is:
 
-$$
-N - mg = ma_y.
-$$
+$N - mg = ma_y.$
 
 So:
 
-$$
-N = m(g + a_y).
-$$
+$N = m(g + a_y).$
 
 This shows:
 
@@ -106,9 +96,7 @@ This shows:
 
 A person of mass:
 
-$$
-m = 70\,\text{kg}
-$$
+$m = 70\,\text{kg}$
 
 stands on a scale in an elevator. Take y upward and g = 9.8 m/s^2.
 
@@ -126,31 +114,23 @@ $$
 
 Compute mg:
 
-$$
-mg = (70)(9.8) = 686\,\text{N}.
-$$
+$mg = (70)(9.8) = 686\,\text{N}.$
 
 ### Step 2: Accelerating upward
 
 Here a_y = +1.2:
 
-$$
-N = 70(9.8 + 1.2) = 70(11.0) = 770\,\text{N}.
-$$
+$N = 70(9.8 + 1.2) = 70(11.0) = 770\,\text{N}.$
 
 ### Step 3: Accelerating downward
 
 Here a_y = -1.2:
 
-$$
-N = 70(9.8 - 1.2) = 70(8.6) = 602\,\text{N}.
-$$
+$N = 70(9.8 - 1.2) = 70(8.6) = 602\,\text{N}.$
 
 ### Step 4: At rest / constant speed (a_y = 0)
 
-$$
-N = mg = 686\,\text{N}.
-$$
+$N = mg = 686\,\text{N}.$
 
 Interpretation: the gravitational force mg is the same in all three cases, but the normal force (scale reading) changes because the acceleration changes.
 
@@ -159,9 +139,7 @@ Interpretation: the gravitational force mg is the same in all three cases, but t
 - Mass m (kg) is not weight.
 - Weight is the gravitational force:
 
-$$
-\vec{W} = m\vec{g}.
-$$
+$\vec{W} = m\vec{g}.$
 
 - A scale reads the normal force N, which depends on acceleration:
 

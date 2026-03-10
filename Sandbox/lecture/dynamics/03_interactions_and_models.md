@@ -32,9 +32,7 @@ The system choice matters because forces are always “forces on the chosen syst
 
 Choose a system S. External interactions are represented by forces on S due to objects outside S:
 
-$$
-\vec{F}_{\text{on S by environment}}.
-$$
+$\vec{F}_{\text{on S by environment}}.$
 
 If you have multiple external interactions, you represent them as separate force vectors and sum them:
 
@@ -50,9 +48,7 @@ Particle model:
 
 - treat the object as a point with position vector:
 
-$$
-\vec{r}(t),
-$$
+$\vec{r}(t),$
 
 - ignore rotation and size,
 - keep only translational motion.
@@ -158,9 +154,7 @@ $$
 
 Since the box stays on the floor, you typically have:
 
-$$
-a_y = 0,
-$$
+$a_y = 0,$
 
 which becomes a constraint that determines the normal force once the tension angle is known.
 

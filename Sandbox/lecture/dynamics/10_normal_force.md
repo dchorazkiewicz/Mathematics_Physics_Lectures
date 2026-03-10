@@ -36,15 +36,11 @@ Consider a block on a horizontal surface. Take y upward. Vertical forces are:
 
 Newton’s second law in y is:
 
-$$
-N - mg = ma_y.
-$$
+$N - mg = ma_y.$
 
 If the block has no vertical acceleration (a_y = 0), then:
 
-$$
-N = mg.
-$$
+$N = mg.$
 
 This is the special case many students memorize, but it depends on the condition a_y = 0.
 
@@ -57,9 +53,7 @@ For a block on an incline, the easiest method is to choose axes:
 
 If the block stays in contact with the plane, its acceleration perpendicular to the plane is zero:
 
-$$
-a_\perp = 0.
-$$
+$a_\perp = 0.$
 
 Then Newton’s second law perpendicular to the plane determines N. For example, if the only forces with perpendicular components are N and weight, you get:
 
@@ -106,9 +100,7 @@ If the solution gives N <= 0, that indicates the surface cannot “pull” on th
 
 A person of mass:
 
-$$
-m = 70\,\text{kg}
-$$
+$m = 70\,\text{kg}$
 
 stands on a bathroom scale in an elevator. The elevator accelerates downward with magnitude 2.0 m/s^2. Take y upward and g = 9.8 m/s^2.
 
@@ -123,27 +115,19 @@ For the person, vertical forces are:
 
 So:
 
-$$
-N - mg = ma_y.
-$$
+$N - mg = ma_y.$
 
 The elevator accelerates downward, so a_y is negative:
 
-$$
-a_y = -2.0\,\text{m/s}^2.
-$$
+$a_y = -2.0\,\text{m/s}^2.$
 
 ### Step 2: Solve for N
 
-$$
-N = m(g + a_y) = 70(9.8 - 2.0).
-$$
+$N = m(g + a_y) = 70(9.8 - 2.0).$
 
 Compute:
 
-$$
-N = 70(7.8) = 546\,\text{N}.
-$$
+$N = 70(7.8) = 546\,\text{N}.$
 
 ### Step 3: Interpret
 
@@ -155,9 +139,7 @@ At rest, the scale would read mg = 686 N. Here it reads 546 N, smaller, because 
 - It is determined by Newton’s second law plus the contact constraint.
 - Flat surface:
 
-$$
-N - mg = ma_y.
-$$
+$N - mg = ma_y.$
 
 - Incline (no perpendicular acceleration):
 

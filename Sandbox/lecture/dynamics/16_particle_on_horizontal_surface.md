@@ -22,9 +22,7 @@ Once you can do horizontal-surface problems cleanly, inclines and connected bodi
 
 On a horizontal surface, the vertical motion is usually constrained:
 
-$$
-a_y = 0.
-$$
+$a_y = 0.$
 
 That constraint is what determines the normal force. Friction (if present) depends on N in the simplest coefficient model, so you typically solve:
 
@@ -52,9 +50,7 @@ $$
 
 With the contact constraint:
 
-$$
-a_y = 0.
-$$
+$a_y = 0.$
 
 ### Friction model reminder
 
@@ -106,9 +102,7 @@ Forces on the crate:
 
 ### Step 2: Resolve the applied force
 
-$$
-F_x = F\cos 20^\circ, \qquad F_y = F\sin 20^\circ.
-$$
+$F_x = F\cos 20^\circ, \qquad F_y = F\sin 20^\circ.$
 
 Numerically, cos 20 degrees ≈ 0.940, sin 20 degrees ≈ 0.342:
 
@@ -130,9 +124,7 @@ $$
 
 Compute mg:
 
-$$
-mg = (10)(9.8) = 98\,\text{N}.
-$$
+$mg = (10)(9.8) = 98\,\text{N}.$
 
 So:
 
@@ -148,15 +140,11 @@ $$
 
 ### Step 5: Horizontal equation for acceleration
 
-$$
-F_x - f_k = ma.
-$$
+$F_x - f_k = ma.$
 
 So:
 
-$$
-37.6 - 25.3 = (10)a.
-$$
+$37.6 - 25.3 = (10)a.$
 
 $$
 12.3 = 10a \Rightarrow a \approx 1.23\,\text{m/s}^2.

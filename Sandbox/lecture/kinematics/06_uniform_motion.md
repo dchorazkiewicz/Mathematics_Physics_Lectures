@@ -4,7 +4,7 @@
 
 - Recognize uniform motion as motion with **constant velocity** and **zero acceleration**.
 - Use the uniform-motion model to relate position and time in 1D and vector form.
-- Interpret uniform motion on $$x(t)$$ and $$v(t)$$ graphs.
+- Interpret uniform motion on $x(t)$ and $v(t)$ graphs.
 - Solve basic “meet/catch-up” and “when/where” problems with sign conventions.
 
 ## Why this matters
@@ -33,21 +33,15 @@ Uniform motion is a **model**: it describes situations where changes in velocity
 
 Assume constant velocity:
 
-$$
-v(t) = v_0 \quad \text{(constant)}.
-$$
+$v(t) = v_0 \quad \text{(constant)}.$
 
 Then position is:
 
-$$
-x(t) = x_0 + v_0(t-t_0).
-$$
+$x(t) = x_0 + v_0(t-t_0).$
 
-Often we choose $$t_0=0$$ for convenience:
+Often we choose $t_0=0$ for convenience:
 
-$$
-x(t) = x_0 + v_0 t.
-$$
+$x(t) = x_0 + v_0 t.$
 
 Acceleration is the derivative of velocity:
 
@@ -57,11 +51,9 @@ $$
 
 ### Vector form (2D/3D)
 
-If velocity is a constant vector $$\vec{v}_0$$, then:
+If velocity is a constant vector $\vec{v}_0$, then:
 
-$$
-\vec{r}(t) = \vec{r}_0 + \vec{v}_0(t-t_0).
-$$
+$\vec{r}(t) = \vec{r}_0 + \vec{v}_0(t-t_0).$
 
 This describes straight-line motion at constant speed in a fixed direction.
 
@@ -69,16 +61,16 @@ This describes straight-line motion at constant speed in a fixed direction.
 
 For uniform motion in 1D:
 
-- $$x(t)$$ is a straight line; its slope is $$v_0$$.
-- $$v(t)$$ is a horizontal line at $$v_0$$.
-- $$a(t)$$ is identically zero.
+- $x(t)$ is a straight line; its slope is $v_0$.
+- $v(t)$ is a horizontal line at $v_0$.
+- $a(t)$ is identically zero.
 
 ## Interpretation
 
-- The sign of $$v_0$$ tells you direction along your chosen axis.
-  - $$v_0>0$$: motion in the positive direction.
-  - $$v_0<0$$: motion in the negative direction.
-- The magnitude $$|v_0|$$ is the constant speed (in 1D).
+- The sign of $v_0$ tells you direction along your chosen axis.
+  - $v_0>0$: motion in the positive direction.
+  - $v_0<0$: motion in the negative direction.
+- The magnitude $|v_0|$ is the constant speed (in 1D).
 - The same physical motion can have different coordinate descriptions if you shift the origin, but the constant velocity value does not change under an origin shift.
 
 ## Typical examples
@@ -91,17 +83,17 @@ For uniform motion in 1D:
 
 ## Common mistakes
 
-- Using distance traveled in place of displacement when computing $$x(t)$$.
-- Forgetting sign conventions: writing $$x(t)=x_0+|v_0|t$$ even when motion is in the negative direction.
-- Mixing time origins: using $$x_0$$ measured at one time while using a formula with a different $$t_0$$.
+- Using distance traveled in place of displacement when computing $x(t)$.
+- Forgetting sign conventions: writing $x(t)=x_0+|v_0|t$ even when motion is in the negative direction.
+- Mixing time origins: using $x_0$ measured at one time while using a formula with a different $t_0$.
 - Assuming that “constant speed” automatically means “uniform motion” in 2D/3D. Constant speed with changing direction is **not** uniform motion because velocity is not constant.
 
 ## Worked example
 
 Two cyclists move along a straight road (1D). Choose the x-axis along the road, with positive direction to the east.
 
-- Cyclist A starts at the origin at $$t=0$$ and rides east at constant velocity $$v_A = 6\,\text{m/s}$$.
-- Cyclist B starts 120 m east of the origin at $$t=0$$ and rides west at constant velocity $$v_B = -4\,\text{m/s}$$.
+- Cyclist A starts at the origin at $t=0$ and rides east at constant velocity $v_A = 6\,\text{m/s}$.
+- Cyclist B starts 120 m east of the origin at $t=0$ and rides west at constant velocity $v_B = -4\,\text{m/s}$.
 
 Find when and where they meet.
 
@@ -109,29 +101,21 @@ Find when and where they meet.
 
 For cyclist A:
 
-$$
-x_A(t) = 0 + (6)t = 6t.
-$$
+$x_A(t) = 0 + (6)t = 6t.$
 
 For cyclist B:
 
-$$
-x_B(t) = 120 + (-4)t = 120 - 4t.
-$$
+$x_B(t) = 120 + (-4)t = 120 - 4t.$
 
 ### Step 2: Solve the meeting condition
 
 They meet when positions are equal:
 
-$$
-x_A(t) = x_B(t).
-$$
+$x_A(t) = x_B(t).$
 
 So:
 
-$$
-6t = 120 - 4t.
-$$
+$6t = 120 - 4t.$
 
 $$
 10t = 120 \;\Rightarrow\; t = 12\,\text{s}.
@@ -141,19 +125,15 @@ $$
 
 Substitute back:
 
-$$
-x = x_A(12) = 6(12) = 72\,\text{m}.
-$$
+$x = x_A(12) = 6(12) = 72\,\text{m}.$
 
-Interpretation: they meet 72 m east of the origin, 12 s after $$t=0$$.
+Interpretation: they meet 72 m east of the origin, 12 s after $t=0$.
 
 ### Step 4: Quick reasonableness check
 
 The closing speed is:
 
-$$
-v_{\text{close}} = v_A - v_B = 6 - (-4) = 10\,\text{m/s}.
-$$
+$v_{\text{close}} = v_A - v_B = 6 - (-4) = 10\,\text{m/s}.$
 
 Initial separation is 120 m, so meeting time should be:
 
@@ -168,9 +148,7 @@ consistent.
 - Uniform motion means **constant velocity** and **zero acceleration**.
 - In 1D:
 
-$$
-x(t) = x_0 + v_0(t-t_0), \qquad v(t)=v_0, \qquad a(t)=0.
-$$
+$x(t) = x_0 + v_0(t-t_0), \qquad v(t)=v_0, \qquad a(t)=0.$
 
-- On graphs: $$x(t)$$ is linear; $$v(t)$$ is constant; $$a(t)=0$$.
+- On graphs: $x(t)$ is linear; $v(t)$ is constant; $a(t)=0$.
 - Keep sign conventions explicit; displacement (not distance) controls the position function.

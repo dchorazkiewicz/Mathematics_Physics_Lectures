@@ -29,9 +29,7 @@ This is already a strong abstraction: the same physical object can be described 
 
 In one dimension, motion is described by a position function:
 
-$$
-x(t)
-$$
+$x(t)$
 
 Velocity and acceleration are defined as time-derivatives:
 
@@ -41,8 +39,8 @@ $$
 
 The derivative here has a physical meaning:
 
-- $$v(t)$$ is the **instantaneous rate of change** of position (how fast and in which direction the position coordinate is changing).
-- $$a(t)$$ is the **instantaneous rate of change** of velocity (how quickly the velocity changes in time).
+- $v(t)$ is the **instantaneous rate of change** of position (how fast and in which direction the position coordinate is changing).
+- $a(t)$ is the **instantaneous rate of change** of velocity (how quickly the velocity changes in time).
 
 In dynamics, the central idea (developed later) is that interactions determine acceleration. In Newtonian particle mechanics, this is expressed by:
 
@@ -59,7 +57,7 @@ This equation is not “a definition of force.” It is a modeling principle: on
 
 You should get in the habit of asking two different questions:
 
-1. **Description question (kinematics):** “Given $$x(t)$$ (or data), what are $$v(t)$$ and $$a(t)$$? What does the motion look like?”
+1. **Description question (kinematics):** “Given $x(t)$ (or data), what are $v(t)$ and $a(t)$? What does the motion look like?”
 2. **Explanation question (dynamics):** “What forces act? What is the net force? What acceleration follows?”
 
 ## Typical examples
@@ -79,9 +77,7 @@ You should get in the habit of asking two different questions:
 
 An object moves along a line with position
 
-$$
-x(t) = 1 + 2t - t^2
-$$
+$x(t) = 1 + 2t - t^2$
 
 1) Compute velocity and acceleration.
 
@@ -101,25 +97,23 @@ So the acceleration is constant and negative (in this coordinate choice).
 
 2) What can kinematics tell you, and what can’t it tell you?
 
-- Kinematics tells you there is a turning time when $$v(t)=0$$:
+- Kinematics tells you there is a turning time when $v(t)=0$:
 
 $$
 2 - 2t = 0 \;\Rightarrow\; t = 1
 $$
 
-- It tells you the motion is initially in the positive direction (since $$v(0)=2>0$$), then reverses after $$t=1$$.
+- It tells you the motion is initially in the positive direction (since $v(0)=2>0$), then reverses after $t=1$.
 
-But kinematics alone does not tell you *which interaction* caused the constant acceleration. If you additionally know the mass is $$m=0.50\,\text{kg}$$ and you adopt Newton’s second law (dynamics), then the **net force** would be:
+But kinematics alone does not tell you *which interaction* caused the constant acceleration. If you additionally know the mass is $m=0.50\,\text{kg}$ and you adopt Newton’s second law (dynamics), then the **net force** would be:
 
-$$
-F_{\text{net}} = ma = (0.50)(-2) = -1\,\text{N}
-$$
+$F_{\text{net}} = ma = (0.50)(-2) = -1\,\text{N}$
 
 That net force could arise from many physical situations (gravity component, a spring, a constant push, etc.). Identifying a realistic force model is part of dynamics.
 
 ## Mini recap
 
-- Kinematics describes motion via $$x(t)$$ (or $$\vec{r}(t)$$) and its derivatives.
+- Kinematics describes motion via $x(t)$ (or $\vec{r}(t)$) and its derivatives.
 - Velocity and acceleration are rates of change in time.
 - Dynamics explains/predicts acceleration from forces; acceleration is the bridge.
 - Mechanics is a modeling discipline: choices and assumptions matter.

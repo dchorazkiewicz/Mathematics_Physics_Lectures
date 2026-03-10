@@ -38,15 +38,11 @@ Static friction is “self-adjusting” up to a maximum. Kinetic friction has (i
 
 Static friction magnitude f_s satisfies:
 
-$$
-0 \le f_s \le f_{s,\text{max}}.
-$$
+$0 \le f_s \le f_{s,\text{max}}.$
 
 The common coefficient model is:
 
-$$
-f_{s,\text{max}} = \mu_s N.
-$$
+$f_{s,\text{max}} = \mu_s N.$
 
 Important: in static contact, the actual friction magnitude is whatever is needed (within the limit) to prevent slipping.
 
@@ -54,17 +50,13 @@ Important: in static contact, the actual friction magnitude is whatever is neede
 
 When slipping occurs, kinetic friction magnitude is modeled as:
 
-$$
-f_k = \mu_k N,
-$$
+$f_k = \mu_k N,$
 
 and it points opposite the direction of relative sliding velocity at the contact.
 
 Typically:
 
-$$
-\mu_k < \mu_s.
-$$
+$\mu_k < \mu_s.$
 
 ### Direction rule (crucial)
 
@@ -120,9 +112,7 @@ $$
 
 Compute:
 
-$$
-N = (4.0)(9.8)\cos 25^\circ.
-$$
+$N = (4.0)(9.8)\cos 25^\circ.$
 
 Numerically, cos 25 degrees is approximately 0.906, so:
 
@@ -134,9 +124,7 @@ $$
 
 The component of weight down the plane is:
 
-$$
-mg\sin\theta.
-$$
+$mg\sin\theta.$
 
 Numerically, sin 25 degrees is approximately 0.423, so:
 
@@ -177,15 +165,11 @@ static friction can supply the needed value. Therefore the block remains at rest
 
 - Static friction:
 
-$$
-0 \le f_s \le \mu_s N.
-$$
+$0 \le f_s \le \mu_s N.$
 
 - Kinetic friction:
 
-$$
-f_k = \mu_k N.
-$$
+$f_k = \mu_k N.$
 
 - Direction is opposite slip (kinetic) or opposite the tendency to slip (static).
 - In static problems: solve for the required friction, then check it does not exceed mu_s N.

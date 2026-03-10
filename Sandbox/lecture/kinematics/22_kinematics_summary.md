@@ -27,15 +27,11 @@ Kinematics is built around three linked quantities:
 
 In 1D these are signed scalars. In 2D/3D they are vectors. In either case, the logical structure is the same:
 
-$$
-x(t) \rightarrow v(t) \rightarrow a(t)
-$$
+$x(t) \rightarrow v(t) \rightarrow a(t)$
 
 by differentiation, and:
 
-$$
-a(t) \rightarrow v(t) \rightarrow x(t)
-$$
+$a(t) \rightarrow v(t) \rightarrow x(t)$
 
 by integration plus initial conditions.
 
@@ -99,15 +95,11 @@ $$
 
 Assume:
 
-$$
-a(t) = a_0 \quad \text{(constant)}.
-$$
+$a(t) = a_0 \quad \text{(constant)}.$
 
 Then:
 
-$$
-v(t) = v_0 + a_0(t-t_0)
-$$
+$v(t) = v_0 + a_0(t-t_0)$
 
 $$
 x(t) = x_0 + v_0(t-t_0) + \frac{1}{2}a_0(t-t_0)^2
@@ -115,23 +107,15 @@ $$
 
 and the time-free relation:
 
-$$
-v^2 = v_0^2 + 2a_0(x-x_0).
-$$
+$v^2 = v_0^2 + 2a_0(x-x_0).$
 
 ### 2D motion via components
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}$
 
-$$
-\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}
-$$
+$\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}$
 
-$$
-\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}
-$$
+$\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}$
 
 with:
 
@@ -185,21 +169,15 @@ A particle moves along a line. Its acceleration is piecewise constant:
 
 - for 0 <= t <= 4 s:
 
-$$
-a(t) = 2.0\,\text{m/s}^2,
-$$
+$a(t) = 2.0\,\text{m/s}^2,$
 
 - for 4 <= t <= 10 s:
 
-$$
-a(t) = -1.0\,\text{m/s}^2.
-$$
+$a(t) = -1.0\,\text{m/s}^2.$
 
 At t = 0:
 
-$$
-x(0)=0, \qquad v(0)=0.
-$$
+$x(0)=0, \qquad v(0)=0.$
 
 Find:
 
@@ -211,9 +189,7 @@ Find:
 
 With constant acceleration a = 2:
 
-$$
-v(t) = v(0) + at = 2t.
-$$
+$v(t) = v(0) + at = 2t.$
 
 $$
 x(t) = x(0) + v(0)t + \frac{1}{2}at^2 = t^2.
@@ -221,33 +197,23 @@ $$
 
 Compute boundary values at t = 4:
 
-$$
-v(4)=2(4)=8\,\text{m/s},
-$$
+$v(4)=2(4)=8\,\text{m/s},$
 
-$$
-x(4)=4^2=16\,\text{m}.
-$$
+$x(4)=4^2=16\,\text{m}.$
 
 ### Step 2: Interval 2 (4 to 10 s)
 
 Use the boundary values at t = 4 as initial conditions for the second interval. Let:
 
-$$
-\tau = t-4.
-$$
+$\tau = t-4.$
 
 On this interval, acceleration is a = -1:
 
-$$
-v(t) = v(4) + (-1)\tau = 8 - (t-4).
-$$
+$v(t) = v(4) + (-1)\tau = 8 - (t-4).$
 
 So:
 
-$$
-v(t) = 12 - t.
-$$
+$v(t) = 12 - t.$
 
 Position:
 
@@ -285,9 +251,7 @@ $$
 
 So:
 
-$$
-x(10) = 16 + 48 - 18 = 46\,\text{m}.
-$$
+$x(10) = 16 + 48 - 18 = 46\,\text{m}.$
 
 ## Mini recap
 

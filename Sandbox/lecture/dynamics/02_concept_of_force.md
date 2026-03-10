@@ -36,23 +36,17 @@ The same body can experience several interactions at once. Dynamics is about acc
 
 Force has magnitude and direction, so we represent it by a vector:
 
-$$
-\vec{F}.
-$$
+$\vec{F}.$
 
 In 2D (Cartesian axes), we write:
 
-$$
-\vec{F} = F_x\hat{i} + F_y\hat{j}.
-$$
+$\vec{F} = F_x\hat{i} + F_y\hat{j}.$
 
 ### Combining forces (vector addition)
 
 If several forces act on the same particle, the combined effect is represented by vector addition:
 
-$$
-\vec{F}_{\text{net}} = \vec{F}_1 + \vec{F}_2 + \cdots
-$$
+$\vec{F}_{\text{net}} = \vec{F}_1 + \vec{F}_2 + \cdots$
 
 Component-wise, this means:
 
@@ -66,9 +60,7 @@ This is not yet Newton’s second law; it is how we represent multiple interacti
 
 The SI unit of force is the newton (N). In Newtonian mechanics it is convenient to remember the dimensional meaning:
 
-$$
-1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.
-$$
+$1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.$
 
 Later, when we connect force to acceleration, this unit relationship becomes natural rather than a definition to memorize.
 
@@ -121,9 +113,7 @@ Find the net force vector, its magnitude, and its direction.
 
 ### Step 1: Write forces as vectors in components
 
-$$
-\vec{F}_1 = 6\,\hat{i}, \qquad \vec{F}_2 = 8\,\hat{j}.
-$$
+$\vec{F}_1 = 6\,\hat{i}, \qquad \vec{F}_2 = 8\,\hat{j}.$
 
 ### Step 2: Add to get the net force
 
@@ -133,9 +123,7 @@ $$
 
 So the components are:
 
-$$
-F_{\text{net},x}=6\,\text{N}, \qquad F_{\text{net},y}=8\,\text{N}.
-$$
+$F_{\text{net},x}=6\,\text{N}, \qquad F_{\text{net},y}=8\,\text{N}.$
 
 ### Step 3: Magnitude
 
@@ -163,9 +151,7 @@ Interpretation: the net interaction points northeast, 53.1 degrees above the +x 
 
 - Force is a vector model of interaction:
 
-$$
-\vec{F}.
-$$
+$\vec{F}.$
 
 - Multiple forces combine by vector addition:
 
@@ -175,8 +161,6 @@ $$
 
 - Units:
 
-$$
-1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.
-$$
+$1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.$
 
 - Keep track of direction, components, and “force on which object due to what.”

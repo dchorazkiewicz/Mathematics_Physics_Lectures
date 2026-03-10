@@ -24,15 +24,11 @@ This component approach is the backbone of projectile motion later.
 
 In the plane, position has two coordinates. If you choose perpendicular axes with unit vectors:
 
-$$
-\hat{i}, \qquad \hat{j},
-$$
+$\hat{i}, \qquad \hat{j},$
 
 then the position vector is:
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.$
 
 Differentiation applies component-wise:
 
@@ -48,9 +44,7 @@ So planar kinematics is “two linked 1D problems” that share the same time va
 
 To keep notation explicit:
 
-$$
-t
-$$
+$t$
 
 ## Mathematical formulation
 
@@ -64,9 +58,7 @@ $$
 
 Then:
 
-$$
-\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}.
-$$
+$\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}.$
 
 Define acceleration components:
 
@@ -76,21 +68,15 @@ $$
 
 and:
 
-$$
-\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}.
-$$
+$\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}.$
 
 ### Independence of orthogonal components (what it really means)
 
 If you know the acceleration components as functions of time, you can solve for the corresponding position components separately using 1D methods:
 
-$$
-a_x(t) \rightarrow v_x(t) \rightarrow x(t),
-$$
+$a_x(t) \rightarrow v_x(t) \rightarrow x(t),$
 
-$$
-a_y(t) \rightarrow v_y(t) \rightarrow y(t).
-$$
+$a_y(t) \rightarrow v_y(t) \rightarrow y(t).$
 
 The coupling between the components is only through the shared time variable t. There is no rule that says “a change in x must cause a change in y” unless the problem imposes a constraint (like motion along a fixed track).
 
@@ -116,9 +102,7 @@ This is often where students accidentally confuse “constant v_x” with “con
 
 2) **Projectile motion preview:** horizontal acceleration is zero while vertical acceleration is constant (gravity):
 
-$$
-a_x = 0, \qquad a_y = \text{constant}.
-$$
+$a_x = 0, \qquad a_y = \text{constant}.$
 
 Horizontal and vertical motions are solved independently and then combined.
 
@@ -129,9 +113,7 @@ Horizontal and vertical motions are solved independently and then combined.
 - Treating v_x and v_y as if they were magnitudes (forgetting signs or direction).
 - Mixing vector magnitudes with components (e.g., writing a projection relation but using the wrong angle definition):
 
-$$
-v_x = |\vec{v}|\cos\theta.
-$$
+$v_x = |\vec{v}|\cos\theta.$
 - Thinking “constant v_x” means “constant speed.”
 - Forgetting that the same time t must be used in both components.
 - Switching axes mid-solution without updating component definitions.
@@ -140,23 +122,17 @@ $$
 
 A particle moves in the plane with position components:
 
-$$
-x(t) = 3t, \qquad y(t) = 2t - t^2,
-$$
+$x(t) = 3t, \qquad y(t) = 2t - t^2,$
 
 with x and y in meters and t in seconds.
 
 1) Find:
 
-$$
-\vec{v}(t) \quad \text{and} \quad \vec{a}(t).
-$$
+$\vec{v}(t) \quad \text{and} \quad \vec{a}(t).$
 
 2) Find the speed at:
 
-$$
-t=1\,\text{s}.
-$$
+$t=1\,\text{s}.$
 
 3) Determine when the particle is moving upward vs downward.
 
@@ -172,9 +148,7 @@ $$
 
 So:
 
-$$
-\vec{v}(t) = 3\,\hat{i} + (2-2t)\,\hat{j}.
-$$
+$\vec{v}(t) = 3\,\hat{i} + (2-2t)\,\hat{j}.$
 
 ### Step 2: Differentiate again to get acceleration components
 
@@ -188,9 +162,7 @@ $$
 
 So:
 
-$$
-\vec{a}(t) = 0\,\hat{i} + (-2)\,\hat{j} = -2\,\hat{j}.
-$$
+$\vec{a}(t) = 0\,\hat{i} + (-2)\,\hat{j} = -2\,\hat{j}.$
 
 Interpretation: acceleration is constant downward (negative y-direction), while the horizontal velocity stays constant.
 
@@ -198,9 +170,7 @@ Interpretation: acceleration is constant downward (negative y-direction), while 
 
 Compute components at t = 1:
 
-$$
-v_x(1) = 3, \qquad v_y(1) = 2-2(1) = 0.
-$$
+$v_x(1) = 3, \qquad v_y(1) = 2-2(1) = 0.$
 
 So:
 
@@ -229,9 +199,7 @@ Notice that the particle can be moving downward while still moving to the right,
 
 - Planar motion:
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.$
 
 - Component-wise differentiation:
 

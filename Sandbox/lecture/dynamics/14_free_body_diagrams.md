@@ -121,15 +121,11 @@ Forces on the block:
 
 Tension components:
 
-$$
-T_x = T\cos 30^\circ, \qquad T_y = T\sin 30^\circ.
-$$
+$T_x = T\cos 30^\circ, \qquad T_y = T\sin 30^\circ.$
 
 Friction magnitude:
 
-$$
-f_k = \mu_k N.
-$$
+$f_k = \mu_k N.$
 
 ### Step 4: Write Newton’s second law in y to find N
 
@@ -137,45 +133,31 @@ The block does not accelerate vertically (it stays on the surface), so a_y = 0.
 
 Sum of forces in y:
 
-$$
-N + T_y - mg = ma_y = 0.
-$$
+$N + T_y - mg = ma_y = 0.$
 
 So:
 
-$$
-N = mg - T\sin 30^\circ.
-$$
+$N = mg - T\sin 30^\circ.$
 
 Compute:
 
-$$
-mg = (3.0)(9.8) = 29.4\,\text{N},
-$$
+$mg = (3.0)(9.8) = 29.4\,\text{N},$
 
-$$
-T\sin 30^\circ = 20(0.5) = 10\,\text{N}.
-$$
+$T\sin 30^\circ = 20(0.5) = 10\,\text{N}.$
 
 So:
 
-$$
-N = 29.4 - 10 = 19.4\,\text{N}.
-$$
+$N = 29.4 - 10 = 19.4\,\text{N}.$
 
 Then kinetic friction magnitude is:
 
-$$
-f_k = \mu_k N = 0.25(19.4) = 4.85\,\text{N}.
-$$
+$f_k = \mu_k N = 0.25(19.4) = 4.85\,\text{N}.$
 
 ### Step 5: Write Newton’s second law in x and solve for a_x
 
 Sum of forces in x:
 
-$$
-T_x - f_k = ma_x.
-$$
+$T_x - f_k = ma_x.$
 
 Compute:
 
@@ -185,9 +167,7 @@ $$
 
 So:
 
-$$
-17.32 - 4.85 = (3.0)a_x.
-$$
+$17.32 - 4.85 = (3.0)a_x.$
 
 $$
 12.47 = 3.0a_x \Rightarrow a_x \approx 4.16\,\text{m/s}^2.

@@ -26,9 +26,7 @@ In the ideal projectile model:
 
 So you solve two 1D problems that share the same time variable:
 
-$$
-t.
-$$
+$t.$
 
 - horizontal: uniform motion,
 - vertical: uniformly accelerated motion.
@@ -44,51 +42,37 @@ $$
 
 Choose y positive upward. Then:
 
-$$
-a_x = 0, \qquad a_y = -g.
-$$
+$a_x = 0, \qquad a_y = -g.$
 
 ### Initial conditions (launch)
 
 At time:
 
-$$
-t=0,
-$$
+$t=0,$
 
 let:
 
-$$
-x(0) = x_0, \qquad y(0) = y_0.
-$$
+$x(0) = x_0, \qquad y(0) = y_0.$
 
 Let the initial speed be v_0 at launch angle theta above the horizontal. Then:
 
-$$
-v_x(0) = v_0\cos\theta, \qquad v_y(0) = v_0\sin\theta.
-$$
+$v_x(0) = v_0\cos\theta, \qquad v_y(0) = v_0\sin\theta.$
 
 ### Solve the horizontal motion
 
 Since horizontal acceleration is zero, horizontal velocity is constant:
 
-$$
-v_x(t) = v_0\cos\theta.
-$$
+$v_x(t) = v_0\cos\theta.$
 
 Integrate:
 
-$$
-x(t) = x_0 + (v_0\cos\theta)t.
-$$
+$x(t) = x_0 + (v_0\cos\theta)t.$
 
 ### Solve the vertical motion
 
 Since vertical acceleration is constant and equal to -g:
 
-$$
-v_y(t) = v_0\sin\theta - gt,
-$$
+$v_y(t) = v_0\sin\theta - gt,$
 
 $$
 y(t) = y_0 + (v_0\sin\theta)t - \frac{1}{2}gt^2.
@@ -120,9 +104,7 @@ This is a parabola in the x–y plane.
 
 At the top of the trajectory:
 
-$$
-v_y=0.
-$$
+$v_y=0.$
 
 $$
 0 = v_0\sin\theta - gt_{\text{top}} \Rightarrow t_{\text{top}} = \frac{v_0\sin\theta}{g}.
@@ -138,9 +120,7 @@ $$
 
 If the projectile lands at the same vertical level it was launched from, then:
 
-$$
-y(t_f)=y_0.
-$$
+$y(t_f)=y_0.$
 
 Using:
 
@@ -168,9 +148,7 @@ $$
 
 Using the identity:
 
-$$
-2\sin\theta\cos\theta=\sin(2\theta),
-$$
+$2\sin\theta\cos\theta=\sin(2\theta),$
 
 $$
 R = \frac{v_0^2}{g}\sin(2\theta).
@@ -202,21 +180,15 @@ $$
 
 A ball is thrown from ground level at speed:
 
-$$
-v_0 = 20\,\text{m/s}
-$$
+$v_0 = 20\,\text{m/s}$
 
 at an angle:
 
-$$
-\theta = 40^\circ
-$$
+$\theta = 40^\circ$
 
 above the horizontal. Neglect air resistance and take:
 
-$$
-g = 9.8\,\text{m/s}^2.
-$$
+$g = 9.8\,\text{m/s}^2.$
 
 Find:
 
@@ -226,13 +198,9 @@ Find:
 
 ### Step 1: Resolve the initial velocity into components
 
-$$
-v_x(0) = v_0\cos\theta = 20\cos 40^\circ,
-$$
+$v_x(0) = v_0\cos\theta = 20\cos 40^\circ,$
 
-$$
-v_y(0) = v_0\sin\theta = 20\sin 40^\circ.
-$$
+$v_y(0) = v_0\sin\theta = 20\sin 40^\circ.$
 
 Numerically:
 
@@ -276,15 +244,11 @@ $$
 
 Use either:
 
-$$
-R=v_x t_f
-$$
+$R=v_x t_f$
 
 or the range formula. Using:
 
-$$
-R=v_x t_f,
-$$
+$R=v_x t_f,$
 
 $$
 R \approx (15.3)(2.62) \approx 40.1\,\text{m}.
@@ -299,15 +263,11 @@ $$
 
 - Choose axes with y upward, then:
 
-$$
-a_x=0, \qquad a_y=-g.
-$$
+$a_x=0, \qquad a_y=-g.$
 
 - Component solutions:
 
-$$
-x(t)=x_0+(v_0\cos\theta)t,
-$$
+$x(t)=x_0+(v_0\cos\theta)t,$
 
 $$
 y(t)=y_0+(v_0\sin\theta)t-\frac{1}{2}gt^2.

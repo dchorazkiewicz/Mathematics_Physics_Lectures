@@ -34,9 +34,7 @@ Let v = |\vec{v}| be the speed. At any instant, define:
 
 Then acceleration decomposes as:
 
-$$
-\vec{a} = a_t \hat{t} + a_n \hat{n}.
-$$
+$\vec{a} = a_t \hat{t} + a_n \hat{n}.$
 
 ### Tangential acceleration (changes speed)
 
@@ -48,9 +46,7 @@ $$
 
 So if speed is constant, dv/dt = 0 and:
 
-$$
-a_t = 0.
-$$
+$a_t = 0.$
 
 ### Normal acceleration (changes direction)
 
@@ -101,9 +97,7 @@ A car moves along a curved road. At a certain instant:
 
 - its speed is:
 
-$$
-v = 20\,\text{m/s},
-$$
+$v = 20\,\text{m/s},$
 
 - its speed is increasing at a rate:
 
@@ -113,9 +107,7 @@ $$
 
 - the radius of curvature of the road at that point is:
 
-$$
-R = 80\,\text{m}.
-$$
+$R = 80\,\text{m}.$
 
 Find:
 
@@ -159,9 +151,7 @@ Interpretation: most of the acceleration is devoted to changing direction (norma
 
 - Decomposition:
 
-$$
-\vec{a} = a_t \hat{t} + a_n \hat{n}.
-$$
+$\vec{a} = a_t \hat{t} + a_n \hat{n}.$
 
 - Tangential part changes speed:
 

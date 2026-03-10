@@ -59,9 +59,7 @@ $$
 
 If force is in newtons and mass in kilograms, acceleration comes out in m/s^2, consistent with:
 
-$$
-1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.
-$$
+$1\,\text{N} = 1\,\text{kg}\cdot\text{m/s}^2.$
 
 ### What “net force” means
 
@@ -120,21 +118,15 @@ Mass here is not “weight” and not “how hard gravity pulls.” Weight is a 
 
 A block of mass:
 
-$$
-m = 5.0\,\text{kg}
-$$
+$m = 5.0\,\text{kg}$
 
 is pulled along a horizontal surface by a horizontal force:
 
-$$
-F = 18\,\text{N}.
-$$
+$F = 18\,\text{N}.$
 
 The kinetic friction force magnitude is:
 
-$$
-f_k = 6.0\,\text{N},
-$$
+$f_k = 6.0\,\text{N},$
 
 opposing the motion. Find:
 
@@ -150,9 +142,7 @@ Choose x along the pull direction (positive). The horizontal forces are:
 
 ### Step 2: Compute net force in x
 
-$$
-F_{\text{net},x} = F - f_k = 18 - 6 = 12\,\text{N}.
-$$
+$F_{\text{net},x} = F - f_k = 18 - 6 = 12\,\text{N}.$
 
 Direction: positive x.
 
@@ -172,9 +162,7 @@ $$
 
 In this problem the net force is purely horizontal:
 
-$$
-\vec{F}_{\text{net}} = (12\,\text{N})\hat{i}.
-$$
+$\vec{F}_{\text{net}} = (12\,\text{N})\hat{i}.$
 
 Interpretation: the block accelerates in the direction of the pull because the pull exceeds friction.
 

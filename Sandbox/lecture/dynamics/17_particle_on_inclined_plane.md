@@ -45,21 +45,15 @@ Let theta be the incline angle above horizontal. Decompose weight:
 
 parallel component magnitude:
 
-$$
-mg\sin\theta,
-$$
+$mg\sin\theta,$
 
 perpendicular component magnitude:
 
-$$
-mg\cos\theta.
-$$
+$mg\cos\theta.$
 
 If the block stays in contact with the plane:
 
-$$
-a_y = 0.
-$$
+$a_y = 0.$
 
 So the perpendicular equation gives:
 
@@ -117,9 +111,7 @@ Choose x down the plane (positive), y perpendicular outward.
 
 Perpendicular:
 
-$$
-N = mg\cos\theta.
-$$
+$N = mg\cos\theta.$
 
 Parallel forces: only the downslope component of weight:
 
@@ -129,43 +121,31 @@ $$
 
 So:
 
-$$
-a = g\sin\theta = 9.8\sin 30^\circ = 9.8(0.5) = 4.9\,\text{m/s}^2.
-$$
+$a = g\sin\theta = 9.8\sin 30^\circ = 9.8(0.5) = 4.9\,\text{m/s}^2.$
 
 ### Case B: kinetic friction
 
 Perpendicular gives the same N:
 
-$$
-N = mg\cos\theta.
-$$
+$N = mg\cos\theta.$
 
 Kinetic friction magnitude:
 
-$$
-f_k = \mu_k N = \mu_k mg\cos\theta.
-$$
+$f_k = \mu_k N = \mu_k mg\cos\theta.$
 
 Friction points up the plane (negative x) because motion is down the plane.
 
 Parallel equation:
 
-$$
-mg\sin\theta - f_k = ma.
-$$
+$mg\sin\theta - f_k = ma.$
 
 Substitute:
 
-$$
-mg\sin\theta - \mu_k mg\cos\theta = ma.
-$$
+$mg\sin\theta - \mu_k mg\cos\theta = ma.$
 
 Cancel m:
 
-$$
-a = g(\sin\theta - \mu_k\cos\theta).
-$$
+$a = g(\sin\theta - \mu_k\cos\theta).$
 
 Plug in numbers: sin 30 degrees = 0.5, cos 30 degrees ≈ 0.866:
 
@@ -186,14 +166,10 @@ $$
 
 - If contact is maintained and no other perpendicular forces:
 
-$$
-N = mg\cos\theta.
-$$
+$N = mg\cos\theta.$
 
 - Along the plane:
   - frictionless: a = g sin theta,
   - with kinetic friction down the plane:
 
-$$
-a = g(\sin\theta - \mu_k\cos\theta).
-$$
+$a = g(\sin\theta - \mu_k\cos\theta).$

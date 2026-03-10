@@ -40,9 +40,7 @@ If the rope is massless and inextensible and does not slip on the pulley, then t
 
 In many standard setups this gives:
 
-$$
-a_1 = a_2
-$$
+$a_1 = a_2$
 
 for acceleration magnitudes, with opposite directions depending on axis choices.
 
@@ -108,21 +106,15 @@ Horizontal forces:
 
 So:
 
-$$
-T - f_k = m_1 a.
-$$
+$T - f_k = m_1 a.$
 
 Vertical forces on m_1 balance (a_y = 0), so:
 
-$$
-N = m_1 g.
-$$
+$N = m_1 g.$
 
 Thus:
 
-$$
-f_k = \mu_k N = \mu_k m_1 g.
-$$
+$f_k = \mu_k N = \mu_k m_1 g.$
 
 For m_2 (hanging, choose positive downward to match assumed motion):
 
@@ -133,35 +125,25 @@ Forces:
 
 So:
 
-$$
-m_2 g - T = m_2 a.
-$$
+$m_2 g - T = m_2 a.$
 
 ### Step 2: Compute friction and solve the coupled system
 
 Compute friction:
 
-$$
-f_k = \mu_k m_1 g = (0.20)(3.0)(9.8) = 5.88\,\text{N}.
-$$
+$f_k = \mu_k m_1 g = (0.20)(3.0)(9.8) = 5.88\,\text{N}.$
 
 Now solve for a and T. From the m_1 equation:
 
-$$
-T = m_1 a + f_k.
-$$
+$T = m_1 a + f_k.$
 
 Substitute into the m_2 equation:
 
-$$
-m_2 g - (m_1 a + f_k) = m_2 a.
-$$
+$m_2 g - (m_1 a + f_k) = m_2 a.$
 
 Solve for a:
 
-$$
-m_2 g - f_k = (m_1 + m_2)a.
-$$
+$m_2 g - f_k = (m_1 + m_2)a.$
 
 So:
 
@@ -179,9 +161,7 @@ $$
 
 Use:
 
-$$
-T = m_1 a + f_k = (3.0)(2.74) + 5.88 = 8.22 + 5.88 = 14.10\,\text{N}.
-$$
+$T = m_1 a + f_k = (3.0)(2.74) + 5.88 = 8.22 + 5.88 = 14.10\,\text{N}.$
 
 ### Step 4: Quick checks
 
@@ -195,14 +175,10 @@ $$
 - Tension is generally unknown and must be solved for.
 - For a two-body table + hanging system, a common structure is:
 
-$$
-T - f_k = m_1 a, \qquad m_2 g - T = m_2 a,
-$$
+$T - f_k = m_1 a, \qquad m_2 g - T = m_2 a,$
 
 with:
 
-$$
-f_k = \mu_k m_1 g
-$$
+$f_k = \mu_k m_1 g$
 
 if the table block slides.

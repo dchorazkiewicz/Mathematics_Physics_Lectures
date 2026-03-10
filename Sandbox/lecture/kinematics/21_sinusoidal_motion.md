@@ -41,9 +41,7 @@ The key qualitative facts (which you can later prove with derivatives) are:
 
 Use:
 
-$$
-x(t) = x_{\text{eq}} + A\cos(\omega t + \phi),
-$$
+$x(t) = x_{\text{eq}} + A\cos(\omega t + \phi),$
 
 where:
 
@@ -80,9 +78,7 @@ $$
 
 Notice that:
 
-$$
-a(t) = -\omega^2\big(x(t)-x_{\text{eq}}\big).
-$$
+$a(t) = -\omega^2\big(x(t)-x_{\text{eq}}\big).$
 
 This relationship is a hallmark of sinusoidal motion and foreshadows the dynamics of a spring-like restoring influence.
 
@@ -109,9 +105,7 @@ These conditions let you find important events without plotting the whole functi
 - Velocity is shifted in phase by 90 degrees relative to position (cosine vs sine).
 - Acceleration is proportional to negative displacement from equilibrium:
 
-$$
-a = -\omega^2(x-x_{\text{eq}}).
-$$
+$a = -\omega^2(x-x_{\text{eq}}).$
 
 So when x is above equilibrium (positive displacement), acceleration is negative (toward equilibrium), and vice versa.
 
@@ -135,9 +129,7 @@ So when x is above equilibrium (positive displacement), acceleration is negative
 
 A particle oscillates along a line with:
 
-$$
-x(t) = 0.20\cos(4t),
-$$
+$x(t) = 0.20\cos(4t),$
 
 where x is in meters and t in seconds.
 
@@ -180,9 +172,7 @@ $$
 
 Maximum speed is the amplitude of v(t):
 
-$$
-v_{\text{max}} = A\omega = (0.20)(4) = 0.80\,\text{m/s}.
-$$
+$v_{\text{max}} = A\omega = (0.20)(4) = 0.80\,\text{m/s}.$
 
 ### Step 4: First equilibrium crossing after t=0
 
@@ -202,9 +192,7 @@ $$
 
 - Standard sinusoidal position:
 
-$$
-x(t)=x_{\text{eq}} + A\cos(\omega t+\phi).
-$$
+$x(t)=x_{\text{eq}} + A\cos(\omega t+\phi).$
 
 - Period/frequency:
 

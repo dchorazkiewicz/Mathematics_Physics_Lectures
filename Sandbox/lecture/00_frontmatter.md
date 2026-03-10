@@ -29,9 +29,7 @@ When calculus is used, the physical meaning is explained alongside the mathemati
 
 Time:
 
-$$
-t
-$$
+$t$
 
 One-dimensional position, velocity, acceleration:
 
@@ -47,22 +45,18 @@ $$
 
 Forces and mass:
 
-$$
-\vec{F}, \quad m
-$$
+$\vec{F}, \quad m$
 
 Near-Earth gravitational acceleration magnitude:
 
-$$
-g
-$$
+$g$
 
 ## Modeling assumptions (to be stated explicitly when used)
 
 Common idealizations you will see throughout:
 
 - “Neglect air resistance.”
-- “Uniform gravity near Earth” (constant $$g$$).
+- “Uniform gravity near Earth” (constant $g$).
 - “Massless, inextensible rope” and “frictionless pulley” (in tension problems).
 - “Friction coefficient model” (static and kinetic friction).
 

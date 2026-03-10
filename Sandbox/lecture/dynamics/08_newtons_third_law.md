@@ -34,9 +34,7 @@ These two forces:
 
 Let \vec{F}_{A\to B} denote “force on B due to A.” Newton’s third law states:
 
-$$
-\vec{F}_{A\to B} = -\vec{F}_{B\to A}.
-$$
+$\vec{F}_{A\to B} = -\vec{F}_{B\to A}.$
 
 Important: the two forces in the equation act on different objects (B and A respectively). That is why they do not cancel in a free-body diagram of a single object.
 
@@ -99,15 +97,11 @@ At the contact interface:
 
 Call the force on B due to A:
 
-$$
-\vec{F}_{A\to B}.
-$$
+$\vec{F}_{A\to B}.$
 
 Then by Newton’s third law:
 
-$$
-\vec{F}_{B\to A} = -\vec{F}_{A\to B}.
-$$
+$\vec{F}_{B\to A} = -\vec{F}_{A\to B}.$
 
 These two forces are a third-law pair.
 
@@ -115,9 +109,7 @@ These two forces are a third-law pair.
 
 If you draw a free-body diagram for block B alone, you include forces acting on B. The contact force from A is one of them:
 
-$$
-\vec{F}_{A\to B}.
-$$
+$\vec{F}_{A\to B}.$
 
 But the reaction force \vec{F}_{B\to A} acts on A, not on B. Therefore it does not appear in B’s free-body diagram and cannot cancel \vec{F}_{A\to B} there.
 
@@ -127,9 +119,7 @@ So block B can accelerate because it experiences a net force to the right (provi
 
 - Newton’s third law:
 
-$$
-\vec{F}_{A\to B} = -\vec{F}_{B\to A}.
-$$
+$\vec{F}_{A\to B} = -\vec{F}_{B\to A}.$
 
 - Third-law forces act on different objects, so they do not cancel within a single free-body diagram.
 - Do not confuse third-law pairs with balanced forces (net force zero on one body).

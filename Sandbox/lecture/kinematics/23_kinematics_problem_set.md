@@ -17,17 +17,13 @@ Assume all motion is along a line unless a problem explicitly states 2D. Always 
 
 1. A particle has position:
 
-$$
-x(t)=5-3t.
-$$
+$x(t)=5-3t.$
 
 Find v(t), a(t), and the displacement from t=1 s to t=4 s.
 
 2. The position is:
 
-$$
-x(t)=2t^2-4t+1.
-$$
+$x(t)=2t^2-4t+1.$
 
 Find v(t) and a(t). At what times (if any) is the particle instantaneously at rest?
 
@@ -36,17 +32,13 @@ Find the average velocity on [0,8]. Does this tell you the cyclist’s speed at 
 
 4. A velocity sensor reports:
 
-$$
-v(t)=6.
-$$
+$v(t)=6.$
 
 If x(0)=2 m, find x(t).
 
 5. An accelerometer reports:
 
-$$
-a(t)=-2.
-$$
+$a(t)=-2.$
 
 If v(0)=5 m/s, find v(t). At what time does v become zero?
 
@@ -54,15 +46,11 @@ If v(0)=5 m/s, find v(t). At what time does v become zero?
 
 1. Constant acceleration. A particle has:
 
-$$
-x(0)=0,\qquad v(0)=3\,\text{m/s},
-$$
+$x(0)=0,\qquad v(0)=3\,\text{m/s},$
 
 and constant acceleration:
 
-$$
-a=1.2\,\text{m/s}^2.
-$$
+$a=1.2\,\text{m/s}^2.$
 
 Find x(5 s) and v(5 s).
 
@@ -74,33 +62,25 @@ Find the time to reach maximum height, the maximum height, and the total time to
 
 4. Velocity given. A particle has:
 
-$$
-v(t)=4t-2.
-$$
+$v(t)=4t-2.$
 
 If x(1)=3 m, find x(t). Then find the displacement from t=1 to t=3.
 
 5. Acceleration given. A particle has:
 
-$$
-a(t)=6t.
-$$
+$a(t)=6t.$
 
 If v(0)=0 and x(0)=1 m, find v(t) and x(t).
 
 6. Turning point reasoning. A particle moves with:
 
-$$
-x(t)=t^3-3t.
-$$
+$x(t)=t^3-3t.$
 
 For which times is the particle moving in the positive direction? Find all turning times and the corresponding positions.
 
 7. 2D components (basic). A particle has:
 
-$$
-\vec{r}(t)=(2t)\hat{i}+(t^2)\hat{j}.
-$$
+$\vec{r}(t)=(2t)\hat{i}+(t^2)\hat{j}.$
 
 Find \vec{v}(t), \vec{a}(t), and the speed at t=1 s.
 
@@ -134,9 +114,7 @@ Assume x(0)=0. Find x(7), and find the turning time when the particle changes di
 
 3. Inverse kinematics (fit a quadratic). Assume constant acceleration and t_0=0. A particle satisfies:
 
-$$
-x(0)=1\,\text{m},\qquad x(2)=9\,\text{m},\qquad v(2)=0.
-$$
+$x(0)=1\,\text{m},\qquad x(2)=9\,\text{m},\qquad v(2)=0.$
 
 Find x(t), v(t), and a. Check your result by interpreting the turning time.
 
@@ -190,9 +168,7 @@ c) Find the first time t>0 when x(t)=0.
 
 1. (Mixed reconstruction) A particle has acceleration:
 
-$$
-a(t)=k\sin(\omega t),
-$$
+$a(t)=k\sin(\omega t),$
 
 with constants k and omega. Given v(0)=0 and x(0)=0:
 
@@ -202,9 +178,7 @@ c) interpret whether the particle necessarily returns to x=0 after one period.
 
 2. (Non-constant acceleration, still kinematics) A particle has:
 
-$$
-x(t)=t^2\sin t.
-$$
+$x(t)=t^2\sin t.$
 
 a) find v(t) and a(t),  
 b) find all times in 0<=t<=2pi when v(t)=0 (you may leave answers in implicit form),  
@@ -212,9 +186,7 @@ c) explain why finding turning points can be harder than finding where x(t)=0.
 
 3. (Constraint/inverse) A particle moves in 1D. Assume x(t) is a cubic polynomial. You are told:
 
-$$
-x(0)=0,\qquad x(1)=2,\qquad v(0)=0,\qquad v(1)=0.
-$$
+$x(0)=0,\qquad x(1)=2,\qquad v(0)=0,\qquad v(1)=0.$
 
 a) find x(t),  
 b) determine where (in time) the particle changes direction,  

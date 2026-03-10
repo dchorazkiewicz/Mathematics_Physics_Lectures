@@ -3,13 +3,13 @@
 ## Learning goals
 
 - Distinguish the **trajectory** (geometric path in space) from the **law of motion** (position as a function of time).
-- Describe planar motion using a position vector $$\vec{r}(t)$$ or component functions $$x(t), y(t)$$.
+- Describe planar motion using a position vector $\vec{r}(t)$ or component functions $x(t), y(t)$.
 - Eliminate time (when appropriate) to obtain an equation for the trajectory, and understand what information is lost.
 - Recognize that different time dependences can produce the **same trajectory**.
 
 ## Why this matters
 
-Students often say “the trajectory is $$x(t)$$” or think that a curve like a parabola fully determines the motion. But a curve in space only tells you **where** the particle can be; it does not tell you **when** the particle is at each point, how fast it moves along the curve, or in which direction it is traversed.
+Students often say “the trajectory is $x(t)$” or think that a curve like a parabola fully determines the motion. But a curve in space only tells you **where** the particle can be; it does not tell you **when** the particle is at each point, how fast it moves along the curve, or in which direction it is traversed.
 
 Mechanics needs both:
 
@@ -33,15 +33,11 @@ In 1D, the “trajectory” is just a line (the x-axis); timing still matters, b
 
 In 2D, the motion is described by:
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}$
 
 Equivalently, you can specify the pair of component functions:
 
-$$
-x(t), \qquad y(t).
-$$
+$x(t), \qquad y(t).$
 
 This is the **law of motion**: it tells you where the particle is at each time.
 
@@ -49,21 +45,17 @@ This is the **law of motion**: it tells you where the particle is at each time.
 
 The **trajectory** is the set of points in the plane that the particle occupies at some time:
 
-$$
-\{(x(t), y(t)) \;\text{for all relevant } t\}.
-$$
+$\{(x(t), y(t)) \;\text{for all relevant } t\}.$
 
-Often (but not always) you can eliminate $$t$$ between $$x(t)$$ and $$y(t)$$ to get a relation between $$x$$ and $$y$$:
+Often (but not always) you can eliminate $t$ between $x(t)$ and $y(t)$ to get a relation between $x$ and $y$:
 
-$$
-F(x,y) = 0.
-$$
+$F(x,y) = 0.$
 
 That relation describes a curve in space: the trajectory (or a part of it).
 
 ### What you lose when you eliminate time
 
-If you eliminate $$t$$ and obtain a curve equation, you typically lose:
+If you eliminate $t$ and obtain a curve equation, you typically lose:
 
 - the **speed** along the curve (fast vs slow),
 - the **direction** of travel (which way along the curve),
@@ -86,7 +78,7 @@ Conversely, two motions can have very different trajectories even if their speed
 
 ## Common mistakes
 
-- Treating a curve equation like $$y = f(x)$$ as “the full motion” (it is only geometry, not timing).
+- Treating a curve equation like $y = f(x)$ as “the full motion” (it is only geometry, not timing).
 - Confusing the **path length** (distance traveled along the curve) with displacement.
 - Assuming that if two motions have the same trajectory, then they have the same velocity/acceleration at corresponding points (not true without timing information).
 - Eliminating time incorrectly (for example, dividing by an expression that could be zero without checking).
@@ -96,35 +88,29 @@ Conversely, two motions can have very different trajectories even if their speed
 
 Consider the planar motion defined by:
 
-$$
-x(t) = 2t, \qquad y(t) = t^2,
-$$
+$x(t) = 2t, \qquad y(t) = t^2,$
 
-for $$t \ge 0$$.
+for $t \ge 0$.
 
 ### Step 1: Identify what the law of motion tells you
 
-At each time $$t$$, the position is:
+At each time $t$, the position is:
 
-$$
-\vec{r}(t) = (2t)\,\hat{i} + (t^2)\,\hat{j}.
-$$
+$\vec{r}(t) = (2t)\,\hat{i} + (t^2)\,\hat{j}.$
 
-This already answers questions like “Where is the particle at $$t=3\,\text{s}$$?”:
+This already answers questions like “Where is the particle at $t=3\,\text{s}$?”:
 
-$$
-x(3)=6, \qquad y(3)=9.
-$$
+$x(3)=6, \qquad y(3)=9.$
 
 ### Step 2: Find the trajectory by eliminating time
 
-From $$x(t)=2t$$ we solve for $$t$$:
+From $x(t)=2t$ we solve for $t$:
 
 $$
 t = \frac{x}{2}.
 $$
 
-Substitute into $$y(t)=t^2$$:
+Substitute into $y(t)=t^2$:
 
 $$
 y = \left(\frac{x}{2}\right)^2 = \frac{x^2}{4}.
@@ -142,13 +128,11 @@ This describes the *shape* of the path in the plane.
 
 Define a new motion:
 
-$$
-\tilde{x}(t) = 2t^2, \qquad \tilde{y}(t) = t^4,
-$$
+$\tilde{x}(t) = 2t^2, \qquad \tilde{y}(t) = t^4,$
 
-for $$t \ge 0$$.
+for $t \ge 0$.
 
-Eliminate time again. From $$\tilde{x}(t)=2t^2$$:
+Eliminate time again. From $\tilde{x}(t)=2t^2$:
 
 $$
 t^2 = \frac{\tilde{x}}{2}.
@@ -160,7 +144,7 @@ $$
 \tilde{y} = t^4 = \left(t^2\right)^2 = \left(\frac{\tilde{x}}{2}\right)^2 = \frac{\tilde{x}^2}{4}.
 $$
 
-So the **trajectory is the same parabola**, but the timing is different: the second motion moves along the curve more slowly near the origin (because $$\tilde{x}(t)$$ grows like $$t^2$$, not like $$t$$).
+So the **trajectory is the same parabola**, but the timing is different: the second motion moves along the curve more slowly near the origin (because $\tilde{x}(t)$ grows like $t^2$, not like $t$).
 
 ### Step 4: What did the curve equation fail to tell you?
 
@@ -176,16 +160,14 @@ does not tell you:
 - how fast it moves along the curve at a given moment,
 - whether it ever stops or reverses direction (in other examples).
 
-That information lives in the full functions $$x(t), y(t)$$.
+That information lives in the full functions $x(t), y(t)$.
 
 ## Mini recap
 
 - The **law of motion** specifies position as a function of time:
 
-$$
-\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.
-$$
+$\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.$
 
-- The **trajectory** is the set of points visited in space; you can sometimes find it by eliminating $$t$$.
+- The **trajectory** is the set of points visited in space; you can sometimes find it by eliminating $t$.
 - Eliminating time gives geometry but typically loses timing, speed, and direction information.
 - Different time dependences can produce the same trajectory.

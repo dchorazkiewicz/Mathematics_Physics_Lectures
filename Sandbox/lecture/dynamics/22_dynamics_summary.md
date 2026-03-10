@@ -54,37 +54,27 @@ $$
 
 Third law (interaction pairs):
 
-$$
-\vec{F}_{A\to B} = -\vec{F}_{B\to A}.
-$$
+$\vec{F}_{A\to B} = -\vec{F}_{B\to A}.$
 
 ### Standard force models (near Earth, intro level)
 
 Weight:
 
-$$
-\vec{W} = m\vec{g}.
-$$
+$\vec{W} = m\vec{g}.$
 
 Normal force N: constraint response perpendicular to a surface; determine from the perpendicular equation of motion plus constraints.
 
 Kinetic friction:
 
-$$
-f_k = \mu_k N
-$$
+$f_k = \mu_k N$
 
 Static friction:
 
-$$
-0 \le f_s \le \mu_s N.
-$$
+$0 \le f_s \le \mu_s N.$
 
 Spring force (1D about equilibrium):
 
-$$
-F_{\text{spring}} = -kx.
-$$
+$F_{\text{spring}} = -kx.$
 
 Tension T: force transmitted by an ideal rope along its length; often equal along one rope segment in ideal pulley problems.
 
@@ -158,13 +148,9 @@ Vertical: N = m_1 g (no vertical acceleration).
 
 So:
 
-$$
-T - f_k = m_1 a,
-$$
+$T - f_k = m_1 a,$
 
-$$
-f_k = \mu_k N = \mu_k m_1 g.
-$$
+$f_k = \mu_k N = \mu_k m_1 g.$
 
 For m_2 (hanging, choose downward positive):
 
@@ -173,41 +159,29 @@ For m_2 (hanging, choose downward positive):
 
 So:
 
-$$
-m_2 g - T = m_2 a.
-$$
+$m_2 g - T = m_2 a.$
 
 ### Step 2: Compute friction
 
-$$
-f_k = (0.25)(4.0)(9.8) = 9.8\,\text{N}.
-$$
+$f_k = (0.25)(4.0)(9.8) = 9.8\,\text{N}.$
 
 ### Step 3: Solve for acceleration
 
 From the m_1 equation:
 
-$$
-T = m_1 a + f_k.
-$$
+$T = m_1 a + f_k.$
 
 Substitute into the m_2 equation:
 
-$$
-m_2 g - (m_1 a + f_k) = m_2 a.
-$$
+$m_2 g - (m_1 a + f_k) = m_2 a.$
 
 So:
 
-$$
-m_2 g - f_k = (m_1 + m_2)a.
-$$
+$m_2 g - f_k = (m_1 + m_2)a.$
 
 Compute m_2 g:
 
-$$
-m_2 g = (1.5)(9.8) = 14.7\,\text{N}.
-$$
+$m_2 g = (1.5)(9.8) = 14.7\,\text{N}.$
 
 Thus:
 
@@ -217,9 +191,7 @@ $$
 
 ### Step 4: Solve for tension
 
-$$
-T = m_1 a + f_k = (4.0)(0.891) + 9.8 = 3.56 + 9.8 = 13.36\,\text{N}.
-$$
+$T = m_1 a + f_k = (4.0)(0.891) + 9.8 = 3.56 + 9.8 = 13.36\,\text{N}.$
 
 ### Step 5: Interpret and check
 

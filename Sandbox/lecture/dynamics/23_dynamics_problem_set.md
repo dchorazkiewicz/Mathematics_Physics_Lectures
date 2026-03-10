@@ -66,9 +66,7 @@ b) Find the maximum speed before slipping occurs.
 
 5. (Equation of motion from a force law) A particle of mass 1.0 kg moves in 1D with net force:
 
-$$
-F_{\text{net}}(t) = 4 - 2t
-$$
+$F_{\text{net}}(t) = 4 - 2t$
 
 in newtons, for 0 <= t <= 3 s. Given x(0)=0 and v(0)=1 m/s:
 
@@ -78,9 +76,7 @@ c) Find x(3).
 
 6. (Equation of motion with position-dependent force) A 0.50 kg particle moves in 1D under:
 
-$$
-F(x) = -3x
-$$
+$F(x) = -3x$
 
 in newtons, where x is in meters.  
 

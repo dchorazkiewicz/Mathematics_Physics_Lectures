@@ -22,9 +22,7 @@ Each of these leads to a different kind of equation of motion. If you can transl
 
 Force laws are model statements of the form:
 
-$$
-F_{\text{net}} = F(x, v, t).
-$$
+$F_{\text{net}} = F(x, v, t).$
 
 Newton’s second law then gives:
 
@@ -46,9 +44,7 @@ But before solving, you must interpret the model:
 
 If:
 
-$$
-F_{\text{net}} = F(t),
-$$
+$F_{\text{net}} = F(t),$
 
 then:
 
@@ -58,9 +54,7 @@ $$
 
 This becomes a kinematics reconstruction problem:
 
-$$
-a(t) \rightarrow v(t) \rightarrow x(t),
-$$
+$a(t) \rightarrow v(t) \rightarrow x(t),$
 
 using integration and initial conditions.
 
@@ -68,9 +62,7 @@ using integration and initial conditions.
 
 If:
 
-$$
-F_{\text{net}} = F(x),
-$$
+$F_{\text{net}} = F(x),$
 
 then:
 
@@ -80,17 +72,13 @@ $$
 
 Acceleration depends on position, so it is generally not constant. A classic example is a spring:
 
-$$
-F(x) = -kx.
-$$
+$F(x) = -kx.$
 
 ### Case C: velocity-dependent force F(v)
 
 If:
 
-$$
-F_{\text{net}} = F(v),
-$$
+$F_{\text{net}} = F(v),$
 
 then:
 
@@ -100,9 +88,7 @@ $$
 
 This is a differential equation for v(t). A simple linear drag model is:
 
-$$
-F(v) = -bv,
-$$
+$F(v) = -bv,$
 
 leading to:
 
@@ -140,15 +126,11 @@ Many real systems have forces depending on multiple variables (e.g., gravity + d
 
 A particle of mass m = 2.0 kg moves along a line. The net force is time-dependent:
 
-$$
-F_{\text{net}}(t) = 6t\,\text{N}.
-$$
+$F_{\text{net}}(t) = 6t\,\text{N}.$
 
 At t = 0:
 
-$$
-x(0)=1\,\text{m}, \qquad v(0)=0.
-$$
+$x(0)=1\,\text{m}, \qquad v(0)=0.$
 
 Find a(t), v(t), and x(t).
 
@@ -162,9 +144,7 @@ $$
 
 So:
 
-$$
-a(t) = 3t\,\text{m/s}^2.
-$$
+$a(t) = 3t\,\text{m/s}^2.$
 
 ### Step 2: Integrate to get velocity
 
@@ -180,9 +160,7 @@ $$
 
 So:
 
-$$
-v(t) = 1.5t^2\,\text{m/s}.
-$$
+$v(t) = 1.5t^2\,\text{m/s}.$
 
 ### Step 3: Integrate to get position
 
@@ -192,15 +170,11 @@ $$
 
 Compute:
 
-$$
-x(t) = 1 + \left[0.5\tau^3\right]_0^t = 1 + 0.5t^3.
-$$
+$x(t) = 1 + \left[0.5\tau^3\right]_0^t = 1 + 0.5t^3.$
 
 So:
 
-$$
-x(t) = 1 + 0.5t^3\,\text{m}.
-$$
+$x(t) = 1 + 0.5t^3\,\text{m}.$
 
 ### Step 4: Interpretation
 
