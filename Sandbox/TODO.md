@@ -1,0 +1,32 @@
+# TODO — Classical Mechanics Lecture Build
+
+## Scaffold
+
+- [x] Create `Sandbox/` directory structure
+- [x] Create all stub lecture files
+- [x] Add and verify `Sandbox/build_lecture.py`
+- [x] First full rebuild performed (`Sandbox/output/mechanics_lecture_full.md`)
+
+## Writing status (high level)
+
+- [x] `lecture/00_frontmatter.md`
+- [x] `lecture/01_introduction.md`
+- [x] `lecture/kinematics/01_reference_frames_and_position.md`
+- [x] `lecture/kinematics/02_vectors_in_mechanics.md`
+- [x] `lecture/kinematics/03_trajectory_and_position_function.md`
+- [ ] All other kinematics sections
+- [ ] All dynamics sections
+- [ ] Bridge/synthesis sections
+
+## Consistency checks (do later, keep running list)
+
+- [ ] Notation consistency (scalars vs vectors; sign conventions)
+- [ ] Each concept file has a worked example
+- [ ] “Common mistakes” present and concrete
+- [ ] Smooth transitions between neighboring sections
+- [ ] Units and dimensional reasoning used appropriately
+
+## Build notes
+
+- Last rebuild: 2026-03-10
+- Known issues: none yet
