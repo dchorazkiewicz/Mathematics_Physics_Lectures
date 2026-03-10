@@ -74,45 +74,45 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Purpose:** Use slope/area interpretations to move between graphs of $$x(t), v(t), a(t)$$ without full algebra.  
   **Dependencies:** after 04–05; helpful before problem sets.
 
-- [ ] `lecture/kinematics/15_relative_motion_intro.md`  
+- [x] `lecture/kinematics/15_relative_motion_intro.md`  
   **Purpose:** Introduce relative position/velocity for moving observers (Galilean intuition, no advanced transforms).  
   **Dependencies:** after 01 and 04; later supports inertial frame discussion (dynamics 05).
 
-- [ ] `lecture/kinematics/16_2d_motion_and_components.md`  
+- [x] `lecture/kinematics/16_2d_motion_and_components.md`  
   **Purpose:** Analyze planar motion component-wise; relate vector and coordinate forms; emphasize independence of orthogonal components.  
   **Dependencies:** after 02, 04, 05.
 
-- [ ] `lecture/kinematics/17_projectile_motion.md`  
+- [x] `lecture/kinematics/17_projectile_motion.md`  
   **Purpose:** Derive and solve projectile motion under constant gravity using component decomposition; clarify assumptions and limits.  
   **Dependencies:** after 16 and 07–08.
 
-- [ ] `lecture/kinematics/18_uniform_circular_motion.md`  
+- [x] `lecture/kinematics/18_uniform_circular_motion.md`  
   **Purpose:** Explain motion at constant speed with changing direction; tangential velocity and inward acceleration.  
   **Dependencies:** after 02, 05, 16.
 
-- [ ] `lecture/kinematics/19_tangential_and_normal_acceleration.md`  
+- [x] `lecture/kinematics/19_tangential_and_normal_acceleration.md`  
   **Purpose:** Decompose acceleration into tangential/normal parts; connect to curvature and circular motion intuition.  
   **Dependencies:** after 18; uses vectors/components.
 
-- [ ] `lecture/kinematics/20_periodic_motion_intro.md`  
+- [x] `lecture/kinematics/20_periodic_motion_intro.md`  
   **Purpose:** Define periodic motion and the quantities period, frequency, and angular frequency.  
   **Dependencies:** after 04–05; prepares 21.
 
-- [ ] `lecture/kinematics/21_sinusoidal_motion.md`  
+- [x] `lecture/kinematics/21_sinusoidal_motion.md`  
   **Purpose:** Work with sinusoidal position; compute velocity/acceleration; interpret phase/amplitude and extrema.  
   **Dependencies:** after 20 and 04–05.
 
-- [ ] `lecture/kinematics/22_kinematics_summary.md`  
+- [x] `lecture/kinematics/22_kinematics_summary.md`  
   **Purpose:** Synthesize the kinematics toolbox and the relationships among $$x, v, a$$ (and vector analogs).  
   **Dependencies:** after all kinematics concept sections.
 
-- [ ] `lecture/kinematics/23_kinematics_problem_set.md`  
+- [x] `lecture/kinematics/23_kinematics_problem_set.md`  
   **Purpose:** Practice conceptual, computational, graphical, inverse, and multi-step kinematics problems.  
   **Dependencies:** after 22 (or at least after 14).
 
 ## PART II — Dynamics (derive motion from interactions)
 
-- [ ] `lecture/dynamics/01_why_kinematics_is_not_enough.md`  
+- [x] `lecture/dynamics/01_why_kinematics_is_not_enough.md`  
   **Purpose:** Motivate forces by showing that describing motion does not explain it; set the need for dynamics.  
   **Dependencies:** after kinematics 22 (or at least after 05 and 12 conceptually).
 

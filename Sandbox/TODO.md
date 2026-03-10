@@ -25,9 +25,22 @@
 - [x] `lecture/kinematics/12_motion_from_given_a_of_t.md`
 - [x] `lecture/kinematics/13_inverse_kinematics_problems.md`
 - [x] `lecture/kinematics/14_graphical_interpretation_x_v_a.md`
+- [x] `lecture/kinematics/15_relative_motion_intro.md`
+- [x] `lecture/kinematics/16_2d_motion_and_components.md`
+- [x] `lecture/kinematics/17_projectile_motion.md`
+- [x] `lecture/kinematics/18_uniform_circular_motion.md`
+- [x] `lecture/kinematics/19_tangential_and_normal_acceleration.md`
+- [x] `lecture/kinematics/20_periodic_motion_intro.md`
+- [x] `lecture/kinematics/21_sinusoidal_motion.md`
+- [x] `lecture/kinematics/22_kinematics_summary.md`
+- [x] `lecture/kinematics/23_kinematics_problem_set.md`
 - [ ] All other kinematics sections
-- [ ] All dynamics sections
+- [~] All dynamics sections
 - [ ] Bridge/synthesis sections
+
+## Dynamics (started)
+
+- [x] `lecture/dynamics/01_why_kinematics_is_not_enough.md`
 
 ## Consistency checks (do later, keep running list)
 

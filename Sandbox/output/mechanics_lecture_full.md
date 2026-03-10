@@ -3357,323 +3357,1843 @@ $$
 
 <!-- SOURCE: lecture/kinematics/15_relative_motion_intro.md -->
 
-# Relative Motion Intro
+# Relative motion (intro)
 
 ## Learning goals
 
-- TODO
+- Explain what “relative motion” means: describing motion **with respect to a moving observer**.
+- Compute relative position and relative velocity in simple 1D and 2D cases.
+- Use the “velocity addition” idea correctly and interpret signs/directions.
+- Solve standard train/boat/walkway-style problems using a consistent notation.
 
 ## Why this matters
 
-TODO
+Many motion descriptions are implicitly relative:
+
+- “The passenger is walking forward at 1 m/s” (relative to the train).
+- “The train moves at 20 m/s” (relative to the ground).
+
+If you do not track *relative to what*, you will add the wrong quantities and get contradictions.
+
+Relative motion is also the first step toward understanding why the **choice of reference frame** matters. Later, in dynamics, the idea of an **inertial frame** will build on this.
 
 ## Core idea
 
-TODO
+Motion is always described relative to some reference frame. If you change the observer (frame), the numerical description of velocity changes.
+
+In the simplest (classical) situations, velocities add in an intuitive way:
+
+- “velocity of A relative to C” equals “velocity of A relative to B” plus “velocity of B relative to C.”
+
+The main challenge is bookkeeping: keeping track of *which object is measured relative to which*.
 
 ## Mathematical formulation
 
-TODO
+### Notation
+
+Let:
+
+- A be the object of interest (e.g., a person),
+- B be an intermediate frame/object (e.g., a train),
+- C be a reference frame (e.g., the ground).
+
+We write:
+
+$$
+\vec{v}_{A/B}
+$$
+
+for “velocity of A relative to B.”
+
+### Velocity addition (Galilean, classical)
+
+In classical mechanics (at ordinary speeds), the velocities add as:
+
+$$
+\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.
+$$
+
+This can be understood component-wise in any chosen coordinate system.
+
+### Relative position (simple form)
+
+Similarly for position vectors:
+
+$$
+\vec{r}_{A/C} = \vec{r}_{A/B} + \vec{r}_{B/C}.
+$$
+
+In many intro problems you can treat this as “vector from C to A equals vector from C to B plus vector from B to A,” but you should keep the labels consistent.
 
 ## Interpretation
 
-TODO
+- These addition rules are not “new physics.” They are bookkeeping rules for changing observers in classical kinematics.
+- Direction matters: all velocities are vectors (in 1D, signed scalars).
+- If you reverse “who is relative to whom,” the sign changes:
+
+$$
+\vec{v}_{A/B} = -\vec{v}_{B/A}.
+$$
 
 ## Typical examples
 
-TODO
+1) **Walking on a train (1D):** person walks forward relative to the train while the train moves relative to the ground.
+
+2) **Moving walkway (1D):** your speed relative to the ground depends on your walking speed relative to the belt plus the belt’s speed.
+
+3) **Boat in a river (2D):** boat’s velocity relative to the ground equals boat relative to water plus water relative to ground (current). This naturally becomes a vector addition problem.
 
 ## Common mistakes
 
-- TODO
+- Adding speeds as numbers when directions differ (must add vectors or signed 1D velocities).
+- Mixing “relative to ground” and “relative to train” in the same symbol without labels.
+- Using the right formula but with swapped roles (e.g., using \vec{v}_{B/C} when you needed \vec{v}_{C/B}).
+- Forgetting that “straight across the river” is a constraint on the *ground* trajectory, not on the boat’s velocity relative to the water.
 
 ## Worked example
 
-TODO
+A person walks on a moving walkway in a straight corridor (1D). Choose the positive direction along the corridor.
+
+- The walkway moves at
+
+$$
+v_{W/G} = 1.2\,\text{m/s}
+$$
+
+relative to the ground (G), where W denotes the walkway.
+
+- The person walks at
+
+$$
+v_{P/W} = 0.8\,\text{m/s}
+$$
+
+relative to the walkway, in the positive direction.
+
+1) Find the person’s velocity relative to the ground.  
+2) How long does it take to traverse a 60 m walkway segment?
+
+### Step 1: Add velocities with clear labels
+
+Use:
+
+$$
+v_{P/G} = v_{P/W} + v_{W/G}.
+$$
+
+So:
+
+$$
+v_{P/G} = 0.8 + 1.2 = 2.0\,\text{m/s}.
+$$
+
+### Step 2: Use uniform motion for travel time
+
+If velocity relative to the ground is constant, then travel time over distance 60 m is:
+
+$$
+t = \frac{\Delta x}{v_{P/G}} = \frac{60\,\text{m}}{2.0\,\text{m/s}} = 30\,\text{s}.
+$$
+
+### Variant: walking against the walkway
+
+If the person walks opposite the belt direction with
+
+$$
+v_{P/W} = -0.8\,\text{m/s},
+$$
+
+then:
+
+$$
+v_{P/G} = -0.8 + 1.2 = 0.4\,\text{m/s},
+$$
+
+and the same 60 m would take:
+
+$$
+t = \frac{60}{0.4} = 150\,\text{s}.
+$$
+
+This illustrates why sign conventions and labels matter: the same walking effort produces very different ground motion depending on the frame’s motion.
 
 ## Mini recap
 
-- TODO
+- Relative velocity notation: $$\vec{v}_{A/B}$$ means “A relative to B.”
+- Classical velocity addition:
+
+$$
+\vec{v}_{A/C} = \vec{v}_{A/B} + \vec{v}_{B/C}.
+$$
+
+- Reverse relation flips sign: $$\vec{v}_{A/B}=-\vec{v}_{B/A}$$.
+- In 1D, treat velocities as signed; in 2D/3D, add vectors component-wise.
 
 <!-- SOURCE: lecture/kinematics/16_2d_motion_and_components.md -->
 
-# 2D Motion And Components
+# 2D motion and components
 
 ## Learning goals
 
-- TODO
+- Describe planar motion using a position vector and component functions.
+- Compute velocity and acceleration vectors component-wise and interpret them geometrically.
+- Use the **independence of orthogonal components** to solve 2D kinematics problems systematically.
+- Convert between vector form and coordinate form, and check consistency of units and signs.
 
 ## Why this matters
 
-TODO
+Most interesting motions are not purely 1D: projectiles, circular motion, and relative motion in a plane all require 2D thinking.
+
+The good news is that 2D kinematics is not “harder calculus.” It is mostly good bookkeeping:
+
+- choose axes,
+- write component functions,
+- apply 1D kinematics separately in each direction,
+- then recombine into a vector picture.
+
+This component approach is the backbone of projectile motion later.
 
 ## Core idea
 
-TODO
+In the plane, position has two coordinates. If you choose perpendicular axes with unit vectors:
+
+$$
+\hat{i}, \qquad \hat{j},
+$$
+
+then the position vector is:
+
+$$
+\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.
+$$
+
+Differentiation applies component-wise:
+
+$$
+\vec{v}(t) = \frac{d\vec{r}}{dt} = \frac{dx}{dt}\,\hat{i} + \frac{dy}{dt}\,\hat{j},
+$$
+
+$$
+\vec{a}(t) = \frac{d\vec{v}}{dt} = \frac{d^2x}{dt^2}\,\hat{i} + \frac{d^2y}{dt^2}\,\hat{j}.
+$$
+
+So planar kinematics is “two linked 1D problems” that share the same time variable t.
+
+To keep notation explicit:
+
+$$
+t
+$$
 
 ## Mathematical formulation
 
-TODO
+### Component definitions
+
+Define velocity components:
+
+$$
+v_x(t) = \frac{dx}{dt}, \qquad v_y(t) = \frac{dy}{dt}.
+$$
+
+Then:
+
+$$
+\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}.
+$$
+
+Define acceleration components:
+
+$$
+a_x(t) = \frac{dv_x}{dt} = \frac{d^2x}{dt^2}, \qquad a_y(t) = \frac{dv_y}{dt} = \frac{d^2y}{dt^2},
+$$
+
+and:
+
+$$
+\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}.
+$$
+
+### Independence of orthogonal components (what it really means)
+
+If you know the acceleration components as functions of time, you can solve for the corresponding position components separately using 1D methods:
+
+$$
+a_x(t) \rightarrow v_x(t) \rightarrow x(t),
+$$
+
+$$
+a_y(t) \rightarrow v_y(t) \rightarrow y(t).
+$$
+
+The coupling between the components is only through the shared time variable t. There is no rule that says “a change in x must cause a change in y” unless the problem imposes a constraint (like motion along a fixed track).
+
+### Speed from components
+
+The speed is the magnitude of the velocity vector:
+
+$$
+|\vec{v}(t)| = \sqrt{v_x(t)^2 + v_y(t)^2}.
+$$
+
+This is often where students accidentally confuse “constant v_x” with “constant speed.” Even if v_x is constant, speed can change because v_y changes.
 
 ## Interpretation
 
-TODO
+- The velocity vector points in the instantaneous direction of motion; it is tangent to the trajectory.
+- The acceleration vector tells you how the velocity changes; it can change the speed, the direction, or both.
+- Component equations are not “less physical” than vector equations. They are the same physics expressed in a coordinate system.
 
 ## Typical examples
 
-TODO
+1) **Constant-velocity motion at an angle:** both x(t) and y(t) are linear in t. The trajectory is a straight line.
+
+2) **Projectile motion preview:** horizontal acceleration is zero while vertical acceleration is constant (gravity):
+
+$$
+a_x = 0, \qquad a_y = \text{constant}.
+$$
+
+Horizontal and vertical motions are solved independently and then combined.
+
+3) **River crossing:** the boat’s ground velocity is a vector sum of “boat relative to water” and “water relative to ground.”
 
 ## Common mistakes
 
-- TODO
+- Treating v_x and v_y as if they were magnitudes (forgetting signs or direction).
+- Mixing vector magnitudes with components (e.g., writing a projection relation but using the wrong angle definition):
+
+$$
+v_x = |\vec{v}|\cos\theta.
+$$
+- Thinking “constant v_x” means “constant speed.”
+- Forgetting that the same time t must be used in both components.
+- Switching axes mid-solution without updating component definitions.
 
 ## Worked example
 
-TODO
+A particle moves in the plane with position components:
+
+$$
+x(t) = 3t, \qquad y(t) = 2t - t^2,
+$$
+
+with x and y in meters and t in seconds.
+
+1) Find:
+
+$$
+\vec{v}(t) \quad \text{and} \quad \vec{a}(t).
+$$
+
+2) Find the speed at:
+
+$$
+t=1\,\text{s}.
+$$
+
+3) Determine when the particle is moving upward vs downward.
+
+### Step 1: Differentiate to get velocity components
+
+$$
+v_x(t) = \frac{dx}{dt} = 3,
+$$
+
+$$
+v_y(t) = \frac{dy}{dt} = 2 - 2t.
+$$
+
+So:
+
+$$
+\vec{v}(t) = 3\,\hat{i} + (2-2t)\,\hat{j}.
+$$
+
+### Step 2: Differentiate again to get acceleration components
+
+$$
+a_x(t) = \frac{dv_x}{dt} = 0,
+$$
+
+$$
+a_y(t) = \frac{dv_y}{dt} = -2.
+$$
+
+So:
+
+$$
+\vec{a}(t) = 0\,\hat{i} + (-2)\,\hat{j} = -2\,\hat{j}.
+$$
+
+Interpretation: acceleration is constant downward (negative y-direction), while the horizontal velocity stays constant.
+
+### Step 3: Speed at t = 1 s
+
+Compute components at t = 1:
+
+$$
+v_x(1) = 3, \qquad v_y(1) = 2-2(1) = 0.
+$$
+
+So:
+
+$$
+|\vec{v}(1)| = \sqrt{3^2 + 0^2} = 3\,\text{m/s}.
+$$
+
+### Step 4: Upward vs downward motion
+
+The motion is upward when v_y(t) > 0 and downward when v_y(t) < 0.
+
+Solve v_y(t) = 0:
+
+$$
+2 - 2t = 0 \Rightarrow t = 1\,\text{s}.
+$$
+
+So:
+
+- for 0 \le t < 1, v_y > 0 (moving upward),
+- for t > 1, v_y < 0 (moving downward).
+
+Notice that the particle can be moving downward while still moving to the right, because v_x stays positive.
 
 ## Mini recap
 
-- TODO
+- Planar motion:
+
+$$
+\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}.
+$$
+
+- Component-wise differentiation:
+
+$$
+\vec{v}(t) = v_x\,\hat{i} + v_y\,\hat{j}, \qquad v_x=\frac{dx}{dt}, \quad v_y=\frac{dy}{dt},
+$$
+
+$$
+\vec{a}(t) = a_x\,\hat{i} + a_y\,\hat{j}, \qquad a_x=\frac{d^2x}{dt^2}, \quad a_y=\frac{d^2y}{dt^2}.
+$$
+
+- Orthogonal components are solved independently (same time t, separate 1D kinematics).
+- Speed is magnitude:
+
+$$
+|\vec{v}|=\sqrt{v_x^2+v_y^2}.
+$$
 
 <!-- SOURCE: lecture/kinematics/17_projectile_motion.md -->
 
-# Projectile Motion
+# Projectile motion (idealized, no air resistance)
 
 ## Learning goals
 
-- TODO
+- Set up projectile motion in 2D using independent horizontal and vertical components.
+- Derive the standard time-dependent formulas for position and velocity components under constant gravity.
+- Eliminate time to obtain the trajectory equation and interpret what it says.
+- Solve for time of flight, maximum height, and range in common launch/landing configurations.
 
 ## Why this matters
 
-TODO
+Projectile motion is a classic example where the “2D components” method pays off immediately:
+
+- the horizontal motion is simple (often uniform),
+- the vertical motion is constant-acceleration motion under gravity.
+
+It also trains a crucial modeling skill: knowing exactly which assumptions make the problem solvable with simple equations.
 
 ## Core idea
 
-TODO
+In the ideal projectile model:
+
+- after launch, the only acceleration is gravity,
+- gravity points downward with constant magnitude g,
+- there is no horizontal acceleration.
+
+So you solve two 1D problems that share the same time variable:
+
+$$
+t.
+$$
+
+- horizontal: uniform motion,
+- vertical: uniformly accelerated motion.
 
 ## Mathematical formulation
 
-TODO
+### Assumptions (state them when you use the model)
+
+1) Motion is near Earth with approximately constant g.  
+2) Air resistance is neglected.  
+3) The projectile is treated as a particle.  
+4) The coordinate system is chosen with x horizontal and y vertical.
+
+Choose y positive upward. Then:
+
+$$
+a_x = 0, \qquad a_y = -g.
+$$
+
+### Initial conditions (launch)
+
+At time:
+
+$$
+t=0,
+$$
+
+let:
+
+$$
+x(0) = x_0, \qquad y(0) = y_0.
+$$
+
+Let the initial speed be v_0 at launch angle theta above the horizontal. Then:
+
+$$
+v_x(0) = v_0\cos\theta, \qquad v_y(0) = v_0\sin\theta.
+$$
+
+### Solve the horizontal motion
+
+Since horizontal acceleration is zero, horizontal velocity is constant:
+
+$$
+v_x(t) = v_0\cos\theta.
+$$
+
+Integrate:
+
+$$
+x(t) = x_0 + (v_0\cos\theta)t.
+$$
+
+### Solve the vertical motion
+
+Since vertical acceleration is constant and equal to -g:
+
+$$
+v_y(t) = v_0\sin\theta - gt,
+$$
+
+$$
+y(t) = y_0 + (v_0\sin\theta)t - \frac{1}{2}gt^2.
+$$
+
+### Trajectory equation (time eliminated)
+
+From the horizontal solution:
+
+$$
+t = \frac{x-x_0}{v_0\cos\theta}.
+$$
+
+Substitute into the vertical position function:
+
+$$
+y = y_0 + (v_0\sin\theta)\left(\frac{x-x_0}{v_0\cos\theta}\right) - \frac{1}{2}g\left(\frac{x-x_0}{v_0\cos\theta}\right)^2.
+$$
+
+Simplify:
+
+$$
+y = y_0 + (x-x_0)\tan\theta - \frac{g}{2v_0^2\cos^2\theta}(x-x_0)^2.
+$$
+
+This is a parabola in the x–y plane.
+
+### Maximum height (from v_y = 0)
+
+At the top of the trajectory:
+
+$$
+v_y=0.
+$$
+
+$$
+0 = v_0\sin\theta - gt_{\text{top}} \Rightarrow t_{\text{top}} = \frac{v_0\sin\theta}{g}.
+$$
+
+Plug into the vertical position function (or use a constant-acceleration relation) to get the maximum height:
+
+$$
+y_{\text{max}} = y_0 + \frac{(v_0\sin\theta)^2}{2g}.
+$$
+
+### Time of flight and range (special common case: same launch and landing height)
+
+If the projectile lands at the same vertical level it was launched from, then:
+
+$$
+y(t_f)=y_0.
+$$
+
+Using:
+
+$$
+y(t) = y_0 + (v_0\sin\theta)t - \frac{1}{2}gt^2,
+$$
+
+set y(t_f) = y_0 and factor:
+
+$$
+0 = (v_0\sin\theta)t_f - \frac{1}{2}gt_f^2 = t_f\left(v_0\sin\theta - \frac{1}{2}gt_f\right).
+$$
+
+Ignoring t_f = 0, we get:
+
+$$
+t_f = \frac{2v_0\sin\theta}{g}.
+$$
+
+Range R is the horizontal displacement during this time:
+
+$$
+R = x(t_f)-x_0 = (v_0\cos\theta)t_f = \frac{2v_0^2\sin\theta\cos\theta}{g}.
+$$
+
+Using the identity:
+
+$$
+2\sin\theta\cos\theta=\sin(2\theta),
+$$
+
+$$
+R = \frac{v_0^2}{g}\sin(2\theta).
+$$
 
 ## Interpretation
 
-TODO
+- Horizontal and vertical motions share the same time variable t, but their accelerations differ: a_x = 0, a_y = -g.
+- The trajectory is parabolic in the ideal model, but the time history matters: the projectile does not “follow a parabola at constant speed.”
+- The range formula applies only when launch and landing heights are equal and air resistance is neglected.
 
 ## Typical examples
 
-TODO
+1) **Ball thrown from ground level:** compute time of flight, maximum height, and range.
+
+2) **Thrown from a platform (different landing height):** solve the vertical equation for the impact time t, then compute the horizontal position at that time.
+
+3) **Target hit problem:** choose a time t that matches a required horizontal displacement, then check whether the vertical position at that time matches the target height.
 
 ## Common mistakes
 
-- TODO
+- Using the equal-height range formula when launch and landing heights differ.
+- Forgetting that g is a magnitude while a_y = -g is a signed acceleration (for y positive upward).
+- Mixing degrees and radians when using a calculator for sine and cosine.
+- Treating horizontal velocity as changing under gravity (in the no-air-resistance model, horizontal velocity is constant).
+- Taking a square root in a time-of-flight calculation and forgetting that only nonnegative times are physical.
 
 ## Worked example
 
-TODO
+A ball is thrown from ground level at speed:
+
+$$
+v_0 = 20\,\text{m/s}
+$$
+
+at an angle:
+
+$$
+\theta = 40^\circ
+$$
+
+above the horizontal. Neglect air resistance and take:
+
+$$
+g = 9.8\,\text{m/s}^2.
+$$
+
+Find:
+
+1) time of flight,  
+2) maximum height,  
+3) range.
+
+### Step 1: Resolve the initial velocity into components
+
+$$
+v_x(0) = v_0\cos\theta = 20\cos 40^\circ,
+$$
+
+$$
+v_y(0) = v_0\sin\theta = 20\sin 40^\circ.
+$$
+
+Numerically:
+
+$$
+v_x(0) \approx 20(0.766) \approx 15.3\,\text{m/s},
+$$
+
+$$
+v_y(0) \approx 20(0.643) \approx 12.9\,\text{m/s}.
+$$
+
+### Step 2: Time of flight (same launch and landing height)
+
+Use:
+
+$$
+t_f = \frac{2v_0\sin\theta}{g} = \frac{2(20)\sin 40^\circ}{9.8}.
+$$
+
+Numerically:
+
+$$
+t_f \approx \frac{40(0.643)}{9.8} \approx \frac{25.7}{9.8} \approx 2.62\,\text{s}.
+$$
+
+### Step 3: Maximum height
+
+Use:
+
+$$
+y_{\text{max}} = \frac{(v_0\sin\theta)^2}{2g}.
+$$
+
+Numerically:
+
+$$
+y_{\text{max}} \approx \frac{(12.9)^2}{19.6} \approx \frac{166}{19.6} \approx 8.47\,\text{m}.
+$$
+
+### Step 4: Range
+
+Use either:
+
+$$
+R=v_x t_f
+$$
+
+or the range formula. Using:
+
+$$
+R=v_x t_f,
+$$
+
+$$
+R \approx (15.3)(2.62) \approx 40.1\,\text{m}.
+$$
+
+### Step 5: Quick checks
+
+- Units: time in seconds, height and range in meters.
+- Reasonableness: the ball is in the air a few seconds and travels tens of meters—consistent with a 20 m/s throw.
 
 ## Mini recap
 
-- TODO
+- Choose axes with y upward, then:
+
+$$
+a_x=0, \qquad a_y=-g.
+$$
+
+- Component solutions:
+
+$$
+x(t)=x_0+(v_0\cos\theta)t,
+$$
+
+$$
+y(t)=y_0+(v_0\sin\theta)t-\frac{1}{2}gt^2.
+$$
+
+- Trajectory equation:
+
+$$
+y = y_0 + (x-x_0)\tan\theta - \frac{g}{2v_0^2\cos^2\theta}(x-x_0)^2.
+$$
+
+- Equal-height special results:
+
+$$
+t_f=\frac{2v_0\sin\theta}{g}, \qquad R=\frac{v_0^2}{g}\sin(2\theta), \qquad y_{\text{max}}=y_0+\frac{(v_0\sin\theta)^2}{2g}.
+$$
 
 <!-- SOURCE: lecture/kinematics/18_uniform_circular_motion.md -->
 
-# Uniform Circular Motion
+# Uniform circular motion
 
 ## Learning goals
 
-- TODO
+- Explain why an object can have nonzero acceleration even when its speed is constant.
+- Describe uniform circular motion using radius, angular position, angular speed, period, and frequency.
+- Relate speed to angular speed and radius, and compute centripetal (inward) acceleration magnitude.
+- Solve basic “car on a circular track / rotating object” problems with consistent units.
 
 ## Why this matters
 
-TODO
+Uniform circular motion is the simplest example that breaks the misconception:
+
+“If speed is constant, acceleration must be zero.”
+
+In circular motion, speed can be constant while the velocity vector changes direction continuously. This is the key intuition that later supports the dynamics idea of a required inward net force for circular motion.
 
 ## Core idea
 
-TODO
+Uniform circular motion means:
+
+- the trajectory is a circle of radius R,
+- the speed v is constant,
+- direction changes continuously, so velocity changes,
+- acceleration points toward the center (inward) even though speed is constant.
 
 ## Mathematical formulation
 
-TODO
+### Angular position, angular speed, period, frequency
+
+Let theta(t) be the angular position (in radians) measured from some reference direction. Uniform circular motion means angular speed is constant:
+
+$$
+\omega = \frac{d\theta}{dt} = \text{constant}.
+$$
+
+Then:
+
+$$
+\theta(t) = \theta_0 + \omega t.
+$$
+
+The period T is the time for one full revolution (2pi radians):
+
+$$
+T = \frac{2\pi}{\omega}.
+$$
+
+The frequency f (revolutions per second, Hz) is:
+
+$$
+f = \frac{1}{T}.
+$$
+
+So:
+
+$$
+\omega = 2\pi f.
+$$
+
+### Speed and tangential velocity
+
+The arc length traveled in time t is s = R theta. Differentiate:
+
+$$
+v = \frac{ds}{dt} = R\frac{d\theta}{dt} = R\omega.
+$$
+
+Velocity direction is tangent to the circle, so the velocity vector is tangential.
+
+### Centripetal (inward) acceleration magnitude
+
+Even though speed is constant, the velocity direction changes. The resulting acceleration points inward and has magnitude:
+
+$$
+a = \frac{v^2}{R}.
+$$
+
+Using v = R omega, this can also be written as:
+
+$$
+a = R\omega^2.
+$$
+
+These formulas give the magnitude. The direction is toward the center of the circle.
 
 ## Interpretation
 
-TODO
+- Constant speed does not imply constant velocity. In circular motion, the velocity vector “rotates.”
+- Acceleration in uniform circular motion is perpendicular to the velocity (it changes direction of motion, not speed).
+- The acceleration magnitude grows quickly with speed: doubling v makes a four times larger.
 
 ## Typical examples
 
-TODO
+1) **Car on a circular track:** compute required inward acceleration (and later, in dynamics, the required inward net force).
+
+2) **Object on a rotating turntable:** relate rotation rate (rev/s) to angular speed and then to tangential speed.
+
+3) **Satellite in circular orbit (idealized):** uniform circular motion provides a first kinematic description; dynamics later provides the cause.
 
 ## Common mistakes
 
-- TODO
+- Thinking “constant speed” means “no acceleration.”
+- Using degrees for theta and omega in formulas derived for radians. (In v = R omega and a = R omega^2, omega must be in rad/s.)
+- Confusing R (radius) with “range” from projectile motion.
+- Plugging into a = v^2 / R with inconsistent units (e.g., km/h and meters).
+- Saying “centripetal force” in a kinematics section. Here we only talk about acceleration; forces belong to dynamics.
 
 ## Worked example
 
-TODO
+A car drives around a flat circular track of radius:
+
+$$
+R = 50\,\text{m}.
+$$
+
+Its speed is constant:
+
+$$
+v = 15\,\text{m/s}.
+$$
+
+Find:
+
+1) the magnitude of the centripetal acceleration,  
+2) the period T,  
+3) the frequency f.
+
+### Step 1: Centripetal acceleration
+
+Use:
+
+$$
+a = \frac{v^2}{R}.
+$$
+
+So:
+
+$$
+a = \frac{(15)^2}{50} = \frac{225}{50} = 4.5\,\text{m/s}^2.
+$$
+
+### Step 2: Period from speed
+
+One revolution distance is the circumference:
+
+$$
+2\pi R.
+$$
+
+At constant speed, time for one revolution is:
+
+$$
+T = \frac{2\pi R}{v} = \frac{2\pi(50)}{15}.
+$$
+
+Numerically:
+
+$$
+T \approx \frac{314}{15} \approx 20.9\,\text{s}.
+$$
+
+### Step 3: Frequency
+
+$$
+f = \frac{1}{T} \approx \frac{1}{20.9} \approx 0.0478\,\text{Hz}.
+$$
+
+### Optional: Angular speed
+
+$$
+\omega = \frac{v}{R} = \frac{15}{50} = 0.30\,\text{rad/s}.
+$$
+
+Check consistency:
+
+$$
+T = \frac{2\pi}{\omega} \approx \frac{2\pi}{0.30} \approx 20.9\,\text{s},
+$$
+
+same as before.
 
 ## Mini recap
 
-- TODO
+- Uniform circular motion: circle of radius R, constant speed v, changing velocity direction.
+- Angular relations:
+
+$$
+\theta(t)=\theta_0+\omega t, \qquad T=\frac{2\pi}{\omega}, \qquad \omega=2\pi f.
+$$
+
+- Speed and inward acceleration magnitudes:
+
+$$
+v=R\omega, \qquad a=\frac{v^2}{R}=R\omega^2.
+$$
+
+- Acceleration points inward; it changes direction of velocity, not its magnitude.
 
 <!-- SOURCE: lecture/kinematics/19_tangential_and_normal_acceleration.md -->
 
-# Tangential And Normal Acceleration
+# Tangential and normal acceleration
 
 ## Learning goals
 
-- TODO
+- Decompose acceleration into a part that changes speed (tangential) and a part that changes direction (normal).
+- Use the relations for tangential and normal acceleration in common situations.
+- Connect curvature (radius of curvature) to the required normal acceleration for a given speed.
+- Interpret motion qualitatively: “speeding up vs turning” and how both can happen at once.
 
 ## Why this matters
 
-TODO
+Acceleration is often misunderstood as “the thing that makes you go faster.” In 2D motion, acceleration has two independent roles:
+
+- it can change the magnitude of the velocity (speed),
+- it can change the direction of the velocity.
+
+The tangential/normal decomposition is a clean way to separate these roles. It also creates a direct bridge between kinematics (geometry of motion) and dynamics (required forces) later.
 
 ## Core idea
 
-TODO
+At each instant, the velocity vector points along the tangent to the trajectory. Acceleration can be split into:
+
+- a tangential component (along the velocity direction) that changes speed,
+- a normal component (perpendicular to velocity, toward the center of curvature) that changes direction.
+
+Uniform circular motion is the special case where speed is constant, so tangential acceleration is zero and only normal acceleration remains.
 
 ## Mathematical formulation
 
-TODO
+Let v = |\vec{v}| be the speed. At any instant, define:
+
+- \hat{t}: unit vector tangent to the trajectory (direction of \vec{v}),
+- \hat{n}: unit vector normal to the trajectory pointing toward the center of curvature.
+
+Then acceleration decomposes as:
+
+$$
+\vec{a} = a_t \hat{t} + a_n \hat{n}.
+$$
+
+### Tangential acceleration (changes speed)
+
+The tangential component equals the time rate of change of speed:
+
+$$
+a_t = \frac{dv}{dt}.
+$$
+
+So if speed is constant, dv/dt = 0 and:
+
+$$
+a_t = 0.
+$$
+
+### Normal acceleration (changes direction)
+
+If the trajectory has instantaneous radius of curvature R, then the normal component has magnitude:
+
+$$
+a_n = \frac{v^2}{R}.
+$$
+
+Its direction is toward the center of curvature (inward for circular motion).
+
+For uniform circular motion, R is the circle radius and a_n is the centripetal acceleration from the previous section.
+
+### Combining magnitudes (perpendicular components)
+
+Since the tangential and normal directions are perpendicular, the acceleration magnitude is:
+
+$$
+|\vec{a}| = \sqrt{a_t^2 + a_n^2}.
+$$
 
 ## Interpretation
 
-TODO
+- If \vec{a} is parallel to \vec{v}, the particle changes speed but not direction (purely tangential acceleration; straight-line motion).
+- If \vec{a} is perpendicular to \vec{v}, the particle changes direction but not speed (purely normal acceleration; uniform circular motion locally).
+- In general, both can occur simultaneously: a car can speed up while turning.
+
+The normal component grows like v^2, so at higher speeds, even gentle turns require large normal acceleration.
 
 ## Typical examples
 
-TODO
+1) **Car turning at constant speed:** a_t = 0, a_n = v^2 / R.
+
+2) **Car speeding up in a straight line:** a_n = 0, a_t = dv/dt.
+
+3) **Car accelerating through a curve:** both a_t ≠ 0 and a_n ≠ 0.
 
 ## Common mistakes
 
-- TODO
+- Saying “acceleration is toward the center” for all curved motion. Only the normal component is toward the center of curvature; there can also be a tangential component.
+- Using a_n = v^2 / R with R misunderstood (it is radius of curvature, not “distance to origin”).
+- Confusing a_t with dv_x/dt or dv_y/dt. Tangential acceleration is about speed v, not a particular coordinate component.
+- Forgetting that a_t can be negative (speed decreasing) even if the object is still moving forward.
 
 ## Worked example
 
-TODO
+A car moves along a curved road. At a certain instant:
+
+- its speed is:
+
+$$
+v = 20\,\text{m/s},
+$$
+
+- its speed is increasing at a rate:
+
+$$
+\frac{dv}{dt} = 1.5\,\text{m/s}^2,
+$$
+
+- the radius of curvature of the road at that point is:
+
+$$
+R = 80\,\text{m}.
+$$
+
+Find:
+
+1) a_t,  
+2) a_n,  
+3) the magnitude of the total acceleration.
+
+### Step 1: Tangential component
+
+By definition:
+
+$$
+a_t = \frac{dv}{dt} = 1.5\,\text{m/s}^2.
+$$
+
+### Step 2: Normal component
+
+Use:
+
+$$
+a_n = \frac{v^2}{R} = \frac{(20)^2}{80} = \frac{400}{80} = 5.0\,\text{m/s}^2.
+$$
+
+### Step 3: Total acceleration magnitude
+
+Perpendicular components combine via Pythagoras:
+
+$$
+|\vec{a}| = \sqrt{a_t^2 + a_n^2} = \sqrt{(1.5)^2 + (5.0)^2}.
+$$
+
+Compute:
+
+$$
+|\vec{a}| = \sqrt{2.25 + 25} = \sqrt{27.25} \approx 5.22\,\text{m/s}^2.
+$$
+
+Interpretation: most of the acceleration is devoted to changing direction (normal component), while a smaller part changes speed.
 
 ## Mini recap
 
-- TODO
+- Decomposition:
+
+$$
+\vec{a} = a_t \hat{t} + a_n \hat{n}.
+$$
+
+- Tangential part changes speed:
+
+$$
+a_t = \frac{dv}{dt}.
+$$
+
+- Normal part changes direction (radius of curvature R):
+
+$$
+a_n = \frac{v^2}{R}.
+$$
+
+- Total magnitude:
+
+$$
+|\vec{a}|=\sqrt{a_t^2+a_n^2}.
+$$
 
 <!-- SOURCE: lecture/kinematics/20_periodic_motion_intro.md -->
 
-# Periodic Motion Intro
+# Periodic motion (intro)
 
 ## Learning goals
 
-- TODO
+- Define what it means for a motion to be periodic.
+- Use the quantities period T, frequency f, and angular frequency omega, and convert between them.
+- Recognize what “repeating state” means (position alone vs full state including velocity).
+- Solve simple timing/counting questions for periodic motions (rotations, cycles, oscillations).
 
 ## Why this matters
 
-TODO
+Many systems in mechanics repeat patterns:
+
+- rotating wheels,
+- circular motion,
+- oscillations (springs, pendulums, vibrations).
+
+Before studying any particular model (like sinusoidal motion), you need a clear language for repetition: period, frequency, and phase-like ideas. This language also prevents unit mistakes (Hz vs rad/s, seconds vs cycles).
 
 ## Core idea
 
-TODO
+A motion is periodic if it repeats itself after a fixed time interval. The simplest definition uses a position function:
+
+“The position repeats after time T.”
+
+But often the full physical situation repeats only when both position and velocity repeat. For example, in many oscillations the object passes the same position twice per cycle with opposite velocity directions.
+
+So you should be clear what is meant by “repeats” in a given context.
 
 ## Mathematical formulation
 
-TODO
+### Periodic position function
+
+We say that position is periodic with period T if:
+
+$$
+x(t+T) = x(t)
+$$
+
+for all t in the interval of interest.
+
+For vector motion (2D/3D):
+
+$$
+\vec{r}(t+T) = \vec{r}(t).
+$$
+
+### Period, frequency, angular frequency
+
+- Period T: time for one full cycle (seconds).
+- Frequency f: cycles per second (Hz):
+
+$$
+f = \frac{1}{T}.
+$$
+
+- Angular frequency omega: radians per second:
+
+$$
+\omega = 2\pi f = \frac{2\pi}{T}.
+$$
+
+These are different ways to describe the same “rate of repetition,” but the units are different.
+
+### Counting cycles
+
+If a motion has frequency f, then the number of cycles completed in time interval Delta t is:
+
+$$
+N = f\,\Delta t.
+$$
+
+If you know the period T instead:
+
+$$
+N = \frac{\Delta t}{T}.
+$$
 
 ## Interpretation
 
-TODO
+- Frequency f tells you “how many cycles per second.”
+- Angular frequency omega tells you “how many radians of phase per second” for motions that can be described by an angle-like phase.
+- Period T is often easiest to visualize physically (“one cycle takes T seconds”).
+
+Be careful: omega is not “revolutions per second.” It is radians per second. A wheel rotating at 1 revolution per second has omega = 2pi rad/s.
 
 ## Typical examples
 
-TODO
+1) **Uniform circular motion:** angle increases linearly with time; position repeats every revolution.
+
+2) **A blinking light:** periodic intensity; a simple non-mechanical analogy.
+
+3) **Back-and-forth oscillation:** position repeats every cycle, but a given position can occur twice per period with opposite velocity.
 
 ## Common mistakes
 
-- TODO
+- Confusing frequency f (Hz) with angular frequency omega (rad/s).
+- Forgetting the factor 2pi in omega = 2pi f.
+- Saying “the motion repeats when it reaches the same position” without checking velocity direction (state may not repeat).
+- Mixing “cycles” with “radians” in the same equation without conversion.
 
 ## Worked example
 
-TODO
+A wheel rotates uniformly. It makes 180 revolutions in 2 minutes.
+
+Find:
+
+1) the frequency f in Hz,  
+2) the period T in seconds,  
+3) the angular frequency omega in rad/s,  
+4) how many radians the wheel rotates in 5 seconds.
+
+### Step 1: Convert time and compute frequency
+
+2 minutes is:
+
+$$
+120\,\text{s}.
+$$
+
+Frequency is revolutions per second:
+
+$$
+f = \frac{180}{120} = 1.5\,\text{Hz}.
+$$
+
+### Step 2: Period
+
+$$
+T = \frac{1}{f} = \frac{1}{1.5} \approx 0.667\,\text{s}.
+$$
+
+### Step 3: Angular frequency
+
+$$
+\omega = 2\pi f = 2\pi(1.5) = 3\pi \approx 9.42\,\text{rad/s}.
+$$
+
+### Step 4: Angle rotated in 5 seconds
+
+Uniform rotation means angle increases linearly:
+
+$$
+\Delta\theta = \omega \Delta t = (3\pi)(5) = 15\pi \approx 47.1\,\text{rad}.
+$$
+
+Interpretation: 47.1 rad is about 7.5 revolutions, since 2pi rad is one revolution.
 
 ## Mini recap
 
-- TODO
+- Periodic position: x(t+T) = x(t) (and similarly for vectors).
+- Period, frequency, angular frequency:
+
+$$
+f=\frac{1}{T}, \qquad \omega = 2\pi f = \frac{2\pi}{T}.
+$$
+
+- Count cycles: N = f Delta t = Delta t / T.
+- Always track units: Hz (cycles/s) vs rad/s.
 
 <!-- SOURCE: lecture/kinematics/21_sinusoidal_motion.md -->
 
-# Sinusoidal Motion
+# Sinusoidal motion
 
 ## Learning goals
 
-- TODO
+- Write a sinusoidal position function with clear meaning of amplitude, angular frequency, and phase.
+- Differentiate to obtain velocity and acceleration, and interpret their signs and extrema.
+- Relate angular frequency omega to period T and frequency f.
+- Solve basic problems: given x(t), find v(t), a(t), and identify when the particle passes equilibrium or reaches extrema.
 
 ## Why this matters
 
-TODO
+Sinusoidal motion is a fundamental pattern in mechanics:
+
+- small oscillations of springs and pendulums,
+- vibrations,
+- many waves in time.
+
+Even before learning the dynamics that produces it, you can do a lot of kinematics:
+
+- predict when the object is at maximum displacement,
+- when it passes equilibrium,
+- how velocity and acceleration relate to position.
+
+This section is also a good test of your derivative skills and your interpretation of sign changes.
 
 ## Core idea
 
-TODO
+A sinusoidal position function repeats with a fixed period and has a smooth back-and-forth structure. A standard form is:
+
+“equilibrium position + amplitude × cosine with a phase.”
+
+The key qualitative facts (which you can later prove with derivatives) are:
+
+- velocity is zero at position extrema,
+- speed is maximal at equilibrium crossings,
+- acceleration tends to point toward equilibrium (for the cosine form), so it is opposite in sign to displacement.
 
 ## Mathematical formulation
 
-TODO
+### Standard form
+
+Use:
+
+$$
+x(t) = x_{\text{eq}} + A\cos(\omega t + \phi),
+$$
+
+where:
+
+- x_eq is the equilibrium (center) position,
+- A is the amplitude (maximum displacement from equilibrium),
+- omega is the angular frequency (rad/s),
+- phi is the phase constant (radians).
+
+The period is:
+
+$$
+T = \frac{2\pi}{\omega},
+$$
+
+and frequency is:
+
+$$
+f = \frac{1}{T} = \frac{\omega}{2\pi}.
+$$
+
+### Velocity and acceleration
+
+Differentiate:
+
+$$
+v(t) = \frac{dx}{dt} = -A\omega\sin(\omega t + \phi).
+$$
+
+Differentiate again:
+
+$$
+a(t) = \frac{dv}{dt} = -A\omega^2\cos(\omega t + \phi).
+$$
+
+Notice that:
+
+$$
+a(t) = -\omega^2\big(x(t)-x_{\text{eq}}\big).
+$$
+
+This relationship is a hallmark of sinusoidal motion and foreshadows the dynamics of a spring-like restoring influence.
+
+### Useful times (extrema and equilibrium crossings)
+
+Position extrema occur when:
+
+$$
+v(t)=0 \Rightarrow \sin(\omega t + \phi)=0.
+$$
+
+Equilibrium crossings occur when:
+
+$$
+x(t)=x_{\text{eq}} \Rightarrow \cos(\omega t + \phi)=0.
+$$
+
+These conditions let you find important events without plotting the whole function.
 
 ## Interpretation
 
-TODO
+- Amplitude A sets the largest displacement from equilibrium.
+- Larger omega means faster oscillation (shorter period).
+- Velocity is shifted in phase by 90 degrees relative to position (cosine vs sine).
+- Acceleration is proportional to negative displacement from equilibrium:
+
+$$
+a = -\omega^2(x-x_{\text{eq}}).
+$$
+
+So when x is above equilibrium (positive displacement), acceleration is negative (toward equilibrium), and vice versa.
 
 ## Typical examples
 
-TODO
+1) **Mass on a spring (preview):** position oscillates sinusoidally about equilibrium.
+
+2) **Small-angle pendulum (preview):** approximately sinusoidal in time for small oscillations.
+
+3) **Vibrating machine component:** measured displacement vs time is often close to sinusoidal.
 
 ## Common mistakes
 
-- TODO
+- Confusing omega (rad/s) with f (Hz). They differ by a factor 2pi.
+- Using degrees for omega t + phi when taking sine/cosine (these functions assume radians in calculus contexts).
+- Forgetting the chain rule: derivative of cos(omega t + phi) brings down a factor omega.
+- Mixing up equilibrium position x_eq with amplitude A (they play different roles).
+- Thinking acceleration is zero at equilibrium. In sinusoidal motion, acceleration is zero at equilibrium crossings only if the cosine form is centered and there is no offset; more generally use the formula a = -omega^2(x - x_eq).
 
 ## Worked example
 
-TODO
+A particle oscillates along a line with:
+
+$$
+x(t) = 0.20\cos(4t),
+$$
+
+where x is in meters and t in seconds.
+
+Find:
+
+1) the amplitude A, angular frequency omega, period T, and frequency f,  
+2) velocity v(t) and acceleration a(t),  
+3) the maximum speed,  
+4) the first time t > 0 when the particle passes through equilibrium x = 0.
+
+### Step 1: Identify parameters
+
+Comparing with x(t) = x_eq + A cos(omega t + phi), we have:
+
+$$
+x_{\text{eq}}=0, \qquad A=0.20\,\text{m}, \qquad \omega = 4\,\text{rad/s}, \qquad \phi=0.
+$$
+
+Then:
+
+$$
+T = \frac{2\pi}{\omega} = \frac{2\pi}{4} = \frac{\pi}{2} \approx 1.57\,\text{s},
+$$
+
+$$
+f = \frac{1}{T} \approx 0.637\,\text{Hz}.
+$$
+
+### Step 2: Differentiate for velocity and acceleration
+
+$$
+v(t) = -A\omega\sin(\omega t) = -(0.20)(4)\sin(4t) = -0.80\sin(4t)\,\text{m/s}.
+$$
+
+$$
+a(t) = -A\omega^2\cos(\omega t) = -(0.20)(16)\cos(4t) = -3.2\cos(4t)\,\text{m/s}^2.
+$$
+
+### Step 3: Maximum speed
+
+Maximum speed is the amplitude of v(t):
+
+$$
+v_{\text{max}} = A\omega = (0.20)(4) = 0.80\,\text{m/s}.
+$$
+
+### Step 4: First equilibrium crossing after t=0
+
+Equilibrium means x(t)=0, so:
+
+$$
+0.20\cos(4t)=0 \Rightarrow \cos(4t)=0.
+$$
+
+The first positive time occurs at:
+
+$$
+4t = \frac{\pi}{2} \Rightarrow t = \frac{\pi}{8} \approx 0.393\,\text{s}.
+$$
 
 ## Mini recap
 
-- TODO
+- Standard sinusoidal position:
+
+$$
+x(t)=x_{\text{eq}} + A\cos(\omega t+\phi).
+$$
+
+- Period/frequency:
+
+$$
+T=\frac{2\pi}{\omega}, \qquad f=\frac{\omega}{2\pi}.
+$$
+
+- Velocity and acceleration:
+
+$$
+v(t)=-A\omega\sin(\omega t+\phi), \qquad a(t)=-A\omega^2\cos(\omega t+\phi)=-\omega^2(x-x_{\text{eq}}).
+$$
+
+- Velocity is zero at extrema; speed is maximal at equilibrium crossings.
 
 <!-- SOURCE: lecture/kinematics/22_kinematics_summary.md -->
 
-# Kinematics Summary
+# Kinematics summary
 
 ## Learning goals
 
-- TODO
+- Summarize what kinematics can and cannot do (describe motion, not its cause).
+- Use the core relations linking position, velocity, and acceleration in 1D and vector form.
+- Choose the right kinematic tool: differentiation, integration, graphs, or constant-acceleration formulas.
+- Avoid the most common conceptual and sign errors.
 
 ## Why this matters
 
-TODO
+Kinematics is the language of motion. If you have a clean kinematics toolbox, you can:
+
+- interpret data quickly,
+- build correct equations in dynamics later,
+- and check whether an answer is physically reasonable.
+
+The goal of this summary is not to add new topics, but to connect the whole part into one coherent workflow.
 
 ## Core idea
 
-TODO
+Kinematics is built around three linked quantities:
+
+- position: where the particle is,
+- velocity: how position changes in time,
+- acceleration: how velocity changes in time.
+
+In 1D these are signed scalars. In 2D/3D they are vectors. In either case, the logical structure is the same:
+
+$$
+x(t) \rightarrow v(t) \rightarrow a(t)
+$$
+
+by differentiation, and:
+
+$$
+a(t) \rightarrow v(t) \rightarrow x(t)
+$$
+
+by integration plus initial conditions.
 
 ## Mathematical formulation
 
-TODO
+### Core definitions (1D)
+
+$$
+v(t) = \frac{dx}{dt}
+$$
+
+$$
+a(t) = \frac{dv}{dt} = \frac{d^2x}{dt^2}
+$$
+
+Average values on an interval:
+
+$$
+v_{\text{avg}} = \frac{x(t_2)-x(t_1)}{t_2-t_1}
+$$
+
+$$
+a_{\text{avg}} = \frac{v(t_2)-v(t_1)}{t_2-t_1}
+$$
+
+### Core definitions (vector form)
+
+$$
+\vec{v}(t) = \frac{d\vec{r}}{dt}
+$$
+
+$$
+\vec{a}(t) = \frac{d\vec{v}}{dt} = \frac{d^2\vec{r}}{dt^2}
+$$
+
+Average velocity:
+
+$$
+\vec{v}_{\text{avg}} = \frac{\vec{r}(t_2)-\vec{r}(t_1)}{t_2-t_1}
+$$
+
+### Graph links (slope and area)
+
+Slope:
+
+$$
+\text{slope of } x(t) \text{ is } v(t), \qquad \text{slope of } v(t) \text{ is } a(t).
+$$
+
+Area (signed):
+
+$$
+v(t_2)-v(t_1) = \int_{t_1}^{t_2} a(t)\,dt
+$$
+
+$$
+x(t_2)-x(t_1) = \int_{t_1}^{t_2} v(t)\,dt
+$$
+
+### Constant acceleration (1D, model)
+
+Assume:
+
+$$
+a(t) = a_0 \quad \text{(constant)}.
+$$
+
+Then:
+
+$$
+v(t) = v_0 + a_0(t-t_0)
+$$
+
+$$
+x(t) = x_0 + v_0(t-t_0) + \frac{1}{2}a_0(t-t_0)^2
+$$
+
+and the time-free relation:
+
+$$
+v^2 = v_0^2 + 2a_0(x-x_0).
+$$
+
+### 2D motion via components
+
+$$
+\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
+$$
+
+$$
+\vec{v}(t) = v_x(t)\,\hat{i} + v_y(t)\,\hat{j}
+$$
+
+$$
+\vec{a}(t) = a_x(t)\,\hat{i} + a_y(t)\,\hat{j}
+$$
+
+with:
+
+$$
+v_x=\frac{dx}{dt}, \quad v_y=\frac{dy}{dt}, \quad a_x=\frac{d^2x}{dt^2}, \quad a_y=\frac{d^2y}{dt^2}.
+$$
+
+### Circular and periodic highlights (kinematic identities)
+
+Uniform circular motion:
+
+$$
+v = R\omega, \qquad a = \frac{v^2}{R} = R\omega^2.
+$$
+
+Period relations:
+
+$$
+T = \frac{2\pi}{\omega}, \qquad f=\frac{1}{T}, \qquad \omega = 2\pi f.
+$$
 
 ## Interpretation
 
-TODO
+- Sign and direction: in 1D the sign of v tells direction; the sign of a tells how v changes, not “speeding up” by itself.
+- Turning points: a turning time requires v = 0 and a sign change of v across that time.
+- Displacement vs distance: displacement depends only on endpoints; distance traveled accumulates along the path and is not captured by x(t_2)-x(t_1) when direction reverses.
+- Models have assumptions: constant-acceleration equations are powerful but only valid when acceleration is constant on the interval.
 
 ## Typical examples
 
-TODO
+1) Given x(t), find v(t) and a(t), locate rest times and turning points.
+
+2) Given v(t) (or a(t)), integrate with initial conditions to get x(t).
+
+3) Use graphs: find displacement from the area under v(t), find acceleration from slope of v(t).
+
+4) Solve motion in 2D by separating x and y components, then recombine.
 
 ## Common mistakes
 
-- TODO
+- Not stating a sign convention and then mixing “up positive” with “down positive.”
+- Treating negative acceleration as “slowing down” without checking the velocity sign.
+- Using distance when the formula requires displacement (especially in average velocity).
+- Forgetting integration constants and initial conditions when reconstructing x(t) from v(t) or a(t).
+- Applying constant-acceleration formulas to situations where acceleration varies (for example, strong air resistance).
+- Inverse problems: not counting constraints vs unknown parameters and assuming uniqueness when data is insufficient.
 
 ## Worked example
 
-TODO
+A particle moves along a line. Its acceleration is piecewise constant:
+
+- for 0 <= t <= 4 s:
+
+$$
+a(t) = 2.0\,\text{m/s}^2,
+$$
+
+- for 4 <= t <= 10 s:
+
+$$
+a(t) = -1.0\,\text{m/s}^2.
+$$
+
+At t = 0:
+
+$$
+x(0)=0, \qquad v(0)=0.
+$$
+
+Find:
+
+1) v(t) and x(t) on both intervals,  
+2) whether the particle turns around, and when,  
+3) the final position x(10).
+
+### Step 1: Interval 1 (0 to 4 s)
+
+With constant acceleration a = 2:
+
+$$
+v(t) = v(0) + at = 2t.
+$$
+
+$$
+x(t) = x(0) + v(0)t + \frac{1}{2}at^2 = t^2.
+$$
+
+Compute boundary values at t = 4:
+
+$$
+v(4)=2(4)=8\,\text{m/s},
+$$
+
+$$
+x(4)=4^2=16\,\text{m}.
+$$
+
+### Step 2: Interval 2 (4 to 10 s)
+
+Use the boundary values at t = 4 as initial conditions for the second interval. Let:
+
+$$
+\tau = t-4.
+$$
+
+On this interval, acceleration is a = -1:
+
+$$
+v(t) = v(4) + (-1)\tau = 8 - (t-4).
+$$
+
+So:
+
+$$
+v(t) = 12 - t.
+$$
+
+Position:
+
+$$
+x(t) = x(4) + v(4)\tau + \frac{1}{2}(-1)\tau^2
+$$
+
+$$
+x(t) = 16 + 8(t-4) - \frac{1}{2}(t-4)^2.
+$$
+
+### Step 3: Check for a turning time
+
+Turning time requires v(t) = 0. On interval 2:
+
+$$
+12 - t = 0 \Rightarrow t = 12\,\text{s}.
+$$
+
+But this is outside the modeled interval (t <= 10 s). Therefore, the particle does not turn around during 0 to 10 s.
+
+### Step 4: Final position x(10)
+
+Use the interval-2 position formula with t = 10:
+
+$$
+x(10) = 16 + 8(10-4) - \frac{1}{2}(10-4)^2.
+$$
+
+Compute:
+
+$$
+8(6)=48, \qquad \frac{1}{2}(6)^2 = 18.
+$$
+
+So:
+
+$$
+x(10) = 16 + 48 - 18 = 46\,\text{m}.
+$$
 
 ## Mini recap
 
-- TODO
+- Definitions:
+
+$$
+v=\frac{dx}{dt}, \qquad a=\frac{dv}{dt}.
+$$
+
+- Reconstruction:
+
+$$
+v(t)=v_0+\int_{t_0}^{t}a(\tau)\,d\tau, \qquad x(t)=x_0+\int_{t_0}^{t}v(\tau)\,d\tau.
+$$
+
+- Graphs: slope gives derivatives; signed area gives changes.
+- Constant acceleration gives a linear v(t) and quadratic x(t), but only when the assumption is valid.
+- Good kinematics is careful about frames, signs, units, and what is being modeled.
 
 <!-- SOURCE: lecture/kinematics/23_kinematics_problem_set.md -->
 
