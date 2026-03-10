@@ -36,19 +36,19 @@ $$
 One-dimensional position, velocity, acceleration:
 
 $$
-x(t), \\quad v(t) = \\frac{dx}{dt}, \\quad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}
+x(t), \quad v(t) = \frac{dx}{dt}, \quad a(t) = \frac{dv}{dt} = \frac{d^2x}{dt^2}
 $$
 
 Vector position, velocity, acceleration (in 2D/3D):
 
 $$
-\\vec{r}(t), \\quad \\vec{v}(t) = \\frac{d\\vec{r}}{dt}, \\quad \\vec{a}(t) = \\frac{d\\vec{v}}{dt}
+\vec{r}(t), \quad \vec{v}(t) = \frac{d\vec{r}}{dt}, \quad \vec{a}(t) = \frac{d\vec{v}}{dt}
 $$
 
 Forces and mass:
 
 $$
-\\vec{F}, \\quad m
+\vec{F}, \quad m
 $$
 
 Near-Earth gravitational acceleration magnitude:

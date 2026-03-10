@@ -14,6 +14,17 @@
 - [x] `lecture/kinematics/01_reference_frames_and_position.md`
 - [x] `lecture/kinematics/02_vectors_in_mechanics.md`
 - [x] `lecture/kinematics/03_trajectory_and_position_function.md`
+- [x] `lecture/kinematics/04_average_and_instantaneous_velocity.md`
+- [x] `lecture/kinematics/05_average_and_instantaneous_acceleration.md`
+- [x] `lecture/kinematics/06_uniform_motion.md`
+- [x] `lecture/kinematics/07_uniformly_accelerated_motion.md`
+- [x] `lecture/kinematics/08_free_fall_as_constant_acceleration.md`
+- [x] `lecture/kinematics/09_piecewise_defined_motion.md`
+- [x] `lecture/kinematics/10_motion_from_given_x_of_t.md`
+- [x] `lecture/kinematics/11_motion_from_given_v_of_t.md`
+- [x] `lecture/kinematics/12_motion_from_given_a_of_t.md`
+- [x] `lecture/kinematics/13_inverse_kinematics_problems.md`
+- [x] `lecture/kinematics/14_graphical_interpretation_x_v_a.md`
 - [ ] All other kinematics sections
 - [ ] All dynamics sections
 - [ ] Bridge/synthesis sections

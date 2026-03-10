@@ -36,7 +36,7 @@ $$
 Velocity and acceleration are defined as time-derivatives:
 
 $$
-v(t) = \\frac{dx}{dt}, \\qquad a(t) = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}
+v(t) = \frac{dx}{dt}, \qquad a(t) = \frac{dv}{dt} = \frac{d^2x}{dt^2}
 $$
 
 The derivative here has a physical meaning:
@@ -47,7 +47,7 @@ The derivative here has a physical meaning:
 In dynamics, the central idea (developed later) is that interactions determine acceleration. In Newtonian particle mechanics, this is expressed by:
 
 $$
-\\sum \\vec{F} = m\\vec{a}
+\sum \vec{F} = m\vec{a}
 $$
 
 This equation is not “a definition of force.” It is a modeling principle: once you choose your force models, you have an equation that determines the acceleration, and then (using kinematics) the motion.
@@ -88,13 +88,13 @@ $$
 Differentiate:
 
 $$
-v(t) = \\frac{dx}{dt} = 2 - 2t
+v(t) = \frac{dx}{dt} = 2 - 2t
 $$
 
 Differentiate again:
 
 $$
-a(t) = \\frac{dv}{dt} = -2
+a(t) = \frac{dv}{dt} = -2
 $$
 
 So the acceleration is constant and negative (in this coordinate choice).
@@ -104,22 +104,22 @@ So the acceleration is constant and negative (in this coordinate choice).
 - Kinematics tells you there is a turning time when $$v(t)=0$$:
 
 $$
-2 - 2t = 0 \\;\\Rightarrow\\; t = 1
+2 - 2t = 0 \;\Rightarrow\; t = 1
 $$
 
 - It tells you the motion is initially in the positive direction (since $$v(0)=2>0$$), then reverses after $$t=1$$.
 
-But kinematics alone does not tell you *which interaction* caused the constant acceleration. If you additionally know the mass is $$m=0.50\\,\\text{kg}$$ and you adopt Newton’s second law (dynamics), then the **net force** would be:
+But kinematics alone does not tell you *which interaction* caused the constant acceleration. If you additionally know the mass is $$m=0.50\,\text{kg}$$ and you adopt Newton’s second law (dynamics), then the **net force** would be:
 
 $$
-F_{\\text{net}} = ma = (0.50)(-2) = -1\\,\\text{N}
+F_{\text{net}} = ma = (0.50)(-2) = -1\,\text{N}
 $$
 
 That net force could arise from many physical situations (gravity component, a spring, a constant push, etc.). Identifying a realistic force model is part of dynamics.
 
 ## Mini recap
 
-- Kinematics describes motion via $$x(t)$$ (or $$\\vec{r}(t)$$) and its derivatives.
+- Kinematics describes motion via $$x(t)$$ (or $$\vec{r}(t)$$) and its derivatives.
 - Velocity and acceleration are rates of change in time.
 - Dynamics explains/predicts acceleration from forces; acceleration is the bridge.
 - Mechanics is a modeling discipline: choices and assumptions matter.

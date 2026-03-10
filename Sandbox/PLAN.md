@@ -27,50 +27,50 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** write after 01; used by 03+ and all 2D sections (16–19).
 
 - [x] `lecture/kinematics/03_trajectory_and_position_function.md`  
-  **Purpose:** Separate geometric path (trajectory) from the time-dependent law of motion $$\\vec{r}(t)$$.  
+  **Purpose:** Separate geometric path (trajectory) from the time-dependent law of motion $$\vec{r}(t)$$.  
   **Dependencies:** after 01–02.
 
-- [ ] `lecture/kinematics/04_average_and_instantaneous_velocity.md`  
+- [x] `lecture/kinematics/04_average_and_instantaneous_velocity.md`  
   **Purpose:** Define average velocity and the derivative-based instantaneous velocity; distinguish speed vs velocity.  
   **Dependencies:** after 03; used by most later sections.
 
-- [ ] `lecture/kinematics/05_average_and_instantaneous_acceleration.md`  
+- [x] `lecture/kinematics/05_average_and_instantaneous_acceleration.md`  
   **Purpose:** Define acceleration as rate of change of velocity (and second derivative of position), including direction-change acceleration.  
   **Dependencies:** after 04; used by 07–08, 18–19, and dynamics bridge.
 
-- [ ] `lecture/kinematics/06_uniform_motion.md`  
+- [x] `lecture/kinematics/06_uniform_motion.md`  
   **Purpose:** Model constant-velocity motion; connect formulas to graphs and sign conventions.  
   **Dependencies:** after 04.
 
-- [ ] `lecture/kinematics/07_uniformly_accelerated_motion.md`  
+- [x] `lecture/kinematics/07_uniformly_accelerated_motion.md`  
   **Purpose:** Derive constant-acceleration kinematics (not memorization), emphasizing assumptions and initial conditions.  
   **Dependencies:** after 05; used by 08 and many examples.
 
-- [ ] `lecture/kinematics/08_free_fall_as_constant_acceleration.md`  
+- [x] `lecture/kinematics/08_free_fall_as_constant_acceleration.md`  
   **Purpose:** Apply constant-acceleration kinematics to near-Earth free fall with careful sign conventions and common pitfalls.  
   **Dependencies:** after 07.
 
-- [ ] `lecture/kinematics/09_piecewise_defined_motion.md`  
+- [x] `lecture/kinematics/09_piecewise_defined_motion.md`  
   **Purpose:** Handle motion defined by different rules on time intervals; enforce continuity/initial conditions across segments.  
   **Dependencies:** after 04–05 (and preferably after 06–07).
 
-- [ ] `lecture/kinematics/10_motion_from_given_x_of_t.md`  
-  **Purpose:** Differentiate $$x(t)$$ or $$\\vec{r}(t)$$ to find velocity/acceleration and interpret turning points and monotonicity.  
+- [x] `lecture/kinematics/10_motion_from_given_x_of_t.md`  
+  **Purpose:** Differentiate $$x(t)$$ or $$\vec{r}(t)$$ to find velocity/acceleration and interpret turning points and monotonicity.  
   **Dependencies:** after 04–05.
 
-- [ ] `lecture/kinematics/11_motion_from_given_v_of_t.md`  
+- [x] `lecture/kinematics/11_motion_from_given_v_of_t.md`  
   **Purpose:** Integrate velocity to reconstruct position, highlighting the integration constant and initial position.  
   **Dependencies:** after 04; complements 10.
 
-- [ ] `lecture/kinematics/12_motion_from_given_a_of_t.md`  
+- [x] `lecture/kinematics/12_motion_from_given_a_of_t.md`  
   **Purpose:** Integrate acceleration to get velocity and position; show how initial conditions determine constants.  
   **Dependencies:** after 05; bridges to dynamics later.
 
-- [ ] `lecture/kinematics/13_inverse_kinematics_problems.md`  
+- [x] `lecture/kinematics/13_inverse_kinematics_problems.md`  
   **Purpose:** Solve “backwards” problems: infer motion laws or parameters from constraints and observed features.  
   **Dependencies:** after 10–12; uses graph/derivative ideas.
 
-- [ ] `lecture/kinematics/14_graphical_interpretation_x_v_a.md`  
+- [x] `lecture/kinematics/14_graphical_interpretation_x_v_a.md`  
   **Purpose:** Use slope/area interpretations to move between graphs of $$x(t), v(t), a(t)$$ without full algebra.  
   **Dependencies:** after 04–05; helpful before problem sets.
 
@@ -133,7 +133,7 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Dependencies:** after 04; draws on kinematics 15.
 
 - [ ] `lecture/dynamics/06_newtons_second_law.md`  
-  **Purpose:** Introduce $$\\sum \\vec{F} = m\\vec{a}$$ in vector and component form; teach careful interpretation.  
+  **Purpose:** Introduce $$\sum \vec{F} = m\vec{a}$$ in vector and component form; teach careful interpretation.  
   **Dependencies:** after 05; uses kinematics acceleration concepts.
 
 - [ ] `lecture/dynamics/07_equation_of_motion.md`  

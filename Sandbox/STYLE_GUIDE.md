@@ -23,12 +23,12 @@ $$
 
 - time: $$t$$
 - position in 1D: $$x(t)$$
-- position vector: $$\\vec{r}(t)$$
+- position vector: $$\vec{r}(t)$$
 - velocity in 1D: $$v(t)$$
-- velocity vector: $$\\vec{v}(t)$$
+- velocity vector: $$\vec{v}(t)$$
 - acceleration in 1D: $$a(t)$$
-- acceleration vector: $$\\vec{a}(t)$$
-- force: $$\\vec{F}$$
+- acceleration vector: $$\vec{a}(t)$$
+- force: $$\vec{F}$$
 - mass: $$m$$
 - gravitational acceleration magnitude near Earth: $$g$$
 

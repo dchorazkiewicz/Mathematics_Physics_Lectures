@@ -33,20 +33,20 @@ In mechanics we often:
 
 ### Vectors, components, and unit vectors
 
-In 2D we commonly choose perpendicular axes with unit vectors $$\\hat{i}$$ (x-direction) and $$\\hat{j}$$ (y-direction). A general vector can be written as:
+In 2D we commonly choose perpendicular axes with unit vectors $$\hat{i}$$ (x-direction) and $$\hat{j}$$ (y-direction). A general vector can be written as:
 
 $$
-\\vec{A} = A_x\\,\\hat{i} + A_y\\,\\hat{j}
+\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}
 $$
 
-The numbers $$A_x$$ and $$A_y$$ are the **components** of $$\\vec{A}$$ in this coordinate system.
+The numbers $$A_x$$ and $$A_y$$ are the **components** of $$\vec{A}$$ in this coordinate system.
 
 ### Magnitude (length) of a vector
 
-The magnitude of $$\\vec{A}$$ is:
+The magnitude of $$\vec{A}$$ is:
 
 $$
-|\\vec{A}| = \\sqrt{A_x^2 + A_y^2}
+|\vec{A}| = \sqrt{A_x^2 + A_y^2}
 $$
 
 This is just the Pythagorean theorem: components form a right triangle.
@@ -56,19 +56,19 @@ This is just the Pythagorean theorem: components form a right triangle.
 The position of a particle in the plane can be described by a position vector:
 
 $$
-\\vec{r}(t) = x(t)\\,\\hat{i} + y(t)\\,\\hat{j}
+\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}
 $$
 
-If the particle is at positions $$\\vec{r}(t_1)$$ and $$\\vec{r}(t_2)$$ at two times, the **displacement vector** is:
+If the particle is at positions $$\vec{r}(t_1)$$ and $$\vec{r}(t_2)$$ at two times, the **displacement vector** is:
 
 $$
-\\Delta\\vec{r} = \\vec{r}(t_2) - \\vec{r}(t_1)
+\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)
 $$
 
 In components:
 
 $$
-\\Delta\\vec{r} = \\big(x(t_2)-x(t_1)\\big)\\,\\hat{i} + \\big(y(t_2)-y(t_1)\\big)\\,\\hat{j}
+\Delta\vec{r} = \big(x(t_2)-x(t_1)\big)\,\hat{i} + \big(y(t_2)-y(t_1)\big)\,\hat{j}
 $$
 
 ### Vector addition and subtraction (why components help)
@@ -76,13 +76,13 @@ $$
 If
 
 $$
-\\vec{A} = A_x\\,\\hat{i} + A_y\\,\\hat{j}, \\qquad \\vec{B} = B_x\\,\\hat{i} + B_y\\,\\hat{j},
+\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}, \qquad \vec{B} = B_x\,\hat{i} + B_y\,\hat{j},
 $$
 
 then
 
 $$
-\\vec{A} + \\vec{B} = (A_x+B_x)\\,\\hat{i} + (A_y+B_y)\\,\\hat{j}.
+\vec{A} + \vec{B} = (A_x+B_x)\,\hat{i} + (A_y+B_y)\,\hat{j}.
 $$
 
 This is the practical reason we use components: many geometric vector rules reduce to ordinary arithmetic once axes are chosen.
@@ -92,13 +92,13 @@ This is the practical reason we use components: many geometric vector rules redu
 If position in 2D/3D is a vector function of time, then its time-derivatives are also vectors:
 
 $$
-\\vec{v}(t) = \\frac{d\\vec{r}}{dt}, \\qquad \\vec{a}(t) = \\frac{d\\vec{v}}{dt} = \\frac{d^2\\vec{r}}{dt^2}.
+\vec{v}(t) = \frac{d\vec{r}}{dt}, \qquad \vec{a}(t) = \frac{d\vec{v}}{dt} = \frac{d^2\vec{r}}{dt^2}.
 $$
 
 Forces model interactions that “push” or “pull” in a direction, so force is also a vector quantity:
 
 $$
-\\vec{F}
+\vec{F}
 $$
 
 Later, dynamics connects force and acceleration in vector form.
@@ -130,27 +130,27 @@ Later, dynamics connects force and acceleration in vector form.
 A particle moves in the plane. At time $$t_1$$ its position is
 
 $$
-\\vec{r}(t_1) = (2\\,\\text{m})\\,\\hat{i} + (1\\,\\text{m})\\,\\hat{j}.
+\vec{r}(t_1) = (2\,\text{m})\,\hat{i} + (1\,\text{m})\,\hat{j}.
 $$
 
 At a later time $$t_2$$ its position is
 
 $$
-\\vec{r}(t_2) = (8\\,\\text{m})\\,\\hat{i} + (5\\,\\text{m})\\,\\hat{j}.
+\vec{r}(t_2) = (8\,\text{m})\,\hat{i} + (5\,\text{m})\,\hat{j}.
 $$
 
-Assume $$t_2 - t_1 = 3\\,\\text{s}$$.
+Assume $$t_2 - t_1 = 3\,\text{s}$$.
 
 ### Step 1: Compute the displacement vector
 
 $$
-\\Delta\\vec{r} = \\vec{r}(t_2) - \\vec{r}(t_1)
+\Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1)
 $$
 
 Subtract components:
 
 $$
-\\Delta\\vec{r} = (8-2)\\,\\text{m}\\,\\hat{i} + (5-1)\\,\\text{m}\\,\\hat{j} = (6\\,\\text{m})\\,\\hat{i} + (4\\,\\text{m})\\,\\hat{j}.
+\Delta\vec{r} = (8-2)\,\text{m}\,\hat{i} + (5-1)\,\text{m}\,\hat{j} = (6\,\text{m})\,\hat{i} + (4\,\text{m})\,\hat{j}.
 $$
 
 Interpretation: the net change in position is 6 m in the +x direction and 4 m in the +y direction.
@@ -158,27 +158,27 @@ Interpretation: the net change in position is 6 m in the +x direction and 4 m in
 ### Step 2: Compute the magnitude of the displacement
 
 $$
-|\\Delta\\vec{r}| = \\sqrt{(6\\,\\text{m})^2 + (4\\,\\text{m})^2} = \\sqrt{36+16}\\,\\text{m} = \\sqrt{52}\\,\\text{m}.
+|\Delta\vec{r}| = \sqrt{(6\,\text{m})^2 + (4\,\text{m})^2} = \sqrt{36+16}\,\text{m} = \sqrt{52}\,\text{m}.
 $$
 
 Numerically:
 
 $$
-|\\Delta\\vec{r}| \\approx 7.21\\,\\text{m}.
+|\Delta\vec{r}| \approx 7.21\,\text{m}.
 $$
 
 ### Step 3: Find the direction (angle) of the displacement
 
-Let $$\\theta$$ be the angle measured from the +x axis toward the +y axis. Then:
+Let $$\theta$$ be the angle measured from the +x axis toward the +y axis. Then:
 
 $$
-\\tan\\theta = \\frac{\\Delta y}{\\Delta x} = \\frac{4}{6} = \\frac{2}{3}.
+\tan\theta = \frac{\Delta y}{\Delta x} = \frac{4}{6} = \frac{2}{3}.
 $$
 
 So
 
 $$
-\\theta = \\arctan\\left(\\frac{2}{3}\\right) \\approx 33.7^{\\circ}.
+\theta = \arctan\left(\frac{2}{3}\right) \approx 33.7^{\circ}.
 $$
 
 ### Step 4: Compute the average velocity vector over the interval
@@ -186,13 +186,13 @@ $$
 Average velocity is displacement divided by elapsed time:
 
 $$
-\\vec{v}_{\\text{avg}} = \\frac{\\Delta\\vec{r}}{\\Delta t} = \\frac{(6\\,\\text{m})\\,\\hat{i} + (4\\,\\text{m})\\,\\hat{j}}{3\\,\\text{s}}.
+\vec{v}_{\text{avg}} = \frac{\Delta\vec{r}}{\Delta t} = \frac{(6\,\text{m})\,\hat{i} + (4\,\text{m})\,\hat{j}}{3\,\text{s}}.
 $$
 
 So:
 
 $$
-\\vec{v}_{\\text{avg}} = (2\\,\\text{m/s})\\,\\hat{i} + \\left(\\frac{4}{3}\\,\\text{m/s}\\right)\\,\\hat{j}.
+\vec{v}_{\text{avg}} = (2\,\text{m/s})\,\hat{i} + \left(\frac{4}{3}\,\text{m/s}\right)\,\hat{j}.
 $$
 
 Notice how the vector form keeps the direction information automatically.
@@ -203,13 +203,13 @@ Notice how the vector form keeps the direction information automatically.
 - In Cartesian coordinates:
 
 $$
-\\vec{A} = A_x\\,\\hat{i} + A_y\\,\\hat{j}, \\qquad |\\vec{A}| = \\sqrt{A_x^2 + A_y^2}.
+\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}, \qquad |\vec{A}| = \sqrt{A_x^2 + A_y^2}.
 $$
 
 - Position and displacement:
 
 $$
-\\vec{r}(t) = x(t)\\,\\hat{i} + y(t)\\,\\hat{j}, \\qquad \\Delta\\vec{r} = \\vec{r}(t_2) - \\vec{r}(t_1).
+\vec{r}(t) = x(t)\,\hat{i} + y(t)\,\hat{j}, \qquad \Delta\vec{r} = \vec{r}(t_2) - \vec{r}(t_1).
 $$
 
 - Velocity and acceleration are vector time-derivatives of position.
