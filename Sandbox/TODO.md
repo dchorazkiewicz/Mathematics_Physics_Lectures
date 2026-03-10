@@ -41,6 +41,28 @@
 ## Dynamics (started)
 
 - [x] `lecture/dynamics/01_why_kinematics_is_not_enough.md`
+- [x] `lecture/dynamics/02_concept_of_force.md`
+- [x] `lecture/dynamics/03_interactions_and_models.md`
+- [x] `lecture/dynamics/04_newtons_first_law.md`
+- [x] `lecture/dynamics/05_inertial_frames.md`
+- [x] `lecture/dynamics/06_newtons_second_law.md`
+- [x] `lecture/dynamics/07_equation_of_motion.md`
+- [x] `lecture/dynamics/08_newtons_third_law.md`
+- [x] `lecture/dynamics/09_weight_and_gravitational_force.md`
+- [x] `lecture/dynamics/10_normal_force.md`
+- [x] `lecture/dynamics/11_tension_force.md`
+- [x] `lecture/dynamics/12_friction_static_and_kinetic.md`
+- [x] `lecture/dynamics/13_spring_force_hookes_law.md`
+- [x] `lecture/dynamics/14_free_body_diagrams.md`
+- [x] `lecture/dynamics/15_resolving_forces_into_components.md`
+- [x] `lecture/dynamics/16_particle_on_horizontal_surface.md`
+- [x] `lecture/dynamics/17_particle_on_inclined_plane.md`
+- [x] `lecture/dynamics/18_connected_bodies_and_tension.md`
+- [x] `lecture/dynamics/19_circular_motion_and_centripetal_force.md`
+- [x] `lecture/dynamics/20_dynamics_with_given_force_law.md`
+- [x] `lecture/dynamics/21_from_force_to_acceleration_to_motion.md`
+- [x] `lecture/dynamics/22_dynamics_summary.md`
+- [x] `lecture/dynamics/23_dynamics_problem_set.md`
 
 ## Consistency checks (do later, keep running list)
 

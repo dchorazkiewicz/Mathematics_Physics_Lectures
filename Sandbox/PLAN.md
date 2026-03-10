@@ -116,91 +116,91 @@ This plan defines the full file tree, a short purpose for each section, dependen
   **Purpose:** Motivate forces by showing that describing motion does not explain it; set the need for dynamics.  
   **Dependencies:** after kinematics 22 (or at least after 05 and 12 conceptually).
 
-- [ ] `lecture/dynamics/02_concept_of_force.md`  
+- [x] `lecture/dynamics/02_concept_of_force.md`  
   **Purpose:** Present force as a measurable interaction model; emphasize vector nature and examples of contact vs distance forces.  
   **Dependencies:** after dynamics 01; uses vectors from kinematics 02.
 
-- [ ] `lecture/dynamics/03_interactions_and_models.md`  
+- [x] `lecture/dynamics/03_interactions_and_models.md`  
   **Purpose:** Teach modeling choices: system boundaries, particle model, simplifications, and what is being neglected.  
   **Dependencies:** after dynamics 02.
 
-- [ ] `lecture/dynamics/04_newtons_first_law.md`  
+- [x] `lecture/dynamics/04_newtons_first_law.md`  
   **Purpose:** Build inertia intuition; explain equilibrium of motion and the role of net force.  
   **Dependencies:** after 03; prepares inertial frames.
 
-- [ ] `lecture/dynamics/05_inertial_frames.md`  
+- [x] `lecture/dynamics/05_inertial_frames.md`  
   **Purpose:** Define inertial frames and why Newton’s laws require them; connect to relative motion intuition.  
   **Dependencies:** after 04; draws on kinematics 15.
 
-- [ ] `lecture/dynamics/06_newtons_second_law.md`  
+- [x] `lecture/dynamics/06_newtons_second_law.md`  
   **Purpose:** Introduce $$\sum \vec{F} = m\vec{a}$$ in vector and component form; teach careful interpretation.  
   **Dependencies:** after 05; uses kinematics acceleration concepts.
 
-- [ ] `lecture/dynamics/07_equation_of_motion.md`  
+- [x] `lecture/dynamics/07_equation_of_motion.md`  
   **Purpose:** Show how a force model becomes a differential equation (equation of motion) whose solution is the motion.  
   **Dependencies:** after 06; uses kinematics integration ideas (11–12).
 
-- [ ] `lecture/dynamics/08_newtons_third_law.md`  
+- [x] `lecture/dynamics/08_newtons_third_law.md`  
   **Purpose:** Identify action–reaction pairs and address misconceptions (not “forces cancel” on one body).  
   **Dependencies:** after 06.
 
-- [ ] `lecture/dynamics/09_weight_and_gravitational_force.md`  
+- [x] `lecture/dynamics/09_weight_and_gravitational_force.md`  
   **Purpose:** Separate mass from weight; model near-Earth gravity and use it correctly in free-body diagrams.  
   **Dependencies:** after 06 and 08.
 
-- [ ] `lecture/dynamics/10_normal_force.md`  
+- [x] `lecture/dynamics/10_normal_force.md`  
   **Purpose:** Interpret normal force as a constraint/contact force; show when it differs from $$mg$$.  
   **Dependencies:** after 09.
 
-- [ ] `lecture/dynamics/11_tension_force.md`  
+- [x] `lecture/dynamics/11_tension_force.md`  
   **Purpose:** Model tension in ideal strings/ropes; state pulley assumptions and direction rules.  
   **Dependencies:** after 06 and 08.
 
-- [ ] `lecture/dynamics/12_friction_static_and_kinetic.md`  
+- [x] `lecture/dynamics/12_friction_static_and_kinetic.md`  
   **Purpose:** Explain friction direction reasoning; static vs kinetic friction; emphasize inequality for static friction.  
   **Dependencies:** after 10; used heavily in 16–17.
 
-- [ ] `lecture/dynamics/13_spring_force_hookes_law.md`  
+- [x] `lecture/dynamics/13_spring_force_hookes_law.md`  
   **Purpose:** Introduce Hooke’s law as a restoring interaction with clear sign conventions and equilibrium length.  
   **Dependencies:** after 06–07.
 
-- [ ] `lecture/dynamics/14_free_body_diagrams.md`  
+- [x] `lecture/dynamics/14_free_body_diagrams.md`  
   **Purpose:** Teach how to isolate a body, list forces, and avoid omission/duplication; the core problem-solving tool in dynamics.  
   **Dependencies:** after 09–13 (at least basic force types introduced).
 
-- [ ] `lecture/dynamics/15_resolving_forces_into_components.md`  
+- [x] `lecture/dynamics/15_resolving_forces_into_components.md`  
   **Purpose:** Choose axes strategically and project forces to simplify Newton’s second law in components.  
   **Dependencies:** after 14; uses kinematics 02 and 16.
 
-- [ ] `lecture/dynamics/16_particle_on_horizontal_surface.md`  
+- [x] `lecture/dynamics/16_particle_on_horizontal_surface.md`  
   **Purpose:** Solve canonical Newton’s-law problems on flat surfaces with/without friction and angled pulls.  
   **Dependencies:** after 14–15 and 12.
 
-- [ ] `lecture/dynamics/17_particle_on_inclined_plane.md`  
+- [x] `lecture/dynamics/17_particle_on_inclined_plane.md`  
   **Purpose:** Solve incline problems with careful decomposition, sign control, and friction cases.  
   **Dependencies:** after 15–16.
 
-- [ ] `lecture/dynamics/18_connected_bodies_and_tension.md`  
+- [x] `lecture/dynamics/18_connected_bodies_and_tension.md`  
   **Purpose:** Set up coupled systems with shared acceleration; write separate free-body diagrams and solve simultaneous equations.  
   **Dependencies:** after 11 and 14–15.
 
-- [ ] `lecture/dynamics/19_circular_motion_and_centripetal_force.md`  
+- [x] `lecture/dynamics/19_circular_motion_and_centripetal_force.md`  
   **Purpose:** Reinterpret circular-motion acceleration dynamically as a requirement on the net radial force (centripetal role).  
   **Dependencies:** after kinematics 18–19 and dynamics 06.
 
-- [ ] `lecture/dynamics/20_dynamics_with_given_force_law.md`  
+- [x] `lecture/dynamics/20_dynamics_with_given_force_law.md`  
   **Purpose:** Work with forces depending on position/velocity/time and translate them into equations of motion with stated assumptions.  
   **Dependencies:** after 07; calculus reminder may be needed.
 
-- [ ] `lecture/dynamics/21_from_force_to_acceleration_to_motion.md`  
+- [x] `lecture/dynamics/21_from_force_to_acceleration_to_motion.md`  
   **Purpose:** Synthesize the pipeline force → acceleration → kinematics; show complete worked bridges back to motion functions.  
   **Dependencies:** after 20; draws heavily on kinematics 11–12.
 
-- [ ] `lecture/dynamics/22_dynamics_summary.md`  
+- [x] `lecture/dynamics/22_dynamics_summary.md`  
   **Purpose:** Compact conceptual synthesis of Newtonian dynamics and a repeatable solving workflow.  
   **Dependencies:** after all dynamics concept sections.
 
-- [ ] `lecture/dynamics/23_dynamics_problem_set.md`  
+- [x] `lecture/dynamics/23_dynamics_problem_set.md`  
   **Purpose:** Practice free-body analysis, equations of motion, coupled systems, and mixed kinematics+dynamics problems.  
   **Dependencies:** after 22.
 
