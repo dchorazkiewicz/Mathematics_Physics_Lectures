@@ -1,0 +1,25 @@
+---
+title: Electromagnetism 2
+format:
+  html:
+    theme: flatly
+    grid:
+      body-width: 1000px
+      margin-width: 250px
+    toc: true
+    toc-depth: 3
+    highlight-style: tango
+    code-line-numbers: true
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+    code-block-bg: "rgba(42, 174, 42, 0.02)"
+    code-block-border-left: "#2aae2a"
+    code-language-label: true
+    css: styles.css
+    math: mathjax
+    self-contained: true
+    other-links:
+      - text: Main page
+        href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
+---
