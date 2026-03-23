@@ -23,3 +23,196 @@ format:
       - text: Main page
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
+
+## Scope of this lecture
+
+This lecture continues electromagnetism with a focus on magnetism, electromagnetic induction, and the bridge to circuit models.
+
+Main themes:
+
+- magnetic force on moving charges,
+- magnetic force on currents,
+- magnetic flux,
+- Faraday's law,
+- Lenz's law,
+- motional EMF,
+- self-induction,
+- RL circuits,
+- transformers,
+- eddy currents and applications.
+
+---
+
+## 1. Lorentz force and motion of charged particles
+
+### 1.1 Magnetic part of the Lorentz force
+
+### 1.2 Direction of the force
+
+### 1.3 Uniform magnetic field
+
+### 1.4 Circular and helical motion
+
+### 1.5 Energy interpretation
+
+### 1.6 Example
+
+---
+
+## 2. Current loops and magnetic moment
+
+### 2.1 Force on a current-carrying conductor
+
+### 2.2 Torque on a loop
+
+### 2.3 Magnetic dipole moment
+
+### 2.4 Potential energy in an external field
+
+### 2.5 Stable and unstable orientations
+
+### 2.6 Example
+
+---
+
+## 3. Magnetic flux
+
+### 3.1 Definition of magnetic flux
+
+### 3.2 Surface orientation and sign convention
+
+### 3.3 Flux through a flat loop in a uniform field
+
+### 3.4 Time-varying flux
+
+### 3.5 Example
+
+---
+
+## 4. Faraday's law of induction
+
+### 4.1 Experimental idea
+
+### 4.2 Induced EMF from changing flux
+
+### 4.3 Differential and integral viewpoint
+
+### 4.4 Rotating loop generator model
+
+### 4.5 Example
+
+---
+
+## 5. Lenz's law and physical interpretation
+
+### 5.1 Direction of induced current
+
+### 5.2 Opposition to flux change
+
+### 5.3 Energy interpretation
+
+### 5.4 Common sign mistakes
+
+### 5.5 Example
+
+---
+
+## 6. Motional EMF
+
+### 6.1 Moving rod in a magnetic field
+
+### 6.2 Separation of charges in the conductor
+
+### 6.3 Formula for motional EMF
+
+### 6.4 Non-perpendicular motion
+
+### 6.5 Example
+
+---
+
+## 7. Induced current and magnetic braking
+
+### 7.1 Closed circuit with a moving rod
+
+### 7.2 Current induced in rails
+
+### 7.3 Magnetic force opposing motion
+
+### 7.4 Power balance
+
+### 7.5 Terminal velocity idea
+
+### 7.6 Example
+
+---
+
+## 8. Self-induction and inductance
+
+### 8.1 Induced EMF from changing current
+
+### 8.2 Definition of inductance
+
+### 8.3 Energy stored in the magnetic field
+
+### 8.4 Physical meaning of inductive opposition
+
+### 8.5 Example
+
+---
+
+## 9. RL circuits
+
+### 9.1 Switching on a DC source
+
+### 9.2 Current growth in time
+
+### 9.3 Switching off and decay
+
+### 9.4 Time constant
+
+### 9.5 Energy dissipation
+
+### 9.6 Example
+
+---
+
+## 10. Transformers
+
+### 10.1 Mutual induction idea
+
+### 10.2 Primary and secondary coils
+
+### 10.3 Ideal transformer relations
+
+### 10.4 Voltage, current, and turns ratio
+
+### 10.5 Real transformer losses
+
+### 10.6 Example
+
+---
+
+## 11. Eddy currents and applications
+
+### 11.1 Origin of eddy currents
+
+### 11.2 Magnetic damping
+
+### 11.3 Heating and losses
+
+### 11.4 Engineering applications
+
+### 11.5 Example
+
+---
+
+## 12. Summary
+
+### 12.1 Key physical ideas
+
+### 12.2 Key equations
+
+### 12.3 Typical mistakes
+
+### 12.4 Bridge to circuits and electrodynamics
