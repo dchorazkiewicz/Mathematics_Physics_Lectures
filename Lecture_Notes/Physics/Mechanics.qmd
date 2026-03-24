@@ -944,7 +944,7 @@ This confirms that $\mathbf{r}(t)$ and $\mathbf{v}(t)$ are perpendicular.
 The acceleration is the derivative of the velocity vector with respect to time:
 
 $$
-\mathbf{a}(t) = \frac{d\mathbf{v}(t)}{dt} = -R \omega^2 \cos(\omega t) \hat{i} - R \omega^2 \sin(\omega t) \hat{j} = -R \omega^2 \mathbf{r}(t)
+\mathbf{a}(t) = \frac{d\mathbf{v}(t)}{dt} = -R \omega^2 \cos(\omega t) \hat{i} - R \omega^2 \sin(\omega t) \hat{j} = -\omega^2 \mathbf{r}(t)
 $$
 
 The acceleration vector always points toward the center of the circle (centripetal acceleration), and its magnitude is:
@@ -955,6 +955,22 @@ $$
 
 Last relation is very important because it shows that the acceleration is proportional to the square of the velocity and inversely proportional to the radius of the circle.
 This result will we very useful in the next section when we will discuss the gravity.
+
+This result also has an important physical interpretation. Motion along a circle is possible only if the acceleration is directed toward the center of the circle. This is a kinematic fact: even if the speed is constant, the direction of the velocity is continuously changing, so the velocity vector must have a nonzero derivative pointing inward.
+
+By Newton's second law, an inward acceleration requires an inward net force:
+
+$$
+\mathbf{F}_{\text{centripetal}} = m \mathbf{a}
+$$
+
+and therefore
+
+$$
+|\mathbf{F}_{\text{centripetal}}| = m \frac{v^2}{R}.
+$$
+
+This force is called the **centripetal force**. It is not a new fundamental force. It is simply the name for whatever physical force provides the inward acceleration needed to keep the object on a circular path. In later sections we will return to this point and see that, in orbital motion, gravity can play exactly the role of the centripetal force.
 
 
 #### Numerical Example
@@ -1076,6 +1092,20 @@ plt.show()
 ```
 
 ### Orbital Motion
+
+Let us now connect this discussion with the previous section on circular motion. We have already seen that any motion along a circle requires an inward acceleration of magnitude
+
+$$
+\frac{v^2}{r},
+$$
+
+so by Newton's second law it also requires an inward net force of magnitude
+
+$$
+m \frac{v^2}{r}.
+$$
+
+In orbital motion this inward force is not supplied by a string, a wall, or mechanical contact. Instead, it is provided by gravity. In other words, for a body moving on a circular orbit, gravity plays the role of the centripetal force.
 
 Gravitational force is responsible for the orbital motion of planets, moons, and satellites. The centripetal force required for circular motion is provided by gravity:
 
@@ -1432,7 +1462,5 @@ $$
 =
 \frac{m v_2^2}{2}-\frac{G m M}{r_2}
 $$
-
-
 
 
