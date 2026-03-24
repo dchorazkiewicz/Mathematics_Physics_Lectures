@@ -22,3 +22,98 @@ format:
 
 ---
 
+## Scope of this lecture
+
+This lecture introduces direct-current circuit analysis from the simplest resistor combinations to multi-loop networks that require systematic equations. The plan follows the progression suggested by the problem set: first identify structure, then reduce circuits when possible, and finally compute unknown currents and voltages in circuits that can no longer be simplified by inspection alone.
+
+Main themes:
+
+- electric current, voltage, resistance, and power,
+- Ohm's law as a local relation for a circuit element,
+- series and parallel resistor combinations,
+- equivalent resistance as a model simplification tool,
+- current and voltage division in simple networks,
+- Kirchhoff's current law and Kirchhoff's voltage law,
+- systematic analysis of junctions, loops, and bridge-like circuits,
+- interpretation of ammeter and voltmeter readings,
+- choosing an efficient solution strategy before calculating.
+
+## Lecture plan
+
+### 1. Basic circuit quantities and conventions
+
+- define charge flow, current, potential difference, resistance, and power,
+- establish sign conventions for current direction and voltage drop,
+- explain ideal wires, ideal sources, and ideal measuring instruments.
+
+### 2. Ohm's law and the meaning of resistance
+
+- present
+
+  $$
+  V = IR
+  $$
+
+- distinguish between element law and whole-circuit reasoning,
+- show how resistance controls current for a given applied voltage.
+
+### 3. Series connections
+
+- identify when elements carry the same current,
+- derive the equivalent resistance rule for series combinations,
+- connect the rule to the first problems on direct resistor reduction.
+
+### 4. Parallel connections
+
+- identify when elements share the same voltage,
+- derive the equivalent resistance rule for parallel combinations,
+- compare parallel behavior with series behavior physically and mathematically.
+
+### 5. Mixed series-parallel networks
+
+- develop a reduction workflow for circuits that can be simplified step by step,
+- emphasize redrawing the circuit after each reduction,
+- prepare students for equivalent-resistance tasks like Problems 1-3.
+
+### 6. Voltage and current in reduced circuits
+
+- recover branch currents and voltages after finding the total equivalent resistance,
+- introduce voltage-divider and current-divider reasoning,
+- connect this to tasks asking for current through a chosen resistor or ammeter.
+
+### 7. Kirchhoff's current law
+
+- formulate node balance using charge conservation,
+- analyze currents at junctions,
+- use KCL when simple reduction is not sufficient.
+
+### 8. Kirchhoff's voltage law
+
+- formulate loop balance using energy conservation,
+- track voltage rises and drops consistently around a loop,
+- show how KVL complements KCL in practical circuit solving.
+
+### 9. Multi-branch circuit solving strategy
+
+- choose unknown currents or node potentials,
+- write a minimal set of independent equations,
+- solve for currents, resistor voltages, and point-to-point potential differences.
+
+### 10. Bridge and nontrivial resistor networks
+
+- discuss circuits that are not reducible by naive series-parallel rules,
+- explain symmetry arguments when they apply,
+- prepare students for point-to-point voltage questions like the A-B problem.
+
+### 11. Ammeters, voltmeters, and measurement interpretation
+
+- explain what an ideal ammeter and ideal voltmeter measure,
+- relate instrument placement to the quantity being measured,
+- interpret several ammeter-reading problems from the repository.
+
+### 12. Worked examples and problem-solving workflow
+
+- one example focused on equivalent resistance,
+- one example focused on branch currents and resistor voltages,
+- one example focused on Kirchhoff equations in a nontrivial network,
+- final checklist: simplify if possible, label directions, write equations, solve, then interpret signs.
