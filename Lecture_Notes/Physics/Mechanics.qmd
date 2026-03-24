@@ -1019,9 +1019,148 @@ plt.show()
 ```
 
 
+## Work and Kinetic Energy Relation
+
+### Work
+
+In three-dimensional motion, the work done by a force $\mathbf{F}$ acting on an object as it moves along a displacement $d\mathbf{r}$ is given by the **dot product**:
+
+$$
+dW = \mathbf{F} \cdot d\mathbf{r}
+$$
+
+Expanding in component form:
+
+$$
+dW = F_x dx + F_y dy + F_z dz
+$$
+
+Using **Newton’s second law** $\mathbf{F} = m \mathbf{a}$:
+
+$$
+dW = (m a_x dx + m a_y dy + m a_z dz)
+$$
+
+Since acceleration is the derivative of velocity:
+
+$$
+a_x = \frac{dv_x}{dt}, \quad a_y = \frac{dv_y}{dt}, \quad a_z = \frac{dv_z}{dt}
+$$
+
+And velocity components are:
+
+$$
+v_x = \frac{dx}{dt}, \quad v_y = \frac{dy}{dt}, \quad v_z = \frac{dz}{dt}
+$$
+
+Rewriting work in terms of velocity:
+
+$$
+dW = m v_x dv_x + m v_y dv_y + m v_z dv_z
+$$
+
+### Kinetic Energy
+To determine the total work done from an initial velocity $\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})$ to a final velocity $\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})$:
+
+$$
+W = \int_{v_{1x}}^{v_{2x}} m v_x dv_x + \int_{v_{1y}}^{v_{2y}} m v_y dv_y + \int_{v_{1z}}^{v_{2z}} m v_z dv_z
+$$
+
+Solving each integral:
+
+$$
+W = m \left( \frac{v_{2x}^2}{2} - \frac{v_{1x}^2}{2} \right) + m \left( \frac{v_{2y}^2}{2} - \frac{v_{1y}^2}{2} \right) + m \left( \frac{v_{2z}^2}{2} - \frac{v_{1z}^2}{2} \right)
+$$
+
+Rewriting:
+
+$$
+W = \frac{1}{2} m \left( v_{2x}^2 + v_{2y}^2 + v_{2z}^2 \right) - \frac{1}{2} m \left( v_{1x}^2 + v_{1y}^2 + v_{1z}^2 \right)
+$$
+
+Since kinetic energy in 3D is defined as:
+
+$$
+KE = \frac{1}{2} m (v_x^2 + v_y^2 + v_z^2)
+$$
+
+we obtain:
+
+$$
+W = KE_2 - KE_1 = \Delta KE
+$$
+
+### Energy Conservation
+
+In many physical situations, forces can be described by a **potential energy function**. A force $\mathbf{F}$ is called **conservative** if the work it does on an object moving from point $A$ to point $B$ is **independent of the path taken** and depends only on the initial and final positions. This allows us to define a scalar function, the **potential energy** $U$, such that:
+
+$$
+\mathbf{F} = - \nabla U
+$$
+
+This relation means that the force is the negative gradient of the potential energy function.
+
+#### Examples of Potential Forces
+
+There are several important cases of conservative forces where the **work-energy theorem** and **energy conservation** provide quick solutions to problems:
+
+1. **Constant Force (Projectile Motion)**:  
+   In uniform gravitational fields (e.g., near Earth's surface), the force is constant:  
+   $$
+   \mathbf{F} = -mg \hat{j}
+   $$
+   The associated potential energy is given by:
+   $$
+   U = mg y
+   $$
+   This simplifies projectile motion calculations using energy conservation.
+
+2. **Harmonic Oscillator (Spring Force)**:  
+   A restoring force proportional to displacement, such as Hooke’s Law:
+   $$
+   \mathbf{F} = - k x \hat{i}
+   $$
+   The corresponding potential energy function is:
+   $$
+   U = \frac{1}{2} k x^2
+   $$
+   This is essential in analyzing oscillatory motion.
+
+3. **Gravitational Force (Newtonian Gravity)**:  
+   In a central gravitational field, the force obeys an inverse-square law:
+   $$
+   \mathbf{F} = - \frac{G m M}{r^2} \hat{r}
+   $$
+   The potential energy function is:
+   $$
+   U = -\frac{G m M}{r}
+   $$
+   This form is crucial for planetary motion and orbital mechanics.
+
+### Energy Conservation
+
+Since conservative forces allow potential energy to be defined, the **total mechanical energy** is conserved:
+
+$$
+E = KE + U = \text{constant}
+$$
+
+This principle allows for elegant solutions to motion problems without explicitly solving Newton’s second law.
+
+#### Gravity example
+
+$$
+\frac{m v_1^2}{2}-\frac{G m M}{r_1} 
+=
+\frac{m v_2^2}{2}-\frac{G m M}{r_2}
+$$
+
+
 ## Gravity
 
 ### Introduction
+
+We now return to gravity with the language of work, kinetic energy, potential energy, and energy conservation already available. This will allow us not only to describe the gravitational force itself, but also to understand orbital motion and escape velocity in a more natural and physically motivated way.
 
 The Universal Law of Gravitation, formulated by Sir Isaac Newton, describes the gravitational force between two masses. It states that every particle of matter in the universe attracts every other particle with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between their centers.
 
@@ -1132,13 +1271,57 @@ $$
 
 ### Escape Velocity
 
-Escape velocity is the minimum velocity required for an object to escape the gravitational pull of a planet or celestial body without further propulsion. It is given by:
+Escape velocity is the minimum initial velocity required for an object to escape the gravitational pull of a planet or celestial body without further propulsion. More precisely, it is the threshold velocity for which the object can move arbitrarily far away and never return, assuming that we neglect air resistance and other dissipative effects.
+
+This does not mean that gravity suddenly disappears beyond some distance. Gravity acts at all distances. The point is instead that the object has enough total mechanical energy to avoid remaining gravitationally bound to the planet.
+
+We now derive the formula using energy conservation. Suppose an object of mass $m$ is launched from the surface of a body of mass $M$ and radius $R$ with initial speed $v$.
+
+Its initial mechanical energy is
+
+$$
+E_i = \frac{1}{2} m v^2 - \frac{G M m}{R}.
+$$
+
+For the limiting case of escape, the object reaches arbitrarily large distance with final speed equal to zero. Since the gravitational potential energy tends to zero at infinity, the final mechanical energy is
+
+$$
+E_f = 0.
+$$
+
+By conservation of energy,
+
+$$
+\frac{1}{2} m v^2 - \frac{G M m}{R} = 0.
+$$
+
+Solving for $v$, we obtain:
 
 $$
 v_\text{escape} = \sqrt{2G \frac{M}{R}}
 $$
 
 where $M$ is the mass of the celestial body and $R$ is its radius.
+
+This value has a clear interpretation:
+
+- if $v < v_\text{escape}$, the object remains gravitationally bound and will eventually fall back,
+- if $v = v_\text{escape}$, the object escapes and reaches infinity with zero final speed,
+- if $v > v_\text{escape}$, the object escapes with positive residual speed even very far from the planet.
+
+It is also useful to compare escape velocity with circular orbital velocity:
+
+$$
+v_\text{orbital} = \sqrt{G \frac{M}{R}}.
+$$
+
+Therefore,
+
+$$
+v_\text{escape} = \sqrt{2}\, v_\text{orbital}.
+$$
+
+So the escape velocity is larger than the circular orbital velocity by the factor $\sqrt{2}$.
 
 ### Numerical Example: Escape Velocity for Earth
 
@@ -1326,141 +1509,4 @@ plt.axis('equal')
 plt.show()
 
 ```
-
-## Work and Kinetic Energy Relation
-
-### Work
-
-In three-dimensional motion, the work done by a force $\mathbf{F}$ acting on an object as it moves along a displacement $d\mathbf{r}$ is given by the **dot product**:
-
-$$
-dW = \mathbf{F} \cdot d\mathbf{r}
-$$
-
-Expanding in component form:
-
-$$
-dW = F_x dx + F_y dy + F_z dz
-$$
-
-Using **Newton’s second law** $\mathbf{F} = m \mathbf{a}$:
-
-$$
-dW = (m a_x dx + m a_y dy + m a_z dz)
-$$
-
-Since acceleration is the derivative of velocity:
-
-$$
-a_x = \frac{dv_x}{dt}, \quad a_y = \frac{dv_y}{dt}, \quad a_z = \frac{dv_z}{dt}
-$$
-
-And velocity components are:
-
-$$
-v_x = \frac{dx}{dt}, \quad v_y = \frac{dy}{dt}, \quad v_z = \frac{dz}{dt}
-$$
-
-Rewriting work in terms of velocity:
-
-$$
-dW = m v_x dv_x + m v_y dv_y + m v_z dv_z
-$$
-
-### Kinetic Energy
-To determine the total work done from an initial velocity $\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})$ to a final velocity $\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})$:
-
-$$
-W = \int_{v_{1x}}^{v_{2x}} m v_x dv_x + \int_{v_{1y}}^{v_{2y}} m v_y dv_y + \int_{v_{1z}}^{v_{2z}} m v_z dv_z
-$$
-
-Solving each integral:
-
-$$
-W = m \left( \frac{v_{2x}^2}{2} - \frac{v_{1x}^2}{2} \right) + m \left( \frac{v_{2y}^2}{2} - \frac{v_{1y}^2}{2} \right) + m \left( \frac{v_{2z}^2}{2} - \frac{v_{1z}^2}{2} \right)
-$$
-
-Rewriting:
-
-$$
-W = \frac{1}{2} m \left( v_{2x}^2 + v_{2y}^2 + v_{2z}^2 \right) - \frac{1}{2} m \left( v_{1x}^2 + v_{1y}^2 + v_{1z}^2 \right)
-$$
-
-Since kinetic energy in 3D is defined as:
-
-$$
-KE = \frac{1}{2} m (v_x^2 + v_y^2 + v_z^2)
-$$
-
-we obtain:
-
-$$
-W = KE_2 - KE_1 = \Delta KE
-$$
-
-### Energy Conservation
-
-In many physical situations, forces can be described by a **potential energy function**. A force $\mathbf{F}$ is called **conservative** if the work it does on an object moving from point $A$ to point $B$ is **independent of the path taken** and depends only on the initial and final positions. This allows us to define a scalar function, the **potential energy** $U$, such that:
-
-$$
-\mathbf{F} = - \nabla U
-$$
-
-This relation means that the force is the negative gradient of the potential energy function.
-
-#### Examples of Potential Forces
-
-There are several important cases of conservative forces where the **work-energy theorem** and **energy conservation** provide quick solutions to problems:
-
-1. **Constant Force (Projectile Motion)**:  
-   In uniform gravitational fields (e.g., near Earth's surface), the force is constant:  
-   $$
-   \mathbf{F} = -mg \hat{j}
-   $$
-   The associated potential energy is given by:
-   $$
-   U = mg y
-   $$
-   This simplifies projectile motion calculations using energy conservation.
-
-2. **Harmonic Oscillator (Spring Force)**:  
-   A restoring force proportional to displacement, such as Hooke’s Law:
-   $$
-   \mathbf{F} = - k x \hat{i}
-   $$
-   The corresponding potential energy function is:
-   $$
-   U = \frac{1}{2} k x^2
-   $$
-   This is essential in analyzing oscillatory motion.
-
-3. **Gravitational Force (Newtonian Gravity)**:  
-   In a central gravitational field, the force obeys an inverse-square law:
-   $$
-   \mathbf{F} = - \frac{G m M}{r^2} \hat{r}
-   $$
-   The potential energy function is:
-   $$
-   U = -\frac{G m M}{r}
-   $$
-   This form is crucial for planetary motion and orbital mechanics.
-
-### Energy Conservation
-
-Since conservative forces allow potential energy to be defined, the **total mechanical energy** is conserved:
-
-$$
-E = KE + U = \text{constant}
-$$
-
-This principle allows for elegant solutions to motion problems without explicitly solving Newton’s second law.
-
-#### Gravity example
-
-$$
-\frac{m v_1^2}{2}-\frac{G m M}{r_1} 
-=
-\frac{m v_2^2}{2}-\frac{G m M}{r_2}
-$$
-
 
