@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Field Integration Visualization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 1100px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background-color: #f1f3f5;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover { background-color: #e9ecef; }
+        .tab-btn.active {
+            background-color: #fff;
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+        }
+
+        /* Layout */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        @media (min-width: 850px) {
+            .content-area { flex-direction: row; }
+        }
+
+        /* Controls Panel */
+        .controls {
+            flex: 0 0 320px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .controls h3 {
+            margin: 0 0 10px 0;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 8px;
+            color: #1e293b;
+            font-size: 1.2rem;
+        }
+
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #2563eb;
+        }
+
+        .val-disp {
+            font-family: monospace;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .info-box {
+            margin-top: auto;
+            padding: 12px;
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #1e3a8a;
+        }
+
+        /* Math styling helper */
+        .math { font-family: 'Times New Roman', serif; font-style: italic; }
+        .vec { font-weight: bold; font-style: normal; }
+
+        /* Canvas */
+        .canvas-wrapper {
+            flex: 1;
+            position: relative;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            height: 550px;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .legend {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .legend-item:last-child { margin-bottom: 0; }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <div class="tabs">
+        <button class="tab-btn active" id="btn-line">Charged Line (1D)</button>
+        <button class="tab-btn" id="btn-plane">Charged Plane (2D)</button>
+    </div>
+
+    <div class="content-area">
+        <div class="controls">
+            <h3 id="mode-title">Line Parameters</h3>
+
+            <div class="control-group">
+                <label>
+                    <span>Integration: <span class="math">dq</span> Summation</span>
+                    <span id="disp-progress" class="val-disp">0%</span>
+                </label>
+                <input type="range" id="inp-progress" min="0" max="100" step="1" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>Distance to Point <span class="math">P</span></span>
+                    <span id="disp-dist" class="val-disp">2.0</span>
+                </label>
+                <input type="range" id="inp-dist" min="1.0" max="5.0" step="0.1" value="2.0">
+            </div>
+
+            <!-- New Scale Control -->
+            <div class="control-group">
+                <label>
+                    <span>Vector Scale (Zoom)</span>
+                    <span id="disp-scale" class="val-disp">1.0x</span>
+                </label>
+                <!-- Max scale reduced to 1.0 as per request -->
+                <input type="range" id="inp-scale" min="0.1" max="1.0" step="0.1" value="1.0">
+            </div>
+
+            <div class="control-group">
+                <label style="justify-content: flex-start; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="chk-components" checked>
+                    <span>Show Vector Components</span>
+                </label>
+            </div>
+
+            <div class="info-box" id="info-text">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="sim-canvas"></canvas>
+            <div class="legend" id="legend-box">
+                <!-- Legend injected via JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const canvas = document.getElementById('sim-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // UI Refs
+    const ui = {
+        progress: document.getElementById('inp-progress'),
+        dist: document.getElementById('inp-dist'),
+        scale: document.getElementById('inp-scale'), // New ref
+        components: document.getElementById('chk-components'),
+        dispProgress: document.getElementById('disp-progress'),
+        dispDist: document.getElementById('disp-dist'),
+        dispScale: document.getElementById('disp-scale'), // New ref
+        title: document.getElementById('mode-title'),
+        info: document.getElementById('info-text'),
+        btnLine: document.getElementById('btn-line'),
+        btnPlane: document.getElementById('btn-plane'),
+        legend: document.getElementById('legend-box')
+    };
+
+    // App State
+    let state = {
+        mode: 'line', // 'line' or 'plane'
+        width: 800,
+        height: 600
+    };
+
+    // Constants
+    const LINE_LEN = 6;
+    const PLANE_SIZE = 5;
+    const SEGMENTS_LINE = 200;
+
+    // Config for Plane Grid
+    const PLANE_GRID_SIZE = 14;
+    const PLANE_CELLS = PLANE_GRID_SIZE * PLANE_GRID_SIZE;
+
+    // --- Content Helpers ---
+
+    function setContent() {
+        if (state.mode === 'line') {
+            ui.title.innerText = "Infinite Line Charge";
+            ui.progress.max = SEGMENTS_LINE;
+            ui.info.innerHTML = `
+                Summing electric field vectors <span class="math vec">dE</span> from infinitesimal segments <span class="math">dq = &lambda; dy</span>.
+                <br><br>
+                <strong>Observation:</strong> Vertical components (<span class="math">dE<sub>y</sub></span>) cancel out due to symmetry. Net field <span class="math vec">E</span> is perpendicular to the line.
+            `;
+            ui.legend.innerHTML = `
+                <div class="legend-item"><span class="dot" style="background:#ef4444"></span> Current <span class="math vec" style="margin-left:4px">dE</span></div>
+                <div class="legend-item"><span class="dot" style="background:#22c55e"></span> Net Field <span class="math vec" style="margin-left:4px">E</span></div>
+                <div class="legend-item"><span class="dot" style="background:#93c5fd; opacity:0.5"></span> Canceled Components</div>
+            `;
+        } else {
+            ui.title.innerText = "Charged Plane (Iso View)";
+            ui.progress.max = PLANE_CELLS;
+            ui.info.innerHTML = `
+                Summing contributions from small square area elements <span class="math">dq = &sigma; dA</span>.
+                <br><br>
+                <strong>Observation:</strong> As we sweep across the grid, lateral components cancel out. Only the vertical Z-component survives.
+                <br>
+                <strong>Tip:</strong> Use the <em>Vector Scale</em> slider to adjust arrow length.
+            `;
+            ui.legend.innerHTML = `
+                <div class="legend-item"><span class="dot" style="background:#ef4444"></span> Current <span class="math vec" style="margin-left:4px">dE</span> (Element)</div>
+                <div class="legend-item"><span class="dot" style="background:#22c55e"></span> Net Field <span class="math vec" style="margin-left:4px">E</span></div>
+                <div class="legend-item"><span class="dot" style="background:#3b82f6; opacity:0.6"></span> Lateral Components</div>
+            `;
+        }
+    }
+
+    // --- Drawing Primitives ---
+
+    function drawLine(x1, y1, x2, y2, color, width=1, dash=[]) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.setLineDash(dash);
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    function drawArrow(x1, y1, dx, dy, color, width=2) {
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x1+dx, y1+dy);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.stroke();
+
+        // Head
+        const angle = Math.atan2(dy, dx);
+        const head = 8 + width;
+        ctx.beginPath();
+        ctx.moveTo(x1+dx, y1+dy);
+        ctx.lineTo(x1+dx - head * Math.cos(angle - Math.PI/6), y1+dy - head * Math.sin(angle - Math.PI/6));
+        ctx.lineTo(x1+dx - head * Math.cos(angle + Math.PI/6), y1+dy - head * Math.sin(angle + Math.PI/6));
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    function drawPoint(x, y, color="#0f172a", r=4) {
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fillStyle=color; ctx.fill();
+    }
+
+    // --- LINE MODE (2D) ---
+
+    function renderLineMode() {
+        const progress = parseInt(ui.progress.value);
+        const dist = parseFloat(ui.dist.value);
+        const showComp = ui.components.checked;
+        const vecMult = parseFloat(ui.scale.value); // Get user scale
+
+        const cx = state.width * 0.3;
+        const cy = state.height * 0.5;
+        const scale = 70;
+
+        // Axes
+        drawLine(0, cy, state.width, cy, "#e2e8f0");
+        drawLine(cx, 0, cx, state.height, "#e2e8f0");
+
+        // Line Charge
+        const halfL = LINE_LEN / 2;
+        drawLine(cx, cy - halfL*scale, cx, cy + halfL*scale, "#94a3b8", 6);
+
+        // Point P
+        const px = cx + dist * scale;
+        const py = cy;
+        drawPoint(px, py);
+        ctx.fillStyle="#0f172a"; ctx.fillText("P", px+10, py-10);
+
+        // Calc
+        let Ex_net = 0, Ey_net = 0;
+        let cur_dE = {x:0, y:0};
+        let cur_src = {x:cx, y:cy};
+
+        const dy = LINE_LEN / SEGMENTS_LINE;
+
+        for (let i=0; i<progress; i++) {
+            const y_phys = -halfL + (i + 0.5) * dy;
+
+            const rx = dist;
+            const ry = -y_phys;
+            const r2 = rx*rx + ry*ry;
+            const r = Math.sqrt(r2);
+
+            const mag = 1.0 / r2;
+            const dEx = mag * (rx/r);
+            const dEy = mag * (ry/r);
+
+            Ex_net += dEx;
+            Ey_net += dEy;
+
+            if (i === progress - 1) {
+                cur_dE = {x: dEx, y: dEy};
+                cur_src = {x: cx, y: cy - y_phys*scale};
+            }
+        }
+
+        // Highlight
+        if (progress > 0) {
+            const y_done = -halfL + progress * dy;
+            drawLine(cx, cy - (-halfL)*scale, cx, cy - y_done*scale, "#3b82f6", 6);
+            ctx.fillStyle="#ef4444"; ctx.fillRect(cx-4, cur_src.y-2, 8, 4);
+        }
+
+        // Vectors
+        if (progress > 0) {
+            const vScale = 150 * vecMult;
+            const netScale = 10 * vecMult;
+
+            // dE
+            drawArrow(px, py, cur_dE.x*vScale, -cur_dE.y*vScale, "#ef4444", 2);
+            drawLine(cur_src.x, cur_src.y, px, py, "#cbd5e1", 1, [4,4]);
+
+            if (showComp) {
+                // Components
+                drawArrow(px, py, cur_dE.x*vScale, 0, "rgba(239, 68, 68, 0.3)", 1);
+                drawArrow(px, py, 0, -cur_dE.y*vScale, "rgba(59, 130, 246, 0.4)", 1);
+            }
+
+            // Net
+            drawArrow(px, py, Ex_net*netScale, -Ey_net*netScale, "#22c55e", 4);
+        }
+    }
+
+    // --- PLANE MODE (ISOMETRIC) ---
+
+    function isoProject(x, y, z) {
+        // x: horizontal on plane, y: depth on plane, z: height above plane
+        const scale = 50;
+        const centerX = state.width * 0.5;
+        const centerY = state.height * 0.6; // shift down to see Z height
+
+        // Isometric formula
+        const screenX = (x - y) * Math.cos(Math.PI/6) * scale + centerX;
+        const screenY = (x + y) * Math.sin(Math.PI/6) * scale - z * scale + centerY;
+
+        return {x: screenX, y: screenY};
+    }
+
+    function renderPlaneMode() {
+        const progress = parseInt(ui.progress.value);
+        const dist = parseFloat(ui.dist.value);
+        const showComp = ui.components.checked;
+        const vecMult = parseFloat(ui.scale.value); // Get user scale
+
+        // Constants for grid scan
+        const range = PLANE_SIZE / 2;
+        const step = PLANE_SIZE / PLANE_GRID_SIZE;
+
+        // Draw Axes
+        const o = isoProject(0,0,0);
+        const zAx = isoProject(0,0,4);
+        drawLine(o.x, o.y, zAx.x, zAx.y, "#cbd5e1", 2); // Z-axis
+
+        // Point P
+        const P_world = {x:0, y:0, z:dist};
+        const P_scr = isoProject(0,0,dist);
+        drawPoint(P_scr.x, P_scr.y);
+        ctx.fillStyle="#0f172a"; ctx.fillText("P", P_scr.x+10, P_scr.y);
+
+        // Integration Logic (Grid Scan)
+        let Ez_net = 0;
+        let cur_dE = {x:0, y:0, z:0};
+        let cur_pos_scr = null; // Screen pos of current element
+
+        // Loop through all cells
+        for (let i = 0; i < PLANE_CELLS; i++) {
+            const ix = i % PLANE_GRID_SIZE;
+            const iy = Math.floor(i / PLANE_GRID_SIZE);
+
+            // Compute center of cell (phys coords)
+            const x_phys = -range + (ix + 0.5) * step;
+            const y_phys = -range + (iy + 0.5) * step;
+
+            // Project corners for drawing the square
+            const hs = step / 2;
+            const p1 = isoProject(x_phys - hs, y_phys - hs, 0);
+            const p2 = isoProject(x_phys + hs, y_phys - hs, 0);
+            const p3 = isoProject(x_phys + hs, y_phys + hs, 0);
+            const p4 = isoProject(x_phys - hs, y_phys + hs, 0);
+
+            // Logic: Is this cell active?
+            const isActive = i < progress;
+            const isCurrent = i === progress - 1;
+
+            // Draw Square
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.lineTo(p3.x, p3.y);
+            ctx.lineTo(p4.x, p4.y);
+            ctx.closePath();
+
+            if (isActive) {
+                ctx.fillStyle = isCurrent ? "rgba(239, 68, 68, 0.8)" : "rgba(59, 130, 246, 0.25)";
+                ctx.fill();
+            }
+            // Grid lines
+            ctx.strokeStyle = isActive ? "rgba(37, 99, 235, 0.3)" : "#e2e8f0";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Physics Accumulation
+            if (isActive) {
+                const rx = 0 - x_phys;
+                const ry = 0 - y_phys;
+                const rz = dist - 0;
+                const r2 = rx*rx + ry*ry + rz*rz;
+                const r = Math.sqrt(r2);
+
+                // dE vector
+                const mag = 1.0 / r2; // dq = 1
+
+                Ez_net += mag * (rz/r);
+
+                if (isCurrent) {
+                    cur_dE = {
+                        x: mag * (rx/r),
+                        y: mag * (ry/r),
+                        z: mag * (rz/r)
+                    };
+                    cur_pos_scr = isoProject(x_phys, y_phys, 0);
+                }
+            }
+        }
+
+        // Draw Vectors
+        if (progress > 0) {
+            // DRASTICALLY REDUCED BASE CONSTANTS FOR PLANE
+            const vScale = 5 * vecMult;   // Reduced from 60 (approx 12x smaller)
+            const netScale = 0.15 * vecMult; // Reduced from 1.5 (10x smaller)
+
+            // 1. Current dE (Red)
+            if (cur_pos_scr) {
+                // Tip position
+                const tip_dE = isoProject(
+                    0 + cur_dE.x * vScale,
+                    0 + cur_dE.y * vScale,
+                    dist + cur_dE.z * vScale
+                );
+
+                // Draw vector
+                drawArrow(P_scr.x, P_scr.y, tip_dE.x - P_scr.x, tip_dE.y - P_scr.y, "#ef4444", 2);
+
+                // Line of Sight
+                drawLine(cur_pos_scr.x, cur_pos_scr.y, P_scr.x, P_scr.y, "#cbd5e1", 1, [2,2]);
+                // Label
+                ctx.fillStyle = "#ef4444";
+                ctx.fillText("dq", cur_pos_scr.x + 5, cur_pos_scr.y);
+
+                // Components (Lateral)
+                if (showComp) {
+                    const lat_tip = isoProject(
+                        0 + cur_dE.x * vScale,
+                        0 + cur_dE.y * vScale,
+                        dist
+                    );
+                    drawArrow(P_scr.x, P_scr.y, lat_tip.x - P_scr.x, lat_tip.y - P_scr.y, "rgba(59, 130, 246, 0.5)", 2);
+                }
+            }
+
+            // 2. Net Field (Green) - Always Up
+            if (Ez_net > 0) {
+                const tip_net = isoProject(0, 0, dist + Ez_net * netScale);
+                drawArrow(P_scr.x, P_scr.y, tip_net.x - P_scr.x, tip_net.y - P_scr.y, "#22c55e", 4);
+            }
+        }
+    }
+
+    function render() {
+        ctx.clearRect(0, 0, state.width, state.height);
+        if (state.mode === 'line') renderLineMode();
+        else renderPlaneMode();
+    }
+
+    // Event Listeners
+    function update() {
+        render();
+    }
+
+    ui.progress.addEventListener('input', (e) => {
+        ui.dispProgress.innerText = Math.round((e.target.value / e.target.max) * 100) + "%";
+        update();
+    });
+
+    ui.dist.addEventListener('input', (e) => {
+        ui.dispDist.innerText = parseFloat(e.target.value).toFixed(1);
+        update();
+    });
+
+    ui.scale.addEventListener('input', (e) => {
+        ui.dispScale.innerText = parseFloat(e.target.value).toFixed(1) + "x";
+        update();
+    });
+
+    ui.components.addEventListener('change', update);
+
+    ui.btnLine.addEventListener('click', () => {
+        state.mode = 'line';
+        ui.btnLine.classList.add('active');
+        ui.btnPlane.classList.remove('active');
+        ui.progress.value = 0;
+        ui.dispProgress.innerText = "0%";
+        setContent();
+        update();
+    });
+
+    ui.btnPlane.addEventListener('click', () => {
+        state.mode = 'plane';
+        ui.btnPlane.classList.add('active');
+        ui.btnLine.classList.remove('active');
+        ui.progress.value = 0;
+        ui.dispProgress.innerText = "0%";
+        setContent();
+        update();
+    });
+
+    // Resize
+    window.addEventListener('resize', () => {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        state.width = rect.width;
+        state.height = rect.height;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        state.width = rect.width;
+        state.height = rect.height;
+        update();
+    });
+
+    // Init
+    window.dispatchEvent(new Event('resize'));
+    setContent();
+
+})();
+</script>
+
+</body>
+</html>
