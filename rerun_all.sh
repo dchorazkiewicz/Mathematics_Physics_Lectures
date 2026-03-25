@@ -44,6 +44,7 @@ ln -sf ../../../Lecture_Notes/Physics/Waves.html Waves.html
 # Tworzenie linków w katalogu Electromagnetism
 cd "$ROOT_DIR/docs/Physics/Electromagnetism" || exit
 ln -sf ../../../Lecture_Notes/Physics/Electromagnetism.html Electromagnetism.html
+ln -sf ../../../Lecture_Notes/Physics/Electromagnetism_2.html Electromagnetism_2.html
 ln -sf ../../../Lecture_Notes/Physics/Circuits.html Circuits.html
 
 # Tworzenie linków w katalogu Experiments_Statistics
