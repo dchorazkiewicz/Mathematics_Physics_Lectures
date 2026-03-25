@@ -1242,6 +1242,14 @@ $$
 
 This principle allows for elegant solutions to motion problems without explicitly solving Newton’s second law.
 
+For the basic cases discussed above, the total mechanical energy takes the following forms:
+
+| Case | Kinetic energy $KE$ | Potential energy $U$ | Total energy $E = KE + U$ |
+|---|---|---|---|
+| Uniform gravity near Earth | $\frac{1}{2}mv^2$ | $mgy$ | $E = \frac{1}{2}mv^2 + mgy$ |
+| Harmonic oscillator | $\frac{1}{2}mv^2$ | $\frac{1}{2}kx^2$ | $E = \frac{1}{2}mv^2 + \frac{1}{2}kx^2$ |
+| Newtonian gravity | $\frac{1}{2}mv^2$ | $-\frac{GmM}{r}$ | $E = \frac{1}{2}mv^2 - \frac{GmM}{r}$ |
+
 #### Gravity example
 
 $$
