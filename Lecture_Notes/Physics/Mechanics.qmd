@@ -1130,6 +1130,71 @@ $$
 
 This relation means that the force is the negative gradient of the potential energy function.
 
+To see formally why this implies **path independence**, consider an infinitesimal displacement
+$d\mathbf{r} = (dx,dy,dz)$. The differential of the potential energy is
+
+$$
+dU = \frac{\partial U}{\partial x}dx + \frac{\partial U}{\partial y}dy + \frac{\partial U}{\partial z}dz
+= \nabla U \cdot d\mathbf{r}
+$$
+
+Using $\mathbf{F} = -\nabla U$, the infinitesimal work becomes
+
+$$
+dW = \mathbf{F}\cdot d\mathbf{r}
+= - \nabla U \cdot d\mathbf{r}
+= -dU
+$$
+
+Now integrate from point $A$ to point $B$ along any path $\mathcal{C}$:
+
+$$
+W_{A\to B}
+= \int_{\mathcal{C}} \mathbf{F}\cdot d\mathbf{r}
+= - \int_{\mathcal{C}} dU
+= -(U(B)-U(A))
+$$
+
+Therefore
+
+$$
+W_{A\to B} = U(A)-U(B)
+$$
+
+and this depends only on the values of the potential at the endpoints, not on the path $\mathcal{C}$ itself.
+
+In particular, for any closed path:
+
+$$
+\oint \mathbf{F}\cdot d\mathbf{r} = 0
+$$
+
+because the initial and final points are the same, so the change in potential energy is zero.
+
+Combining this with the work-kinetic energy theorem,
+
+$$
+W = \Delta KE
+$$
+
+we get for conservative forces
+
+$$
+\Delta KE = -\Delta U
+$$
+
+which is equivalent to
+
+$$
+\Delta(KE + U)=0
+$$
+
+or
+
+$$
+KE + U = \text{const.}
+$$
+
 #### Examples of Potential Forces
 
 There are several important cases of conservative forces where the **work-energy theorem** and **energy conservation** provide quick solutions to problems:
