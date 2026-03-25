@@ -1426,6 +1426,21 @@ $$
 
 So the escape velocity is larger than the circular orbital velocity by the factor $\sqrt{2}$.
 
+For reference, the escape velocities from the surfaces of selected bodies in the Solar System are approximately:
+
+| Body | Escape velocity [km/s] |
+|---|---:|
+| Sun | 617.7 |
+| Mercury | 4.25 |
+| Venus | 10.36 |
+| Earth | 11.19 |
+| Moon | 2.38 |
+| Mars | 5.03 |
+| Jupiter | 59.5 |
+| Saturn | 35.5 |
+| Uranus | 21.3 |
+| Neptune | 23.5 |
+
 ### Numerical Example: Escape Velocity for Earth
 
 - Mass of Earth ($M_\text{Earth}$): $5.972 \times 10^{24} \ \mathrm{kg}$
