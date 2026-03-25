@@ -1041,32 +1041,62 @@ $$
 dW = (m a_x dx + m a_y dy + m a_z dz)
 $$
 
-Since acceleration is the derivative of velocity:
+To make the next step clear, let us look at one component, for example the $x$-direction:
 
 $$
-a_x = \frac{dv_x}{dt}, \quad a_y = \frac{dv_y}{dt}, \quad a_z = \frac{dv_z}{dt}
+a_x dx
 $$
 
-And velocity components are:
+Since acceleration is the derivative of velocity and velocity is the derivative of position, we have:
 
 $$
-v_x = \frac{dx}{dt}, \quad v_y = \frac{dy}{dt}, \quad v_z = \frac{dz}{dt}
+a_x = \frac{dv_x}{dt},
+\qquad
+v_x = \frac{dx}{dt}
 $$
 
-Rewriting work in terms of velocity:
+so
+
+$$
+dx = v_x \, dt
+$$
+
+Substituting this into $a_x dx$ gives:
+
+$$
+a_x dx = \frac{dv_x}{dt} \, dx
+= \frac{dv_x}{dt} \, (v_x dt)
+= v_x \, dv_x
+$$
+
+Exactly the same argument works for the $y$ and $z$ components:
+
+$$
+a_y dy = v_y \, dv_y,
+\qquad
+a_z dz = v_z \, dv_z
+$$
+
+Therefore:
 
 $$
 dW = m v_x dv_x + m v_y dv_y + m v_z dv_z
 $$
 
 ### Kinetic Energy
-To determine the total work done from an initial velocity $\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})$ to a final velocity $\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})$:
+To determine the total work done from an initial velocity $\mathbf{v}_1 = (v_{1x}, v_{1y}, v_{1z})$ to a final velocity $\mathbf{v}_2 = (v_{2x}, v_{2y}, v_{2z})$, we integrate:
 
 $$
 W = \int_{v_{1x}}^{v_{2x}} m v_x dv_x + \int_{v_{1y}}^{v_{2y}} m v_y dv_y + \int_{v_{1z}}^{v_{2z}} m v_z dv_z
 $$
 
-Solving each integral:
+Each term has the form:
+
+$$
+\int m v \, dv = \frac{1}{2} m v^2
+$$
+
+so:
 
 $$
 W = m \left( \frac{v_{2x}^2}{2} - \frac{v_{1x}^2}{2} \right) + m \left( \frac{v_{2y}^2}{2} - \frac{v_{1y}^2}{2} \right) + m \left( \frac{v_{2z}^2}{2} - \frac{v_{1z}^2}{2} \right)
@@ -1509,4 +1539,3 @@ plt.axis('equal')
 plt.show()
 
 ```
-
