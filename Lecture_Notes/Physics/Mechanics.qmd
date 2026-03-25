@@ -1023,7 +1023,7 @@ plt.show()
 
 ### Work
 
-In three-dimensional motion, the work done by a force $\mathbf{F}$ acting on an object as it moves along a displacement $d\mathbf{r}$ is given by the **dot product**:
+In three-dimensional motion, the work ([app](https://dchorazkiewicz.github.io/Physics_Problems_Repo/anim/work_integral.html)) done by a force $\mathbf{F}$ acting on an object as it moves along a displacement $d\mathbf{r}$ is given by the **dot product**:
 
 $$
 dW = \mathbf{F} \cdot d\mathbf{r}
