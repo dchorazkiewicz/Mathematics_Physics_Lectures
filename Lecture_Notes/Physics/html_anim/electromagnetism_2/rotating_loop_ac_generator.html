@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Loop and AC Generation</title>
+</head>
+<body>
+<div class="generator-widget">
+    <style>
+        .generator-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1160px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .generator-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .generator-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .generator-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(360px, 2fr) minmax(300px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .generator-widget .canvas-card,
+        .generator-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .generator-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .generator-widget .plot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .generator-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .generator-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .generator-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .generator-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .generator-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .generator-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .generator-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .generator-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .generator-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .generator-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .generator-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .generator-widget .btn-start { background: #1f8b4c; }
+        .generator-widget .btn-pause { background: #c97b00; }
+        .generator-widget .btn-reset { background: #557187; }
+
+        .generator-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .generator-widget .equation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .generator-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .generator-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .generator-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 940px) {
+            .generator-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Rotating Loop and the Origin of AC Generation</h3>
+    <p>
+        The loop rotates around an axis perpendicular to the magnetic field. Because the angle between the area vector
+        and <strong>B</strong> changes in time, the magnetic flux changes, and Faraday's law produces a sinusoidal EMF.
+        Drag on the 3D scene to rotate the camera.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="scene-canvas" width="800" height="520"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#1e88e5;"></span> magnetic field B</div>
+                <div class="legend-item"><span class="swatch" style="background:#c94c4c;"></span> rotating loop</div>
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> area vector n</div>
+                <div class="legend-item"><span class="swatch" style="background:rgba(78, 121, 167, 0.25);"></span> projected area</div>
+            </div>
+            <div class="plot-grid">
+                <canvas class="flux-canvas" width="800" height="180"></canvas>
+                <canvas class="emf-canvas" width="800" height="180"></canvas>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Generator parameters</h4>
+
+                    <div class="row">
+                        <label>Number of turns N <span class="value n-value"></span></label>
+                        <input class="n-slider" type="range" min="1" max="20" step="1" value="10">
+                    </div>
+
+                    <div class="row">
+                        <label>Loop area S <span class="value s-value"></span></label>
+                        <input class="s-slider" type="range" min="0.2" max="2.0" step="0.05" value="1.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Magnetic field B <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="0.2" max="2.0" step="0.05" value="1.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Angular speed ω <span class="value omega-value"></span></label>
+                        <input class="omega-slider" type="range" min="0.4" max="5.0" step="0.1" value="2.0">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Phase and camera</h4>
+
+                    <div class="row">
+                        <label>Initial phase θ₀ <span class="value phase-value"></span></label>
+                        <input class="phase-slider" type="range" min="-180" max="180" step="1" value="25">
+                    </div>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.3" max="2.5" step="0.1" value="1.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Camera yaw <span class="value yaw-value"></span></label>
+                        <input class="yaw-slider" type="range" min="-180" max="180" step="1" value="-30">
+                    </div>
+
+                    <div class="row">
+                        <label>Camera pitch <span class="value pitch-value"></span></label>
+                        <input class="pitch-slider" type="range" min="-70" max="70" step="1" value="20">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+                <div class="info-box stats-box"></div>
+                <div class="info-box note-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const sceneCanvas = widget.querySelector('.scene-canvas');
+        const sceneCtx = sceneCanvas.getContext('2d');
+        const fluxCanvas = widget.querySelector('.flux-canvas');
+        const fluxCtx = fluxCanvas.getContext('2d');
+        const emfCanvas = widget.querySelector('.emf-canvas');
+        const emfCtx = emfCanvas.getContext('2d');
+
+        const nSlider = widget.querySelector('.n-slider');
+        const sSlider = widget.querySelector('.s-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const omegaSlider = widget.querySelector('.omega-slider');
+        const phaseSlider = widget.querySelector('.phase-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+        const yawSlider = widget.querySelector('.yaw-slider');
+        const pitchSlider = widget.querySelector('.pitch-slider');
+
+        const nValue = widget.querySelector('.n-value');
+        const sValue = widget.querySelector('.s-value');
+        const bValue = widget.querySelector('.b-value');
+        const omegaValue = widget.querySelector('.omega-value');
+        const phaseValue = widget.querySelector('.phase-value');
+        const speedValue = widget.querySelector('.speed-value');
+        const yawValue = widget.querySelector('.yaw-value');
+        const pitchValue = widget.querySelector('.pitch-value');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const noteBox = widget.querySelector('.note-box');
+
+        const state = {
+            running: false,
+            t: 0,
+            lastFrame: null,
+            cameraYaw: -30 * Math.PI / 180,
+            cameraPitch: 20 * Math.PI / 180,
+            dragging: false,
+            dragX: 0,
+            dragY: 0
+        };
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function getParams() {
+            return {
+                N: parseFloat(nSlider.value),
+                S: parseFloat(sSlider.value),
+                B: parseFloat(bSlider.value),
+                omega: parseFloat(omegaSlider.value),
+                phase: parseFloat(phaseSlider.value) * Math.PI / 180,
+                speed: parseFloat(speedSlider.value)
+            };
+        }
+
+        function updateLabels() {
+            nValue.textContent = `${format(parseFloat(nSlider.value), 0)}`;
+            sValue.textContent = `${format(parseFloat(sSlider.value), 2)} m²`;
+            bValue.textContent = `${format(parseFloat(bSlider.value), 2)} T`;
+            omegaValue.textContent = `${format(parseFloat(omegaSlider.value), 1)} rad/s`;
+            phaseValue.textContent = `${format(parseFloat(phaseSlider.value), 0)}°`;
+            speedValue.textContent = `${format(parseFloat(speedSlider.value), 1)}x`;
+            yawValue.textContent = `${format(parseFloat(yawSlider.value), 0)}°`;
+            pitchValue.textContent = `${format(parseFloat(pitchSlider.value), 0)}°`;
+        }
+
+        function resetState() {
+            state.running = false;
+            state.t = 0;
+            state.lastFrame = null;
+            state.cameraYaw = parseFloat(yawSlider.value) * Math.PI / 180;
+            state.cameraPitch = parseFloat(pitchSlider.value) * Math.PI / 180;
+            draw();
+        }
+
+        function cameraProject(point) {
+            const yaw = state.cameraYaw;
+            const pitch = state.cameraPitch;
+
+            const x1 = Math.cos(yaw) * point.x + Math.sin(yaw) * point.z;
+            const z1 = -Math.sin(yaw) * point.x + Math.cos(yaw) * point.z;
+            const y1 = point.y;
+
+            const y2 = Math.cos(pitch) * y1 - Math.sin(pitch) * z1;
+            const z2 = Math.sin(pitch) * y1 + Math.cos(pitch) * z1;
+            const x2 = x1;
+
+            const distance = 820;
+            const perspective = distance / (distance - z2);
+            return {
+                x: sceneCanvas.width * 0.46 + x2 * perspective,
+                y: sceneCanvas.height * 0.56 - y2 * perspective,
+                depth: z2
+            };
+        }
+
+        function drawArrow2D(ctx, fromX, fromY, toX, toY, color, width, label) {
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const size = 10;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - size * Math.cos(angle - Math.PI / 6), toY - size * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - size * Math.cos(angle + Math.PI / 6), toY - size * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+
+            if (label) {
+                ctx.font = '15px Segoe UI';
+                ctx.fillText(label, toX + 8, toY - 8);
+            }
+            ctx.restore();
+        }
+
+        function drawArrow3D(from, to, color, width, label) {
+            const p1 = cameraProject(from);
+            const p2 = cameraProject(to);
+            drawArrow2D(sceneCtx, p1.x, p1.y, p2.x, p2.y, color, width, label);
+        }
+
+        function sceneFrame() {
+            sceneCtx.save();
+            sceneCtx.strokeStyle = '#d7e4ef';
+            sceneCtx.lineWidth = 1;
+            sceneCtx.strokeRect(24, 24, 752, 472);
+            sceneCtx.fillStyle = '#536b83';
+            sceneCtx.font = '16px Segoe UI';
+            sceneCtx.fillText('3D rotating loop in a uniform magnetic field', 38, 50);
+            sceneCtx.restore();
+        }
+
+        function drawAxes() {
+            drawArrow3D({ x: 0, y: 0, z: 0 }, { x: 180, y: 0, z: 0 }, '#7d8fa2', 2.3, 'x');
+            drawArrow3D({ x: 0, y: 0, z: 0 }, { x: 0, y: 180, z: 0 }, '#7d8fa2', 2.3, 'y');
+            drawArrow3D({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 180 }, '#7d8fa2', 2.3, 'z');
+        }
+
+        function drawField(params) {
+            const len = 80 + 40 * (params.B - 0.2) / 1.8;
+            for (let y = -110; y <= 110; y += 55) {
+                for (let z = -110; z <= 110; z += 55) {
+                    drawArrow3D(
+                        { x: -220, y, z },
+                        { x: -220 + len, y, z },
+                        '#1e88e5',
+                        2.0
+                    );
+                }
+            }
+        }
+
+        function getNormal(theta) {
+            return { x: Math.cos(theta), y: 0, z: Math.sin(theta) };
+        }
+
+        function getLoopBasis(theta) {
+            return {
+                e1: { x: 0, y: 1, z: 0 },
+                e2: { x: -Math.sin(theta), y: 0, z: Math.cos(theta) }
+            };
+        }
+
+        function drawProjectedArea(theta, params) {
+            const radius = 95;
+            const projectedScale = Math.abs(Math.cos(theta));
+            const points = [];
+            for (let i = 0; i <= 120; i++) {
+                const a = (i / 120) * Math.PI * 2;
+                points.push(cameraProject({
+                    x: -120,
+                    y: radius * Math.cos(a),
+                    z: radius * projectedScale * Math.sin(a)
+                }));
+            }
+            sceneCtx.save();
+            sceneCtx.fillStyle = 'rgba(78, 121, 167, 0.22)';
+            sceneCtx.strokeStyle = 'rgba(78, 121, 167, 0.55)';
+            sceneCtx.lineWidth = 2;
+            sceneCtx.beginPath();
+            points.forEach((p, index) => {
+                if (index === 0) {
+                    sceneCtx.moveTo(p.x, p.y);
+                } else {
+                    sceneCtx.lineTo(p.x, p.y);
+                }
+            });
+            sceneCtx.closePath();
+            sceneCtx.fill();
+            sceneCtx.stroke();
+
+            sceneCtx.fillStyle = '#436487';
+            sceneCtx.font = '14px Segoe UI';
+            const label = cameraProject({ x: -120, y: 130, z: 0 });
+            sceneCtx.fillText('projection on plane perpendicular to B', label.x - 78, label.y - 8);
+            sceneCtx.restore();
+        }
+
+        function drawLoop(theta) {
+            const basis = getLoopBasis(theta);
+            const radius = 95;
+            const segments = [];
+
+            for (let i = 0; i < 160; i++) {
+                const a1 = (i / 160) * Math.PI * 2;
+                const a2 = ((i + 1) / 160) * Math.PI * 2;
+                const p1 = {
+                    x: radius * (Math.cos(a1) * basis.e1.x + Math.sin(a1) * basis.e2.x),
+                    y: radius * (Math.cos(a1) * basis.e1.y + Math.sin(a1) * basis.e2.y),
+                    z: radius * (Math.cos(a1) * basis.e1.z + Math.sin(a1) * basis.e2.z)
+                };
+                const p2 = {
+                    x: radius * (Math.cos(a2) * basis.e1.x + Math.sin(a2) * basis.e2.x),
+                    y: radius * (Math.cos(a2) * basis.e1.y + Math.sin(a2) * basis.e2.y),
+                    z: radius * (Math.cos(a2) * basis.e1.z + Math.sin(a2) * basis.e2.z)
+                };
+                const c1 = cameraProject(p1);
+                const c2 = cameraProject(p2);
+                segments.push({
+                    c1,
+                    c2,
+                    depth: 0.5 * (c1.depth + c2.depth),
+                    front: 0.5 * (p1.z + p2.z) > 0
+                });
+            }
+
+            segments.sort((a, b) => a.depth - b.depth);
+            segments.forEach((segment) => {
+                sceneCtx.save();
+                sceneCtx.strokeStyle = segment.front ? '#c94c4c' : '#e5b0b0';
+                sceneCtx.lineWidth = segment.front ? 5 : 3.2;
+                sceneCtx.beginPath();
+                sceneCtx.moveTo(segment.c1.x, segment.c1.y);
+                sceneCtx.lineTo(segment.c2.x, segment.c2.y);
+                sceneCtx.stroke();
+                sceneCtx.restore();
+            });
+
+            const label = cameraProject({ x: 0, y: 118, z: 0 });
+            sceneCtx.save();
+            sceneCtx.fillStyle = '#b84343';
+            sceneCtx.font = '15px Segoe UI';
+            sceneCtx.fillText('rotating loop', label.x - 38, label.y - 18);
+            sceneCtx.restore();
+        }
+
+        function drawLoopCurrent(theta, emf) {
+            const basis = getLoopBasis(theta);
+            const radius = 95;
+            const direction = emf >= 0 ? 1 : -1;
+            [0.2, 2.2, 4.15].forEach((a) => {
+                const p = {
+                    x: radius * (Math.cos(a) * basis.e1.x + Math.sin(a) * basis.e2.x),
+                    y: radius * (Math.cos(a) * basis.e1.y + Math.sin(a) * basis.e2.y),
+                    z: radius * (Math.cos(a) * basis.e1.z + Math.sin(a) * basis.e2.z)
+                };
+                const tangent = {
+                    x: radius * (-Math.sin(a) * basis.e1.x + Math.cos(a) * basis.e2.x),
+                    y: radius * (-Math.sin(a) * basis.e1.y + Math.cos(a) * basis.e2.y),
+                    z: radius * (-Math.sin(a) * basis.e1.z + Math.cos(a) * basis.e2.z)
+                };
+                drawArrow3D(
+                    p,
+                    {
+                        x: p.x + direction * 0.44 * tangent.x,
+                        y: p.y + direction * 0.44 * tangent.y,
+                        z: p.z + direction * 0.44 * tangent.z
+                    },
+                    '#c94c4c',
+                    4.5
+                );
+            });
+
+            const label = cameraProject({ x: 118, y: -118, z: 0 });
+            sceneCtx.save();
+            sceneCtx.fillStyle = '#b84343';
+            sceneCtx.font = '14px Segoe UI';
+            sceneCtx.fillText(emf >= 0 ? 'current direction (+)' : 'current direction (-)', label.x - 44, label.y + 8);
+            sceneCtx.restore();
+        }
+
+        function drawPlots(params, theta, flux, emf) {
+            const period = 2 * Math.PI / Math.max(params.omega, 1e-6);
+            const tMax = Math.max(period, 0.5);
+            const fluxAmp = params.N * params.B * params.S;
+            const emfAmp = fluxAmp * params.omega;
+
+            function drawPlot(ctx, title, seriesColor, currentValue, amplitude, sampler) {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.save();
+                ctx.fillStyle = '#f8fbff';
+                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.strokeStyle = '#d7e4ef';
+                ctx.strokeRect(0.5, 0.5, ctx.canvas.width - 1, ctx.canvas.height - 1);
+
+                const left = 54;
+                const right = ctx.canvas.width - 16;
+                const top = 24;
+                const bottom = ctx.canvas.height - 28;
+                const height = bottom - top;
+                const width = right - left;
+                const midY = top + height / 2;
+
+                ctx.strokeStyle = '#dbe6f1';
+                ctx.lineWidth = 1;
+                for (let i = 0; i <= 4; i++) {
+                    const y = top + i * height / 4;
+                    ctx.beginPath();
+                    ctx.moveTo(left, y);
+                    ctx.lineTo(right, y);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = '#8ba0b5';
+                ctx.lineWidth = 1.7;
+                ctx.beginPath();
+                ctx.moveTo(left, midY);
+                ctx.lineTo(right, midY);
+                ctx.stroke();
+
+                ctx.strokeStyle = seriesColor;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                for (let i = 0; i <= 180; i++) {
+                    const tt = (i / 180) * tMax;
+                    const val = sampler(tt);
+                    const x = left + (tt / tMax) * width;
+                    const y = midY - (val / Math.max(amplitude, 1e-6)) * (height * 0.42);
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+
+                const markerX = left + ((state.t % tMax) / tMax) * width;
+                const markerY = midY - (currentValue / Math.max(amplitude, 1e-6)) * (height * 0.42);
+                ctx.fillStyle = seriesColor;
+                ctx.beginPath();
+                ctx.arc(markerX, markerY, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#36516d';
+                ctx.font = '15px Segoe UI';
+                ctx.fillText(title, 16, 18);
+                ctx.fillText('t', right - 8, bottom + 18);
+                ctx.fillText(`0`, left - 16, midY + 5);
+                ctx.fillText(`${format(amplitude, 2)}`, 8, top + 5);
+                ctx.fillText(`${format(-amplitude, 2)}`, 2, bottom + 4);
+                ctx.restore();
+            }
+
+            drawPlot(
+                fluxCtx,
+                'Magnetic flux Φ(t)',
+                '#1f8b4c',
+                flux,
+                Math.max(fluxAmp, 1),
+                (tt) => fluxAmp * Math.cos(params.omega * tt + params.phase)
+            );
+
+            drawPlot(
+                emfCtx,
+                'Induced EMF ℰ(t)',
+                '#d97706',
+                emf,
+                Math.max(emfAmp, 1),
+                (tt) => fluxAmp * params.omega * Math.sin(params.omega * tt + params.phase)
+            );
+        }
+
+        function updateText(params, theta, flux, emf) {
+            const fluxAmp = params.N * params.B * params.S;
+            const emfAmp = fluxAmp * params.omega;
+
+            eqBox.textContent =
+                `Φ(t) = NBS cos(ωt + θ₀) = ${format(flux, 2)},   ℰ(t) = NBSω sin(ωt + θ₀) = ${format(emf, 2)}`;
+
+            statsBox.innerHTML =
+                `Current angle: <strong>${format(theta * 180 / Math.PI, 1)}°</strong>.<br>` +
+                `Flux amplitude = <strong>${format(fluxAmp, 2)}</strong>, EMF amplitude = <strong>${format(emfAmp, 2)}</strong>.<br>` +
+                `Increasing the angular speed ω leaves the flux amplitude unchanged but increases the EMF amplitude linearly.`;
+
+            noteBox.innerHTML =
+                `What changes physically is the <strong>angle</strong> between the area vector and the magnetic field.<br>` +
+                `The blue translucent shape is the projected area on the plane perpendicular to B, which sets the instantaneous flux. The current arrows reverse when the induced EMF changes sign.`;
+        }
+
+        function draw() {
+            sceneCtx.clearRect(0, 0, sceneCanvas.width, sceneCanvas.height);
+            const params = getParams();
+            const theta = params.omega * state.t + params.phase;
+            const normal = getNormal(theta);
+            const flux = params.N * params.B * params.S * Math.cos(theta);
+            const emf = params.N * params.B * params.S * params.omega * Math.sin(theta);
+            const nLen = 80 + 90 * (params.S - 0.2) / 1.8;
+            const bLen = 100 + 90 * (params.B - 0.2) / 1.8;
+
+            sceneFrame();
+            drawAxes();
+            drawField(params);
+            drawProjectedArea(theta, params);
+            drawLoop(theta);
+            drawLoopCurrent(theta, emf);
+            drawArrow3D({ x: 0, y: 0, z: 0 }, { x: bLen, y: 0, z: 0 }, '#1e88e5', 4, 'B');
+            drawArrow3D({ x: 0, y: 0, z: 0 }, { x: nLen * normal.x, y: 0, z: nLen * normal.z }, '#1f8b4c', 4, 'n');
+            drawPlots(params, theta, flux, emf);
+            updateText(params, theta, flux, emf);
+        }
+
+        function update(dt) {
+            const params = getParams();
+            state.t += dt * params.speed;
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                return;
+            }
+
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (!state.running) {
+                state.running = true;
+                requestAnimationFrame(tick);
+            }
+        }
+
+        function pause() {
+            state.running = false;
+        }
+
+        [nSlider, sSlider, bSlider, omegaSlider, phaseSlider, speedSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                draw();
+            });
+        });
+
+        [yawSlider, pitchSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                state.cameraYaw = parseFloat(yawSlider.value) * Math.PI / 180;
+                state.cameraPitch = parseFloat(pitchSlider.value) * Math.PI / 180;
+                updateLabels();
+                draw();
+            });
+        });
+
+        btnStart.addEventListener('click', start);
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        sceneCanvas.addEventListener('mousedown', (event) => {
+            state.dragging = true;
+            state.dragX = event.clientX;
+            state.dragY = event.clientY;
+        });
+
+        window.addEventListener('mouseup', () => {
+            state.dragging = false;
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            if (!state.dragging) {
+                return;
+            }
+
+            const dx = event.clientX - state.dragX;
+            const dy = event.clientY - state.dragY;
+            state.dragX = event.clientX;
+            state.dragY = event.clientY;
+
+            state.cameraYaw += dx * 0.008;
+            state.cameraPitch = clamp(state.cameraPitch + dy * 0.006, -1.15, 1.15);
+
+            yawSlider.value = format(state.cameraYaw * 180 / Math.PI, 0);
+            pitchSlider.value = format(state.cameraPitch * 180 / Math.PI, 0);
+            updateLabels();
+            draw();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+<!-- Poczatek Widgetu Coulomba -->
+<style>
+    /* Style ograniczone tylko do tego kontenera (#coulomb-widget-container) */
+    #coulomb-widget-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+        width: 100%;
+        height: 600px; /* Wysokość widgetu w dokumencie */
+        display: flex;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+        user-select: none;
+        margin: 20px 0; /* Odstęp od tekstu w dokumencie */
+    }
+
+    #coulomb-widget-container * {
+        box-sizing: border-box;
+    }
+
+    /* Panel boczny */
+    #coulomb-widget-container .panel {
+        width: 300px;
+        flex-shrink: 0;
+        background-color: rgba(255, 255, 255, 0.98);
+        border-right: 1px solid #cbd5e1;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    /* Obszar Canvas */
+    #coulomb-widget-container .canvas-area {
+        flex-grow: 1;
+        position: relative;
+        background-color: #ffffff;
+    }
+
+    #coulomb-widget-container canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: crosshair;
+        background-color: #ffffff;
+        box-shadow: inset 0 0 20px #e2e8f0;
+    }
+
+    /* Elementy UI */
+    #coulomb-widget-container h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #cbd5e1;
+        color: #1e293b;
+    }
+
+    #coulomb-widget-container h3 {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #64748b;
+        margin: 16px 0 8px 0;
+        font-weight: 600;
+    }
+
+    #coulomb-widget-container .btn {
+        background-color: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+
+    #coulomb-widget-container .btn:hover {
+        background-color: #e2e8f0;
+    }
+
+    #coulomb-widget-container .btn:active {
+        transform: scale(0.98);
+    }
+
+    #coulomb-widget-container .btn-red { background-color: #ef4444; color: white; border: none; }
+    #coulomb-widget-container .btn-red:hover { background-color: #dc2626; }
+
+    #coulomb-widget-container .btn-blue { background-color: #3b82f6; color: white; border: none; }
+    #coulomb-widget-container .btn-blue:hover { background-color: #2563eb; }
+
+    #coulomb-widget-container .btn-active {
+        background-color: #e2e8f0;
+        border-color: #94a3b8;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    #coulomb-widget-container .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    #coulomb-widget-container .flex-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    /* Slider */
+    #coulomb-widget-container input[type=range] {
+        width: 100%;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+
+    /* Legenda i Info */
+    #coulomb-widget-container .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8rem;
+        color: #475569;
+        margin-bottom: 6px;
+    }
+
+    #coulomb-widget-container .color-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    }
+
+    #coulomb-widget-container .overlay-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: right;
+        pointer-events: none;
+        opacity: 0.9;
+    }
+
+    #coulomb-widget-container .readout-main {
+        font-family: monospace;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    #coulomb-widget-container .readout-sub {
+        font-size: 0.7rem;
+        color: #64748b;
+    }
+
+    #coulomb-widget-container .math-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 6px;
+        font-family: monospace;
+        font-size: 0.75rem;
+        text-align: center;
+        color: #64748b;
+        margin-top: 8px;
+    }
+</style>
+
+<div id="coulomb-widget-container">
+
+    <!-- Panel Sterowania -->
+    <div class="panel">
+        <h2>Coulomb's Law</h2>
+
+        <!-- Scenarios -->
+        <h3>Scenarios</h3>
+        <div class="grid-2" id="cw-scenario-btns">
+            <button class="btn btn-active" onclick="CW_setScenario('dipole', this)">Dipole</button>
+            <button class="btn" onclick="CW_setScenario('plates', this)">Plates</button>
+            <button class="btn" onclick="CW_setScenario('ring', this)">Ring</button>
+            <button class="btn" onclick="CW_setScenario('concentric', this)">Concentric</button>
+        </div>
+
+        <!-- Density (Hidden by default) -->
+        <div id="cw-density-control" style="display:none; margin-top:12px; background:#f1f5f9; padding:8px; border-radius:4px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:#475569; margin-bottom:4px;">
+                <span>SOURCE COUNT</span>
+                <span id="cw-density-val">12</span>
+            </div>
+            <input type="range" id="cw-density-slider" min="4" max="40" step="2" value="12">
+        </div>
+
+        <!-- Field Tracing -->
+        <h3>Field Tracing</h3>
+        <div class="flex-row">
+            <button id="cw-trace-btn" class="btn" style="flex:1;">⏺ Record Path</button>
+            <button id="cw-clear-trace" class="btn">Clear</button>
+        </div>
+
+        <!-- Manual Setup -->
+        <h3>Manual Setup</h3>
+        <div class="grid-2">
+            <button id="cw-add-pos" class="btn btn-red">+ Add (+)</button>
+            <button id="cw-add-neg" class="btn btn-blue">− Add (-)</button>
+        </div>
+
+        <div style="margin-top:12px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:4px;">
+                <span>Force Scale (k)</span>
+                <span id="cw-scale-val" style="color:#64748b;">1.0x</span>
+            </div>
+            <input type="range" id="cw-scale-slider" min="0.1" max="5.0" step="0.1" value="1.0">
+        </div>
+
+        <button id="cw-reset-btn" class="btn" style="width:100%; margin-top:12px;">Reset All</button>
+
+        <!-- Legend -->
+        <div style="margin-top:auto; padding-top:16px; border-top:1px solid #e2e8f0;">
+            <div class="legend-item"><div class="color-dot" style="background:#ef4444;"></div> +Q Source</div>
+            <div class="legend-item"><div class="color-dot" style="background:#3b82f6;"></div> -Q Source</div>
+            <div class="legend-item"><div class="color-dot" style="background:#facc15;"></div> +q Test Charge</div>
+            <div class="legend-item">
+                <div style="width:20px; height:2px; background:#1e293b; margin-right:5px;"></div>
+                Net Force
+            </div>
+            <div class="math-box">F = k · Q·q / r²</div>
+        </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-area">
+        <canvas id="cw-canvas"></canvas>
+        <div class="overlay-info">
+            <div id="cw-readout" class="readout-main">F_net = 0</div>
+            <div class="readout-sub">Arbitrary Units</div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Namespace variables to avoid global pollution in Quarto
+    const container = document.getElementById('coulomb-widget-container');
+    const canvas = document.getElementById('cw-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // UI Refs
+    const scaleSlider = document.getElementById('cw-scale-slider');
+    const scaleDisplay = document.getElementById('cw-scale-val');
+    const densitySlider = document.getElementById('cw-density-slider');
+    const densityDisplay = document.getElementById('cw-density-val');
+    const densityControl = document.getElementById('cw-density-control');
+    const traceBtn = document.getElementById('cw-trace-btn');
+    const readout = document.getElementById('cw-readout');
+
+    // Config
+    const CONFIG = {
+        k: 80000, maxForce: 250, rSrc: 16, rTest: 9, minDist: 25, traceDist: 25
+    };
+
+    // State
+    let sources = [];
+    let testQ = { x: 0, y: 0, dragging: false };
+    let dragIdx = -1;
+    let scaleMult = 1.0;
+    let scenario = 'dipole';
+    let density = 12;
+    let tracing = false;
+    let traceHist = [];
+    let lastTrace = { x:-999, y:-999 };
+
+    // --- Core Functions ---
+
+    function resize() {
+        const rect = container.querySelector('.canvas-area').getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+
+    // Initial resize
+    setTimeout(resize, 100);
+    // Resize observer is safer than window resize for embedded content
+    new ResizeObserver(resize).observe(container);
+
+    window.CW_setScenario = function(type, btn) {
+        scenario = type;
+
+        // Update buttons
+        container.querySelectorAll('#cw-scenario-btns .btn').forEach(b => b.classList.remove('btn-active'));
+        btn.classList.add('btn-active');
+
+        // Toggle density
+        densityControl.style.display = (type === 'dipole') ? 'none' : 'block';
+
+        traceHist = [];
+        loadScenario();
+    };
+
+    function loadScenario() {
+        const w = canvas.width || 800;
+        const h = canvas.height || 600;
+        const cx = w/2, cy = h/2;
+
+        sources = [];
+        if(!testQ.dragging && traceHist.length === 0) { testQ.x = cx; testQ.y = cy; }
+
+        if(scenario === 'dipole') {
+            testQ.y = cy - 80;
+            sources.push({x: w*0.35, y: cy, q: 5, c: '#ef4444'});
+            sources.push({x: w*0.65, y: cy, q: -5, c: '#3b82f6'});
+        } else if(scenario === 'plates') {
+            const count = density;
+            const H = 300, sp = H/(count-1), off = H/2;
+            const qv = 40/count;
+            for(let i=0; i<count; i++) {
+                let y = cy - off + i*sp;
+                sources.push({x: cx-100, y:y, q:qv, c:'#ef4444'});
+                sources.push({x: cx+100, y:y, q:-qv, c:'#3b82f6'});
+            }
+        } else if(scenario === 'ring') {
+            const R = 140, qv = 60/density;
+            for(let i=0; i<density; i++) {
+                let a = (i/density)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R, y: cy+Math.sin(a)*R, q:qv, c:'#ef4444'});
+            }
+        } else if(scenario === 'concentric') {
+            const R1 = 70, R2 = 160;
+            const n1 = Math.max(4, Math.floor(density/3));
+            const n2 = density - n1;
+            const qv = 40/n1;
+            for(let i=0; i<n1; i++) {
+                let a = (i/n1)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R1, y: cy+Math.sin(a)*R1, q:qv, c:'#ef4444'});
+            }
+            for(let i=0; i<n2; i++) {
+                let a = (i/n2)*Math.PI*2;
+                sources.push({x: cx+Math.cos(a)*R2, y: cy+Math.sin(a)*R2, q:-qv, c:'#3b82f6'});
+            }
+            testQ.x = cx + 220;
+        }
+    }
+
+    // --- Interaction ---
+    function getPos(e) {
+        const r = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - r.left, y: clientY - r.top };
+    }
+
+    function start(e) {
+        const p = getPos(e);
+        // Delete (Middle click)
+        if(e.button === 1) {
+            e.preventDefault();
+            for(let i=sources.length-1; i>=0; i--) {
+                if(Math.hypot(p.x - sources[i].x, p.y - sources[i].y) < CONFIG.rSrc * 1.5) {
+                    sources.splice(i, 1); return;
+                }
+            }
+            return;
+        }
+        // Test Charge
+        if(Math.hypot(p.x - testQ.x, p.y - testQ.y) < CONFIG.rTest * 2.5) {
+            testQ.dragging = true; return;
+        }
+        // Sources
+        for(let i=0; i<sources.length; i++) {
+            if(Math.hypot(p.x - sources[i].x, p.y - sources[i].y) < CONFIG.rSrc * 1.5) {
+                dragIdx = i; return;
+            }
+        }
+    }
+
+    function move(e) {
+        if(!testQ.dragging && dragIdx === -1) return;
+        const p = getPos(e);
+        if(testQ.dragging) { testQ.x = p.x; testQ.y = p.y; }
+        else if(dragIdx !== -1) { sources[dragIdx].x = p.x; sources[dragIdx].y = p.y; }
+    }
+
+    function end() { testQ.dragging = false; dragIdx = -1; lastTrace = {x:-999, y:-999}; }
+
+    // Listeners on Canvas only
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end); // capture mouse up outside
+    canvas.addEventListener('touchstart', (e)=>{if(e.touches.length===1){e.preventDefault();start(e)}}, {passive:false});
+    canvas.addEventListener('touchmove', (e)=>{e.preventDefault();move(e)}, {passive:false});
+    canvas.addEventListener('touchend', (e)=>{e.preventDefault();end()});
+
+    // --- Controls ---
+    document.getElementById('cw-add-pos').onclick = ()=>sources.push({x:canvas.width/2+20, y:canvas.height/2+20, q:5, c:'#ef4444'});
+    document.getElementById('cw-add-neg').onclick = ()=>sources.push({x:canvas.width/2-20, y:canvas.height/2-20, q:-5, c:'#3b82f6'});
+    document.getElementById('cw-reset-btn').onclick = ()=>{ traceHist=[]; loadScenario(); };
+    document.getElementById('cw-clear-trace').onclick = ()=>traceHist=[];
+
+    traceBtn.onclick = () => {
+        tracing = !tracing;
+        traceBtn.innerText = tracing ? "⏹ Stop" : "⏺ Record Path";
+        traceBtn.style.color = tracing ? "#dc2626" : "#334155";
+        lastTrace = {x:-999, y:-999};
+    };
+
+    scaleSlider.oninput = (e) => { scaleMult = parseFloat(e.target.value); scaleDisplay.innerText = scaleMult.toFixed(1)+'x'; };
+    densitySlider.oninput = (e) => { density = parseInt(e.target.value); densityDisplay.innerText = density; loadScenario(); };
+
+    // --- Rendering ---
+    function drawArrow(x, y, vx, vy, color, w, dashed) {
+        const len = Math.hypot(vx, vy);
+        if(len < 2) return;
+        const head = Math.min(10, len*0.4);
+        const ang = Math.atan2(vy, vx);
+        const tx = x+vx, ty = y+vy;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineWidth = w;
+        ctx.strokeStyle = color;
+        if(dashed) ctx.setLineDash([4,4]);
+        ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke();
+
+        ctx.setLineDash([]);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(tx-head*Math.cos(ang-Math.PI/6), ty-head*Math.sin(ang-Math.PI/6));
+        ctx.lineTo(tx-head*Math.cos(ang+Math.PI/6), ty-head*Math.sin(ang+Math.PI/6));
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        // Grid
+        ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1; ctx.beginPath();
+        for(let i=0; i<canvas.width; i+=50) { ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); }
+        for(let i=0; i<canvas.height; i+=50) { ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); }
+        ctx.stroke();
+
+        let nFx = 0, nFy = 0;
+        let k = CONFIG.k * scaleMult;
+
+        // Calc
+        sources.forEach(s => {
+            let dx = testQ.x - s.x, dy = testQ.y - s.y;
+            let d2 = dx*dx + dy*dy;
+            let d = Math.sqrt(d2);
+            let safeD = Math.max(d, CONFIG.minDist);
+            let F = k * (s.q * 1) / (safeD*safeD); // q test = 1
+            let fx = F * (dx/d), fy = F * (dy/d);
+            nFx += fx; nFy += fy;
+
+            // Draw component
+            let vLen = Math.hypot(fx, fy);
+            let sc = (vLen > CONFIG.maxForce) ? CONFIG.maxForce/vLen : 1;
+            drawArrow(testQ.x, testQ.y, fx*sc, fy*sc, s.c, 1, true);
+        });
+
+        // Trace Record
+        if(tracing && testQ.dragging) {
+            if(Math.hypot(testQ.x-lastTrace.x, testQ.y-lastTrace.y) > CONFIG.traceDist) {
+                traceHist.push({x:testQ.x, y:testQ.y, fx:nFx, fy:nFy});
+                lastTrace = {x:testQ.x, y:testQ.y};
+                if(traceHist.length > 400) traceHist.shift();
+            }
+        }
+
+        // Draw Trace
+        ctx.globalAlpha = 0.4;
+        traceHist.forEach(pt => {
+            let vLen = Math.hypot(pt.fx, pt.fy);
+            let sc = (vLen > CONFIG.maxForce) ? CONFIG.maxForce/vLen : 1;
+            drawArrow(pt.x, pt.y, pt.fx*sc, pt.fy*sc, '#64748b', 1.5, false);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, 2, 0, 7); ctx.fillStyle='#64748b'; ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        // Net Force
+        let netLen = Math.hypot(nFx, nFy);
+        let netSc = (netLen > CONFIG.maxForce) ? CONFIG.maxForce/netLen : 1;
+        if(netLen > 0.5) drawArrow(testQ.x, testQ.y, nFx*netSc, nFy*netSc, '#1e293b', 4, false);
+
+        readout.innerText = "F_net = " + Math.round(netLen);
+
+        // Sources
+        sources.forEach(s => {
+            ctx.beginPath(); ctx.arc(s.x, s.y, CONFIG.rSrc, 0, 7);
+            ctx.fillStyle = s.c; ctx.fill();
+            ctx.strokeStyle='white'; ctx.lineWidth=2; ctx.stroke();
+            ctx.fillStyle='white'; ctx.font='bold 14px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+            ctx.fillText(s.q>0?'+':'−', s.x, s.y);
+        });
+
+        // Test Q
+        ctx.beginPath(); ctx.arc(testQ.x, testQ.y, CONFIG.rTest, 0, 7);
+        ctx.fillStyle = '#facc15'; ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle='#0f172a'; ctx.font='bold 10px Arial';
+        ctx.fillText('q', testQ.x, testQ.y);
+
+        requestAnimationFrame(animate);
+    }
+
+    loadScenario();
+    animate();
+
+})(); // End IIFE
+</script>
+<!-- Koniec Widgetu Coulomba -->
+
+</body>
+</html>

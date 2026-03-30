@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorentz Force Animation</title>
+</head>
+<body>
+<div class="lorentz-widget">
+    <style>
+        .lorentz-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .lorentz-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .lorentz-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .lorentz-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 2fr) minmax(260px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .lorentz-widget .canvas-card,
+        .lorentz-widget .panel {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .lorentz-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background:
+                linear-gradient(180deg, rgba(248, 251, 255, 0.98), rgba(239, 246, 252, 0.98));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .lorentz-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .lorentz-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .lorentz-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .lorentz-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .lorentz-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .lorentz-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .lorentz-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .lorentz-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .lorentz-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .lorentz-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .lorentz-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .lorentz-widget .btn-start { background: #1f8b4c; }
+        .lorentz-widget .btn-pause { background: #c97b00; }
+        .lorentz-widget .btn-reset { background: #557187; }
+
+        .lorentz-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .lorentz-widget .equation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .lorentz-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .lorentz-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lorentz-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .lorentz-widget .check-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .lorentz-widget .check-row input {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 860px) {
+            .lorentz-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Lorentz Force: motion of a charged particle in a uniform magnetic field</h3>
+    <p>
+        The magnetic field is perpendicular to the screen. Positive <strong>B</strong> means the field points out of the screen,
+        negative <strong>B</strong> means it points into the screen. The particle moves in the plane, while
+        the Lorentz force keeps turning the velocity vector.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="sim-canvas" width="760" height="520"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#e53935;"></span> particle</div>
+                <div class="legend-item"><span class="swatch" style="background:#1e88e5;"></span> velocity vector</div>
+                <div class="legend-item"><span class="swatch" style="background:#43a047;"></span> magnetic force</div>
+                <div class="legend-item"><span class="swatch" style="background:#8e24aa;"></span> trajectory</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Particle and field</h4>
+
+                    <div class="row">
+                        <label>Charge q <span class="value q-value"></span></label>
+                        <input class="q-slider" type="range" min="-2" max="2" step="0.1" value="1">
+                    </div>
+
+                    <div class="row">
+                        <label>Mass m <span class="value m-value"></span></label>
+                        <input class="m-slider" type="range" min="0.5" max="5" step="0.1" value="1.5">
+                    </div>
+
+                    <div class="row">
+                        <label>Magnetic field Bz <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="-3" max="3" step="0.1" value="1.2">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Initial velocity</h4>
+
+                    <div class="row">
+                        <label>vx(0) <span class="value vx-value"></span></label>
+                        <input class="vx-slider" type="range" min="-6" max="6" step="0.1" value="3.5">
+                    </div>
+
+                    <div class="row">
+                        <label>vy(0) <span class="value vy-value"></span></label>
+                        <input class="vy-slider" type="range" min="-6" max="6" step="0.1" value="1.8">
+                    </div>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.3" max="2.5" step="0.1" value="1">
+                    </div>
+
+                    <div class="row">
+                        <label>Zoom out <span class="value zoom-value"></span></label>
+                        <input class="zoom-slider" type="range" min="1.0" max="4.0" step="0.1" value="1">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Display</h4>
+                    <div class="check-row">
+                        <span>Show velocity vector</span>
+                        <input class="show-v" type="checkbox" checked>
+                    </div>
+                    <div class="check-row">
+                        <span>Show force vector</span>
+                        <input class="show-f" type="checkbox" checked>
+                    </div>
+                    <div class="check-row">
+                        <span>Show trajectory trail</span>
+                        <input class="show-trail" type="checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+
+                <div class="info-box stats-box"></div>
+
+                <div class="info-box">
+                    In this model the magnetic force is always perpendicular to the instantaneous velocity,
+                    so it changes the <strong>direction</strong> of motion but not the <strong>speed</strong>.
+                    That is why a pure magnetic field does no work on the particle.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const qSlider = widget.querySelector('.q-slider');
+        const mSlider = widget.querySelector('.m-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const vxSlider = widget.querySelector('.vx-slider');
+        const vySlider = widget.querySelector('.vy-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+        const zoomSlider = widget.querySelector('.zoom-slider');
+
+        const qValue = widget.querySelector('.q-value');
+        const mValue = widget.querySelector('.m-value');
+        const bValue = widget.querySelector('.b-value');
+        const vxValue = widget.querySelector('.vx-value');
+        const vyValue = widget.querySelector('.vy-value');
+        const speedValue = widget.querySelector('.speed-value');
+        const zoomValue = widget.querySelector('.zoom-value');
+
+        const showV = widget.querySelector('.show-v');
+        const showF = widget.querySelector('.show-f');
+        const showTrail = widget.querySelector('.show-trail');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+
+        const world = {
+            xmin: -12,
+            xmax: 12,
+            ymin: -8,
+            ymax: 8
+        };
+
+        const state = {
+            t: 0,
+            running: false,
+            x: 0,
+            y: 0,
+            vx: 3.5,
+            vy: 1.8,
+            trail: [],
+            lastFrame: null,
+            zoom: 1
+        };
+
+        function getParams() {
+            return {
+                q: parseFloat(qSlider.value),
+                m: parseFloat(mSlider.value),
+                B: parseFloat(bSlider.value),
+                speedFactor: parseFloat(speedSlider.value),
+                zoom: parseFloat(zoomSlider.value)
+            };
+        }
+
+        function formatSigned(value, digits = 2) {
+            const fixed = value.toFixed(digits);
+            return value > 0 ? `+${fixed}` : fixed;
+        }
+
+        function updateLabels() {
+            qValue.textContent = `${formatSigned(parseFloat(qSlider.value), 1)} C`;
+            mValue.textContent = `${parseFloat(mSlider.value).toFixed(1)} kg`;
+            bValue.textContent = `${formatSigned(parseFloat(bSlider.value), 1)} T`;
+            vxValue.textContent = `${formatSigned(parseFloat(vxSlider.value), 1)} m/s`;
+            vyValue.textContent = `${formatSigned(parseFloat(vySlider.value), 1)} m/s`;
+            speedValue.textContent = `${parseFloat(speedSlider.value).toFixed(1)}x`;
+            zoomValue.textContent = `${parseFloat(zoomSlider.value).toFixed(1)}x`;
+        }
+
+        function resetState() {
+            state.t = 0;
+            state.x = 0;
+            state.y = 0;
+            state.vx = parseFloat(vxSlider.value);
+            state.vy = parseFloat(vySlider.value);
+            state.trail = [{ x: state.x, y: state.y }];
+            state.lastFrame = null;
+            state.zoom = parseFloat(zoomSlider.value);
+            draw();
+        }
+
+        function toCanvas(x, y) {
+            const zoom = state.zoom || 1;
+            const xMin = world.xmin * zoom;
+            const xMax = world.xmax * zoom;
+            const yMin = world.ymin * zoom;
+            const yMax = world.ymax * zoom;
+            const px = (x - xMin) / (xMax - xMin) * canvas.width;
+            const py = canvas.height - (y - yMin) / (yMax - yMin) * canvas.height;
+            return { x: px, y: py };
+        }
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = '#d7e5f3';
+            ctx.lineWidth = 1;
+            const zoom = state.zoom || 1;
+            const xMin = world.xmin * zoom;
+            const xMax = world.xmax * zoom;
+            const yMin = world.ymin * zoom;
+            const yMax = world.ymax * zoom;
+
+            for (let x = Math.ceil(xMin); x <= xMax; x += 1) {
+                const p1 = toCanvas(x, yMin);
+                const p2 = toCanvas(x, yMax);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+
+            for (let y = Math.ceil(yMin); y <= yMax; y += 1) {
+                const p1 = toCanvas(xMin, y);
+                const p2 = toCanvas(xMax, y);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = '#7c95ad';
+            ctx.lineWidth = 1.8;
+
+            const xAxis1 = toCanvas(xMin, 0);
+            const xAxis2 = toCanvas(xMax, 0);
+            ctx.beginPath();
+            ctx.moveTo(xAxis1.x, xAxis1.y);
+            ctx.lineTo(xAxis2.x, xAxis2.y);
+            ctx.stroke();
+
+            const yAxis1 = toCanvas(0, yMin);
+            const yAxis2 = toCanvas(0, yMax);
+            ctx.beginPath();
+            ctx.moveTo(yAxis1.x, yAxis1.y);
+            ctx.lineTo(yAxis2.x, yAxis2.y);
+            ctx.stroke();
+
+            ctx.fillStyle = '#526b84';
+            ctx.font = '12px Segoe UI';
+            ctx.fillText('x', xAxis2.x - 14, xAxis2.y - 8);
+            ctx.fillText('y', yAxis2.x + 8, yAxis2.y + 14);
+            ctx.restore();
+        }
+
+        function drawFieldIndicator(B) {
+            ctx.save();
+            ctx.font = '13px Segoe UI';
+            ctx.fillStyle = '#294865';
+            ctx.fillText('Magnetic field Bz', 18, 24);
+
+            const cols = 6;
+            const rows = 4;
+            const startX = 22;
+            const startY = 42;
+            const spacing = 30;
+
+            for (let j = 0; j < rows; j++) {
+                for (let i = 0; i < cols; i++) {
+                    const x = startX + i * spacing;
+                    const y = startY + j * spacing;
+                    if (Math.abs(B) < 0.02) {
+                        ctx.strokeStyle = '#97aabd';
+                        ctx.strokeRect(x - 6, y - 6, 12, 12);
+                    } else if (B > 0) {
+                        ctx.strokeStyle = '#0b5cab';
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 7, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+                        ctx.fillStyle = '#0b5cab';
+                        ctx.fill();
+                    } else {
+                        ctx.strokeStyle = '#b54d1d';
+                        ctx.lineWidth = 1.6;
+                        ctx.beginPath();
+                        ctx.moveTo(x - 5, y - 5);
+                        ctx.lineTo(x + 5, y + 5);
+                        ctx.moveTo(x + 5, y - 5);
+                        ctx.lineTo(x - 5, y + 5);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            ctx.fillStyle = '#5b7088';
+            const text = Math.abs(B) < 0.02 ? 'B = 0' : (B > 0 ? 'dots: out of screen' : 'crosses: into screen');
+            ctx.fillText(text, 18, 175);
+            ctx.restore();
+        }
+
+        function drawArrow(from, vec, color, scale, label) {
+            const end = {
+                x: from.x + vec.x * scale,
+                y: from.y - vec.y * scale
+            };
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(from.x, from.y);
+            ctx.lineTo(end.x, end.y);
+            ctx.stroke();
+
+            const angle = Math.atan2(end.y - from.y, end.x - from.x);
+            const size = 10;
+            ctx.beginPath();
+            ctx.moveTo(end.x, end.y);
+            ctx.lineTo(end.x - size * Math.cos(angle - Math.PI / 6), end.y - size * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(end.x - size * Math.cos(angle + Math.PI / 6), end.y - size * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.font = '13px Segoe UI';
+            ctx.fillText(label, end.x + 6, end.y - 6);
+            ctx.restore();
+        }
+
+        function computeForce(vx, vy, q, B) {
+            return {
+                x: q * vy * B,
+                y: -q * vx * B
+            };
+        }
+
+        function derivatives(s, q, m, B) {
+            return {
+                dx: s.vx,
+                dy: s.vy,
+                dvx: (q / m) * s.vy * B,
+                dvy: -(q / m) * s.vx * B
+            };
+        }
+
+        function rk4Step(s, dt, q, m, B) {
+            const k1 = derivatives(s, q, m, B);
+
+            const s2 = {
+                x: s.x + 0.5 * dt * k1.dx,
+                y: s.y + 0.5 * dt * k1.dy,
+                vx: s.vx + 0.5 * dt * k1.dvx,
+                vy: s.vy + 0.5 * dt * k1.dvy
+            };
+            const k2 = derivatives(s2, q, m, B);
+
+            const s3 = {
+                x: s.x + 0.5 * dt * k2.dx,
+                y: s.y + 0.5 * dt * k2.dy,
+                vx: s.vx + 0.5 * dt * k2.dvx,
+                vy: s.vy + 0.5 * dt * k2.dvy
+            };
+            const k3 = derivatives(s3, q, m, B);
+
+            const s4 = {
+                x: s.x + dt * k3.dx,
+                y: s.y + dt * k3.dy,
+                vx: s.vx + dt * k3.dvx,
+                vy: s.vy + dt * k3.dvy
+            };
+            const k4 = derivatives(s4, q, m, B);
+
+            return {
+                x: s.x + (dt / 6) * (k1.dx + 2 * k2.dx + 2 * k3.dx + k4.dx),
+                y: s.y + (dt / 6) * (k1.dy + 2 * k2.dy + 2 * k3.dy + k4.dy),
+                vx: s.vx + (dt / 6) * (k1.dvx + 2 * k2.dvx + 2 * k3.dvx + k4.dvx),
+                vy: s.vy + (dt / 6) * (k1.dvy + 2 * k2.dvy + 2 * k3.dvy + k4.dvy)
+            };
+        }
+
+        function draw() {
+            const { q, m, B, zoom } = getParams();
+            state.zoom = zoom;
+            const force = computeForce(state.vx, state.vy, q, B);
+            const speed = Math.hypot(state.vx, state.vy);
+            const forceMag = Math.hypot(force.x, force.y);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            drawFieldIndicator(B);
+
+            if (showTrail.checked && state.trail.length > 1) {
+                ctx.save();
+                ctx.strokeStyle = '#8e24aa';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                const start = toCanvas(state.trail[0].x, state.trail[0].y);
+                ctx.moveTo(start.x, start.y);
+                for (let i = 1; i < state.trail.length; i++) {
+                    const p = toCanvas(state.trail[i].x, state.trail[i].y);
+                    ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            const particleCanvas = toCanvas(state.x, state.y);
+
+            ctx.save();
+            ctx.fillStyle = q >= 0 ? '#e53935' : '#3949ab';
+            ctx.beginPath();
+            ctx.arc(particleCanvas.x, particleCanvas.y, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px Segoe UI';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(q >= 0 ? '+' : '-', particleCanvas.x, particleCanvas.y + 0.5);
+            ctx.restore();
+
+            if (showV.checked) {
+                drawArrow(particleCanvas, { x: state.vx, y: state.vy }, '#1e88e5', 18, 'v');
+            }
+
+            if (showF.checked) {
+                drawArrow(particleCanvas, force, '#43a047', 14, 'F');
+            }
+
+            const omega = Math.abs(B) < 1e-6 ? 0 : q * B / m;
+            const radius = Math.abs(q * B) < 1e-6 ? Infinity : (m * speed) / Math.abs(q * B);
+            const kinetic = 0.5 * m * speed * speed;
+
+            eqBox.textContent = `F = q (v × B),   with B = (0, 0, ${B.toFixed(1)}) and v = (${state.vx.toFixed(2)}, ${state.vy.toFixed(2)}, 0)`;
+
+            statsBox.innerHTML = `
+                <strong>Instantaneous values</strong><br>
+                t = ${state.t.toFixed(2)} s<br>
+                position = (${state.x.toFixed(2)}, ${state.y.toFixed(2)}) m<br>
+                speed = ${speed.toFixed(2)} m/s<br>
+                |F| = ${forceMag.toFixed(2)} N<br>
+                cyclotron angular speed = ${omega.toFixed(2)} rad/s<br>
+                radius = ${Number.isFinite(radius) ? radius.toFixed(2) + ' m' : 'infinite'}<br>
+                kinetic energy = ${kinetic.toFixed(2)} J
+            `;
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = timestamp;
+                return;
+            }
+
+            if (state.lastFrame == null) {
+                state.lastFrame = timestamp;
+            }
+
+            const dtReal = (timestamp - state.lastFrame) / 1000;
+            state.lastFrame = timestamp;
+
+            const { q, m, B, speedFactor } = getParams();
+            const dt = Math.min(dtReal * speedFactor, 0.02);
+            const next = rk4Step(state, dt, q, m, B);
+
+            state.x = next.x;
+            state.y = next.y;
+            state.vx = next.vx;
+            state.vy = next.vy;
+            state.t += dt;
+
+            state.trail.push({ x: state.x, y: state.y });
+            if (state.trail.length > 900) {
+                state.trail.shift();
+            }
+
+            draw();
+
+            requestAnimationFrame(tick);
+        }
+
+        [qSlider, mSlider, bSlider, vxSlider, vySlider, speedSlider, zoomSlider, showV, showF, showTrail].forEach(el => {
+            el.addEventListener('input', () => {
+                updateLabels();
+                if (el === vxSlider || el === vySlider) {
+                    resetState();
+                } else {
+                    draw();
+                }
+            });
+        });
+
+        btnStart.addEventListener('click', () => {
+            if (!state.running) {
+                state.running = true;
+                state.lastFrame = null;
+                requestAnimationFrame(tick);
+            }
+        });
+
+        btnPause.addEventListener('click', () => {
+            state.running = false;
+        });
+
+        btnReset.addEventListener('click', () => {
+            state.running = false;
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>
