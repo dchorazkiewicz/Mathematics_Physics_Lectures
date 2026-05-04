@@ -1,11 +1,11 @@
 /site/
-*.html
 *.log
 *.pyc
 .idea/
 sandbox/Circuite_files/*
 .venv
 .python-version
+*.html
 sandbox/nowe_materialy/Math_Notes/Analysis.aux
 sandbox/nowe_materialy/Math_Notes/Problems.aux
 sandbox/nowe_materialy/Math_Notes/Problems.fdb_latexmk

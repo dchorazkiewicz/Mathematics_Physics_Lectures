@@ -24,2241 +24,707 @@ format:
         href: https://dchorazkiewicz.github.io/Mathematics_Physics_Lectures
 ---
 
-## Scope of this lecture
+## Lecture idea
 
-This lecture continues electromagnetism with a focus on magnetism, electromagnetic induction, and the bridge to circuit models.
+This lecture is designed around concrete physical problems rather than abstract definitions alone.
+Each chapter corresponds directly to one problem from the list
+`Lecture_Notes/Physics/problems_repo/problem_set_06_electromagnetism_ii.md`.
 
-Main themes:
+The goal is to understand magnetism and electromagnetic induction through:
 
-- magnetic force on moving charges,
-- magnetic force on currents,
-- magnetic flux,
-- Faraday's law,
-- Lenz's law,
-- motional EMF,
-- self-induction,
-- RL circuits,
-- transformers,
-- eddy currents and applications.
+- force acting on a moving charge,
+- motion in magnetic and crossed fields,
+- torque and energy of current loops,
+- generation of EMF by motion and rotation,
+- electrodynamic braking,
+- self-induction and energy stored in fields,
+- transformers and eddy currents.
 
----
+Later, each chapter can be paired with a dedicated HTML animation placed in:
 
-## 1. Lorentz force and motion of charged particles
+`Lecture_Notes/Physics/html_anim/electromagnetism_2`
 
-### 1.1 Magnetic part of the Lorentz force
+## What we want to understand
 
-In the first electromagnetism lecture, we saw that an electric field acts on a charge through the force
+Before solving formulas, it helps to keep a few general questions in mind:
 
-$$
-\mathbf{F}_E = q \mathbf{E}.
-$$
-
-This is not yet the full story. If a charged particle moves in a region where a magnetic field is present, there is an additional contribution to the force. The full Lorentz force is
-
-$$
-\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}),
-$$
-
-where:
-
-- $q$ is the particle charge,
-- $\mathbf{E}$ is the electric field,
-- $\mathbf{B}$ is the magnetic field,
-- $\mathbf{v}$ is the instantaneous velocity of the particle.
-
-In this chapter we focus on the magnetic part:
-
-$$
-\mathbf{F}_B = q\, \mathbf{v} \times \mathbf{B}.
-$$
-
-This formula already tells us something important: the magnetic force depends not only on where the particle is, but also on how it is moving. A charge at rest in a magnetic field feels no magnetic force.
-
-### 1.2 Direction of the force
-
-The vector product determines the direction of the force. The magnetic force is perpendicular to both the velocity and the magnetic field. Its magnitude is
-
-$$
-F_B = |q|\, v B \sin\theta,
-$$
-
-where $\theta$ is the angle between $\mathbf{v}$ and $\mathbf{B}$.
-
-Several limiting cases are worth remembering:
-
-- if $\theta = 0^\circ$ or $\theta = 180^\circ$, then $\sin\theta = 0$, so the magnetic force vanishes,
-- if $\theta = 90^\circ$, then the force has maximal magnitude $F_B = |q|vB$.
-
-For a positive charge, the direction is given by the right-hand rule applied to $\mathbf{v} \times \mathbf{B}$. For a negative charge, the force points in the opposite direction.
-
-The most common conceptual mistake is to think that the force points along the magnetic field lines. It does not. In the simplest case, it points sideways, perpendicular to the motion.
-
-### 1.3 Uniform magnetic field
-
-Assume now that the magnetic field is uniform:
-
-$$
-\mathbf{B} = \text{const}.
-$$
-
-This is the standard model used to build physical intuition. In a uniform magnetic field, the magnitude of the magnetic force depends on the speed and the orientation of the velocity, but not on position.
-
-If $\mathbf{v} \parallel \mathbf{B}$, then
-
-$$
-\mathbf{F}_B = 0,
-$$
-
-so the particle continues in a straight line with constant velocity.
-
-If $\mathbf{v} \perp \mathbf{B}$, then the force is always perpendicular to the velocity. This means the force changes the direction of motion, but not its speed. That is exactly the pattern required for uniform circular motion.
-
-If the velocity has both a parallel and a perpendicular component,
-
-$$
-\mathbf{v} = \mathbf{v}_{\parallel} + \mathbf{v}_{\perp},
-$$
-
-then only $\mathbf{v}_{\perp}$ contributes to the magnetic force. The parallel component remains unchanged.
-
-### 1.4 Circular and helical motion
-
-Consider the case
-
-$$
-\mathbf{E}=0, \qquad \mathbf{B}=B\hat{k},
-$$
-
-and first assume that the particle enters the field with $\mathbf{v} \perp \mathbf{B}$. Then the magnetic force acts as a centripetal force:
-
-$$
-|q|vB = \frac{mv^2}{r}.
-$$
-
-From this we obtain the radius of the circular path:
-
-$$
-r = \frac{mv}{|q|B}.
-$$
-
-The angular speed is
-
-$$
-\omega = \frac{v}{r} = \frac{|q|B}{m},
-$$
-
-and the period of revolution is
-
-$$
-T = \frac{2\pi}{\omega} = \frac{2\pi m}{|q|B}.
-$$
-
-Notice an interesting result: in this ideal model the period does not depend on the speed, only on $m$, $q$, and $B$.
-
-Now suppose the initial velocity has two components:
-
-$$
-\mathbf{v} = \mathbf{v}_{\perp} + \mathbf{v}_{\parallel}.
-$$
-
-The perpendicular component produces circular motion, while the parallel component carries the particle steadily along the field direction. The superposition of these two motions gives a helix.
-
-The helical radius is
-
-$$
-r = \frac{m v_{\perp}}{|q|B},
-$$
-
-and the pitch of the helix, meaning the distance advanced along the field during one full turn, is
-
-$$
-p = v_{\parallel} T = v_{\parallel}\frac{2\pi m}{|q|B}.
-$$
-
-This decomposition is physically very useful: magnetic fields bend trajectories, but only through the component of velocity perpendicular to the field.
-
-### 1.5 Energy interpretation
-
-Because the magnetic force is always perpendicular to the instantaneous velocity, the power delivered by the magnetic force is
-
-$$
-P = \mathbf{F}_B \cdot \mathbf{v} = q(\mathbf{v} \times \mathbf{B}) \cdot \mathbf{v} = 0.
-$$
-
-Therefore the magnetic force does no work on the particle. As a consequence, the kinetic energy remains constant:
-
-$$
-\frac{d}{dt}\left(\frac12 mv^2\right)=0.
-$$
-
-This is one of the most important physical messages of the chapter:
-
-- a magnetic field can change the direction of motion,
-- a magnetic field cannot by itself change the speed of a charged particle.
-
-If in some problem the speed changes, that change must come from an electric field, a non-electromagnetic interaction, or a time-dependent modeling assumption introduced elsewhere.
-
-### 1.6 Example
-
-Let a particle of charge
-
-$$
-q = 2.0 \times 10^{-6}\ \mathrm{C}
-$$
-
-and mass
-
-$$
-m = 4.0 \times 10^{-3}\ \mathrm{kg}
-$$
-
-enter a uniform magnetic field
-
-$$
-\mathbf{B} = (0,0,0.50)\ \mathrm{T}
-$$
-
-with velocity
-
-$$
-\mathbf{v} = (300, 0, 400)\ \mathrm{m/s}.
-$$
-
-We want to determine:
-
-1. the magnetic force at the instant of entry,
-2. the radius of the circular part of the motion,
-3. the pitch of the helix.
-
-First decompose the velocity:
-
-$$
-v_{\perp} = 300\ \mathrm{m/s}, \qquad v_{\parallel} = 400\ \mathrm{m/s}.
-$$
-
-The magnetic force is
-
-$$
-\mathbf{F}_B = q\, \mathbf{v} \times \mathbf{B}.
-$$
-
-Using
-
-$$
-\mathbf{v} = (300,0,400), \qquad \mathbf{B} = (0,0,0.50),
-$$
-
-we get
-
-$$
-\mathbf{v} \times \mathbf{B}
-=
-\begin{pmatrix}
-300 \\ 0 \\ 400
-\end{pmatrix}
-\times
-\begin{pmatrix}
-0 \\ 0 \\ 0.50
-\end{pmatrix}
-=
-\begin{pmatrix}
-0 \\ -150 \\ 0
-\end{pmatrix}.
-$$
-
-Therefore
-
-$$
-\mathbf{F}_B
-=
-2.0 \times 10^{-6}
-\begin{pmatrix}
-0 \\ -150 \\ 0
-\end{pmatrix}
-=
-\begin{pmatrix}
-0 \\ -3.0 \times 10^{-4} \\ 0
-\end{pmatrix}\ \mathrm{N}.
-$$
-
-The force initially points in the negative $y$ direction.
-
-Next, the radius of the circular part is
-
-$$
-r = \frac{m v_{\perp}}{|q|B}
-= \frac{(4.0 \times 10^{-3})(300)}{(2.0 \times 10^{-6})(0.50)}
-= 1.2 \times 10^{3}\ \mathrm{m}.
-$$
-
-Now compute the period:
-
-$$
-T = \frac{2\pi m}{|q|B}
-= \frac{2\pi(4.0 \times 10^{-3})}{(2.0 \times 10^{-6})(0.50)}
-= 8\pi \times 10^{3}\ \mathrm{s}.
-$$
-
-Hence the pitch of the helix is
-
-$$
-p = v_{\parallel}T
-= 400 \cdot 8\pi \times 10^3
-= 3.2\pi \times 10^6\ \mathrm{m}.
-$$
-
-This is a mathematically correct but physically large-scale example. The large radius and pitch simply show that with a small charge-to-mass ratio and a moderate magnetic field, the curvature can be weak.
-
----
-
-## 2. Current loops and magnetic moment
-
-### 2.1 Force on a current-carrying conductor
-
-In the previous chapter we studied the magnetic force acting on a single moving charge. A current in a conductor is, microscopically, the collective motion of many charges. It is therefore natural that a magnetic field also acts on a wire carrying current.
-
-For a straight conductor segment of vector length $\mathbf{L}$ carrying current $I$ in a uniform magnetic field, the magnetic force is
-
-$$
-\mathbf{F} = I\, \mathbf{L} \times \mathbf{B}.
-$$
-
-Its magnitude is
-
-$$
-F = ILB\sin\theta,
-$$
-
-where $\theta$ is the angle between the direction of the current and the magnetic field.
-
-This formula should be read as the macroscopic counterpart of the Lorentz force. It is especially useful because in many engineering and laboratory situations we directly control current rather than the motion of individual particles.
-
-Several simple conclusions follow:
-
-- if the wire is parallel to the magnetic field, the force is zero,
-- if the wire is perpendicular to the field, the force is maximal,
-- the direction is again perpendicular to both the current direction and the magnetic field.
-
-In an extended circuit, different wire segments may experience forces in different directions. Those forces may cancel as a net force while still producing a turning effect.
-
-### 2.2 Torque on a loop
-
-The most important example is a current loop in a uniform magnetic field. Consider a rectangular loop with area $S = ab$, carrying current $I$, placed in a field $\mathbf{B}$.
-
-If the plane of the loop is not oriented in a special way relative to the field, opposite sides of the loop experience equal and opposite forces. These forces do not usually produce a net translation, but they can produce a torque.
-
-The torque magnitude is
-
-$$
-M = I S B \sin\alpha
-$$
-
-for a single loop, where $\alpha$ is the angle between the loop's normal vector and the magnetic field.
-
-For a coil with $N$ turns, this becomes
-
-$$
-M = N I S B \sin\alpha.
-$$
-
-This is a central physical idea:
-
-- magnetic fields can rotate current loops,
-- the rotational effect is strongest when the loop normal is perpendicular to the field,
-- the torque vanishes when the loop normal is parallel or antiparallel to the field.
-
-This is the basis of electric motors, galvanometers, and many electromechanical devices.
-
-### 2.3 Magnetic dipole moment
-
-To write the previous result in a more elegant and general form, we define the magnetic dipole moment:
-
-$$
-\boldsymbol{\mu} = N I S\, \hat{n},
-$$
-
-where $\hat{n}$ is the unit normal vector to the plane of the loop, determined by the right-hand rule.
-
-Then the torque can be written compactly as
-
-$$
-\mathbf{M} = \boldsymbol{\mu} \times \mathbf{B}.
-$$
-
-Its magnitude is
-
-$$
-M = \mu B \sin\alpha.
-$$
-
-The vector $\boldsymbol{\mu}$ plays for a current loop a role somewhat analogous to the electric dipole moment for separated charges. It captures both the strength of the loop and its orientation.
-
-From a modeling perspective, this is extremely useful: instead of tracking forces on every part of the loop separately, we can describe the rotational behavior of the whole system through one vector quantity.
-
-### 2.4 Potential energy in an external field
-
-Since the magnetic field exerts a torque tending to rotate the loop, it is natural to introduce a potential energy associated with orientation. That energy is
-
-$$
-U = -\boldsymbol{\mu} \cdot \mathbf{B}.
-$$
-
-For a uniform magnetic field this becomes
-
-$$
-U = -\mu B \cos\alpha.
-$$
-
-This formula is worth interpreting carefully:
-
-- the energy is minimal when $\boldsymbol{\mu}$ is aligned with $\mathbf{B}$,
-- the energy is maximal when $\boldsymbol{\mu}$ is opposite to $\mathbf{B}$,
-- the magnetic torque tends to rotate the loop toward lower potential energy.
-
-This is a recurring pattern in physics: the torque acts so that the system tends to an energetically preferred orientation.
-
-### 2.5 Stable and unstable orientations
-
-The equilibrium positions follow directly from the energy expression.
-
-If
-
-$$
-\alpha = 0,
-$$
-
-then
-
-$$
-U = -\mu B,
-$$
-
-which is the minimum possible energy. This is a stable equilibrium: a small disturbance produces a torque that tends to restore the original orientation.
-
-If instead
-
-$$
-\alpha = \pi,
-$$
-
-then
-
-$$
-U = +\mu B,
-$$
-
-which is the maximum possible energy. This is an unstable equilibrium: a tiny disturbance makes the loop rotate away from that position.
-
-At
-
-$$
-\alpha = \frac{\pi}{2},
-$$
-
-the torque magnitude is maximal, but this is not an equilibrium orientation because the torque is not zero there.
-
-The physical picture is therefore simple:
-
-- aligned dipole: stable,
-- anti-aligned dipole: unstable,
-- perpendicular dipole: strongest tendency to rotate.
-
-### 2.6 Example
-
-Consider a circular coil with
-
-$$
-N = 50, \qquad I = 0.20\ \mathrm{A}, \qquad S = 4.0 \times 10^{-3}\ \mathrm{m^2},
-$$
-
-placed in a uniform magnetic field of magnitude
-
-$$
-B = 0.60\ \mathrm{T}.
-$$
-
-Let the angle between the loop normal and the magnetic field be
-
-$$
-\alpha = 30^\circ.
-$$
-
-We will calculate:
-
-1. the magnetic dipole moment,
-2. the torque magnitude,
-3. the potential energy,
-4. the stable orientation.
-
-First, the magnetic dipole moment is
-
-$$
-\mu = N I S = 50 \cdot 0.20 \cdot 4.0 \times 10^{-3} = 4.0 \times 10^{-2}\ \mathrm{A\,m^2}.
-$$
-
-Now compute the torque:
-
-$$
-M = \mu B \sin\alpha
-= (4.0 \times 10^{-2})(0.60)\sin 30^\circ.
-$$
-
-Since $\sin 30^\circ = \frac12$, we obtain
-
-$$
-M = (4.0 \times 10^{-2})(0.60)\left(\frac12\right)
-= 1.2 \times 10^{-2}\ \mathrm{N\,m}.
-$$
-
-Next, the potential energy is
-
-$$
-U = -\mu B \cos\alpha
-= -(4.0 \times 10^{-2})(0.60)\cos 30^\circ.
-$$
-
-Using
-
-$$
-\cos 30^\circ = \frac{\sqrt{3}}{2} \approx 0.866,
-$$
-
-we get
-
-$$
-U \approx -(4.0 \times 10^{-2})(0.60)(0.866)
-\approx -2.08 \times 10^{-2}\ \mathrm{J}.
-$$
-
-Because the energy is lower when $\alpha$ decreases toward $0$, the stable orientation is the one in which the magnetic dipole moment aligns with the magnetic field.
-
-This example shows the logic of the whole chapter:
-
-- current in a loop defines a magnetic dipole moment,
-- a magnetic field exerts torque on that dipole,
-- the system tends to rotate toward the minimum-energy orientation.
-
----
-
-## 3. Magnetic flux
-
-### 3.1 Definition of magnetic flux
-
-Magnetic flux is the quantity that measures how much magnetic field passes through a given surface. It is one of the key ideas of the whole second part of electromagnetism because induction is formulated in terms of changing magnetic flux.
-
-For a general surface $S$, the magnetic flux is defined by
-
-$$
-\Phi_B = \int_S \mathbf{B} \cdot d\mathbf{S},
-$$
-
-where:
-
-- $\mathbf{B}$ is the magnetic field,
-- $d\mathbf{S}$ is the oriented surface element,
-- the dot product selects the component of the field normal to the surface.
-
-The unit of magnetic flux is the weber:
-
-$$
-[\Phi_B] = \mathrm{Wb} = \mathrm{T\,m^2}.
-$$
-
-This definition already contains the essential geometric idea: flux is not simply "field times area". It depends on the orientation of the field relative to the surface.
-
-### 3.2 Surface orientation and sign convention
-
-Every surface used in a flux calculation must have an orientation. That means we choose a unit normal vector $\hat{n}$ and define
-
-$$
-d\mathbf{S} = \hat{n}\, dS.
-$$
-
-Then
-
-$$
-\mathbf{B} \cdot d\mathbf{S} = B \cos\alpha\, dS,
-$$
-
-where $\alpha$ is the angle between the magnetic field and the chosen surface normal.
-
-This gives the sign convention:
-
-- if the field points in the same general direction as the chosen normal, the flux is positive,
-- if it points in the opposite general direction, the flux is negative,
-- if the field is tangent to the surface, the flux is zero.
-
-The sign is not a technical detail. It becomes crucial when we discuss Faraday's law and Lenz's law, because the sign of the changing flux determines the sign of the induced electromotive force.
-
-### 3.3 Flux through a flat loop in a uniform field
-
-The most important special case is a flat loop of area $S$ placed in a uniform magnetic field. If the field is constant over the whole surface, then the integral simplifies to
-
-$$
-\Phi_B = \mathbf{B} \cdot \mathbf{S},
-$$
-
-where the area vector is
-
-$$
-\mathbf{S} = S\hat{n}.
-$$
-
-Therefore,
-
-$$
-\Phi_B = BS\cos\alpha,
-$$
-
-with $\alpha$ the angle between $\mathbf{B}$ and the loop normal.
-
-This formula is easy to misread, so it is worth emphasizing:
-
-- maximal positive flux occurs when the field is parallel to the chosen normal,
-- maximal negative flux occurs when the field is antiparallel to the normal,
-- zero flux occurs when the field lies in the plane of the loop.
-
-So flux does not count field lines crossing the edge of the loop. It counts the component of the field passing through the interior surface.
-
-### 3.4 Time-varying flux
-
-Flux can change in several physically distinct ways:
-
-1. the magnetic field magnitude can change,
-2. the area of the loop can change,
-3. the orientation of the loop can change,
-4. the part of the surface lying in the field can change.
-
-In the simple uniform-field formula,
-
-$$
-\Phi_B = BS\cos\alpha,
-$$
-
-any change in $B$, $S$, or $\alpha$ changes the flux.
-
-This is the exact point where flux becomes more than a geometric quantity. A changing magnetic flux is what will later generate induced EMF. That is why magnetic flux is the natural bridge between magnetostatics and electromagnetic induction.
-
-At this stage, we do not yet need Faraday's law itself. The key idea is simpler:
-
-- flux is a measure of magnetic field through a surface,
-- induction appears when that measure changes with time.
-
-### 3.5 Example
-
-Consider a rectangular loop of area
-
-$$
-S = 0.080\ \mathrm{m^2}
-$$
-
-placed in a uniform magnetic field of magnitude
-
-$$
-B = 0.50\ \mathrm{T}.
-$$
-
-The angle between the magnetic field and the loop normal is
-
-$$
-\alpha = 60^\circ.
-$$
-
-We want to calculate:
-
-1. the magnetic flux through the loop,
-2. the flux after rotating the loop so that $\alpha = 0^\circ$,
-3. the change in flux.
-
-Initially,
-
-$$
-\Phi_{B,1} = BS\cos\alpha
-= (0.50)(0.080)\cos 60^\circ.
-$$
-
-Since $\cos 60^\circ = \frac12$, we obtain
-
-$$
-\Phi_{B,1} = (0.50)(0.080)\left(\frac12\right) = 2.0 \times 10^{-2}\ \mathrm{Wb}.
-$$
-
-After rotating the loop so that the normal is parallel to the field, we have
-
-$$
-\alpha = 0^\circ,
-$$
-
-so
-
-$$
-\Phi_{B,2} = BS = (0.50)(0.080) = 4.0 \times 10^{-2}\ \mathrm{Wb}.
-$$
-
-Hence the flux change is
-
-$$
-\Delta \Phi_B = \Phi_{B,2} - \Phi_{B,1}
-= 4.0 \times 10^{-2} - 2.0 \times 10^{-2}
-= 2.0 \times 10^{-2}\ \mathrm{Wb}.
-$$
-
-This example is simple, but it already contains the whole mechanism needed for induction: a rotation of the loop changes the flux even though the magnetic field magnitude itself remains constant.
-
----
-
-## 4. Faraday's law of induction
-
-### 4.1 Experimental idea
-
-Faraday's law is the central law of electromagnetic induction. Its experimental origin is simple but profound: when the magnetic flux through a circuit changes, an electromotive force is induced in that circuit.
-
-This can be observed in several ways:
-
-- by moving a magnet toward or away from a coil,
-- by changing the current in a nearby circuit,
-- by rotating a loop in a magnetic field,
-- by changing the area of a conducting loop in a field.
-
-The common element in all of these situations is not merely the presence of a magnetic field. The crucial ingredient is a change in magnetic flux through the circuit.
-
-This is an important conceptual shift. In electrostatics, a static electric field can act on charges directly. In induction, the effect appears because something changes in time.
-
-### 4.2 Induced EMF from changing flux
-
-Faraday's law states that the induced electromotive force is equal to minus the rate of change of magnetic flux:
-
-$$
-\mathcal{E} = -\frac{d\Phi_B}{dt}.
-$$
-
-For a coil with $N$ identical turns, each experiencing the same flux, the law becomes
-
-$$
-\mathcal{E} = -N\frac{d\Phi_B}{dt}.
-$$
-
-The symbol $\mathcal{E}$ denotes the electromotive force, measured in volts. It is not an energy itself, but rather the work per unit charge supplied around the circuit.
-
-At this stage the most important message is:
-
-- constant flux means no induced EMF,
-- changing flux means induced EMF appears,
-- faster flux change means larger induced EMF.
-
-The minus sign will be interpreted physically in the next chapter through Lenz's law. For now, it is enough to recognize that the sign is not decorative. It carries directional meaning.
-
-### 4.3 Differential and integral viewpoint
-
-In simple circuit problems, we usually use Faraday's law in the compact scalar form
-
-$$
-\mathcal{E} = -\frac{d\Phi_B}{dt}.
-$$
-
-But the more general integral form is
-
-$$
-\oint_{\partial S} \mathbf{E} \cdot d\mathbf{l}
-=
--\frac{d}{dt}\int_S \mathbf{B} \cdot d\mathbf{S}.
-$$
-
-This equation says that a time-varying magnetic flux creates a circulating electric field. That is a major difference from electrostatics:
-
-- electrostatic electric fields originate from charge distributions,
-- induced electric fields can appear because the magnetic field changes with time.
-
-In other words, induction is not merely "a battery-like effect". It reflects a deeper dynamical coupling between electric and magnetic fields.
-
-### 4.4 Rotating loop generator model
-
-One of the cleanest applications of Faraday's law is a loop rotating in a uniform magnetic field. This is the basic conceptual model of an AC generator.
-
-Let a loop of area $S$ rotate with angular speed $\omega$ in a magnetic field of magnitude $B$. If the angle between the loop normal and the field is
-
-$$
-\alpha(t) = \omega t,
-$$
-
-then the flux is
-
-$$
-\Phi_B(t) = BS\cos(\omega t)
-$$
-
-for one turn, or
-
-$$
-\Phi_B(t) = NBS\cos(\omega t)
-$$
-
-for a coil with $N$ turns.
-
-Applying Faraday's law gives
-
-$$
-\mathcal{E}(t) = -\frac{d\Phi_B}{dt} = NBS\omega \sin(\omega t).
-$$
-
-So the induced EMF is sinusoidal, with amplitude
-
-$$
-\mathcal{E}_0 = NBS\omega.
-$$
-
-This is a remarkably important result:
-
-- rotation converts mechanical motion into electrical output,
-- the induced EMF oscillates in time,
-- the amplitude grows with the field strength, loop area, number of turns, and angular speed.
-
-This is the mathematical core of alternating-current generation.
-
-### 4.5 Example
-
-Consider a coil with
-
-$$
-N = 100, \qquad S = 2.0 \times 10^{-2}\ \mathrm{m^2},
-$$
-
-rotating in a uniform magnetic field
-
-$$
-B = 0.30\ \mathrm{T}
-$$
-
-with angular speed
-
-$$
-\omega = 50\ \mathrm{rad/s}.
-$$
-
-We want to determine:
-
-1. the magnetic flux as a function of time,
-2. the induced EMF as a function of time,
-3. the amplitude of the EMF.
-
-The flux is
-
-$$
-\Phi_B(t) = NBS\cos(\omega t).
-$$
-
-Substituting the data,
-
-$$
-\Phi_B(t) = (100)(0.30)(2.0 \times 10^{-2})\cos(50t).
-$$
-
-Since
-
-$$
-(100)(0.30)(2.0 \times 10^{-2}) = 0.60,
-$$
-
-we get
-
-$$
-\Phi_B(t) = 0.60\cos(50t)\ \mathrm{Wb}.
-$$
-
-Now differentiate:
-
-$$
-\mathcal{E}(t) = -\frac{d\Phi_B}{dt}
-= -\frac{d}{dt}\left[0.60\cos(50t)\right].
-$$
-
-Because
-
-$$
-\frac{d}{dt}\cos(50t) = -50\sin(50t),
-$$
-
-we obtain
-
-$$
-\mathcal{E}(t) = 30\sin(50t)\ \mathrm{V}.
-$$
-
-Therefore the amplitude is
-
-$$
-\mathcal{E}_0 = 30\ \mathrm{V}.
-$$
-
-This example shows the whole logic of Faraday's law in a particularly transparent form: a periodic change of orientation produces a periodic change of flux, which in turn produces a periodic EMF.
-
----
-
-## 5. Lenz's law and physical interpretation
-
-### 5.1 Direction of induced current
-
-Faraday's law tells us the magnitude and sign of the induced electromotive force:
-
-$$
-\mathcal{E} = -\frac{d\Phi_B}{dt}.
-$$
-
-The minus sign is explained physically by Lenz's law:
-
-the induced current flows in such a direction that the magnetic field it creates opposes the change in magnetic flux that produced it.
-
-This statement is subtle and must be read carefully. The induced current does not oppose the magnetic field itself. It opposes the change in flux.
-
-For example:
-
-- if the external magnetic flux through a loop is increasing in the positive direction, the induced current creates a magnetic field in the negative direction,
-- if the external flux is decreasing, the induced current creates a magnetic field in the positive direction, trying to maintain the original flux.
-
-So the induced current acts like a response of the system against the imposed variation.
-
-### 5.2 Opposition to flux change
-
-This opposition principle is the physical content of the minus sign in Faraday's law. It can be summarized in a practical way:
-
-1. choose a positive orientation for the surface normal,
-2. determine whether the external flux is increasing or decreasing,
-3. infer which induced magnetic field would oppose that change,
-4. use the right-hand rule to determine the current direction that produces that field.
-
-The logic is easiest to see in two classic situations:
-
-- a magnet approaches a loop: the flux increases, so the induced current creates a field pushing back against that increase,
-- a magnet moves away from the loop: the flux decreases, so the induced current creates a field trying to keep the flux from dropping.
-
-This is why induced currents often look as if the system "resists" external action. That apparent resistance is not accidental. It is built into the law itself.
-
-### 5.3 Energy interpretation
-
-Lenz's law is not just a geometrical rule for current direction. It is required by energy conservation.
-
-Suppose the induced current reinforced the flux change instead of opposing it. Then:
-
-- a small increase in flux would create a current,
-- that current would produce a magnetic field that increases the flux even more,
-- which would induce an even larger current,
-- and the process would run away without external work.
-
-That would be physically impossible.
-
-The actual law prevents this. To change the flux through a conducting loop, external work must generally be done. The induced current reacts in such a way that the system does not create energy for free.
-
-This is why induction is often accompanied by mechanical resistance:
-
-- pushing a magnet toward a conducting loop requires effort,
-- pulling a loop through a magnetic field requires effort,
-- that mechanical work is then converted into electrical energy and often finally into Joule heat.
-
-### 5.4 Common sign mistakes
-
-Students often make the same few mistakes when using Lenz's law:
-
-- confusing opposition to flux with opposition to the magnetic field,
-- forgetting to choose a surface normal before assigning a sign to the flux,
-- using the right-hand rule too early, before deciding what change must be opposed,
-- forgetting that both field strength and orientation can change the flux,
-- assigning a current direction from intuition without checking whether the resulting induced field is physically consistent.
-
-A reliable workflow is:
-
-1. define the positive normal,
-2. determine the sign of the external flux and whether it is increasing or decreasing,
-3. decide what induced field must oppose that trend,
-4. infer the induced current direction from that field.
-
-This order matters. If the steps are done in the wrong order, sign errors appear almost immediately.
-
-### 5.5 Example
-
-Consider a circular conducting loop facing a bar magnet. The north pole of the magnet is moved toward the loop along the loop axis.
-
-We ask:
-
-1. what happens to the magnetic flux through the loop,
-2. what is the direction of the induced magnetic field,
-3. what is the direction of the induced current as seen from the side of the magnet.
-
-Let the positive surface normal point from the loop toward the approaching magnet. Then the magnetic field of the approaching north pole through the loop is directed opposite to that chosen normal. Its magnitude through the loop increases as the magnet approaches.
-
-So the external flux is becoming more negative:
-
-$$
-\frac{d\Phi_B}{dt} < 0.
-$$
-
-Faraday's law gives
-
-$$
-\mathcal{E} = -\frac{d\Phi_B}{dt} > 0.
-$$
-
-But the more important physical statement is from Lenz's law: the loop must oppose the increase in inward flux. Therefore it creates its own magnetic field outward, toward the magnet.
-
-For the loop to produce a field pointing toward the magnet, the current must circulate counterclockwise as seen from the magnet side.
-
-The physical interpretation is then immediate:
-
-- the loop behaves like a magnetic dipole whose near face acts like a north pole,
-- that induced pole repels the approaching north pole of the magnet,
-- external work is required to keep pushing the magnet in.
-
-This example shows why Lenz's law is best understood as a law of dynamical opposition and energy balance, not just as a rule for remembering signs.
-
----
-
-## 6. Motional EMF
-
-### 6.1 Moving rod in a magnetic field
-
-Faraday's law can be introduced through changing magnetic flux, but there is another very concrete and intuitive induction effect: a conductor moving through a magnetic field develops a potential difference between its ends.
-
-The standard model is a straight conducting rod of length $L$ moving with velocity $\mathbf{v}$ in a magnetic field $\mathbf{B}$. The free charges inside the rod move together with the conductor, so each charge experiences the magnetic Lorentz force
-
-$$
-\mathbf{F}_B = q\, \mathbf{v} \times \mathbf{B}.
-$$
-
-If this force has a component along the rod, positive and negative charges are pushed toward opposite ends. As a result, an electric field builds up inside the rod.
-
-This is called motional electromotive force. It is not caused by a changing battery voltage. It appears because the conductor itself moves through the magnetic field.
-
-### 6.2 Separation of charges in the conductor
-
-As the rod moves, charges redistribute until the electric force inside the rod balances the magnetic force acting on the mobile charges.
-
-If the rod has reached electrostatic equilibrium in its own moving state, then
-
-$$
-qE = qvB
-$$
-
-in the simplest perpendicular geometry, so
-
-$$
-E = vB.
-$$
-
-Since the rod has length $L$, the potential difference between its ends is
-
-$$
-U = EL = vBL.
-$$
-
-This charge separation is physically important:
-
-- magnetic force starts the redistribution,
-- electric force builds up as charges accumulate,
-- equilibrium is reached when the two effects balance.
-
-So the observed voltage is a consequence of charge separation driven by motion in the field.
-
-### 6.3 Formula for motional EMF
-
-In the standard case where the rod moves perpendicular both to its own length and to the magnetic field, the motional EMF is
-
-$$
-\mathcal{E} = BLv.
-$$
-
-This can be understood in two equivalent ways:
-
-1. from the Lorentz force and charge separation,
-2. from Faraday's law applied to a changing effective area.
-
-The second viewpoint is especially useful when the rod is part of a sliding-loop system. If in time $dt$ the rod sweeps an area
-
-$$
-dS = L v\, dt,
-$$
-
-then the magnetic flux changes by
-
-$$
-d\Phi_B = B\, dS = BLv\, dt,
-$$
-
-which gives
-
-$$
-\mathcal{E} = \left|\frac{d\Phi_B}{dt}\right| = BLv.
-$$
-
-So the flux picture and the Lorentz-force picture are not competing explanations. They are two consistent descriptions of the same physical process.
-
-### 6.4 Non-perpendicular motion
-
-If the motion is not perpendicular to the magnetic field, only the component of velocity perpendicular to the field contributes to the magnetic force. Therefore the more general form is
-
-$$
-\mathcal{E} = BLv\sin\theta,
-$$
-
-where $\theta$ is the angle between $\mathbf{v}$ and $\mathbf{B}$.
-
-This gives the expected limits:
-
-- if $\theta = 90^\circ$, then $\mathcal{E} = BLv$ is maximal,
-- if $\theta = 0^\circ$, then $\mathcal{E} = 0$ because the rod moves parallel to the field lines.
-
-Again, the physical rule is clear: only motion that cuts across the magnetic field produces motional EMF.
-
-### 6.5 Example
-
-Let a conducting rod of length
-
-$$
-L = 0.40\ \mathrm{m}
-$$
-
-move with speed
-
-$$
-v = 6.0\ \mathrm{m/s}
-$$
-
-through a uniform magnetic field of magnitude
-
-$$
-B = 0.80\ \mathrm{T}.
-$$
-
-Assume first that the velocity is perpendicular to the field and to the rod.
-
-We want to determine:
-
-1. the motional EMF,
-2. the electric field inside the rod at equilibrium,
-3. the EMF if the rod moves at an angle of $30^\circ$ to the field instead.
-
-In the perpendicular case,
-
-$$
-\mathcal{E} = BLv = (0.80)(0.40)(6.0) = 1.92\ \mathrm{V}.
-$$
-
-The electric field inside the rod is
-
-$$
-E = vB = (6.0)(0.80) = 4.8\ \mathrm{V/m}.
-$$
-
-Now suppose the motion makes an angle
-
-$$
-\theta = 30^\circ
-$$
-
-with the magnetic field. Then
-
-$$
-\mathcal{E} = BLv\sin\theta
-= (0.80)(0.40)(6.0)\sin 30^\circ.
-$$
-
-Since $\sin 30^\circ = \frac12$, we obtain
-
-$$
-\mathcal{E} = 1.92 \cdot \frac12 = 0.96\ \mathrm{V}.
-$$
-
-This example shows the key physical dependence very clearly:
-
-- larger magnetic field gives larger induced EMF,
-- longer rod gives larger induced EMF,
-- faster motion gives larger induced EMF,
-- only the component of motion cutting across the field matters.
-
----
-
-## 7. Induced current and magnetic braking
-
-### 7.1 Closed circuit with a moving rod
-
-The simplest complete induction system is not an isolated moving rod, but a rod that closes an electrical circuit while sliding on conducting rails. In that case the induced EMF drives a real current around the loop.
-
-The standard model consists of:
-
-- two parallel conducting rails,
-- a rod of length $L$ sliding along them,
-- a uniform magnetic field $\mathbf{B}$ perpendicular to the plane of the rails,
-- a total circuit resistance $R$.
-
-As the rod moves with speed $v$, the loop area changes. Therefore the magnetic flux through the loop changes, and by Faraday's law an EMF appears. Unlike the previous chapter, here the circuit is closed, so the EMF produces a current.
-
-This system is one of the clearest demonstrations that electromagnetic induction is dynamically coupled to mechanics: motion produces current, and that current produces a magnetic force back on the moving rod.
-
-### 7.2 Current induced in rails
-
-From the motional EMF result we have
-
-$$
-\mathcal{E} = BLv
-$$
-
-in the standard perpendicular geometry.
-
-If the total circuit resistance is $R$, Ohm's law gives the induced current:
-
-$$
-I = \frac{\mathcal{E}}{R} = \frac{BLv}{R}.
-$$
-
-So the faster the rod moves, the larger the current. This is physically intuitive: faster motion changes the flux more rapidly, hence produces a larger EMF.
-
-The current direction is determined by Lenz's law. It must be such that the magnetic field created by the induced current opposes the change in flux caused by the rod's motion.
-
-At this stage a key feedback loop appears:
-
-- motion creates EMF,
-- EMF creates current,
-- current creates magnetic force,
-- magnetic force reacts back on the motion.
-
-### 7.3 Magnetic force opposing motion
-
-Once a current flows through the rod, the magnetic field exerts a force on it:
-
-$$
-\mathbf{F} = I\, \mathbf{L} \times \mathbf{B}.
-$$
-
-Its magnitude in the standard geometry is
-
-$$
-F_B = ILB.
-$$
-
-Using the induced current formula,
-
-$$
-F_B = \left(\frac{BLv}{R}\right)LB = \frac{B^2L^2}{R}v.
-$$
-
-This is one of the most important results of the chapter:
-
-$$
-F_B \propto v.
-$$
-
-The magnetic force is proportional to the rod velocity and acts opposite to the motion. It therefore behaves like a damping force.
-
-This is magnetic braking. No contact friction is required. The braking force appears because moving through the field drives a current, and that induced current generates a force opposing the motion.
-
-### 7.4 Power balance
-
-The rod does not slow down for mysterious reasons. The mechanical work done against the magnetic braking force is converted into electrical energy and then typically into Joule heat.
-
-The mechanical power supplied to keep the rod moving at speed $v$ is
-
-$$
-P_{\text{mech}} = F_B v.
-$$
-
-Using
-
-$$
-F_B = \frac{B^2L^2}{R}v,
-$$
-
-we get
-
-$$
-P_{\text{mech}} = \frac{B^2L^2}{R}v^2.
-$$
-
-Now compare with the electrical power dissipated in the circuit:
-
-$$
-P_{\text{Joule}} = I^2R.
-$$
-
-Since
-
-$$
-I = \frac{BLv}{R},
-$$
-
-we have
-
-$$
-P_{\text{Joule}} = \left(\frac{BLv}{R}\right)^2 R = \frac{B^2L^2}{R}v^2.
-$$
-
-Therefore
-
-$$
-P_{\text{mech}} = P_{\text{Joule}}.
-$$
-
-This equality is the energy meaning of magnetic braking: the external mechanical work is dissipated as heat in the circuit.
-
-### 7.5 Terminal velocity idea
-
-Now imagine that the rod slides down an incline under gravity while remaining in a magnetic field. Along the incline, gravity pulls the rod downward, while magnetic braking opposes the motion.
-
-If the rod mass is $m$ and the incline angle is $\alpha$, the gravitational driving force along the incline is
-
-$$
-F_g = mg\sin\alpha.
-$$
-
-The magnetic braking force is
-
-$$
-F_B = \frac{B^2L^2}{R}v.
-$$
-
-The equation of motion is then
-
-$$
-m\frac{dv}{dt} = mg\sin\alpha - \frac{B^2L^2}{R}v.
-$$
-
-As the speed grows, the braking force grows. Eventually the two forces balance:
-
-$$
-mg\sin\alpha = \frac{B^2L^2}{R}v_{\infty}.
-$$
-
-So the terminal velocity is
-
-$$
-v_{\infty} = \frac{mg\sin\alpha\, R}{B^2L^2}.
-$$
-
-This is a very instructive result. Even without ordinary friction, the system reaches a steady speed because induction creates a velocity-dependent braking force.
-
-### 7.6 Example
-
-Consider a rod sliding on conducting rails in a uniform magnetic field with:
-
-$$
-L = 0.30\ \mathrm{m}, \qquad B = 0.80\ \mathrm{T}, \qquad R = 0.50\ \Omega.
-$$
-
-At a certain instant the rod moves with speed
-
-$$
-v = 2.0\ \mathrm{m/s}.
-$$
-
-We want to calculate:
-
-1. the induced EMF,
-2. the induced current,
-3. the magnetic braking force,
-4. the Joule power dissipated in the circuit.
-
-First,
-
-$$
-\mathcal{E} = BLv = (0.80)(0.30)(2.0) = 0.48\ \mathrm{V}.
-$$
-
-Then the current is
-
-$$
-I = \frac{\mathcal{E}}{R} = \frac{0.48}{0.50} = 0.96\ \mathrm{A}.
-$$
-
-The magnetic braking force is
-
-$$
-F_B = ILB = (0.96)(0.30)(0.80) = 0.2304\ \mathrm{N}.
-$$
-
-Now compute the Joule power:
-
-$$
-P_{\text{Joule}} = I^2R = (0.96)^2(0.50) = 0.4608\ \mathrm{W}.
-$$
-
-Check the mechanical power:
-
-$$
-P_{\text{mech}} = F_B v = (0.2304)(2.0) = 0.4608\ \mathrm{W}.
-$$
-
-The two values agree exactly, as expected.
-
-This example is the cleanest illustration so far of how mechanics and electromagnetism are coupled:
-
-- motion generates current,
-- current generates force,
-- force opposes motion,
-- the lost mechanical power appears as electrical dissipation.
-
----
-
-## 8. Self-induction and inductance
-
-### 8.1 Induced EMF from changing current
-
-So far we have discussed induction caused by changing magnetic flux produced externally or by motion through a magnetic field. There is, however, another very important case: a circuit can induce EMF in itself when its own current changes.
-
-If the current in a loop or coil varies with time, the magnetic field generated by that current also changes. Therefore the magnetic flux linked with the circuit changes, and by Faraday's law an induced EMF appears.
-
-This effect is called self-induction.
-
-The induced EMF due to self-induction always opposes the change of current:
-
-$$
-\mathcal{E}_L = -L\frac{dI}{dt},
-$$
-
-where $L$ is the inductance of the circuit.
-
-This formula is structurally similar to Faraday's law, but now the changing flux comes from the circuit's own current. Self-induction is therefore an internal electromagnetic inertia of the circuit.
-
-### 8.2 Definition of inductance
-
-For many circuits, especially coils, the magnetic flux linked with the circuit is proportional to the current:
-
-$$
-\Phi_B \propto I.
-$$
-
-For a coil with $N$ turns we often work with the total flux linkage:
-
-$$
-N\Phi_B = LI.
-$$
-
-This relation defines the inductance $L$.
-
-So inductance measures how strongly a circuit produces magnetic flux when current flows through it. A large inductance means:
-
-- a given current produces a large linked flux,
-- a change of current produces a strong induced EMF,
-- the circuit strongly resists rapid current variation.
-
-The SI unit of inductance is the henry:
-
-$$
-[L] = \mathrm{H} = \frac{\mathrm{V\,s}}{\mathrm{A}}.
-$$
-
-In simple language, an inductor is an element that "pushes back" whenever the current tries to change.
-
-### 8.3 Energy stored in the magnetic field
-
-An inductor does not merely resist current change. It also stores energy in the magnetic field it creates.
-
-To build current from $0$ to $I$ in an inductor, external work must be done against the induced EMF. The incremental power supplied is
-
-$$
-P = U I = L\frac{dI}{dt} I.
-$$
-
-Therefore the stored energy is
-
-$$
-W = \int_0^t P\, dt = \int_0^I L I\, dI.
-$$
-
-Assuming $L$ is constant,
-
-$$
-W = \frac12 LI^2.
-$$
-
-This formula is one of the most important practical results for inductors:
-
-- larger current means more stored magnetic energy,
-- larger inductance means more stored energy for the same current.
-
-This is the magnetic analog of energy stored in a capacitor, where energy is associated with the electric field.
-
-### 8.4 Physical meaning of inductive opposition
-
-The minus sign in
+- When does a magnetic field change motion, and when does it change energy?
+- How does motion in a magnetic field create voltage?
+- Why does induction oppose change?
+- How is mechanical energy converted into electrical energy and then into heat?
+- How do real devices such as generators, transformers, and magnetic brakes emerge from the same core principles?
 
-$$
-\mathcal{E}_L = -L\frac{dI}{dt}
-$$
-
-is again a Lenz-law statement.
-
-If the current is increasing, then
-
-$$
-\frac{dI}{dt} > 0,
-$$
-
-and the induced EMF is negative with respect to the driving direction. The inductor opposes the increase.
-
-If the current is decreasing, then
-
-$$
-\frac{dI}{dt} < 0,
-$$
-
-and the induced EMF acts so as to maintain the current. The inductor opposes the decrease.
-
-This is why current through an inductive circuit cannot jump instantaneously in an ideal model. A rapid change would require a very large induced EMF.
-
-This behavior is fundamental in transient circuit analysis:
-
-- capacitors oppose changes in voltage,
-- inductors oppose changes in current.
+## 1. Lorentz Force
 
-### 8.5 Example
+This chapter should grow directly from Problem 1.
+It introduces the magnetic part of the Lorentz force and uses it to explain why charged particles bend in a magnetic field.
 
-Consider an ideal inductor with inductance
+### Main ideas
 
-$$
-L = 0.40\ \mathrm{H}.
-$$
-
-Suppose the current through it increases uniformly from
-
-$$
-0\ \mathrm{A} \quad \text{to} \quad 3.0\ \mathrm{A}
-$$
-
-in a time interval
-
-$$
-\Delta t = 0.20\ \mathrm{s}.
-$$
-
-We want to calculate:
-
-1. the induced EMF magnitude,
-2. the energy stored in the magnetic field at the final current,
-3. the physical meaning of the sign.
+- Magnetic force on a charge:
 
-First, the rate of current change is
-
 $$
-\frac{dI}{dt} = \frac{\Delta I}{\Delta t}
-= \frac{3.0 - 0}{0.20}
-= 15\ \mathrm{A/s}.
+\vec F = q \vec v \times \vec B
 $$
-
-So the induced EMF is
 
-$$
-\mathcal{E}_L = -L\frac{dI}{dt}
-= -(0.40)(15)
-= -6.0\ \mathrm{V}.
-$$
+- The direction of the force is perpendicular to both velocity and magnetic field.
+- Because the force is perpendicular to motion, the field bends the trajectory instead of increasing the speed.
+- In the simplest case of $\vec v \perp \vec B$, the motion becomes circular.
 
-The minus sign means the induced EMF acts against the current increase.
+### Questions for students
 
-Now compute the stored energy at $I = 3.0\ \mathrm{A}$:
+- How do we determine the direction of the force from the cross product?
+- Why does the magnetic force not do work?
+- What sets the radius of the trajectory?
+- What changes when the field $B$ becomes stronger?
 
-$$
-W = \frac12 LI^2
-= \frac12 (0.40)(3.0)^2.
-$$
+### Planned animation
 
-Since
+An animation should show a charged particle entering a uniform magnetic field with adjustable:
 
-$$
-(3.0)^2 = 9,
-$$
+- charge sign,
+- mass,
+- speed,
+- magnetic field strength.
 
-we get
+The key visual point is the relation between $\vec v$, $\vec B$, and $\vec F$ and the emergence of circular motion.
 
-$$
-W = 0.20 \cdot 9 = 1.8\ \mathrm{J}.
-$$
+### First interactive app for this chapter
 
-So when the current reaches $3.0\ \mathrm{A}$, the inductor stores $1.8\ \mathrm{J}$ of magnetic energy.
+We now use a dedicated HTML animation for this first chapter:
 
-This example shows the two essential roles of inductance:
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/lorentz_force.html`
 
-- it opposes current change through induced EMF,
-- it stores energy in the magnetic field built by the current.
+The app is meant to be the visual foundation of the chapter.
+It shows the motion of a charged particle in the plane when the magnetic field is perpendicular to the screen.
 
----
+What the student should see immediately:
 
-## 9. RL circuits
+- the particle trajectory bends because of the Lorentz force,
+- the magnetic force is always perpendicular to the velocity,
+- changing the sign of the charge reverses the direction of curvature,
+- increasing $|B|$ decreases the radius of the orbit,
+- increasing the mass increases the radius,
+- the speed stays approximately constant, so the magnetic field changes direction of motion rather than kinetic energy.
 
-### 9.1 Switching on a DC source
+What the app currently controls:
 
-An RL circuit combines resistance and inductance. The simplest case is a series connection of a resistor $R$, an inductor $L$, and a DC source of voltage $U$.
+- charge $q$,
+- mass $m$,
+- magnetic field component $B_z$,
+- initial velocity components $v_x(0)$ and $v_y(0)$,
+- animation speed,
+- zoom out of the visible trajectory window,
+- visibility of the velocity vector, force vector, and trajectory trail.
 
-At the instant when the source is connected, the current does not jump immediately to its final value. The inductor opposes the sudden change. This is the most characteristic feature of RL circuits.
+Implementation note for future work:
 
-Applying Kirchhoff's voltage law after switching on gives
+- the numerical time evolution in
+  `Lecture_Notes/Physics/html_anim/electromagnetism_2/lorentz_force.html`
+  should use RK4 rather than a simple Euler-type step,
+- the reason is that circular trajectories in a uniform magnetic field should remain stable and visually close properly,
+- the zoom-out control is important because for weak fields or large mass the cyclotron radius becomes large and students should still be able to inspect the full orbit.
 
-$$
-U = L\frac{dI}{dt} + RI.
-$$
+This app should be embedded directly here in the lecture:
 
-This equation says that the source voltage is split into two parts:
+<iframe src="html_anim/electromagnetism_2/lorentz_force.html" width="100%" height="980px" frameborder="0"></iframe>
 
-- one part drives the growth of current through the inductive term $L\,dI/dt$,
-- the other part is the usual resistor drop $RI$.
+[html_anim/electromagnetism_2/lorentz_force.html](html_anim/electromagnetism_2/lorentz_force.html)
 
-At the very beginning, the inductor dominates. After a long time, the derivative term disappears and the inductor behaves like an ideal wire in the steady DC state.
+### How we should extend this chapter later
 
-### 9.2 Current growth in time
+When we return to this chapter, the next useful extensions are:
 
-The differential equation
+1. show the analytical formula for the cyclotron radius
 
 $$
-U = L\frac{dI}{dt} + RI
+r = \frac{m v_\perp}{|q|B}
 $$
 
-has the solution
+2. add a toggle for the case with a velocity component parallel to $\vec B$,
+3. add a second panel with plots $x(t)$ and $y(t)$,
+4. add a mode comparing positive and negative charges side by side,
+5. add a short guided exercise using the exact data from Problem 1.
 
-$$
-I(t) = \frac{U}{R}\left(1 - e^{-t/\tau}\right),
-$$
+So this first app is not only an illustration.
+It is also the starting point for a small family of electromagnetism animations that can later support exercises and lecture discussion.
 
-where
-
-$$
-\tau = \frac{L}{R}
-$$
+## 2. Velocity Selector in Crossed Fields
 
-is the time constant.
+This chapter corresponds to Problem 2 and is a natural continuation of the Lorentz force.
+Here the electric and magnetic forces compete with each other.
 
-The limiting behavior is very informative:
+### Main ideas
 
-- at $t=0$, the current is zero,
-- as $t \to \infty$, the current approaches the steady value
+- Electric force:
 
 $$
-I_{\infty} = \frac{U}{R}.
+\vec F_E = q \vec E
 $$
-
-So the current rises gradually, not instantaneously. The exponential form reflects the competition between the driving source and the inductive opposition to current change.
-
-### 9.3 Switching off and decay
-
-Now suppose the source is disconnected after the current has reached some value $I_0$. The inductor does not allow the current to vanish abruptly. Instead, it drives current through the circuit while releasing its stored magnetic energy.
 
-For the source-free RL decay, the loop equation is
+- Magnetic force:
 
 $$
-L\frac{dI}{dt} + RI = 0.
+\vec F_B = q \vec v \times \vec B
 $$
 
-The solution is
+- Straight motion is possible when both forces cancel.
+- This gives the selected velocity:
 
 $$
-I(t) = I_0 e^{-t/\tau},
+v_d = \frac{E}{B}
 $$
 
-with the same time constant
+### Questions for students
 
-$$
-\tau = \frac{L}{R}.
-$$
+- Why do only particles with one specific speed pass undeflected?
+- What happens to slower particles?
+- What happens to faster particles?
+- Does the kinetic energy change in the ideal steady regime?
 
-So the current decays exponentially. The inductor now acts as the temporary source of energy for the circuit, while the resistor dissipates that energy as heat.
+### Planned animation
 
-### 9.4 Time constant
+An animation should show particles entering crossed fields and splitting according to their velocity.
+This can later become one of the most intuitive simulations in the lecture.
 
-The time constant
-
-$$
-\tau = \frac{L}{R}
-$$
+### Interactive app for this chapter
 
-sets the characteristic timescale of the transient process.
+We use a dedicated HTML animation for the velocity selector:
 
-Its interpretation is practical:
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/velocity_selector.html`
 
-- after a time $t=\tau$, the current during switch-on has reached
+The purpose of this app is to show the central idea of the selector as clearly as possible:
 
-$$
-I(\tau) = \frac{U}{R}\left(1 - e^{-1}\right) \approx 0.632\, \frac{U}{R},
-$$
+- one particle beam is slower than the selected speed,
+- one beam has exactly the selected speed,
+- one beam is faster than the selected speed.
 
-- after a time $t=\tau$, the current during decay has fallen to
+This side-by-side comparison is pedagogically useful because students can immediately see that:
 
-$$
-I(\tau) = I_0 e^{-1} \approx 0.368\, I_0.
-$$
+- the electric field and magnetic field act in opposite vertical directions,
+- only one precise value of velocity leads to rectilinear motion,
+- slower particles bend toward the direction of the electric force,
+- faster particles bend toward the direction of the magnetic force.
 
-Thus the time constant measures how quickly the circuit responds. Large inductance makes the response slower; large resistance makes it faster.
+The app currently lets us control:
 
-### 9.5 Energy dissipation
+- electric field strength $E$,
+- magnetic field strength $B$,
+- animation speed,
+- zoom out of the visible region,
+- the speed factor of the slower beam,
+- the speed factor of the faster beam.
 
-When the current grows, the source provides energy. Part of it is dissipated in the resistor, and part is stored in the magnetic field of the inductor.
+During the lecture, the main storyline should be:
 
-When the source is disconnected, that stored energy
+1. write the two forces
 
 $$
-W = \frac12 LI_0^2
+F_E = qE, \qquad F_B = qvB
 $$
 
-is released and ultimately dissipated as Joule heat:
+2. explain that they point in opposite directions for the chosen geometry,
+3. impose cancellation of forces,
+4. obtain the selector condition
 
 $$
-P_{\text{Joule}} = I^2R.
+v_d = \frac{E}{B}
 $$
-
-So the RL circuit is a clean example of energy conversion:
-
-- electrical energy from the source becomes magnetic energy and thermal energy during switch-on,
-- magnetic energy becomes thermal energy during switch-off.
-
-This is also why inductive circuits can produce noticeable voltage spikes at disconnection. The inductor tries to keep the current flowing, which can require a large induced EMF if the current path is interrupted too suddenly.
 
-### 9.6 Example
+5. use the animation to show why only that beam passes straight.
 
-Consider a series RL circuit with
+This app should be embedded directly here:
 
-$$
-L = 0.20\ \mathrm{H}, \qquad R = 5.0\ \Omega, \qquad U = 10\ \mathrm{V}.
-$$
+<iframe src="html_anim/electromagnetism_2/velocity_selector.html" width="100%" height="960px" frameborder="0"></iframe>
 
-We want to determine:
+[html_anim/electromagnetism_2/velocity_selector.html](html_anim/electromagnetism_2/velocity_selector.html)
 
-1. the time constant,
-2. the steady current,
-3. the current during switch-on,
-4. the current after switch-off if the initial current is the steady one,
-5. the initial magnetic energy stored in the inductor.
+### How we should extend this chapter later
 
-First, the time constant is
-
-$$
-\tau = \frac{L}{R} = \frac{0.20}{5.0} = 0.040\ \mathrm{s}.
-$$
+When we return to this chapter, the most useful next extensions are:
 
-The steady current is
+1. add a switch for positive versus negative charge,
+2. add a mode with a continuous beam rather than only three representative particles,
+3. add numerical readout of the separate electric and magnetic forces for each beam,
+4. add a detector screen on the right side,
+5. add a compact exercise mode using the data from Problem 2.
 
-$$
-I_{\infty} = \frac{U}{R} = \frac{10}{5.0} = 2.0\ \mathrm{A}.
-$$
+## 3. Magnetic Moment of a Current Loop
 
-Therefore the current during switch-on is
+This chapter is based on Problem 3 and shifts attention from a single charge to an extended current-carrying object.
 
-$$
-I(t) = 2.0\left(1 - e^{-t/0.040}\right)\ \mathrm{A}.
-$$
+### Main ideas
 
-If the source is disconnected after the steady state has been reached, then
+- A current loop behaves like a magnetic dipole.
+- Its magnetic moment is:
 
 $$
-I_0 = 2.0\ \mathrm{A},
+\vec \mu = N I S \, \hat n
 $$
 
-and the decay law is
+- In an external field the loop experiences torque:
 
 $$
-I(t) = 2.0\, e^{-t/0.040}\ \mathrm{A}.
+\vec M = \vec \mu \times \vec B
 $$
 
-Now compute the initial magnetic energy stored in the inductor:
+- The associated potential energy is:
 
 $$
-W = \frac12 LI_0^2 = \frac12 (0.20)(2.0)^2.
+U = - \vec \mu \cdot \vec B
 $$
 
-Since
+### Questions for students
 
-$$
-(2.0)^2 = 4,
-$$
+- Why does the loop tend to rotate?
+- For which angle is the torque maximal?
+- Which orientations are stable and unstable?
+- How is this related to compass needles, electric motors, and magnetic dipoles in matter?
 
-we obtain
+### Planned animation
 
-$$
-W = 0.10 \cdot 4 = 0.40\ \mathrm{J}.
-$$
+An animation should show a loop in a uniform field with visible vectors $\vec \mu$, $\vec B$, and $\vec M$, plus an angle slider.
 
-This example shows the full logic of RL transients:
+### Interactive app for this chapter
 
-- current growth is gradual because the inductor opposes change,
-- current decay is gradual because the inductor sustains current,
-- the transient timescale is controlled by $L/R$,
-- the stored magnetic energy is eventually dissipated in the resistor.
+We now use a dedicated HTML animation for the magnetic moment of a current loop:
 
----
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/magnetic_moment_loop.html`
 
-## 10. Transformers
+The purpose of this app is to make the geometric content of the formulas visible:
 
-### 10.1 Mutual induction idea
+- the magnetic moment vector $\vec \mu$ is attached to the loop,
+- the external field $\vec B$ is fixed,
+- the torque depends on the angle between $\vec \mu$ and $\vec B$,
+- the loop tends to rotate toward the stable aligned configuration,
+- the anti-aligned configuration is unstable,
+- the torque is strongest near $90^\circ$.
 
-A transformer is based on mutual induction. Instead of a circuit inducing EMF in itself, a changing current in one coil produces a changing magnetic flux that induces EMF in another coil.
+What the student should be able to test immediately:
 
-The key chain of reasoning is:
+- increasing $N$, $I$, or $S$ increases the magnetic moment,
+- increasing $B$ increases the torque,
+- the torque vanishes for parallel and anti-parallel configurations,
+- the stable position corresponds to minimum potential energy,
+- the unstable position corresponds to maximum potential energy.
 
-- an alternating current in the primary coil produces a time-dependent magnetic field,
-- that changing magnetic field creates a changing flux in the secondary coil,
-- by Faraday's law, the changing flux induces a voltage in the secondary coil.
+The app currently lets us control:
 
-So a transformer is not a device that transfers charge directly from one circuit to another. It transfers energy through a changing magnetic field linking two circuits.
+- number of turns $N$,
+- current $I$,
+- area $S$,
+- magnetic field strength $B$,
+- angle $\theta$ between $\vec \mu$ and $\vec B$,
+- animation speed.
 
-This is why transformers require time-varying current. With ideal steady DC, once the current becomes constant, the flux stops changing and the induced secondary EMF disappears.
+This app should be embedded directly here:
 
-### 10.2 Primary and secondary coils
+<iframe src="html_anim/electromagnetism_2/magnetic_moment_loop.html" width="100%" height="940px" frameborder="0"></iframe>
 
-The basic transformer consists of:
+[html_anim/electromagnetism_2/magnetic_moment_loop.html](html_anim/electromagnetism_2/magnetic_moment_loop.html)
 
-- a primary coil with $N_1$ turns,
-- a secondary coil with $N_2$ turns,
-- a common magnetic core that guides magnetic flux efficiently.
+## 4. Rotating Loop and the Origin of AC Generation
 
-The primary coil is connected to an AC source. The secondary coil is connected to a load. The magnetic core is used to make the flux produced by the primary pass as effectively as possible through the secondary.
+This chapter follows Problem 4 and should be one of the central induction chapters.
+It connects changing flux with generated EMF.
 
-If the same time-dependent flux $\Phi_B(t)$ links both coils, then Faraday's law gives
+### Main ideas
 
-$$
-U_1 = -N_1 \frac{d\Phi_B}{dt},
-$$
+- Magnetic flux through the loop:
 
 $$
-U_2 = -N_2 \frac{d\Phi_B}{dt}.
+\Phi = \vec B \cdot \vec S
 $$
-
-These equations already show why the turn numbers matter. The voltage induced in each coil is proportional to the number of turns linked by the changing flux.
 
-### 10.3 Ideal transformer relations
+- For a rotating loop, the angle changes with time, so the flux changes periodically.
+- Faraday's law gives the induced EMF:
 
-For an ideal transformer, we assume:
-
-- no resistive losses in the windings,
-- no flux leakage,
-- no energy loss in the core,
-- all magnetic flux generated in the core links both windings.
-
-Under these assumptions, the voltage ratio is
-
 $$
-\frac{U_2}{U_1} = \frac{N_2}{N_1}.
+\mathcal{E}(t) = - \frac{d\Phi}{dt}
 $$
-
-This is the central ideal-transformer relation.
 
-If
+- This is the foundation of electric generators.
 
-$$
-N_2 > N_1,
-$$
+### Questions for students
 
-the transformer is step-up: the secondary voltage is larger.
+- Why does rotation in a constant magnetic field generate alternating voltage?
+- Why does the EMF amplitude grow with angular speed $\omega$?
+- What is changing physically: the field, the area, or the angle?
 
-If
-
-$$
-N_2 < N_1,
-$$
+### Planned animation
 
-the transformer is step-down: the secondary voltage is smaller.
+An animation should show a rotating loop, the changing projected area, the flux $\Phi(t)$, and the resulting sinusoidal EMF.
 
-In the ideal model, power is conserved:
+### Interactive app for this chapter
 
-$$
-U_1 I_1 = U_2 I_2.
-$$
+We now use a dedicated HTML animation for the rotating loop and AC generation:
 
-Combining this with the voltage relation yields
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/rotating_loop_ac_generator.html`
 
-$$
-\frac{I_2}{I_1} = \frac{N_1}{N_2}.
-$$
+The app is designed to connect the geometry of rotation directly to the formulas for flux and induced EMF.
 
-So voltage and current transform inversely.
+What the student should see immediately:
 
-### 10.4 Voltage, current, and turns ratio
+- the loop rotates in a constant magnetic field,
+- the angle between the area vector and the field changes continuously,
+- the projected area perpendicular to the field oscillates,
+- the magnetic flux $\Phi(t)$ follows a cosine law,
+- the induced EMF $\mathcal{E}(t)$ follows a sine law and changes sign periodically,
+- increasing the angular speed $\omega$ increases the EMF amplitude.
 
-It is useful to interpret the transformer relations physically rather than just memorize them.
+What the app currently controls:
 
-If the secondary has more turns than the primary, each unit of changing flux induces more total voltage in the secondary, so the voltage increases. But because ideal power is conserved, the current must decrease accordingly.
+- number of turns $N$,
+- loop area $S$,
+- magnetic field strength $B$,
+- angular speed $\omega$,
+- initial phase $\theta_0$,
+- animation speed,
+- camera yaw and pitch for the 3D scene.
 
-Thus:
+This app should be embedded directly here:
 
-- more turns on the secondary means higher voltage and lower current,
-- fewer turns on the secondary means lower voltage and higher current.
+<iframe src="html_anim/electromagnetism_2/rotating_loop_ac_generator.html" width="100%" height="1180px" frameborder="0"></iframe>
 
-This makes transformers indispensable in power systems:
+[html_anim/electromagnetism_2/rotating_loop_ac_generator.html](html_anim/electromagnetism_2/rotating_loop_ac_generator.html)
 
-- electrical energy can be transmitted at high voltage and lower current to reduce resistive losses,
-- then stepped down to safer and more useful voltages near the point of use.
+## 5. Motional EMF in a Moving Rod
 
-The turns ratio is often written as
+This chapter is tied to Problem 5.
+It is a simple but powerful example showing that induction can arise directly from motion.
 
-$$
-n = \frac{N_2}{N_1}.
-$$
+### Main ideas
 
-Then
+- Charges inside a moving conductor feel the magnetic Lorentz force.
+- This charge separation creates a potential difference between the rod ends.
+- For perpendicular motion:
 
 $$
-U_2 = n U_1,
-\qquad
-I_2 = \frac{1}{n} I_1
+\mathcal{E} = B L v
 $$
-
-for the ideal case.
 
-### 10.5 Real transformer losses
+- More generally, the effect depends on the component of velocity perpendicular to the magnetic field.
 
-Real transformers are not ideal. Several types of losses occur:
+### Questions for students
 
-- winding resistance causes Joule heating,
-- flux leakage means not all magnetic flux links both coils,
-- eddy currents in the core generate unwanted heating,
-- hysteresis losses appear because magnetizing and demagnetizing the core requires energy.
-
-Therefore the real efficiency is
-
-$$
-\eta = \frac{P_{\text{out}}}{P_{\text{in}}} < 1.
-$$
+- Why do charges pile up at opposite ends of the rod?
+- How does the effect depend on rod length?
+- What changes when motion is oblique rather than perpendicular?
+- Where does the energy associated with the induced voltage come from?
 
-Still, well-designed power transformers can be very efficient. In many practical applications the efficiency is high enough that the ideal model gives a very good first approximation.
+### Planned animation
 
-The main pedagogical point is this:
+An animation should show a rod moving through a field, with charge separation building up in real time and the voltage changing as speed or angle changes.
 
-- the ideal transformer teaches the governing ratios cleanly,
-- the real transformer teaches where energy is actually lost and why engineering design matters.
+### Interactive app for this chapter
 
-### 10.6 Example
+We now use a dedicated HTML animation for motional EMF in a moving rod:
 
-Consider an ideal transformer with
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/motional_emf_moving_rod.html`
 
-$$
-N_1 = 200, \qquad N_2 = 800.
-$$
+The purpose of this app is to make the source of the induced voltage visible:
 
-The primary voltage is
+- the rod moves through a uniform magnetic field,
+- charges inside the rod feel the magnetic Lorentz force,
+- positive and negative charges separate toward opposite rod ends,
+- the polarity changes with the force direction,
+- the induced voltage scales with $B$, $L$, $v$, and the effective perpendicular geometry.
 
-$$
-U_1 = 120\ \mathrm{V},
-$$
+What the student should be able to test immediately:
 
-and the primary current is
+- doubling the rod length doubles the emf,
+- increasing the field increases the emf,
+- increasing the speed increases the emf,
+- reducing the angle weakens the effect,
+- for the perpendicular case the app reproduces
 
 $$
-I_1 = 2.0\ \mathrm{A}.
+\mathcal{E} = B L v
 $$
 
-We want to determine:
+The app currently lets us control:
 
-1. the secondary voltage,
-2. the secondary current,
-3. whether the transformer is step-up or step-down.
+- rod length $L$,
+- speed $v$,
+- motion angle $\alpha$,
+- magnetic field strength $B$,
+- animation speed,
+- camera yaw and pitch.
 
-First compute the turns ratio:
+This app should be embedded directly here:
 
-$$
-\frac{N_2}{N_1} = \frac{800}{200} = 4.
-$$
+<iframe src="html_anim/electromagnetism_2/motional_emf_moving_rod.html" width="100%" height="980px" frameborder="0"></iframe>
 
-So the secondary voltage is
+[html_anim/electromagnetism_2/motional_emf_moving_rod.html](html_anim/electromagnetism_2/motional_emf_moving_rod.html)
 
-$$
-U_2 = U_1 \frac{N_2}{N_1}
-= 120 \cdot 4
-= 480\ \mathrm{V}.
-$$
+## 6. Sliding Rod on Rails: Electromagnetic Braking
 
-Using ideal power conservation,
+This chapter corresponds to Problem 6 and is a major bridge between induction and dynamics.
 
-$$
-U_1 I_1 = U_2 I_2,
-$$
+### Main ideas
 
-we obtain
+- Motion of the rod creates motional EMF.
+- The closed circuit produces current:
 
 $$
-I_2 = \frac{U_1 I_1}{U_2}
-= \frac{120 \cdot 2.0}{480}
-= 0.50\ \mathrm{A}.
+I(v) = \frac{\mathcal{E}(v)}{R}
 $$
-
-This is a step-up transformer because the secondary voltage is larger than the primary voltage.
-
-The result also illustrates the inverse relation between voltage and current:
-
-- voltage increased by a factor of $4$,
-- current decreased by a factor of $4$.
-
-That is exactly what the ideal-transformer model predicts.
-
----
-
-## 11. Eddy currents and applications
 
-### 11.1 Origin of eddy currents
+- That current interacts with the magnetic field and produces a force opposing motion.
+- The system behaves like motion with damping proportional to velocity.
+- At long times, terminal velocity appears.
 
-Eddy currents are circulating currents induced inside a bulk conductor when the magnetic flux through parts of that conductor changes.
+### Questions for students
 
-Unlike the previous examples, here the conductor does not need to be a thin wire forming a clearly defined external circuit. A solid metal plate, disk, or block can itself contain many closed current paths. If the magnetic environment changes, induced currents appear in those internal loops.
+- Why does the induced force oppose motion?
+- Why is the braking stronger for larger velocity?
+- How does the system settle to terminal speed?
+- How does the power balance connect gravity, electric current, and Joule heating?
 
-This happens, for example, when:
+### Planned animation
 
-- a conductor moves into or out of a magnetic field region,
-- the magnetic field near the conductor changes with time,
-- a magnet moves relative to the conductor.
+An animation should show the rod sliding down rails, current appearing, braking force growing, and velocity approaching a terminal value.
 
-The physical origin is still Faraday's law. Different parts of the conductor experience changing flux, so circulating EMFs appear, and these drive closed currents within the material.
+### Interactive app for this chapter
 
-They are called "eddy" currents because their flow patterns often resemble whirlpools.
+We now use a dedicated HTML animation for the sliding rod on rails:
 
-### 11.2 Magnetic damping
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/sliding_rod_braking.html`
 
-By Lenz's law, the magnetic field produced by eddy currents opposes the change that created them. As a result, relative motion between a conductor and a magnetic field can be opposed by a non-contact braking force.
+The goal of this app is to connect the full chain of ideas in one place:
 
-This is magnetic damping.
+- motion along the rails creates motional EMF,
+- the closed circuit produces current,
+- the current generates a magnetic force opposite to the motion,
+- the braking force grows with speed,
+- the rod approaches a terminal velocity instead of accelerating without limit,
+- in the long-time regime the gravitational power input is converted into Joule heat.
 
-A simple example is a metal plate moving between the poles of a magnet. As the plate enters the field region, eddy currents appear inside it. Those currents generate their own magnetic field in such a way that the motion is opposed.
+What the student should see immediately:
 
-The result is:
+- the rod first accelerates because gravity wins,
+- as the speed increases, the induced current becomes larger,
+- the magnetic braking force becomes stronger and stronger,
+- the net acceleration decreases,
+- the velocity curve levels off near the terminal value.
 
-- the faster the relative motion, the stronger the induced currents,
-- stronger induced currents produce stronger opposing forces,
-- kinetic energy is removed without mechanical contact.
+The app currently lets us control:
 
-This is why eddy-current braking is smooth and wear-free compared with friction-based braking.
+- mass $m$,
+- rail spacing $L$,
+- magnetic field strength $B$,
+- total resistance $R$,
+- incline angle $\alpha$,
+- animation speed.
 
-### 11.3 Heating and losses
+This app should be embedded directly here:
 
-Eddy currents flow through a material of finite resistance, so they dissipate energy as heat. That means they can be useful in some devices and undesirable in others.
+<iframe src="html_anim/electromagnetism_2/sliding_rod_braking.html" width="100%" height="1060px" frameborder="0"></iframe>
 
-The Joule heating associated with eddy currents is again governed by
+[html_anim/electromagnetism_2/sliding_rod_braking.html](html_anim/electromagnetism_2/sliding_rod_braking.html)
 
-$$
-P = I^2R
-$$
-
-in each effective current path.
-
-In electrical machines and transformers, uncontrolled eddy currents in the core cause energy losses and heating. That is why transformer cores are often laminated: thin insulated layers make large circulating currents much harder to form.
-
-So eddy currents have a dual role:
-
-- they are useful when we want damping or heating,
-- they are harmful when we want efficient magnetic energy transfer with minimal losses.
-
-### 11.4 Engineering applications
-
-Eddy currents are used in many practical systems:
+## 7. Loop Entering a Magnetic Field Region
 
-- eddy-current brakes in trains, roller coasters, and laboratory devices,
-- induction heating systems,
-- electromagnetic damping in measuring instruments,
-- metal detectors,
-- nondestructive testing methods.
-
-They also influence transformer and motor design, where engineers try to reduce them using:
-
-- laminated cores,
-- ferrite materials,
-- thinner conducting sections,
-- geometry that breaks large current loops.
-
-The engineering lesson is therefore not simply "eddy currents are good" or "eddy currents are bad". Their value depends on the goal of the device.
-
-### 11.5 Example
-
-Consider a conducting aluminum plate moving into a magnetic field region. Suppose the magnetic interaction produces an effective braking force of approximately
-
-$$
-F = 1.5\ \mathrm{N}
-$$
+This chapter follows Problem 7 and is perfect for explaining Lenz's law in a very visual way.
 
-when the plate moves with speed
+### Main ideas
 
-$$
-v = 2.0\ \mathrm{m/s}.
-$$
+- The loop experiences induction only while the magnetic flux is changing.
+- Entering the field changes the area of the loop that is immersed in the field.
+- While the loop is fully inside a uniform field, the flux becomes constant and the induced current disappears.
 
-We want to estimate:
+### Questions for students
 
-1. the mechanical power removed from the motion,
-2. where that energy goes physically,
-3. what happens qualitatively if the speed increases.
+- Why does current appear only during the entering or leaving phase?
+- Why is there a braking force while the flux changes?
+- Why does the current vanish when the entire loop is fully inside a uniform field?
+- How does this example differ from the moving rod?
 
-The mechanical power associated with the braking force is
+### Planned animation
 
-$$
-P = Fv = (1.5)(2.0) = 3.0\ \mathrm{W}.
-$$
+An animation should show a rectangular loop being pulled into a finite field region, with simultaneous plots of overlap area, flux, EMF, current, and force.
 
-So the magnetic damping removes mechanical energy at a rate of
+### Interactive app for this chapter
 
-$$
-3.0\ \mathrm{W}.
-$$
+We now use a dedicated HTML animation for the loop entering a magnetic field region:
 
-That energy is not destroyed. It is mainly converted into thermal energy in the conductor through Joule heating caused by the eddy currents.
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/loop_entering_field.html`
 
-If the plate moves faster, the flux through internal current loops changes more rapidly. Therefore:
+The app is designed to make Lenz's law visible in a step-by-step way:
 
-- the induced eddy currents become stronger,
-- the braking force becomes larger,
-- the heating rate generally increases.
+- the loop starts outside the field region,
+- during entry the overlap area grows,
+- the magnetic flux increases,
+- the induced EMF and current appear only in that changing-flux phase,
+- the magnetic force opposes the pulling motion,
+- once the whole loop is inside the uniform field, the current vanishes.
 
-This example is intentionally simple, but it captures the central physical point: eddy currents provide a direct route from mechanical energy to thermal energy through induction.
+What the student should be able to read directly from the app:
 
----
+- the overlap area controls the flux,
+- in the entering phase the flux grows linearly in time,
+- this gives a constant induced EMF for constant pulling speed,
+- the braking force exists only while the overlap changes,
+- the required mechanical power matches the Joule heating.
 
-## 12. Summary
+The app currently lets us control:
 
-### 12.1 Key physical ideas
+- loop width $a$,
+- loop height $b$,
+- magnetic field strength $B$,
+- resistance $R$,
+- pulling speed $v$,
+- animation speed.
 
-This lecture developed the second major part of classical electromagnetism: magnetism, induction, and the first bridge from field ideas to circuit behavior.
+This app should be embedded directly here:
 
-The central physical ideas are:
+<iframe src="html_anim/electromagnetism_2/loop_entering_field.html" width="100%" height="1260px" frameborder="0"></iframe>
 
-- a magnetic field acts on moving charges and on currents,
-- the magnetic force changes direction of motion but does not by itself change kinetic energy,
-- current loops behave like magnetic dipoles,
-- magnetic flux is the quantity that connects geometry with induction,
-- changing flux induces EMF,
-- Lenz's law gives the physical direction of the induced response,
-- induction couples mechanics, fields, and circuits,
-- inductors resist changes of current and store magnetic energy,
-- transformers use mutual induction to transfer energy between circuits,
-- eddy currents convert mechanical or electromagnetic changes into heat and damping.
+[html_anim/electromagnetism_2/loop_entering_field.html](html_anim/electromagnetism_2/loop_entering_field.html)
 
-Taken together, these ideas show that magnetism is not a separate appendix to electrostatics. It is the dynamical part of electromagnetism, where motion, time variation, and energy transfer become central.
+## 8. Self-Induction and RL Decay
 
-### 12.2 Key equations
+This chapter comes from Problem 8 and should emphasize that a circuit can oppose changes in its own current.
 
-The most important equations of the lecture are collected here in one place.
+### Main ideas
 
-Magnetic part of the Lorentz force:
+- A changing current creates a changing magnetic field.
+- That changing magnetic field induces an EMF in the same circuit.
+- This is self-induction:
 
 $$
-\mathbf{F}_B = q\, \mathbf{v} \times \mathbf{B}
+\mathcal{E}_L = - L \frac{dI}{dt}
 $$
 
-Force on a current-carrying conductor:
+- In an RL circuit, current does not jump instantly.
+- During decay:
 
 $$
-\mathbf{F} = I\, \mathbf{L} \times \mathbf{B}
+I(t) = I_0 e^{-t/\tau}, \qquad \tau = \frac{L}{R}
 $$
 
-Torque on a current loop:
-
-$$
-\mathbf{M} = \boldsymbol{\mu} \times \mathbf{B}
-$$
+### Questions for students
 
-Magnetic dipole moment:
+- Why does the current not disappear immediately after disconnecting the source?
+- Why is energy stored in the magnetic field?
+- How is that energy later dissipated as heat?
+- Why can overvoltage appear when a circuit is suddenly opened?
 
-$$
-\boldsymbol{\mu} = NIS\, \hat{n}
-$$
+### Planned animation
 
-Potential energy of a magnetic dipole:
+An animation should show current build-up and decay in an RL circuit together with magnetic energy and the induced voltage across the coil.
 
-$$
-U = -\boldsymbol{\mu} \cdot \mathbf{B}
-$$
+### Interactive app for this chapter
 
-Magnetic flux:
+We now use a dedicated HTML animation for RL self-induction and decay:
 
-$$
-\Phi_B = \int_S \mathbf{B} \cdot d\mathbf{S}
-$$
+`Lecture_Notes/Physics/html_anim/electromagnetism_2/rl_decay_self_induction.html`
 
-For a flat loop in uniform field:
+The goal of this app is to show both phases of the problem in one place:
 
-$$
-\Phi_B = BS\cos\alpha
-$$
+- while the source is connected, the current builds up gradually,
+- the coil opposes the growth of current through self-induced EMF,
+- after disconnection, the source is removed but the current does not vanish instantly,
+- the coil reverses its voltage and keeps the current flowing,
+- the magnetic energy stored in the field decays into Joule heat.
 
-Faraday's law:
+What the student should be able to read directly from the app:
 
-$$
-\mathcal{E} = -\frac{d\Phi_B}{dt}
-$$
+- the steady current is $I_0 = U/R$,
+- the time scale is $\tau = L/R$,
+- charging and decay are both exponential processes,
+- the sign of the coil voltage changes between the two phases,
+- the stored energy is $W = \frac12 L I^2$ and decreases during decay.
 
-For $N$ turns:
+The app currently lets us control:
 
-$$
-\mathcal{E} = -N\frac{d\Phi_B}{dt}
-$$
+- inductance $L$,
+- resistance $R$,
+- source voltage $U$,
+- animation speed.
 
-Motional EMF:
+This app should be embedded directly here:
 
-$$
-\mathcal{E} = BLv
-$$
+<iframe src="html_anim/electromagnetism_2/rl_decay_self_induction.html" width="100%" height="1240px" frameborder="0"></iframe>
 
-or more generally
+[html_anim/electromagnetism_2/rl_decay_self_induction.html](html_anim/electromagnetism_2/rl_decay_self_induction.html)
 
-$$
-\mathcal{E} = BLv\sin\theta
-$$
+## 9. Ideal and Real Transformer
 
-Induced current in a simple resistive circuit:
+This chapter is based on Problem 9 and should collect the induction ideas into one practical device.
 
-$$
-I = \frac{\mathcal{E}}{R}
-$$
+### Main ideas
 
-Self-induction:
+- Alternating current in the primary coil creates changing magnetic flux in the core.
+- That changing flux induces voltage in the secondary coil.
+- In the ideal picture:
 
 $$
-\mathcal{E}_L = -L\frac{dI}{dt}
+\frac{U_2}{U_1} = \frac{N_2}{N_1}
 $$
 
-Energy stored in an inductor:
+- Real transformers have losses:
+  - resistive heating,
+  - eddy currents,
+  - hysteresis,
+  - leakage flux.
 
-$$
-W = \frac12 LI^2
-$$
+### Questions for students
 
-RL time constant:
+- Where does the secondary voltage actually come from?
+- Why does a transformer require changing flux?
+- What makes a real transformer different from an ideal one?
+- Why are laminated cores used?
 
-$$
-\tau = \frac{L}{R}
-$$
+### Planned animation
 
-Ideal transformer ratios:
+An animation should show the primary AC current, flux in the core, and the induced secondary voltage, with options to compare ideal and lossy behavior.
 
-$$
-\frac{U_2}{U_1} = \frac{N_2}{N_1},
-\qquad
-\frac{I_2}{I_1} = \frac{N_1}{N_2}
-$$
+## 10. Eddy Currents and Contactless Braking
 
-### 12.3 Typical mistakes
+This final chapter follows Problem 10 and closes the lecture with a vivid engineering application.
 
-The most common conceptual mistakes in this topic are:
+### Main ideas
 
-- thinking that magnetic force points along the magnetic field instead of perpendicular to it,
-- forgetting that magnetic force on a charge requires motion,
-- assuming magnetic force can change speed even when no electric field is present,
-- confusing magnetic flux with magnetic field strength alone,
-- forgetting that flux depends on orientation and chosen surface normal,
-- interpreting Lenz's law as opposition to the magnetic field rather than opposition to change in flux,
-- using Faraday's law without tracking the sign convention,
-- treating inductors as if current could change instantaneously,
-- forgetting that transformer action requires time-varying current,
-- treating eddy currents as always useful or always harmful instead of context-dependent.
+- Changing magnetic flux in a bulk conductor induces circulating currents.
+- These eddy currents generate magnetic effects that oppose the motion or the flux change.
+- The result can be contactless braking.
 
-If these points are handled carefully, most of the standard errors in induction problems disappear.
+### Questions for students
 
-### 12.4 Bridge to circuits and electrodynamics
+- Why do eddy currents appear in a solid conductor even without a wire loop?
+- Which materials enhance the effect?
+- How can the braking force be increased?
+- What are the advantages and disadvantages of eddy-current brakes?
 
-This lecture closes an important conceptual loop.
+### Planned animation
 
-We began with forces on charges and currents, moved through flux and induction, and ended with circuit-level consequences such as RL transients and transformers. This gives two complementary views of electromagnetism:
+An animation should show a metal plate moving through a magnetic field, the induced current loops, and the resulting braking effect.
 
-- the field view, where electric and magnetic fields act locally in space,
-- the circuit view, where voltages, currents, EMF, and energy flow are the main language.
+## Final Summary
 
-These are not competing descriptions. They are two levels of the same theory.
+The full lecture can be read as one coherent story:
 
-From here, the natural next steps are:
+1. A magnetic field bends the motion of charges.
+2. Electric and magnetic forces can balance to select velocity.
+3. Currents in loops behave like magnetic dipoles.
+4. Changing flux induces EMF.
+5. Motion in a field can generate voltage directly.
+6. Induced currents create forces that oppose motion.
+7. Electromagnetic systems convert mechanical energy into electrical energy and heat.
+8. The same principles explain generators, transformers, and magnetic brakes.
 
-- deeper circuit analysis with AC sources and reactive elements,
-- Maxwell's equations as the unified field laws,
-- electromagnetic waves as self-propagating coupled electric and magnetic fields.
+## Suggested development order for animations
 
-So the main bridge quantity of the lecture is again change:
+If we want the lecture to become highly visual as quickly as possible, a good order is:
 
-- moving charge leads to magnetic force,
-- changing flux leads to induction,
-- changing current leads to self-induction,
-- changing fields lead, ultimately, to full electrodynamics.
+1. Lorentz force
+2. Velocity selector
+3. Rotating loop
+4. Moving rod
+5. Sliding rod on rails
+6. Loop entering a field region
+7. RL self-induction
+8. Transformer
+9. Eddy currents
+10. Magnetic moment of a loop
