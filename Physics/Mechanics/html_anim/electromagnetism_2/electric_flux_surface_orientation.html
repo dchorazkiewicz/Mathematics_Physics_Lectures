@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Flux Through a Flat Surface</title>
+</head>
+<body>
+<div class="flux-widget">
+    <style>
+        .flux-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .flux-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .flux-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .flux-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(360px, 2.2fr) minmax(280px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .flux-widget .canvas-card,
+        .flux-widget .panel {
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .flux-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .flux-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .flux-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .flux-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .flux-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .flux-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .flux-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .flux-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .flux-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .flux-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .flux-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .flux-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .flux-widget .btn-start { background: #1f8b4c; }
+        .flux-widget .btn-pause { background: #c97b00; }
+        .flux-widget .btn-reset { background: #557187; }
+
+        .flux-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .flux-widget .equation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.55;
+        }
+
+        .flux-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .flux-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .flux-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .flux-widget .stat-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        .flux-widget .stat-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f8fbff;
+            border: 1px solid #dde8f3;
+            font-size: 0.88rem;
+        }
+
+        .flux-widget .stat-label {
+            font-weight: 700;
+            color: #244663;
+        }
+
+        .flux-widget .stat-value {
+            font-weight: 700;
+            color: #0b5cab;
+        }
+
+        .flux-widget .check-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .flux-widget .check-row input {
+            transform: scale(1.08);
+        }
+
+        @media (max-width: 920px) {
+            .flux-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Electric Flux Through a Flat Surface</h3>
+    <p>
+        This version uses a real 3D perspective view. The same rectangular surface is shown in three spatial
+        orientations relative to a uniform electric field <strong>E</strong>, and the middle panel rotates continuously.
+        Electric flux still follows <strong>Φ = EA cos φ</strong>, but now the geometry is visible as a true 3D tilt of the plane
+        and its area vector.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="sim-canvas" width="920" height="590"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#ff2aa1;"></span> electric field lines</div>
+                <div class="legend-item"><span class="swatch" style="background:#2c2928;"></span> area vector A</div>
+                <div class="legend-item"><span class="swatch" style="background:#eadfd5;"></span> surface</div>
+                <div class="legend-item"><span class="swatch" style="background:#23a559;"></span> projected area A cos φ</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Parameters</h4>
+
+                    <div class="row">
+                        <label>Electric field E <span class="value e-value"></span></label>
+                        <input class="e-slider" type="range" min="0.5" max="5" step="0.1" value="2.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Surface area A <span class="value a-value"></span></label>
+                        <input class="a-slider" type="range" min="0.5" max="5" step="0.1" value="2.5">
+                    </div>
+
+                    <div class="row">
+                        <label>Animated angle range <span class="value range-value"></span></label>
+                        <input class="range-slider" type="range" min="15" max="90" step="1" value="78">
+                    </div>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.2" max="2.5" step="0.1" value="1.0">
+                    </div>
+
+                    <div class="check-row">
+                        <span>Show projected area guide</span>
+                        <input class="projection-toggle" type="checkbox" checked>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Camera</h4>
+
+                    <div class="row">
+                        <label>Yaw <span class="value yaw-value"></span></label>
+                        <input class="yaw-slider" type="range" min="-180" max="180" step="1" value="-26">
+                    </div>
+
+                    <div class="row">
+                        <label>Pitch <span class="value pitch-value"></span></label>
+                        <input class="pitch-slider" type="range" min="-70" max="70" step="1" value="18">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Animation</h4>
+                    <div class="button-row">
+                        <button class="btn-start" type="button">Start</button>
+                        <button class="btn-pause" type="button">Pause</button>
+                        <button class="btn-reset" type="button">Reset</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Live values</h4>
+                    <div class="stat-grid">
+                        <div class="stat-row"><span class="stat-label">Face-on</span><span class="stat-value face-value"></span></div>
+                        <div class="stat-row"><span class="stat-label">Tilted panel angle</span><span class="stat-value angle-value"></span></div>
+                        <div class="stat-row"><span class="stat-label">Tilted panel flux</span><span class="stat-value flux-value"></span></div>
+                        <div class="stat-row"><span class="stat-label">Edge-on</span><span class="stat-value edge-value"></span></div>
+                    </div>
+                </div>
+
+                <div class="equation math-box"></div>
+
+                <div class="info-box">
+                    The same surface area can intercept different amounts of field depending on orientation.
+                    The relevant quantity is the component of the area vector along the field direction,
+                    so the effective area is <strong>A⊥ = A cos φ</strong>. Drag on the canvas to rotate the 3D camera.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const root = document.currentScript.closest(".flux-widget");
+            const canvas = root.querySelector(".sim-canvas");
+            const ctx = canvas.getContext("2d");
+
+            const eSlider = root.querySelector(".e-slider");
+            const aSlider = root.querySelector(".a-slider");
+            const rangeSlider = root.querySelector(".range-slider");
+            const speedSlider = root.querySelector(".speed-slider");
+            const projectionToggle = root.querySelector(".projection-toggle");
+            const yawSlider = root.querySelector(".yaw-slider");
+            const pitchSlider = root.querySelector(".pitch-slider");
+
+            const eValue = root.querySelector(".e-value");
+            const aValue = root.querySelector(".a-value");
+            const rangeValue = root.querySelector(".range-value");
+            const speedValue = root.querySelector(".speed-value");
+            const yawValue = root.querySelector(".yaw-value");
+            const pitchValue = root.querySelector(".pitch-value");
+
+            const faceValue = root.querySelector(".face-value");
+            const angleValue = root.querySelector(".angle-value");
+            const fluxValue = root.querySelector(".flux-value");
+            const edgeValue = root.querySelector(".edge-value");
+            const mathBox = root.querySelector(".math-box");
+
+            const startBtn = root.querySelector(".btn-start");
+            const pauseBtn = root.querySelector(".btn-pause");
+            const resetBtn = root.querySelector(".btn-reset");
+
+            const state = {
+                e: 2.0,
+                area: 2.5,
+                maxAngleDeg: 78,
+                speed: 1.0,
+                showProjection: true,
+                running: true,
+                time: 0,
+                cameraYaw: -26 * Math.PI / 180,
+                cameraPitch: 18 * Math.PI / 180,
+                dragging: false,
+                dragX: 0,
+                dragY: 0
+            };
+
+            function clamp(value, min, max) {
+                return Math.min(max, Math.max(min, value));
+            }
+
+            function lerp(a, b, t) {
+                return a + (b - a) * t;
+            }
+
+            function fmt(value) {
+                return Number(value).toFixed(2);
+            }
+
+            function drawArrow(x1, y1, x2, y2, color, width) {
+                const angle = Math.atan2(y2 - y1, x2 - x1);
+                const head = 11;
+                ctx.save();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = width;
+                ctx.lineCap = "round";
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(x2, y2);
+                ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 7), y2 - head * Math.sin(angle - Math.PI / 7));
+                ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 7), y2 - head * Math.sin(angle + Math.PI / 7));
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function rotateAroundY(point, angle) {
+                return {
+                    x: Math.cos(angle) * point.x + Math.sin(angle) * point.z,
+                    y: point.y,
+                    z: -Math.sin(angle) * point.x + Math.cos(angle) * point.z
+                };
+            }
+
+            function cameraProject(point, viewport) {
+                const yaw = state.cameraYaw;
+                const pitch = state.cameraPitch;
+
+                const x1 = Math.cos(yaw) * point.x + Math.sin(yaw) * point.z;
+                const z1 = -Math.sin(yaw) * point.x + Math.cos(yaw) * point.z;
+                const y1 = point.y;
+
+                const y2 = Math.cos(pitch) * y1 - Math.sin(pitch) * z1;
+                const z2 = Math.sin(pitch) * y1 + Math.cos(pitch) * z1;
+                const x2 = x1;
+
+                const distance = 780;
+                const perspective = distance / (distance - z2);
+                return {
+                    x: viewport.cx + x2 * perspective,
+                    y: viewport.cy - y2 * perspective,
+                    depth: z2
+                };
+            }
+
+            function drawArrow3D(from, to, viewport, color, width, label) {
+                const p1 = cameraProject(from, viewport);
+                const p2 = cameraProject(to, viewport);
+                drawArrow(p1.x, p1.y, p2.x, p2.y, color, width);
+                if (label) {
+                    ctx.save();
+                    ctx.fillStyle = color;
+                    ctx.font = "italic 17px Georgia, serif";
+                    ctx.fillText(label, p2.x + 8, p2.y - 6);
+                    ctx.restore();
+                }
+            }
+
+            function drawArc(cx, cy, radius, start, end, label) {
+                ctx.save();
+                ctx.strokeStyle = "#2f2a2a";
+                ctx.lineWidth = 1.8;
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, start, end, false);
+                ctx.stroke();
+                const mid = (start + end) / 2;
+                ctx.fillStyle = "#2f2a2a";
+                ctx.font = "italic 15px Georgia, serif";
+                ctx.fillText(label, cx + (radius + 10) * Math.cos(mid), cy + (radius + 10) * Math.sin(mid) + 3);
+                ctx.restore();
+            }
+
+            function drawField3D(viewport, showLabel) {
+                const rows = [-92, -52, -12, 28, 68, 108];
+                const depths = [-70, 0, 70];
+                rows.forEach(function (y) {
+                    depths.forEach(function (z) {
+                        drawArrow3D(
+                            { x: -130, y: y, z: z },
+                            { x: 142, y: y, z: z },
+                            viewport,
+                            "#ff2aa1",
+                            2.1
+                        );
+                    });
+                });
+                if (showLabel) {
+                    ctx.save();
+                    ctx.fillStyle = "#232733";
+                    ctx.font = "italic 20px Georgia, serif";
+                    ctx.fillText("E", viewport.x + 16, viewport.cy + 6);
+                    ctx.restore();
+                }
+            }
+
+            function wrapText(text, x, y, maxWidth, lineHeight) {
+                const words = text.split(" ");
+                let line = "";
+                for (let i = 0; i < words.length; i += 1) {
+                    const test = line ? line + " " + words[i] : words[i];
+                    if (ctx.measureText(test).width > maxWidth && line) {
+                        ctx.fillText(line, x, y);
+                        line = words[i];
+                        y += lineHeight;
+                    } else {
+                        line = test;
+                    }
+                }
+                if (line) {
+                    ctx.fillText(line, x, y);
+                }
+            }
+
+            function drawSceneBox(panel) {
+                ctx.save();
+                ctx.fillStyle = "#ffffff";
+                ctx.strokeStyle = "#dbe6f1";
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.roundRect(panel.x, panel.y, panel.w, panel.h, 12);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function drawSurface3D(panel, viewport, phiDeg, options) {
+                const phi = phiDeg * Math.PI / 180;
+                const halfW = 54 + 18 * state.area;
+                const halfH = 86 + 20 * state.area;
+                const corners = [
+                    { x: 0, y: -halfH, z: -halfW },
+                    { x: 0, y: -halfH, z: halfW },
+                    { x: 0, y: halfH, z: halfW },
+                    { x: 0, y: halfH, z: -halfW }
+                ].map(function (point) {
+                    return rotateAroundY(point, phi);
+                });
+
+                const projected = corners.map(function (point) {
+                    return cameraProject(point, viewport);
+                });
+                const avgDepth = projected.reduce(function (sum, p) {
+                    return sum + p.depth;
+                }, 0) / projected.length;
+                const tint = clamp((avgDepth + 160) / 320, 0, 1);
+                const alpha = 0.44 + 0.18 * tint;
+
+                ctx.fillStyle = "#1b344e";
+                ctx.font = "700 18px 'Segoe UI', sans-serif";
+                ctx.fillText(panel.title, panel.x + 16, panel.y + 28);
+
+                ctx.fillStyle = "#3170a5";
+                ctx.font = "16px 'Segoe UI', sans-serif";
+                wrapText(panel.subtitle, panel.x + 16, panel.y + 56, panel.w - 32, 21);
+
+                drawField3D(viewport, true);
+
+                ctx.save();
+                ctx.fillStyle = "rgba(234, 223, 213, " + alpha.toFixed(3) + ")";
+                ctx.strokeStyle = "#b9a99d";
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(projected[0].x, projected[0].y);
+                for (let i = 1; i < projected.length; i += 1) {
+                    ctx.lineTo(projected[i].x, projected[i].y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+
+                if (state.showProjection && options.showProjection) {
+                    const projHalfH = halfH * Math.cos(phi);
+                    const projectionPoints = [
+                        { x: 0, y: -projHalfH, z: 0 },
+                        { x: 0, y: projHalfH, z: 0 },
+                        { x: 0, y: projHalfH, z: 16 },
+                        { x: 0, y: -projHalfH, z: 16 }
+                    ].map(function (point) {
+                        return cameraProject(point, viewport);
+                    });
+                    ctx.save();
+                    ctx.strokeStyle = "#23a559";
+                    ctx.fillStyle = "rgba(35, 165, 89, 0.16)";
+                    ctx.setLineDash([6, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(projectionPoints[0].x, projectionPoints[0].y);
+                    for (let i = 1; i < projectionPoints.length; i += 1) {
+                        ctx.lineTo(projectionPoints[i].x, projectionPoints[i].y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+
+                    ctx.fillStyle = "#1d7a44";
+                    ctx.font = "italic 15px Georgia, serif";
+                    ctx.fillText("A cos φ", viewport.x + 10, viewport.cy - halfH * 0.95);
+                }
+
+                const normalLength = 84 + 18 * state.area;
+                drawArrow3D(
+                    { x: 0, y: 0, z: 0 },
+                    rotateAroundY({ x: normalLength, y: 0, z: 0 }, phi),
+                    viewport,
+                    "#2c2928",
+                    3.2,
+                    "A"
+                );
+
+                ctx.save();
+                ctx.strokeStyle = "#2c2928";
+                ctx.lineWidth = 1.7;
+                const center = cameraProject({ x: 0, y: 0, z: 0 }, viewport);
+                ctx.beginPath();
+                ctx.moveTo(center.x - 12, center.y);
+                ctx.lineTo(center.x - 12, center.y + 18);
+                ctx.lineTo(center.x + 6, center.y + 18);
+                ctx.stroke();
+                ctx.restore();
+
+                const baseAngle = cameraProject({ x: 28, y: 0, z: 0 }, viewport);
+                if (phiDeg > 1) {
+                    drawArc(center.x, center.y, 28, 0, Math.atan2(baseAngle.y - center.y, baseAngle.x - center.x) - phi * 0.72, "φ");
+                } else {
+                    ctx.fillStyle = "#2f2a2a";
+                    ctx.font = "italic 16px Georgia, serif";
+                    ctx.fillText("φ = 0°", center.x + 24, center.y - 18);
+                }
+
+                if (Math.abs(phiDeg - 90) < 0.1) {
+                    ctx.fillStyle = "#2f2a2a";
+                    ctx.font = "italic 16px Georgia, serif";
+                    ctx.fillText("φ = 90°", center.x + 18, center.y - 18);
+                }
+
+                ctx.fillStyle = "#23425f";
+                ctx.font = "600 15px 'Segoe UI', sans-serif";
+                ctx.fillText(panel.fluxText, panel.x + 16, panel.y + panel.h - 18);
+            }
+
+            function updateControls() {
+                eValue.textContent = fmt(state.e);
+                aValue.textContent = fmt(state.area);
+                rangeValue.textContent = state.maxAngleDeg.toFixed(0) + "°";
+                speedValue.textContent = fmt(state.speed) + "×";
+                yawValue.textContent = (state.cameraYaw * 180 / Math.PI).toFixed(0) + "°";
+                pitchValue.textContent = (state.cameraPitch * 180 / Math.PI).toFixed(0) + "°";
+            }
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#f6fbff";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const padded = 16;
+                const gap = 16;
+                const panelWidth = (canvas.width - padded * 2 - gap * 2) / 3;
+                const panelHeight = canvas.height - 32;
+                const y = 16;
+                const animatedAngle = state.maxAngleDeg * 0.5 * (1 + Math.sin(state.time));
+
+                const fluxFace = state.e * state.area;
+                const fluxTilt = state.e * state.area * Math.cos(animatedAngle * Math.PI / 180);
+                const fluxEdge = 0;
+
+                const panels = [
+                    {
+                        x: padded,
+                        y,
+                        w: panelWidth,
+                        h: panelHeight,
+                        title: "(a) Face-on",
+                        phiDeg: 0,
+                        subtitle: "Field and area vector are parallel, so the flux is maximal.",
+                        fluxText: "Φ = EA = " + fmt(fluxFace)
+                    },
+                    {
+                        x: padded + panelWidth + gap,
+                        y,
+                        w: panelWidth,
+                        h: panelHeight,
+                        title: "(b) Tilted surface",
+                        phiDeg: animatedAngle,
+                        subtitle: "Tilting reduces the effective area perpendicular to the field.",
+                        fluxText: "Φ = EA cos φ = " + fmt(fluxTilt)
+                    },
+                    {
+                        x: padded + 2 * (panelWidth + gap),
+                        y,
+                        w: panelWidth,
+                        h: panelHeight,
+                        title: "(c) Edge-on",
+                        phiDeg: 90,
+                        subtitle: "Field and area vector are perpendicular, so the flux vanishes.",
+                        fluxText: "Φ = 0"
+                    }
+                ];
+
+                panels.forEach((panel, index) => {
+                    drawSceneBox(panel);
+                    const viewport = {
+                        x: panel.x,
+                        y: panel.y,
+                        w: panel.w,
+                        h: panel.h,
+                        cx: panel.x + panel.w * 0.53,
+                        cy: panel.y + panel.h * 0.62
+                    };
+                    drawSurface3D(panel, viewport, panel.phiDeg, {
+                        showProjection: index !== 2
+                    });
+                });
+
+                faceValue.textContent = "Φ = " + fmt(fluxFace);
+                angleValue.textContent = animatedAngle.toFixed(1) + "°";
+                fluxValue.textContent = "Φ = " + fmt(fluxTilt);
+                edgeValue.textContent = "Φ = " + fmt(fluxEdge);
+
+                mathBox.innerHTML =
+                    "Face-on: Φ = EA = " + fmt(fluxFace) + "<br>" +
+                    "Tilted: Φ = EA cos(" + animatedAngle.toFixed(1) + "°) = " + fmt(fluxTilt) + "<br>" +
+                    "Edge-on: Φ = EA cos 90° = 0";
+            }
+
+            function step() {
+                if (state.running) {
+                    state.time += 0.018 * state.speed;
+                }
+                render();
+                requestAnimationFrame(step);
+            }
+
+            function syncFromInputs() {
+                state.e = parseFloat(eSlider.value);
+                state.area = parseFloat(aSlider.value);
+                state.maxAngleDeg = parseFloat(rangeSlider.value);
+                state.speed = parseFloat(speedSlider.value);
+                state.showProjection = projectionToggle.checked;
+                state.cameraYaw = parseFloat(yawSlider.value) * Math.PI / 180;
+                state.cameraPitch = parseFloat(pitchSlider.value) * Math.PI / 180;
+                updateControls();
+                render();
+            }
+
+            eSlider.addEventListener("input", syncFromInputs);
+            aSlider.addEventListener("input", syncFromInputs);
+            rangeSlider.addEventListener("input", syncFromInputs);
+            speedSlider.addEventListener("input", syncFromInputs);
+            projectionToggle.addEventListener("change", syncFromInputs);
+            yawSlider.addEventListener("input", syncFromInputs);
+            pitchSlider.addEventListener("input", syncFromInputs);
+
+            startBtn.addEventListener("click", function () {
+                state.running = true;
+            });
+
+            pauseBtn.addEventListener("click", function () {
+                state.running = false;
+            });
+
+            resetBtn.addEventListener("click", function () {
+                state.time = 0;
+                state.running = true;
+                eSlider.value = "2.0";
+                aSlider.value = "2.5";
+                rangeSlider.value = "78";
+                speedSlider.value = "1.0";
+                projectionToggle.checked = true;
+                yawSlider.value = "-26";
+                pitchSlider.value = "18";
+                syncFromInputs();
+            });
+
+            canvas.addEventListener("mousedown", function (event) {
+                state.dragging = true;
+                state.dragX = event.clientX;
+                state.dragY = event.clientY;
+            });
+
+            window.addEventListener("mouseup", function () {
+                state.dragging = false;
+            });
+
+            window.addEventListener("mousemove", function (event) {
+                if (!state.dragging) {
+                    return;
+                }
+                const dx = event.clientX - state.dragX;
+                const dy = event.clientY - state.dragY;
+                state.dragX = event.clientX;
+                state.dragY = event.clientY;
+                state.cameraYaw += dx * 0.008;
+                state.cameraPitch = clamp(state.cameraPitch + dy * 0.006, -1.1, 1.1);
+                yawSlider.value = (state.cameraYaw * 180 / Math.PI).toFixed(0);
+                pitchSlider.value = (state.cameraPitch * 180 / Math.PI).toFixed(0);
+                updateControls();
+                render();
+            });
+
+            syncFromInputs();
+            requestAnimationFrame(step);
+        }());
+    </script>
+</div>
+</body>
+</html>

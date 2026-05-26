@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Selector Animation</title>
+</head>
+<body>
+<div class="selector-widget">
+    <style>
+        .selector-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1120px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .selector-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .selector-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .selector-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(340px, 2fr) minmax(280px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .selector-widget .canvas-card,
+        .selector-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .selector-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .selector-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .selector-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .selector-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .selector-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .selector-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .selector-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .selector-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .selector-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .selector-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .selector-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .selector-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .selector-widget .btn-start { background: #1f8b4c; }
+        .selector-widget .btn-pause { background: #c97b00; }
+        .selector-widget .btn-reset { background: #557187; }
+
+        .selector-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .selector-widget .equation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .selector-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .selector-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .selector-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .selector-widget .beam-table {
+            display: grid;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .selector-widget .beam-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f8fbff;
+            border: 1px solid #dde8f3;
+            font-size: 0.88rem;
+        }
+
+        .selector-widget .beam-name {
+            font-weight: 700;
+        }
+
+        .selector-widget .beam-badge {
+            color: white;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .selector-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Velocity Selector: crossed electric and magnetic fields</h3>
+    <p>
+        Positive charges enter from the left. The electric field points upward and the magnetic field points out of the screen,
+        so the electric force is upward while the magnetic force is downward. Only particles with
+        <strong>v = E / B</strong> pass through the field region without bending.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="sim-canvas" width="780" height="520"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#d94f41;"></span> slower beam</div>
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> selected beam</div>
+                <div class="legend-item"><span class="swatch" style="background:#2563c9;"></span> faster beam</div>
+                <div class="legend-item"><span class="swatch" style="background:#cbd5e1;"></span> crossed-field region</div>
+                <div class="legend-item"><span class="swatch" style="background:#4f6b86;"></span> detector screen</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Fields</h4>
+
+                    <div class="row">
+                        <label>Electric field E <span class="value e-value"></span></label>
+                        <input class="e-slider" type="range" min="100" max="700" step="10" value="400">
+                    </div>
+
+                    <div class="row">
+                        <label>Magnetic field B <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="0.2" max="1.4" step="0.02" value="0.8">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Beam setup</h4>
+
+                    <div class="row">
+                        <label>Slower beam factor <span class="value slow-value"></span></label>
+                        <input class="slow-slider" type="range" min="0.35" max="0.95" step="0.01" value="0.93">
+                    </div>
+
+                    <div class="row">
+                        <label>Faster beam factor <span class="value fast-value"></span></label>
+                        <input class="fast-slider" type="range" min="1.05" max="1.85" step="0.01" value="1.07">
+                    </div>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.4" max="2.2" step="0.1" value="1">
+                    </div>
+
+                    <div class="row">
+                        <label>Zoom out <span class="value zoom-value"></span></label>
+                        <input class="zoom-slider" type="range" min="1.0" max="2.8" step="0.1" value="1.2">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+
+                <div class="info-box stats-box"></div>
+
+                <div class="info-box beam-box"></div>
+
+                <div class="info-box">
+                    In the selected beam the two forces cancel inside the plates, so the trajectory stays straight.
+                    Slower particles feel too much electric deflection, while faster particles feel too much magnetic deflection.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const eSlider = widget.querySelector('.e-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const slowSlider = widget.querySelector('.slow-slider');
+        const fastSlider = widget.querySelector('.fast-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+        const zoomSlider = widget.querySelector('.zoom-slider');
+
+        const eValue = widget.querySelector('.e-value');
+        const bValue = widget.querySelector('.b-value');
+        const slowValue = widget.querySelector('.slow-value');
+        const fastValue = widget.querySelector('.fast-value');
+        const speedValue = widget.querySelector('.speed-value');
+        const zoomValue = widget.querySelector('.zoom-value');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const beamBox = widget.querySelector('.beam-box');
+
+        const worldBase = {
+            xmin: -8,
+            xmax: 24,
+            ymin: -10,
+            ymax: 10
+        };
+
+        const fieldRegion = {
+            x1: 1,
+            x2: 15.5,
+            y1: -6,
+            y2: 6
+        };
+
+        const detectorX = 21;
+        const displayVxScale = 0.02;
+        const bendScale = 24;
+        const beamSpecs = [
+            { id: 'slow', label: 'Slower beam', color: '#d94f41', badge: 'too slow', y0: 0 },
+            { id: 'selected', label: 'Selected beam', color: '#1f8b4c', badge: 'matched', y0: 0 },
+            { id: 'fast', label: 'Faster beam', color: '#2563c9', badge: 'too fast', y0: 0 }
+        ];
+
+        const state = {
+            running: false,
+            lastFrame: null,
+            time: 0,
+            zoom: 1.2,
+            particles: []
+        };
+
+        function getParams() {
+            const E = parseFloat(eSlider.value);
+            const B = parseFloat(bSlider.value);
+            const selectedSpeed = E / B;
+            return {
+                E,
+                B,
+                selectedSpeed,
+                slowerSpeed: selectedSpeed * parseFloat(slowSlider.value),
+                fasterSpeed: selectedSpeed * parseFloat(fastSlider.value),
+                speedFactor: parseFloat(speedSlider.value),
+                zoom: parseFloat(zoomSlider.value)
+            };
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function updateLabels() {
+            const params = getParams();
+            eValue.textContent = `${format(params.E, 0)} V/m`;
+            bValue.textContent = `${format(params.B, 2)} T`;
+            slowValue.textContent = `${format(parseFloat(slowSlider.value), 2)} x v_d`;
+            fastValue.textContent = `${format(parseFloat(fastSlider.value), 2)} x v_d`;
+            speedValue.textContent = `${format(params.speedFactor, 1)}x`;
+            zoomValue.textContent = `${format(params.zoom, 1)}x`;
+        }
+
+        function createParticle(spec, vx) {
+            return {
+                spec,
+                x: -6.2,
+                y: spec.y0,
+                vx,
+                vy: 0,
+                hitY: null,
+                stopped: false,
+                trail: [{ x: -6.2, y: spec.y0 }]
+            };
+        }
+
+        function resetState() {
+            const params = getParams();
+            state.running = false;
+            state.lastFrame = null;
+            state.time = 0;
+            state.zoom = params.zoom;
+            state.particles = [
+                createParticle(beamSpecs[0], params.slowerSpeed),
+                createParticle(beamSpecs[1], params.selectedSpeed),
+                createParticle(beamSpecs[2], params.fasterSpeed)
+            ];
+            draw();
+        }
+
+        function toCanvas(x, y) {
+            const xMin = worldBase.xmin * state.zoom;
+            const xMax = worldBase.xmax * state.zoom;
+            const yMin = worldBase.ymin * state.zoom;
+            const yMax = worldBase.ymax * state.zoom;
+            return {
+                x: ((x - xMin) / (xMax - xMin)) * canvas.width,
+                y: canvas.height - ((y - yMin) / (yMax - yMin)) * canvas.height
+            };
+        }
+
+        function drawArrow(x1, y1, x2, y2, color, width) {
+            const from = toCanvas(x1, y1);
+            const to = toCanvas(x2, y2);
+            const angle = Math.atan2(to.y - from.y, to.x - from.x);
+            const size = 9;
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width || 2;
+            ctx.beginPath();
+            ctx.moveTo(from.x, from.y);
+            ctx.lineTo(to.x, to.y);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(to.x, to.y);
+            ctx.lineTo(to.x - size * Math.cos(angle - Math.PI / 6), to.y - size * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(to.x - size * Math.cos(angle + Math.PI / 6), to.y - size * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawGrid() {
+            const xMin = worldBase.xmin * state.zoom;
+            const xMax = worldBase.xmax * state.zoom;
+            const yMin = worldBase.ymin * state.zoom;
+            const yMax = worldBase.ymax * state.zoom;
+
+            ctx.save();
+            ctx.strokeStyle = '#dbe6f1';
+            ctx.lineWidth = 1;
+
+            for (let x = Math.ceil(xMin); x <= xMax; x += 2) {
+                const p1 = toCanvas(x, yMin);
+                const p2 = toCanvas(x, yMax);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+
+            for (let y = Math.ceil(yMin); y <= yMax; y += 2) {
+                const p1 = toCanvas(xMin, y);
+                const p2 = toCanvas(xMax, y);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = '#829ab1';
+            ctx.lineWidth = 1.8;
+            const xAxis1 = toCanvas(xMin, 0);
+            const xAxis2 = toCanvas(xMax, 0);
+            ctx.beginPath();
+            ctx.moveTo(xAxis1.x, xAxis1.y);
+            ctx.lineTo(xAxis2.x, xAxis2.y);
+            ctx.stroke();
+
+            const yAxis1 = toCanvas(0, yMin);
+            const yAxis2 = toCanvas(0, yMax);
+            ctx.beginPath();
+            ctx.moveTo(yAxis1.x, yAxis1.y);
+            ctx.lineTo(yAxis2.x, yAxis2.y);
+            ctx.stroke();
+
+            ctx.fillStyle = '#526b84';
+            ctx.font = '12px Segoe UI';
+            ctx.fillText('x', xAxis2.x - 14, xAxis2.y - 8);
+            ctx.fillText('y', yAxis2.x + 8, yAxis2.y + 14);
+            ctx.restore();
+        }
+
+        function drawFieldRegion() {
+            const p1 = toCanvas(fieldRegion.x1, fieldRegion.y2);
+            const p2 = toCanvas(fieldRegion.x2, fieldRegion.y1);
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(185, 200, 219, 0.24)';
+            ctx.strokeStyle = '#8ea5bc';
+            ctx.lineWidth = 2;
+            ctx.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+            ctx.strokeRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+
+            ctx.fillStyle = '#3b536b';
+            ctx.font = '13px Segoe UI';
+            ctx.fillText('Crossed-field region', p1.x + 12, p1.y + 20);
+
+            for (let x = fieldRegion.x1 + 1; x <= fieldRegion.x2 - 1; x += 2.4) {
+                for (let y = fieldRegion.y1 + 1; y <= fieldRegion.y2 - 1; y += 2.4) {
+                    drawArrow(x, y - 0.5, x, y + 0.7, '#c4571c', 1.4);
+
+                    const dot = toCanvas(x + 0.65, y);
+                    ctx.beginPath();
+                    ctx.arc(dot.x, dot.y, 5, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#0b5cab';
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(dot.x, dot.y, 1.8, 0, Math.PI * 2);
+                    ctx.fillStyle = '#0b5cab';
+                    ctx.fill();
+                }
+            }
+
+            ctx.fillStyle = '#a04a17';
+            ctx.fillText('E', p1.x + 14, p1.y + 42);
+            ctx.fillStyle = '#0b5cab';
+            ctx.fillText('B', p1.x + 40, p1.y + 42);
+            ctx.restore();
+        }
+
+        function drawDetector() {
+            const top = toCanvas(detectorX, 8);
+            const bottom = toCanvas(detectorX, -8);
+
+            ctx.save();
+            ctx.strokeStyle = '#4f6b86';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(top.x, top.y);
+            ctx.lineTo(bottom.x, bottom.y);
+            ctx.stroke();
+
+            ctx.fillStyle = '#3d556d';
+            ctx.font = '13px Segoe UI';
+            ctx.fillText('detector', top.x - 28, top.y - 10);
+            ctx.restore();
+        }
+
+        function drawParticle(particle) {
+            ctx.save();
+
+            if (particle.trail.length > 1) {
+                ctx.strokeStyle = particle.spec.color;
+                ctx.lineWidth = 2.3;
+                ctx.beginPath();
+                particle.trail.forEach((point, index) => {
+                    const p = toCanvas(point.x, point.y);
+                    if (index === 0) {
+                        ctx.moveTo(p.x, p.y);
+                    } else {
+                        ctx.lineTo(p.x, p.y);
+                    }
+                });
+                ctx.stroke();
+            }
+
+            const pos = toCanvas(particle.x, particle.y);
+            ctx.beginPath();
+            ctx.fillStyle = particle.spec.color;
+            ctx.arc(pos.x, pos.y, 7, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = particle.spec.color;
+            ctx.font = '12px Segoe UI';
+            ctx.fillText(particle.spec.label, pos.x + 10, pos.y - 10);
+            ctx.restore();
+        }
+
+        function updateParticle(particle, dt, params) {
+            if (particle.stopped) {
+                return;
+            }
+
+            const insideField =
+                particle.x >= fieldRegion.x1 &&
+                particle.x <= fieldRegion.x2 &&
+                particle.y >= fieldRegion.y1 &&
+                particle.y <= fieldRegion.y2;
+
+            let ay = 0;
+            if (insideField) {
+                ay = bendScale * ((params.E - particle.vx * params.B) / Math.max(params.E, 1e-6));
+            }
+
+            particle.vy += ay * dt;
+            particle.x += particle.vx * displayVxScale * dt;
+            particle.y += particle.vy * dt;
+
+            if (particle.trail.length === 0) {
+                particle.trail.push({ x: particle.x, y: particle.y });
+            } else {
+                const last = particle.trail[particle.trail.length - 1];
+                if (Math.hypot(last.x - particle.x, last.y - particle.y) > 0.08) {
+                    particle.trail.push({ x: particle.x, y: particle.y });
+                }
+            }
+
+            if (particle.hitY === null && particle.x >= detectorX) {
+                particle.x = detectorX;
+                particle.hitY = particle.y;
+                particle.vx = 0;
+                particle.vy = 0;
+                particle.stopped = true;
+
+                const last = particle.trail[particle.trail.length - 1];
+                if (!last || Math.hypot(last.x - particle.x, last.y - particle.y) > 0.001) {
+                    particle.trail.push({ x: particle.x, y: particle.y });
+                }
+            }
+        }
+
+        function update(dt) {
+            const params = getParams();
+            const scaledDt = dt * 0.09 * params.speedFactor;
+            state.time += scaledDt;
+
+            state.particles.forEach((particle) => {
+                updateParticle(particle, scaledDt, params);
+            });
+        }
+
+        function updateText() {
+            const params = getParams();
+            const slowerEffect = (params.E - params.slowerSpeed * params.B) / Math.max(params.E, 1e-6);
+            const fasterEffect = (params.E - params.fasterSpeed * params.B) / Math.max(params.E, 1e-6);
+
+            eqBox.textContent =
+                `F_E = qE,   F_B = qvB,   straight beam when E = vB,   so v_d = E/B = ${format(params.selectedSpeed, 1)} m/s`;
+
+            statsBox.innerHTML =
+                `<strong>Default exercise values:</strong> E = 400 V/m, B = 0.8 T give v_d = 500 m/s.<br>` +
+                `Current values: E = ${format(params.E, 0)} V/m, B = ${format(params.B, 2)} T, selected speed = <strong>${format(params.selectedSpeed, 1)} m/s</strong>.<br>` +
+                `Inside the field region the vertical deflection is driven by the sign of E - vB, so the trajectory flips direction exactly at v = E/B.`;
+
+            beamBox.innerHTML =
+                `<div class="beam-table">` +
+                beamSpecs.map((spec, index) => {
+                    const particle = state.particles[index];
+                    const speed = Math.abs(particle ? particle.vx : 0);
+                    const detectorText = particle && particle.hitY !== null
+                        ? `detector y = ${format(particle.hitY, 2)}`
+                        : `not yet at detector`;
+                    const netForceText = index === 0
+                        ? `upward tendency: ${format(Math.abs(slowerEffect), 3)}`
+                        : index === 1
+                            ? `vertical balance: 0.000`
+                            : `downward tendency: ${format(Math.abs(fasterEffect), 3)}`;
+                    return (
+                        `<div class="beam-row">` +
+                        `<div><span class="beam-name" style="color:${spec.color}">${spec.label}</span><br>` +
+                        `speed = ${format(speed, 1)} m/s, ${netForceText}, ${detectorText}</div>` +
+                        `<div class="beam-badge" style="background:${spec.color}">${spec.badge}</div>` +
+                        `</div>`
+                    );
+                }).join('') +
+                `</div>`;
+        }
+
+        function drawDetectorHits() {
+            state.particles.forEach((particle) => {
+                if (particle.hitY === null) {
+                    return;
+                }
+
+                const p = toCanvas(detectorX, particle.hitY);
+                ctx.save();
+                ctx.strokeStyle = particle.spec.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(p.x - 8, p.y);
+                ctx.lineTo(p.x + 8, p.y);
+                ctx.stroke();
+                ctx.restore();
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            drawFieldRegion();
+            drawDetector();
+            state.particles.forEach(drawParticle);
+            drawDetectorHits();
+            updateText();
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                return;
+            }
+
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (!state.running) {
+                state.running = true;
+                requestAnimationFrame(tick);
+            }
+        }
+
+        function pause() {
+            state.running = false;
+        }
+
+        [eSlider, bSlider, slowSlider, fastSlider, speedSlider, zoomSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                resetState();
+            });
+        });
+
+        btnStart.addEventListener('click', start);
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>

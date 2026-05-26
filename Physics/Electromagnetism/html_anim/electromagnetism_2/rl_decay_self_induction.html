@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RL Self-Induction and Decay</title>
+</head>
+<body>
+<div class="rl-widget">
+    <style>
+        .rl-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .rl-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .rl-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .rl-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(360px, 2fr) minmax(300px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .rl-widget .canvas-card,
+        .rl-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .rl-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .rl-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .rl-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .rl-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .rl-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .rl-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .rl-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .rl-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .rl-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .rl-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .rl-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .rl-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .rl-widget .btn-charge { background: #1f8b4c; }
+        .rl-widget .btn-disconnect { background: #2563c9; }
+        .rl-widget .btn-pause { background: #c97b00; }
+        .rl-widget .btn-reset { background: #557187; }
+
+        .rl-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .rl-widget .equation {
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.55;
+            font-weight: 700;
+        }
+
+        .rl-widget .equation-line {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .rl-widget .equation-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .rl-widget .math {
+            font-family: "Cambria Math", "Times New Roman", serif;
+        }
+
+        .rl-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .rl-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rl-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 940px) {
+            .rl-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Self-induction in an RL circuit</h3>
+    <p>
+        First the source is connected and the current builds up toward the steady value. Then the source is disconnected and the
+        remaining RL loop decays exponentially. The magnetic field energy stored in the coil is gradually converted into Joule heat.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="scene-canvas" width="900" height="820"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> current I</div>
+                <div class="legend-item"><span class="swatch" style="background:#2563c9;"></span> coil voltage U_L</div>
+                <div class="legend-item"><span class="swatch" style="background:#d97706;"></span> magnetic energy W</div>
+                <div class="legend-item"><span class="swatch" style="background:#8755c7;"></span> current direction in loop</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Circuit parameters</h4>
+
+                    <div class="row">
+                        <label>Inductance L <span class="value l-value"></span></label>
+                        <input class="l-slider" type="range" min="0.05" max="0.60" step="0.01" value="0.20">
+                    </div>
+
+                    <div class="row">
+                        <label>Resistance R <span class="value r-value"></span></label>
+                        <input class="r-slider" type="range" min="1.0" max="12.0" step="0.2" value="5.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Source voltage U <span class="value u-value"></span></label>
+                        <input class="u-slider" type="range" min="2.0" max="24.0" step="0.5" value="12.0">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Animation</h4>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.10" max="1.50" step="0.05" value="0.50">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-charge" type="button">Charge</button>
+                    <button class="btn-disconnect" type="button">Disconnect</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+                <div class="info-box stats-box"></div>
+                <div class="info-box note-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.scene-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const lSlider = widget.querySelector('.l-slider');
+        const rSlider = widget.querySelector('.r-slider');
+        const uSlider = widget.querySelector('.u-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+
+        const lValue = widget.querySelector('.l-value');
+        const rValue = widget.querySelector('.r-value');
+        const uValue = widget.querySelector('.u-value');
+        const speedValue = widget.querySelector('.speed-value');
+
+        const btnCharge = widget.querySelector('.btn-charge');
+        const btnDisconnect = widget.querySelector('.btn-disconnect');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const noteBox = widget.querySelector('.note-box');
+
+        const state = {
+            running: false,
+            mode: 'charging',
+            t: 0,
+            i: 0,
+            lastFrame: null,
+            frameId: null,
+            history: []
+        };
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function getParams() {
+            return {
+                L: parseFloat(lSlider.value),
+                R: parseFloat(rSlider.value),
+                U: parseFloat(uSlider.value),
+                speed: parseFloat(speedSlider.value)
+            };
+        }
+
+        function getDerived(params, current) {
+            const tau = params.L / params.R;
+            const iSteady = params.U / params.R;
+            const uR = current * params.R;
+            const uL = state.mode === 'charging' ? (params.U - uR) : (-uR);
+            const energy = 0.5 * params.L * current * current;
+            const powerRes = current * current * params.R;
+            return { tau, iSteady, uR, uL, energy, powerRes };
+        }
+
+        function updateLabels() {
+            lValue.textContent = `${format(parseFloat(lSlider.value), 2)} H`;
+            rValue.textContent = `${format(parseFloat(rSlider.value), 1)} Ω`;
+            uValue.textContent = `${format(parseFloat(uSlider.value), 1)} V`;
+            speedValue.textContent = `${format(parseFloat(speedSlider.value), 2)}x`;
+        }
+
+        function pushHistory(params) {
+            const derived = getDerived(params, state.i);
+            state.history.push({
+                t: state.t,
+                i: state.i,
+                uL: derived.uL,
+                energy: derived.energy
+            });
+            if (state.history.length > 500) {
+                state.history.shift();
+            }
+        }
+
+        function resetState() {
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.running = false;
+            state.mode = 'charging';
+            state.t = 0;
+            state.i = 0;
+            state.lastFrame = null;
+            state.history = [];
+            pushHistory(getParams());
+            draw();
+        }
+
+        function drawArrow(x1, y1, x2, y2, color, width, label, labelDx = 8, labelDy = -8) {
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const head = 11;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 6), y2 - head * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 6), y2 - head * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            if (label) {
+                ctx.font = 'bold 15px Segoe UI';
+                ctx.fillText(label, x2 + labelDx, y2 + labelDy);
+            }
+            ctx.restore();
+        }
+
+        function drawPanel(x, y, w, h, title) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255,255,255,0.92)';
+            ctx.strokeStyle = '#d4dfeb';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 14);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#23415f';
+            ctx.font = 'bold 17px Segoe UI';
+            ctx.fillText(title, x + 16, y + 26);
+            ctx.restore();
+        }
+
+        function drawCircuit(params, derived) {
+            const x = 20;
+            const y = 18;
+            const w = 860;
+            const h = 300;
+            drawPanel(x, y, w, h, 'RL circuit and self-induction');
+
+            const left = x + 88;
+            const right = x + w - 90;
+            const top = y + 82;
+            const bottom = y + h - 60;
+            const sourceX = left + 20;
+            const resistorX = x + 320;
+            const coilX = x + 560;
+
+            ctx.save();
+            ctx.strokeStyle = '#6d8090';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(left, top);
+            ctx.lineTo(sourceX - 24, top);
+            ctx.moveTo(sourceX + 24, top);
+            ctx.lineTo(resistorX - 52, top);
+            ctx.moveTo(resistorX + 52, top);
+            ctx.lineTo(coilX - 72, top);
+            ctx.moveTo(coilX + 72, top);
+            ctx.lineTo(right, top);
+            ctx.lineTo(right, bottom);
+            ctx.lineTo(left, bottom);
+            ctx.lineTo(left, top);
+            ctx.stroke();
+            ctx.restore();
+
+            if (state.mode === 'charging') {
+                ctx.save();
+                ctx.strokeStyle = '#1f8b4c';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(sourceX, top - 28);
+                ctx.lineTo(sourceX, top + 28);
+                ctx.moveTo(sourceX + 16, top - 18);
+                ctx.lineTo(sourceX + 16, top + 18);
+                ctx.stroke();
+                ctx.fillStyle = '#1f8b4c';
+                ctx.font = '15px Segoe UI';
+                ctx.fillText(`U = ${format(params.U, 1)} V`, sourceX - 18, top - 42);
+                ctx.restore();
+            } else {
+                ctx.save();
+                ctx.strokeStyle = '#c94c4c';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(sourceX - 18, top - 18);
+                ctx.lineTo(sourceX + 34, top + 18);
+                ctx.stroke();
+                ctx.fillStyle = '#c94c4c';
+                ctx.font = '15px Segoe UI';
+                ctx.fillText('source disconnected', sourceX - 34, top - 40);
+                ctx.restore();
+            }
+
+            ctx.save();
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(resistorX - 52, top);
+            ctx.lineTo(resistorX - 36, top - 16);
+            ctx.lineTo(resistorX - 20, top + 16);
+            ctx.lineTo(resistorX - 4, top - 16);
+            ctx.lineTo(resistorX + 12, top + 16);
+            ctx.lineTo(resistorX + 28, top - 16);
+            ctx.lineTo(resistorX + 44, top + 16);
+            ctx.lineTo(resistorX + 52, top);
+            ctx.stroke();
+            ctx.fillStyle = '#d97706';
+            ctx.font = '15px Segoe UI';
+            ctx.fillText(`R = ${format(params.R, 1)} Ω`, resistorX - 28, top - 34);
+            ctx.restore();
+
+            ctx.save();
+            ctx.strokeStyle = '#2563c9';
+            ctx.lineWidth = 4;
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.arc(coilX - 38 + i * 26, top, 13, Math.PI, 0);
+                ctx.stroke();
+            }
+            ctx.fillStyle = '#2563c9';
+            ctx.font = '15px Segoe UI';
+            ctx.fillText(`L = ${format(params.L, 2)} H`, coilX - 30, top - 34);
+            ctx.restore();
+
+            drawArrow(left + 30, bottom, left + 30, top + 16, '#8755c7', 3, 'I', 10, -10);
+            drawArrow(left + 54, top - 2, right - 24, top - 2, '#8755c7', 3, '', 0, 0);
+            drawArrow(right - 2, top + 18, right - 2, bottom - 18, '#8755c7', 3, '', 0, 0);
+            drawArrow(right - 24, bottom + 2, left + 52, bottom + 2, '#8755c7', 3, '', 0, 0);
+
+            const fieldBarH = 120;
+            const fieldFill = clamp(derived.iSteady > 0 ? state.i / derived.iSteady : 0, 0, 1) * fieldBarH;
+            ctx.save();
+            ctx.strokeStyle = '#b7c8d8';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x + 732, y + 82, 28, fieldBarH);
+            ctx.fillStyle = '#d8ecff';
+            ctx.fillRect(x + 732, y + 82 + fieldBarH - fieldFill, 28, fieldFill);
+            ctx.fillStyle = '#36526c';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText('coil field', x + 694, y + 68);
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = '#46627d';
+            ctx.font = '14px Segoe UI';
+            const modeText = state.mode === 'charging'
+                ? 'Charging phase: source drives current upward toward the steady value U/R.'
+                : 'Decay phase: source is gone, but the coil keeps current flowing while its magnetic energy collapses.';
+            ctx.fillText(modeText, x + 20, y + h - 20);
+            ctx.restore();
+        }
+
+        function drawPlot(x, y, w, h, title, key, color, yMax, unit) {
+            drawPanel(x, y, w, h, title);
+            const px0 = x + 44;
+            const py0 = y + h - 34;
+            const pw = w - 58;
+            const ph = h - 62;
+            const windowDuration = 1.6;
+            const timeStart = Math.max(0, state.t - windowDuration);
+            const visible = state.history.filter((p) => p.t >= timeStart);
+
+            ctx.save();
+            ctx.strokeStyle = '#9eb0c2';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px0, y + 36);
+            ctx.lineTo(px0, py0);
+            ctx.lineTo(px0 + pw, py0);
+            ctx.stroke();
+
+            const yMin = key === 'uL' ? -yMax : 0;
+            for (let i = 0; i <= 4; i++) {
+                const yy = py0 - (i / 4) * ph;
+                ctx.strokeStyle = 'rgba(158,176,194,0.30)';
+                ctx.beginPath();
+                ctx.moveTo(px0, yy);
+                ctx.lineTo(px0 + pw, yy);
+                ctx.stroke();
+                const value = yMin + (i / 4) * (yMax - yMin);
+                ctx.fillStyle = '#50697f';
+                ctx.font = '12px Segoe UI';
+                ctx.fillText(format(value, 2), px0 - 36, yy + 4);
+            }
+
+            if (visible.length > 1) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2.6;
+                ctx.beginPath();
+                visible.forEach((point, index) => {
+                    const px = px0 + ((point.t - timeStart) / windowDuration) * pw;
+                    const value = point[key];
+                    const py = py0 - ((value - yMin) / (yMax - yMin)) * ph;
+                    if (index === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                });
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#50697f';
+            ctx.font = '12px Segoe UI';
+            ctx.fillText(unit, px0 + pw - 28, y + 32);
+            ctx.restore();
+        }
+
+        function drawPlots(params, derived) {
+            const iMax = Math.max(derived.iSteady * 1.15, 0.2);
+            const uMax = Math.max(params.U * 1.15, 0.5);
+            const wMax = Math.max(0.5 * params.L * derived.iSteady * derived.iSteady * 1.15, 0.05);
+            drawPlot(20, 338, 418, 200, 'Current I(t)', 'i', '#1f8b4c', iMax, 'A');
+            drawPlot(462, 338, 418, 200, 'Coil voltage U_L(t)', 'uL', '#2563c9', uMax, 'V');
+            drawPlot(20, 560, 418, 200, 'Magnetic energy W(t)', 'energy', '#d97706', wMax, 'J');
+
+            drawPanel(462, 560, 418, 200, 'Key formulas');
+            ctx.save();
+            ctx.fillStyle = '#30506d';
+            ctx.font = '15px Segoe UI';
+            ctx.fillText(`Steady current I₀ = U/R = ${format(derived.iSteady, 3)} A`, 486, 610);
+            ctx.fillText(`Time constant τ = L/R = ${format(derived.tau, 3)} s`, 486, 640);
+            ctx.fillText(`Stored energy W = 1/2 L I² = ${format(derived.energy, 3)} J`, 486, 670);
+            ctx.fillText(`Resistor heating I²R = ${format(derived.powerRes, 3)} W`, 486, 700);
+            ctx.fillText(`During decay: I(t) = I₀ e^{-t/τ}`, 486, 730);
+            ctx.restore();
+        }
+
+        function updateText(params, derived) {
+            eqBox.innerHTML =
+                `<span class="equation-line math">\u2130<sub>L</sub> = -L dI/dt</span>` +
+                `<span class="equation-line math">\u03C4 = L/R = ${format(derived.tau, 3)} s</span>` +
+                `<span class="equation-line math">I<sub>0</sub> = U/R = ${format(derived.iSteady, 3)} A,   W = \u00BD L I<sup>2</sup> = ${format(derived.energy, 3)} J</span>`;
+
+            statsBox.innerHTML =
+                `Current mode: <strong>${state.mode === 'charging' ? 'charging' : 'decay after disconnection'}</strong>.<br>` +
+                `Instant current: <strong>${format(state.i, 3)} A</strong>.<br>` +
+                `Coil voltage: <strong>${format(derived.uL, 3)} V</strong>, resistor voltage: <strong>${format(derived.uR, 3)} V</strong>.<br>` +
+                `Magnetic energy: <strong>${format(derived.energy, 3)} J</strong>.`;
+
+            noteBox.innerHTML =
+                `While charging, the coil resists the rise of current, so the current approaches the steady value gradually instead of jumping instantly.<br>` +
+                `After disconnection, the coil reverses its voltage and keeps the current alive in the same direction until the stored magnetic energy is dissipated as heat.`;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const params = getParams();
+            const derived = getDerived(params, state.i);
+            drawCircuit(params, derived);
+            drawPlots(params, derived);
+            updateText(params, derived);
+        }
+
+        function update(dt) {
+            const params = getParams();
+            const h = dt * params.speed;
+            const derived = getDerived(params, state.i);
+            const di = state.mode === 'charging'
+                ? (params.U - params.R * state.i) / params.L
+                : -(params.R / params.L) * state.i;
+            state.i = Math.max(0, state.i + di * h);
+            state.t += h;
+            if (state.history.length === 0 || state.t - state.history[state.history.length - 1].t > 0.025) {
+                pushHistory(params);
+            }
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                state.frameId = null;
+                draw();
+                return;
+            }
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            state.frameId = requestAnimationFrame(tick);
+        }
+
+        function startMode(mode) {
+            state.mode = mode;
+            state.running = true;
+            state.lastFrame = null;
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+            }
+            state.frameId = requestAnimationFrame(tick);
+        }
+
+        function pause() {
+            state.running = false;
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.lastFrame = null;
+            draw();
+        }
+
+        [lSlider, rSlider, uSlider, speedSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                resetState();
+            });
+        });
+
+        btnCharge.addEventListener('click', () => startMode('charging'));
+        btnDisconnect.addEventListener('click', () => startMode('decay'));
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Entering a Magnetic Field Region</title>
+</head>
+<body>
+<div class="loop-widget">
+    <style>
+        .loop-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .loop-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .loop-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .loop-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(360px, 2fr) minmax(300px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .loop-widget .canvas-card,
+        .loop-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .loop-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .loop-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .loop-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .loop-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .loop-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .loop-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .loop-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .loop-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .loop-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .loop-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .loop-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .loop-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .loop-widget .btn-start { background: #1f8b4c; }
+        .loop-widget .btn-pause { background: #c97b00; }
+        .loop-widget .btn-reset { background: #557187; }
+
+        .loop-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .loop-widget .equation {
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.55;
+            font-weight: 700;
+        }
+
+        .loop-widget .equation-line {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .loop-widget .equation-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .loop-widget .math {
+            font-family: "Cambria Math", "Times New Roman", serif;
+        }
+
+        .loop-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .loop-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .loop-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 940px) {
+            .loop-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Loop entering a magnetic field region</h3>
+    <p>
+        The loop is pulled to the right with constant speed. Current appears only while the overlap area changes. Once the whole
+        loop is fully inside the uniform field region, the flux stops changing, so the EMF, current, and braking force all drop to zero.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="scene-canvas" width="900" height="820"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#2e8bcb;"></span> magnetic field region</div>
+                <div class="legend-item"><span class="swatch" style="background:#8755c7;"></span> induced current</div>
+                <div class="legend-item"><span class="swatch" style="background:#d97706;"></span> pulling velocity</div>
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> magnetic braking force</div>
+                <div class="legend-item"><span class="swatch" style="background:#526f88;"></span> time plots</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Loop and field</h4>
+
+                    <div class="row">
+                        <label>Loop width a <span class="value a-value"></span></label>
+                        <input class="a-slider" type="range" min="0.10" max="0.40" step="0.01" value="0.20">
+                    </div>
+
+                    <div class="row">
+                        <label>Loop height b <span class="value bdim-value"></span></label>
+                        <input class="b-dim-slider" type="range" min="0.06" max="0.24" step="0.01" value="0.10">
+                    </div>
+
+                    <div class="row">
+                        <label>Magnetic field B <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="0.20" max="1.20" step="0.02" value="0.60">
+                    </div>
+
+                    <div class="row">
+                        <label>Resistance R <span class="value r-value"></span></label>
+                        <input class="r-slider" type="range" min="0.10" max="1.00" step="0.02" value="0.40">
+                    </div>
+
+                    <div class="row">
+                        <label>Pulling speed v <span class="value v-value"></span></label>
+                        <input class="v-slider" type="range" min="0.4" max="3.0" step="0.1" value="1.5">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Animation</h4>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.03" max="0.30" step="0.01" value="0.10">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+                <div class="info-box stats-box"></div>
+                <div class="info-box note-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.scene-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const aSlider = widget.querySelector('.a-slider');
+        const bDimSlider = widget.querySelector('.b-dim-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const rSlider = widget.querySelector('.r-slider');
+        const vSlider = widget.querySelector('.v-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+
+        const aValue = widget.querySelector('.a-value');
+        const bDimValue = widget.querySelector('.bdim-value');
+        const bValue = widget.querySelector('.b-value');
+        const rValue = widget.querySelector('.r-value');
+        const vValue = widget.querySelector('.v-value');
+        const speedValue = widget.querySelector('.speed-value');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const noteBox = widget.querySelector('.note-box');
+
+        const state = {
+            running: false,
+            t: 0,
+            x: 0,
+            lastFrame: null,
+            frameId: null,
+            history: []
+        };
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function getParams() {
+            return {
+                a: parseFloat(aSlider.value),
+                b: parseFloat(bDimSlider.value),
+                B: parseFloat(bSlider.value),
+                R: parseFloat(rSlider.value),
+                v: parseFloat(vSlider.value),
+                speed: parseFloat(speedSlider.value)
+            };
+        }
+
+        function getDerived(params, x) {
+            const overlap = clamp(x, 0, params.a);
+            const area = overlap * params.b;
+            const flux = params.B * area;
+            const entering = x > 0 && x < params.a;
+            const emf = entering ? params.B * params.b * params.v : 0;
+            const current = entering ? emf / params.R : 0;
+            const force = entering ? params.B * current * params.b : 0;
+            const mechPower = force * params.v;
+            const joulePower = current * current * params.R;
+            return { overlap, area, flux, emf, current, force, mechPower, joulePower, entering };
+        }
+
+        function updateLabels() {
+            aValue.textContent = `${format(parseFloat(aSlider.value), 2)} m`;
+            bDimValue.textContent = `${format(parseFloat(bDimSlider.value), 2)} m`;
+            bValue.textContent = `${format(parseFloat(bSlider.value), 2)} T`;
+            rValue.textContent = `${format(parseFloat(rSlider.value), 2)} Ω`;
+            vValue.textContent = `${format(parseFloat(vSlider.value), 1)} m/s`;
+            speedValue.textContent = `${format(parseFloat(speedSlider.value), 2)}x`;
+        }
+
+        function resetState() {
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.running = false;
+            state.t = 0;
+            state.x = -0.12;
+            state.lastFrame = null;
+            const params = getParams();
+            const derived = getDerived(params, state.x);
+            state.history = [{
+                t: 0,
+                area: derived.area,
+                flux: derived.flux,
+                emf: derived.emf,
+                current: derived.current,
+                force: derived.force
+            }];
+            draw();
+        }
+
+        function drawArrow(x1, y1, x2, y2, color, width, label, labelDx = 8, labelDy = -8) {
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const head = 11;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 6), y2 - head * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 6), y2 - head * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            if (label) {
+                ctx.font = 'bold 15px Segoe UI';
+                ctx.fillText(label, x2 + labelDx, y2 + labelDy);
+            }
+            ctx.restore();
+        }
+
+        function drawPanel(x, y, w, h, title) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255,255,255,0.92)';
+            ctx.strokeStyle = '#d4dfeb';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 14);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#23415f';
+            ctx.font = 'bold 17px Segoe UI';
+            ctx.fillText(title, x + 16, y + 26);
+            ctx.restore();
+        }
+
+        function drawFieldSymbol(x, y, r) {
+            ctx.save();
+            ctx.strokeStyle = '#2e8bcb';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x - r * 0.55, y - r * 0.55);
+            ctx.lineTo(x + r * 0.55, y + r * 0.55);
+            ctx.moveTo(x + r * 0.55, y - r * 0.55);
+            ctx.lineTo(x - r * 0.55, y + r * 0.55);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawScene(params, derived) {
+            const x = 20;
+            const y = 18;
+            const w = 860;
+            const h = 360;
+            drawPanel(x, y, w, h, 'Loop and field region');
+
+            const sceneLeft = x + 34;
+            const sceneTop = y + 48;
+            const sceneWidth = w - 68;
+            const sceneHeight = h - 78;
+
+            const fieldBoundaryX = sceneLeft + 250;
+            const fieldRight = sceneLeft + sceneWidth - 22;
+            const loopScale = 820;
+            const loopW = params.a * loopScale;
+            const loopH = params.b * loopScale;
+            const loopY = sceneTop + 88;
+            const loopX = fieldBoundaryX - loopW + state.x * loopScale;
+            const loopCenterY = loopY + loopH / 2;
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(46, 139, 203, 0.10)';
+            ctx.fillRect(fieldBoundaryX, sceneTop + 16, fieldRight - fieldBoundaryX, sceneHeight - 42);
+            ctx.strokeStyle = '#88a9c8';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([8, 6]);
+            ctx.beginPath();
+            ctx.moveTo(fieldBoundaryX, sceneTop + 8);
+            ctx.lineTo(fieldBoundaryX, sceneTop + sceneHeight - 16);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 10; col++) {
+                    const sx = fieldBoundaryX + 42 + col * 46;
+                    const sy = sceneTop + 50 + row * 52;
+                    drawFieldSymbol(sx, sy, 9);
+                }
+            }
+
+            ctx.save();
+            ctx.strokeStyle = '#7a8d9c';
+            ctx.lineWidth = 5;
+            ctx.strokeRect(loopX, loopY, loopW, loopH);
+            ctx.strokeStyle = '#8755c7';
+            ctx.lineWidth = 5;
+            ctx.strokeRect(loopX, loopY, loopW, loopH);
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = '#23415f';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText('field boundary', fieldBoundaryX - 40, sceneTop + 2);
+            ctx.fillText(`B = ${format(params.B, 2)} T`, fieldRight - 90, sceneTop + 12);
+            ctx.fillText(`a = ${format(params.a, 2)} m`, loopX + loopW / 2 - 26, loopY + loopH + 30);
+            ctx.fillText(`b = ${format(params.b, 2)} m`, loopX + loopW + 14, loopY + loopH / 2 + 4);
+            ctx.restore();
+
+            drawArrow(loopX + loopW + 18, loopCenterY, loopX + loopW + 90, loopCenterY, '#d97706', 4, 'v', 10, -10);
+
+            if (derived.entering) {
+                drawArrow(loopX + loopW / 2, loopCenterY, loopX + loopW / 2 - 74, loopCenterY, '#1f8b4c', 4, 'F_B', -30, -12);
+                drawArrow(loopX + 18, loopY + loopH - 10, loopX + 18, loopY + 26, '#8755c7', 3, 'I', 10, -8);
+                drawArrow(loopX + 30, loopY + 18, loopX + loopW - 24, loopY + 18, '#8755c7', 3, '', 0, 0);
+                drawArrow(loopX + loopW - 18, loopY + 26, loopX + loopW - 18, loopY + loopH - 26, '#8755c7', 3, '', 0, 0);
+                drawArrow(loopX + loopW - 26, loopY + loopH - 18, loopX + 28, loopY + loopH - 18, '#8755c7', 3, '', 0, 0);
+            }
+
+            ctx.save();
+            ctx.fillStyle = '#46627d';
+            ctx.font = '14px Segoe UI';
+            const phaseText = derived.entering
+                ? 'Entering phase: overlap area changes, so Φ, ℰ, I, and F are nonzero.'
+                : (state.x <= 0
+                    ? 'Before entering: no overlap with the field region yet.'
+                    : 'Fully inside field: overlap is constant, so ℰ = I = F = 0.');
+            ctx.fillText(phaseText, x + 20, y + h - 20);
+            ctx.restore();
+        }
+
+        function drawPlot(x, y, w, h, title, valueKey, color, derived, yMax, unit) {
+            drawPanel(x, y, w, h, title);
+            const px0 = x + 44;
+            const py0 = y + h - 34;
+            const pw = w - 58;
+            const ph = h - 62;
+            const windowDuration = 0.7;
+            const timeStart = Math.max(0, state.t - windowDuration);
+
+            ctx.save();
+            ctx.strokeStyle = '#9eb0c2';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px0, y + 36);
+            ctx.lineTo(px0, py0);
+            ctx.lineTo(px0 + pw, py0);
+            ctx.stroke();
+
+            for (let i = 0; i <= 3; i++) {
+                const yy = py0 - (i / 3) * ph;
+                ctx.strokeStyle = 'rgba(158,176,194,0.30)';
+                ctx.beginPath();
+                ctx.moveTo(px0, yy);
+                ctx.lineTo(px0 + pw, yy);
+                ctx.stroke();
+                ctx.fillStyle = '#50697f';
+                ctx.font = '12px Segoe UI';
+                ctx.fillText(format((i / 3) * yMax, 2), px0 - 34, yy + 4);
+            }
+
+            const visible = state.history.filter((point) => point.t >= timeStart);
+            if (visible.length > 1) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2.6;
+                ctx.beginPath();
+                visible.forEach((point, index) => {
+                    const px = px0 + ((point.t - timeStart) / windowDuration) * pw;
+                    const py = py0 - (point[valueKey] / yMax) * ph;
+                    if (index === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                });
+                ctx.stroke();
+            }
+
+            const currentValue = derived[valueKey];
+            const markerX = px0 + ((state.t - timeStart) / windowDuration) * pw;
+            const markerY = py0 - (currentValue / yMax) * ph;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(markerX, markerY, 4.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#50697f';
+            ctx.font = '12px Segoe UI';
+            ctx.fillText(unit, px0 + pw - 26, y + 32);
+            ctx.restore();
+        }
+
+        function drawPlots(params, derived) {
+            const baseX = 20;
+            const topY = 398;
+            drawPlot(baseX, topY, 418, 180, 'Overlap area A(t)', 'area', '#526f88', derived, params.a * params.b * 1.05, 'm²');
+            drawPlot(462, topY, 418, 180, 'Flux Φ(t)', 'flux', '#2e8bcb', derived, params.B * params.a * params.b * 1.05, 'Wb');
+
+            const bottomY = 594;
+            const emfMax = params.B * params.b * params.v * 1.15 || 1;
+            const currentMax = emfMax / params.R * 1.15 || 1;
+            const forceMax = params.B * currentMax * params.b * 1.15 || 1;
+            drawPlot(baseX, bottomY, 275, 180, 'EMF ℰ(t)', 'emf', '#d97706', derived, Math.max(emfMax, 0.1), 'V');
+            drawPlot(312, bottomY, 275, 180, 'Current I(t)', 'current', '#8755c7', derived, Math.max(currentMax, 0.1), 'A');
+            drawPlot(604, bottomY, 276, 180, 'Force F(t)', 'force', '#1f8b4c', derived, Math.max(forceMax, 0.1), 'N');
+        }
+
+        function updateText(params, derived) {
+            eqBox.innerHTML =
+                `<span class="equation-line math">\u03A6 = B \u00B7 A = B \u00B7 b \u00B7 x</span>` +
+                `<span class="equation-line math">\u2130 = - d\u03A6/dt = B b v = ${format(derived.emf, 3)} V</span>` +
+                `<span class="equation-line math">I = \u2130/R = ${format(derived.current, 3)} A,   F = B I b = ${format(derived.force, 3)} N</span>`;
+
+            statsBox.innerHTML =
+                `Current overlap width: <strong>${format(derived.overlap, 3)} m</strong>.<br>` +
+                `Overlap area: <strong>${format(derived.area, 4)} m²</strong>, flux: <strong>${format(derived.flux, 4)} Wb</strong>.<br>` +
+                `Mechanical power to keep the loop moving: <strong>${format(derived.mechPower, 3)} W</strong>.<br>` +
+                `Joule heating: <strong>${format(derived.joulePower, 3)} W</strong>.`;
+
+            noteBox.innerHTML =
+                `During the entering phase, the overlap grows linearly, so the flux also grows linearly and the induced EMF is constant.<br>` +
+                `Once the whole loop is inside the uniform field, the flux stops changing, so the current and magnetic braking both vanish.`;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const params = getParams();
+            const derived = getDerived(params, state.x);
+            drawScene(params, derived);
+            drawPlots(params, derived);
+            updateText(params, derived);
+        }
+
+        function update(dt) {
+            const params = getParams();
+            state.t += dt * params.speed;
+            state.x += params.v * dt * params.speed;
+
+            const derived = getDerived(params, state.x);
+            if (state.history.length === 0 || state.t - state.history[state.history.length - 1].t > 0.025) {
+                state.history.push({
+                    t: state.t,
+                    area: derived.area,
+                    flux: derived.flux,
+                    emf: derived.emf,
+                    current: derived.current,
+                    force: derived.force
+                });
+            }
+            if (state.history.length > 400) {
+                state.history.shift();
+            }
+
+            if (state.x > params.a + 0.16) {
+                state.running = false;
+                state.frameId = null;
+            }
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                state.frameId = null;
+                draw();
+                return;
+            }
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            if (state.running) {
+                state.frameId = requestAnimationFrame(tick);
+            }
+        }
+
+        function start() {
+            if (!state.running) {
+                state.running = true;
+                state.frameId = requestAnimationFrame(tick);
+            }
+        }
+
+        function pause() {
+            state.running = false;
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.lastFrame = null;
+            draw();
+        }
+
+        [aSlider, bDimSlider, bSlider, rSlider, vSlider, speedSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                resetState();
+            });
+        });
+
+        btnStart.addEventListener('click', start);
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>

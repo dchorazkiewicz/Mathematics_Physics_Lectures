@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Rod on Rails: Electromagnetic Braking</title>
+</head>
+<body>
+<div class="braking-widget">
+    <style>
+        .braking-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .braking-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .braking-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .braking-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(360px, 2fr) minmax(300px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .braking-widget .canvas-card,
+        .braking-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .braking-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .braking-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .braking-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .braking-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .braking-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .braking-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .braking-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .braking-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .braking-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .braking-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .braking-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .braking-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .braking-widget .btn-start { background: #1f8b4c; }
+        .braking-widget .btn-pause { background: #c97b00; }
+        .braking-widget .btn-reset { background: #557187; }
+
+        .braking-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .braking-widget .equation {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.55;
+        }
+
+        .braking-widget .equation-line {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .braking-widget .equation-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .braking-widget .math {
+            font-family: "Cambria Math", "Times New Roman", serif;
+            letter-spacing: 0.01em;
+        }
+
+        .braking-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .braking-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .braking-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 940px) {
+            .braking-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Sliding Rod on Rails: side view + top view</h3>
+    <p>
+        This version shows the same setup from two teaching perspectives at once. The side view makes the dynamics on the incline
+        clear, and the top view makes the circuit, current direction, magnetic field, rod velocity, and braking force easy to read.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="scene-canvas" width="920" height="760"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#2e8bcb;"></span> magnetic field B</div>
+                <div class="legend-item"><span class="swatch" style="background:#d97706;"></span> velocity v</div>
+                <div class="legend-item"><span class="swatch" style="background:#c94c4c;"></span> gravity vectors</div>
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> magnetic braking force F_B</div>
+                <div class="legend-item"><span class="swatch" style="background:#8755c7;"></span> induced current I</div>
+                <div class="legend-item"><span class="swatch" style="background:#6f7f8f;"></span> velocity history</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Physical setup</h4>
+
+                    <div class="row">
+                        <label>Mass m <span class="value m-value"></span></label>
+                        <input class="m-slider" type="range" min="0.05" max="0.60" step="0.01" value="0.20">
+                    </div>
+
+                    <div class="row">
+                        <label>Rail spacing L <span class="value l-value"></span></label>
+                        <input class="l-slider" type="range" min="0.10" max="0.60" step="0.01" value="0.30">
+                    </div>
+
+                    <div class="row">
+                        <label>Magnetic field B <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="0.20" max="1.40" step="0.02" value="0.80">
+                    </div>
+
+                    <div class="row">
+                        <label>Total resistance R <span class="value r-value"></span></label>
+                        <input class="r-slider" type="range" min="0.10" max="2.00" step="0.02" value="0.50">
+                    </div>
+
+                    <div class="row">
+                        <label>Incline angle α <span class="value alpha-value"></span></label>
+                        <input class="alpha-slider" type="range" min="5" max="45" step="1" value="25">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Animation</h4>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.25" max="2.50" step="0.05" value="1.00">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+                <div class="info-box stats-box"></div>
+                <div class="info-box note-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.scene-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const mSlider = widget.querySelector('.m-slider');
+        const lSlider = widget.querySelector('.l-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const rSlider = widget.querySelector('.r-slider');
+        const alphaSlider = widget.querySelector('.alpha-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+
+        const mValue = widget.querySelector('.m-value');
+        const lValue = widget.querySelector('.l-value');
+        const bValue = widget.querySelector('.b-value');
+        const rValue = widget.querySelector('.r-value');
+        const alphaValue = widget.querySelector('.alpha-value');
+        const speedValue = widget.querySelector('.speed-value');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const noteBox = widget.querySelector('.note-box');
+
+        const g = 9.81;
+
+        const state = {
+            running: false,
+            t: 0,
+            s: 0,
+            v: 0,
+            lastFrame: null,
+            frameId: null,
+            history: []
+        };
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function getParams() {
+            return {
+                m: parseFloat(mSlider.value),
+                L: parseFloat(lSlider.value),
+                B: parseFloat(bSlider.value),
+                R: parseFloat(rSlider.value),
+                alphaDeg: parseFloat(alphaSlider.value),
+                alpha: parseFloat(alphaSlider.value) * Math.PI / 180,
+                speed: parseFloat(speedSlider.value)
+            };
+        }
+
+        function getDerived(params, velocity) {
+            const emf = params.B * params.L * velocity;
+            const current = emf / params.R;
+            const gravityParallel = params.m * g * Math.sin(params.alpha);
+            const braking = (params.B * params.B * params.L * params.L / params.R) * velocity;
+            const acceleration = (gravityParallel - braking) / params.m;
+            const vTerminal = gravityParallel * params.R / (params.B * params.B * params.L * params.L);
+            const normal = params.m * g * Math.cos(params.alpha);
+            const powerGravity = gravityParallel * velocity;
+            const powerJoule = current * current * params.R;
+            return {
+                emf,
+                current,
+                gravityParallel,
+                braking,
+                acceleration,
+                vTerminal,
+                normal,
+                powerGravity,
+                powerJoule
+            };
+        }
+
+        function updateLabels() {
+            mValue.textContent = `${format(parseFloat(mSlider.value), 2)} kg`;
+            lValue.textContent = `${format(parseFloat(lSlider.value), 2)} m`;
+            bValue.textContent = `${format(parseFloat(bSlider.value), 2)} T`;
+            rValue.textContent = `${format(parseFloat(rSlider.value), 2)} Ω`;
+            alphaValue.textContent = `${format(parseFloat(alphaSlider.value), 0)}°`;
+            speedValue.textContent = `${format(parseFloat(speedSlider.value), 2)}x`;
+        }
+
+        function resetState() {
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.running = false;
+            state.t = 0;
+            state.s = 0;
+            state.v = 0;
+            state.lastFrame = null;
+            state.history = [{ t: 0, v: 0 }];
+            draw();
+        }
+
+        function drawArrow(x1, y1, x2, y2, color, width, label, labelDx = 8, labelDy = -8) {
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const head = 11;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 6), y2 - head * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 6), y2 - head * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+            if (label) {
+                ctx.font = 'bold 15px Segoe UI';
+                ctx.fillText(label, x2 + labelDx, y2 + labelDy);
+            }
+            ctx.restore();
+        }
+
+        function drawPanel(x, y, w, h, title) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255,255,255,0.92)';
+            ctx.strokeStyle = '#d4dfeb';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 14);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#23415f';
+            ctx.font = 'bold 17px Segoe UI';
+            ctx.fillText(title, x + 16, y + 26);
+            ctx.restore();
+        }
+
+        function drawBIntoPage(x, y, r) {
+            ctx.save();
+            ctx.strokeStyle = '#2e8bcb';
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x - r * 0.55, y - r * 0.55);
+            ctx.lineTo(x + r * 0.55, y + r * 0.55);
+            ctx.moveTo(x + r * 0.55, y - r * 0.55);
+            ctx.lineTo(x - r * 0.55, y + r * 0.55);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawSideView(params, derived) {
+            const x = 18;
+            const y = 18;
+            const w = 530;
+            const h = 350;
+            drawPanel(x, y, w, h, 'Side view: dynamics on the incline');
+
+            const baseX = x + 82;
+            const baseY = y + 112;
+            const slopeLength = 350;
+            const slopeRise = Math.tan(params.alpha) * slopeLength;
+            const topX = baseX + slopeLength;
+            const topY = baseY + slopeRise;
+            const displayWindow = 3.0;
+            const cameraS = Math.max(0, state.s - 1.1);
+            const displayFraction = clamp((state.s - cameraS) / displayWindow, 0, 1);
+
+            ctx.save();
+            ctx.strokeStyle = '#788b9b';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(baseX - 26, baseY);
+            ctx.lineTo(topX + 14, topY);
+            ctx.stroke();
+
+            ctx.strokeStyle = '#b8c8d8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(baseX, baseY);
+            ctx.lineTo(baseX + 82, baseY);
+            ctx.stroke();
+
+            ctx.strokeStyle = '#93a9bc';
+            ctx.beginPath();
+            ctx.arc(baseX, baseY, 34, -params.alpha, 0);
+            ctx.stroke();
+            ctx.fillStyle = '#47657f';
+            ctx.font = '15px Segoe UI';
+            ctx.fillText(`α = ${format(params.alphaDeg, 0)}°`, baseX + 18, baseY - 20);
+            ctx.restore();
+
+            const rodX = baseX + slopeLength * 0.15 + slopeLength * 0.68 * displayFraction;
+            const rodY = baseY + Math.tan(params.alpha) * (rodX - baseX);
+
+            const tangent = { x: Math.cos(params.alpha), y: Math.sin(params.alpha) };
+            const normal = { x: -Math.sin(params.alpha), y: Math.cos(params.alpha) };
+
+            ctx.save();
+            ctx.fillStyle = '#5c7287';
+            ctx.font = '13px Segoe UI';
+            for (let i = 0; i <= 4; i++) {
+                const sMark = cameraS + i * (displayWindow / 4);
+                const frac = i / 4;
+                const tickX = baseX + slopeLength * 0.15 + slopeLength * 0.68 * frac;
+                const tickY = baseY + Math.tan(params.alpha) * (tickX - baseX);
+                ctx.strokeStyle = '#b8c7d5';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(tickX - normal.x * 10, tickY - normal.y * 10);
+                ctx.lineTo(tickX + normal.x * 10, tickY + normal.y * 10);
+                ctx.stroke();
+                ctx.fillText(`${format(sMark, 1)} m`, tickX - 12, tickY + 34);
+            }
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = '#b07b48';
+            ctx.beginPath();
+            ctx.roundRect(rodX - 18, rodY - 12, 36, 24, 6);
+            ctx.fill();
+            ctx.strokeStyle = '#8f6639';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#23415f';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText('rod', rodX - 16, rodY - 24);
+            ctx.restore();
+
+            const center = { x: rodX, y: rodY };
+            const speedLen = 34 + 68 * clamp(derived.vTerminal > 0 ? state.v / derived.vTerminal : 0, 0, 1);
+            const gravityLen = 84;
+            const parallelLen = 34 + 74 * clamp(derived.gravityParallel / (params.m * g), 0, 1);
+            const normalLen = 34 + 72 * clamp(derived.normal / (params.m * g), 0, 1);
+            const brakingLen = 82 * clamp(derived.gravityParallel > 0 ? derived.braking / derived.gravityParallel : 0, 0, 1);
+
+            drawArrow(center.x, center.y, center.x, center.y + gravityLen, '#c94c4c', 4, 'mg', 14, 22);
+            drawArrow(center.x, center.y, center.x + tangent.x * speedLen, center.y + tangent.y * speedLen, '#d97706', 4, 'v', 16, -2);
+            drawArrow(center.x, center.y, center.x + tangent.x * parallelLen, center.y + tangent.y * parallelLen, '#d64a4a', 4, 'mg sinα', 18, 18);
+            drawArrow(center.x, center.y, center.x - normal.x * normalLen, center.y - normal.y * normalLen, '#5d7a94', 4, 'N', 18, -12);
+            drawArrow(center.x, center.y, center.x - tangent.x * brakingLen, center.y - tangent.y * brakingLen, '#1f8b4c', 4, 'F_B', -26, -16);
+            drawArrow(center.x + 82, center.y + 10, center.x + 82 + normal.x * 76, center.y + 10 + normal.y * 76, '#2e8bcb', 4, 'B', 14, -6);
+
+            ctx.save();
+            ctx.fillStyle = '#4b667f';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText(`Viewport follows the rod: visible rail segment ${format(cameraS, 1)} m to ${format(cameraS + displayWindow, 1)} m.`, x + 18, y + h - 48);
+            ctx.fillText('The balance is still: gravity component down the rails versus magnetic braking upward.', x + 18, y + h - 24);
+            ctx.restore();
+        }
+
+        function drawTopView(params, derived) {
+            const x = 18;
+            const y = 368;
+            const w = 530;
+            const h = 390;
+            drawPanel(x, y, w, h, 'Top view: circuit, current, B, velocity, braking');
+
+            const left = x + 84;
+            const right = x + w - 70;
+            const railTop = y + 96;
+            const railBottom = y + 220;
+            const displayWindow = 3.0;
+            const cameraS = Math.max(0, state.s - 1.15);
+            const displayFraction = clamp((state.s - cameraS) / displayWindow, 0, 1);
+            const rodPos = left + 36 + (right - left - 72) * displayFraction;
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(46, 139, 203, 0.08)';
+            ctx.fillRect(left - 34, railTop - 50, right - left + 68, railBottom - railTop + 100);
+            ctx.restore();
+
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 8; col++) {
+                    drawBIntoPage(left + col * 50, railTop - 18 + row * 48, 8);
+                }
+            }
+
+            ctx.save();
+            ctx.strokeStyle = '#6e7f8d';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(left, railTop);
+            ctx.lineTo(right, railTop);
+            ctx.moveTo(left, railBottom);
+            ctx.lineTo(right, railBottom);
+            ctx.stroke();
+
+            ctx.strokeStyle = '#8755c7';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(left + 14, railTop);
+            ctx.lineTo(rodPos, railTop);
+            ctx.lineTo(rodPos, railBottom);
+            ctx.lineTo(left + 14, railBottom);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.save();
+            ctx.strokeStyle = '#b07b48';
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.moveTo(rodPos, railTop);
+            ctx.lineTo(rodPos, railBottom);
+            ctx.stroke();
+            ctx.restore();
+
+            drawArrow(left + 10, railBottom - 18, left + 10, railTop + 22, '#8755c7', 3, 'I', 12, -10);
+            drawArrow(left + 36, railTop - 2, rodPos - 22, railTop - 2, '#8755c7', 3, '', 0, 0);
+            drawArrow(rodPos + 2, railTop + 16, rodPos + 2, railBottom - 22, '#8755c7', 3, '', 0, 0);
+            drawArrow(rodPos - 24, railBottom + 2, left + 34, railBottom + 2, '#8755c7', 3, '', 0, 0);
+
+            const centerX = rodPos;
+            const centerY = (railTop + railBottom) / 2;
+            const speedLen = 44 + 84 * clamp(derived.vTerminal > 0 ? state.v / derived.vTerminal : 0, 0, 1);
+            const brakingLen = 86 * clamp(derived.gravityParallel > 0 ? derived.braking / derived.gravityParallel : 0, 0, 1);
+            const qvbLen = 48;
+
+            drawArrow(centerX, centerY, centerX + speedLen, centerY, '#d97706', 4, 'v', 18, -10);
+            drawArrow(centerX, centerY, centerX - brakingLen, centerY, '#1f8b4c', 4, 'F_B', -34, -12);
+            drawArrow(centerX, centerY, centerX, centerY - qvbLen, '#0b73b7', 4, 'q v × B', 20, -16);
+
+            ctx.save();
+            ctx.strokeStyle = '#4d6880';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 4]);
+            ctx.beginPath();
+            ctx.moveTo(rodPos, railTop - 26);
+            ctx.lineTo(rodPos, railBottom + 26);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#4d6880';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText(`L = ${format(params.L, 2)} m`, rodPos + 22, centerY + 18);
+            ctx.fillText(`B = ${format(params.B, 2)} T`, right - 54, railTop - 36);
+            for (let i = 0; i <= 4; i++) {
+                const sMark = cameraS + i * (displayWindow / 4);
+                const frac = i / 4;
+                const tickX = left + 36 + (right - left - 72) * frac;
+                ctx.beginPath();
+                ctx.moveTo(tickX, railBottom + 34);
+                ctx.lineTo(tickX, railBottom + 52);
+                ctx.stroke();
+                ctx.fillText(format(sMark, 1), tickX - 12, railBottom + 78);
+            }
+            ctx.fillText('distance along rails [m]', left + 110, railBottom + 106);
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = '#4b667f';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText(`Viewport: ${format(cameraS, 1)} m to ${format(cameraS + displayWindow, 1)} m.`, x + 18, y + h - 54);
+            ctx.fillText('v to the right and B into the page drive current and create F_B to the left.', x + 18, y + h - 28);
+            ctx.restore();
+        }
+
+        function drawVelocityPlot(derived) {
+            const x = 566;
+            const y = 18;
+            const w = 336;
+            const h = 300;
+            drawPanel(x, y, w, h, 'Speed versus time');
+
+            const px0 = x + 46;
+            const py0 = y + h - 42;
+            const pw = w - 66;
+            const ph = h - 74;
+            const windowDuration = 8;
+            const timeStart = Math.max(0, state.t - windowDuration);
+            const timeEnd = timeStart + windowDuration;
+            const maxVel = Math.max(derived.vTerminal * 1.18, 0.5);
+
+            ctx.save();
+            ctx.strokeStyle = '#9eb0c2';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px0, y + 44);
+            ctx.lineTo(px0, py0);
+            ctx.lineTo(px0 + pw, py0);
+            ctx.stroke();
+
+            for (let i = 0; i <= 4; i++) {
+                const yy = py0 - (i / 4) * ph;
+                ctx.strokeStyle = 'rgba(158,176,194,0.35)';
+                ctx.beginPath();
+                ctx.moveTo(px0, yy);
+                ctx.lineTo(px0 + pw, yy);
+                ctx.stroke();
+                ctx.fillStyle = '#50697f';
+                ctx.font = '12px Segoe UI';
+                ctx.fillText(format((i / 4) * maxVel, 1), px0 - 32, yy + 4);
+            }
+
+            const yTerminal = py0 - (derived.vTerminal / maxVel) * ph;
+            ctx.setLineDash([6, 5]);
+            ctx.strokeStyle = '#1f8b4c';
+            ctx.beginPath();
+            ctx.moveTo(px0, yTerminal);
+            ctx.lineTo(px0 + pw, yTerminal);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#1f8b4c';
+            ctx.font = '13px Segoe UI';
+            ctx.fillText(`v∞ = ${format(derived.vTerminal, 2)} m/s`, px0 + 12, yTerminal - 8);
+
+            const visibleHistory = state.history.filter((point) => point.t >= timeStart);
+
+            if (visibleHistory.length > 1) {
+                ctx.strokeStyle = '#6f7f8f';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                visibleHistory.forEach((point, index) => {
+                    const px = px0 + ((point.t - timeStart) / windowDuration) * pw;
+                    const py = py0 - (point.v / maxVel) * ph;
+                    if (index === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                });
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#50697f';
+            ctx.font = '13px Segoe UI';
+            ctx.fillText(`${format(timeStart, 1)} s`, px0 - 10, py0 + 24);
+            ctx.fillText(`${format(timeEnd, 1)} s`, px0 + pw - 30, py0 + 24);
+            ctx.fillText('t [s]', px0 + pw / 2 - 12, py0 + 24);
+            ctx.fillText('v [m/s]', px0 - 8, y + 36);
+            ctx.restore();
+        }
+
+        function drawReadoutPanel(params, derived) {
+            const x = 566;
+            const y = 336;
+            const w = 336;
+            const h = 348;
+            drawPanel(x, y, w, h, 'Live readout');
+
+            const lines = [
+                `time t = ${format(state.t, 2)} s`,
+                `distance s = ${format(state.s, 2)} m`,
+                `speed v = ${format(state.v, 3)} m/s`,
+                `EMF ℰ = B L v = ${format(derived.emf, 3)} V`,
+                `current I = ℰ / R = ${format(derived.current, 3)} A`,
+                `gravity along rails = ${format(derived.gravityParallel, 3)} N`,
+                `magnetic braking F_B = ${format(derived.braking, 3)} N`,
+                `normal force N = ${format(derived.normal, 3)} N`,
+                `acceleration dv/dt = ${format(derived.acceleration, 3)} m/s²`,
+                `terminal speed v∞ = ${format(derived.vTerminal, 3)} m/s`,
+                `gravity power = ${format(derived.powerGravity, 3)} W`,
+                `Joule heating I²R = ${format(derived.powerJoule, 3)} W`
+            ];
+
+            ctx.save();
+            ctx.fillStyle = '#31506b';
+            ctx.font = '14px Segoe UI';
+            lines.forEach((line, index) => {
+                ctx.fillText(line, x + 18, y + 52 + index * 22);
+            });
+            ctx.restore();
+        }
+
+        function updateText(params, derived) {
+            eqBox.innerHTML =
+                `<span class="equation-line math">m dv/dt = m g sin\u03b1 - (B<sup>2</sup>L<sup>2</sup>/R) v</span>` +
+                `<span class="equation-line math">\u2130 = B L v</span>` +
+                `<span class="equation-line math">v<sub>\u221e</sub> = m g R sin\u03b1 / (B<sup>2</sup>L<sup>2</sup>) = ${format(derived.vTerminal, 3)} m/s</span>`;
+
+            const powerGap = Math.abs(derived.powerGravity - derived.powerJoule);
+            statsBox.innerHTML =
+                `At small speed, <strong>mg sinα</strong> dominates, so the rod accelerates.<br>` +
+                `At larger speed, <strong>ℰ</strong> and <strong>I</strong> rise, so <strong>F_B</strong> grows linearly with <strong>v</strong>.<br>` +
+                `Near terminal motion, the force balance along the rails becomes nearly exact and the acceleration tends to zero.`;
+
+            noteBox.innerHTML =
+                `The side view is best for the force decomposition: <strong>mg</strong>, <strong>mg sinα</strong>, <strong>N</strong>, and <strong>F_B</strong>.<br>` +
+                `The top view is best for the induction logic: <strong>B</strong>, <strong>v</strong>, <strong>q v × B</strong>, loop current <strong>I</strong>, and the braking force on the rod.<br>` +
+                `Current power-balance mismatch: <strong>${format(powerGap, 3)} W</strong>.`;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const params = getParams();
+            const derived = getDerived(params, state.v);
+            drawSideView(params, derived);
+            drawTopView(params, derived);
+            drawVelocityPlot(derived);
+            drawReadoutPanel(params, derived);
+            updateText(params, derived);
+        }
+
+        function update(dt) {
+            const params = getParams();
+            const substeps = 4;
+            const h = dt * params.speed / substeps;
+
+            for (let i = 0; i < substeps; i++) {
+                const derived = getDerived(params, state.v);
+                state.v = Math.max(0, state.v + derived.acceleration * h);
+                state.s += state.v * h;
+                state.t += h;
+            }
+
+            if (state.history.length === 0 || state.t - state.history[state.history.length - 1].t > 0.08) {
+                state.history.push({ t: state.t, v: state.v });
+            }
+            if (state.history.length > 240) {
+                state.history.shift();
+            }
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                state.frameId = null;
+                return;
+            }
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            state.frameId = requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (!state.running) {
+                state.running = true;
+                state.frameId = requestAnimationFrame(tick);
+            }
+        }
+
+        function pause() {
+            state.running = false;
+            if (state.frameId !== null) {
+                cancelAnimationFrame(state.frameId);
+                state.frameId = null;
+            }
+            state.lastFrame = null;
+        }
+
+        [mSlider, lSlider, bSlider, rSlider, alphaSlider, speedSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                resetState();
+            });
+        });
+
+        btnStart.addEventListener('click', start);
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>

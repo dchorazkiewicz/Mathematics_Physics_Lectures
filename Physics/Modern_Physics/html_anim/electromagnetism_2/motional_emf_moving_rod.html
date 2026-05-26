@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motional EMF in a Moving Rod</title>
+</head>
+<body>
+<div class="rod-widget">
+    <style>
+        .rod-widget {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #223;
+            background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+            border: 1px solid #d7e2ee;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+            padding: 18px;
+            max-width: 1120px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .rod-widget h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #17324d;
+            letter-spacing: 0.02em;
+        }
+
+        .rod-widget p {
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .rod-widget .layout {
+            display: grid;
+            grid-template-columns: minmax(340px, 2fr) minmax(300px, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .rod-widget .canvas-card,
+        .rod-widget .panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #d9e3ef;
+            border-radius: 12px;
+            padding: 14px;
+            box-sizing: border-box;
+        }
+
+        .rod-widget canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(180deg, rgba(248, 251, 255, 0.99), rgba(239, 246, 252, 0.99));
+            border: 1px solid #cad7e4;
+            border-radius: 10px;
+        }
+
+        .rod-widget .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        .rod-widget .control-group {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .rod-widget .control-group h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #1f4367;
+        }
+
+        .rod-widget label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #38536e;
+            margin-bottom: 4px;
+        }
+
+        .rod-widget input[type="range"] {
+            width: 100%;
+        }
+
+        .rod-widget .value {
+            color: #0b5cab;
+            font-weight: 700;
+            float: right;
+        }
+
+        .rod-widget .row {
+            margin-bottom: 10px;
+        }
+
+        .rod-widget .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .rod-widget .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .rod-widget button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .rod-widget button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .rod-widget .btn-start { background: #1f8b4c; }
+        .rod-widget .btn-pause { background: #c97b00; }
+        .rod-widget .btn-reset { background: #557187; }
+
+        .rod-widget .info-box {
+            border-radius: 10px;
+            background: #f3f8fd;
+            border: 1px solid #d9e6f2;
+            padding: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .rod-widget .equation {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: 700;
+            color: #0f4d8a;
+            background: #eef6ff;
+            border: 1px solid #d7e6f6;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .rod-widget .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.86rem;
+            margin-top: 10px;
+        }
+
+        .rod-widget .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rod-widget .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 940px) {
+            .rod-widget .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <h3>Motional EMF in a Moving Rod</h3>
+    <p>
+        This is the clean 2D case. The rod is vertical, it moves horizontally, and the magnetic field is perpendicular
+        to the screen. Moving charges feel the magnetic Lorentz force and separate toward opposite rod ends.
+    </p>
+
+    <div class="layout">
+        <div class="canvas-card">
+            <canvas class="scene-canvas" width="800" height="560"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="swatch" style="background:#1e88e5;"></span> magnetic field B</div>
+                <div class="legend-item"><span class="swatch" style="background:#d97706;"></span> velocity v</div>
+                <div class="legend-item"><span class="swatch" style="background:#1f8b4c;"></span> q v × B direction</div>
+                <div class="legend-item"><span class="swatch" style="background:#c94c4c;"></span> positive side</div>
+                <div class="legend-item"><span class="swatch" style="background:#3465c5;"></span> negative side</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Rod and motion</h4>
+
+                    <div class="row">
+                        <label>Rod length L <span class="value l-value"></span></label>
+                        <input class="l-slider" type="range" min="0.10" max="0.60" step="0.01" value="0.25">
+                    </div>
+
+                    <div class="row">
+                        <label>Speed v <span class="value v-value"></span></label>
+                        <input class="v-slider" type="range" min="0.5" max="8.0" step="0.1" value="4.0">
+                    </div>
+
+                    <div class="row">
+                        <label>Angle α between v and rod <span class="value alpha-value"></span></label>
+                        <input class="alpha-slider" type="range" min="0" max="90" step="1" value="90">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h4>Field and display</h4>
+
+                    <div class="row">
+                        <label>Magnetic field B <span class="value b-value"></span></label>
+                        <input class="b-slider" type="range" min="0.2" max="1.2" step="0.02" value="0.60">
+                    </div>
+
+                    <div class="row">
+                        <label>Animation speed <span class="value speed-value"></span></label>
+                        <input class="speed-slider" type="range" min="0.3" max="2.5" step="0.1" value="1.0">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn-start" type="button">Start</button>
+                    <button class="btn-pause" type="button">Pause</button>
+                    <button class="btn-reset" type="button">Reset</button>
+                </div>
+
+                <div class="equation eq-box"></div>
+                <div class="info-box stats-box"></div>
+                <div class="info-box note-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const widget = document.currentScript.parentElement;
+        const canvas = widget.querySelector('.scene-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const lSlider = widget.querySelector('.l-slider');
+        const vSlider = widget.querySelector('.v-slider');
+        const alphaSlider = widget.querySelector('.alpha-slider');
+        const bSlider = widget.querySelector('.b-slider');
+        const speedSlider = widget.querySelector('.speed-slider');
+
+        const lValue = widget.querySelector('.l-value');
+        const vValue = widget.querySelector('.v-value');
+        const alphaValue = widget.querySelector('.alpha-value');
+        const bValue = widget.querySelector('.b-value');
+        const speedValue = widget.querySelector('.speed-value');
+
+        const btnStart = widget.querySelector('.btn-start');
+        const btnPause = widget.querySelector('.btn-pause');
+        const btnReset = widget.querySelector('.btn-reset');
+
+        const eqBox = widget.querySelector('.eq-box');
+        const statsBox = widget.querySelector('.stats-box');
+        const noteBox = widget.querySelector('.note-box');
+
+        const state = {
+            running: false,
+            t: 0,
+            lastFrame: null
+        };
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value, digits) {
+            return value.toFixed(digits);
+        }
+
+        function getParams() {
+            return {
+                L: parseFloat(lSlider.value),
+                v: parseFloat(vSlider.value),
+                alpha: parseFloat(alphaSlider.value) * Math.PI / 180,
+                B: parseFloat(bSlider.value),
+                speed: parseFloat(speedSlider.value)
+            };
+        }
+
+        function updateLabels() {
+            lValue.textContent = `${format(parseFloat(lSlider.value), 2)} m`;
+            vValue.textContent = `${format(parseFloat(vSlider.value), 1)} m/s`;
+            alphaValue.textContent = `${format(parseFloat(alphaSlider.value), 0)}°`;
+            bValue.textContent = `${format(parseFloat(bSlider.value), 2)} T`;
+            speedValue.textContent = `${format(parseFloat(speedSlider.value), 1)}x`;
+        }
+
+        function resetState() {
+            state.running = false;
+            state.t = 0;
+            state.lastFrame = null;
+            draw();
+        }
+
+        function drawArrow(fromX, fromY, toX, toY, color, width, label) {
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const size = 11;
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - size * Math.cos(angle - Math.PI / 6), toY - size * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - size * Math.cos(angle + Math.PI / 6), toY - size * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+
+            if (label) {
+                ctx.font = '15px Segoe UI';
+                ctx.fillText(label, toX + 8, toY - 8);
+            }
+            ctx.restore();
+        }
+
+        function drawField(B) {
+            ctx.save();
+            ctx.fillStyle = '#1e5ea8';
+            ctx.font = '16px Segoe UI';
+            ctx.fillText(`Uniform magnetic field B = ${format(B, 2)} T`, 36, 40);
+
+            const cols = 8;
+            const rows = 5;
+            const startX = 90;
+            const startY = 100;
+            const dx = 78;
+            const dy = 78;
+            for (let j = 0; j < rows; j++) {
+                for (let i = 0; i < cols; i++) {
+                    const x = startX + i * dx;
+                    const y = startY + j * dy;
+                    ctx.strokeStyle = '#1e88e5';
+                    ctx.lineWidth = 1.8;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 11, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3.2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            ctx.fillText('dots: B out of screen', 36, 520);
+            ctx.restore();
+        }
+
+        function rodState(params) {
+            const xMin = 180;
+            const xMax = 620;
+            const x = xMin + ((state.t * params.v * params.speed * 44) % (xMax - xMin));
+            const halfLen = 170 * params.L / 0.60;
+            const centerY = 290;
+            return {
+                x,
+                centerY,
+                topY: centerY - halfLen,
+                bottomY: centerY + halfLen,
+                halfLen
+            };
+        }
+
+        function drawRod(rod) {
+            ctx.save();
+            ctx.strokeStyle = '#c89a6b';
+            ctx.lineWidth = 12;
+            ctx.beginPath();
+            ctx.moveTo(rod.x, rod.topY);
+            ctx.lineTo(rod.x, rod.bottomY);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawCharges(rod, emf) {
+            const positiveAtTop = emf >= 0;
+            const posY = positiveAtTop ? rod.topY : rod.bottomY;
+            const negY = positiveAtTop ? rod.bottomY : rod.topY;
+
+            ctx.save();
+            ctx.fillStyle = '#c94c4c';
+            ctx.beginPath();
+            ctx.arc(rod.x, posY, 16, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 18px Segoe UI';
+            ctx.fillText('+', rod.x - 5, posY + 6);
+
+            ctx.fillStyle = '#3465c5';
+            ctx.beginPath();
+            ctx.arc(rod.x, negY, 16, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.fillText('-', rod.x - 4, negY + 6);
+            ctx.restore();
+        }
+
+        function drawVectors(params, rod, emf) {
+            const vLen = 120 * params.v / 8.0;
+            const alpha = params.alpha;
+            const vx = vLen * Math.sin(alpha);
+            const vy = -vLen * Math.cos(alpha);
+            drawArrow(rod.x, rod.centerY, rod.x + vx, rod.centerY + vy, '#d97706', 4, 'v');
+
+            const forceDir = emf >= 0 ? -1 : 1;
+            drawArrow(rod.x, rod.centerY, rod.x, rod.centerY + forceDir * 110, '#1f8b4c', 4, 'q v × B');
+        }
+
+        function drawVoltageBar(emf) {
+            const x = 676;
+            const y = 116;
+            const height = 190;
+            const maxEmf = 1.2 * 0.60 * 8.0;
+            const fill = clamp(Math.abs(emf) / maxEmf, 0, 1) * height;
+
+            ctx.save();
+            ctx.strokeStyle = '#b7c8d8';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y, 36, height);
+            ctx.fillStyle = emf >= 0 ? '#f2b3b3' : '#b7c9f7';
+            ctx.fillRect(x, emf >= 0 ? y + height - fill : y, 36, fill);
+            ctx.fillStyle = '#52697f';
+            ctx.font = '14px Segoe UI';
+            ctx.fillText('rod voltage', x - 20, y - 14);
+            ctx.fillText('+', x + 11, y - 4);
+            ctx.fillText('-', x + 13, y + height + 18);
+            ctx.restore();
+        }
+
+        function updateText(params, emf) {
+            const sinAlpha = Math.sin(params.alpha);
+            eqBox.textContent =
+                `ℰ = B L v sinα = ${format(params.B, 2)} · ${format(params.L, 2)} · ${format(params.v, 1)} · ${format(sinAlpha, 2)} = ${format(emf, 3)} V`;
+
+            statsBox.innerHTML =
+                `Perpendicular motion factor: <strong>sin α = ${format(sinAlpha, 2)}</strong>.<br>` +
+                `Effective transverse speed = <strong>${format(params.v * sinAlpha, 2)} m/s</strong>.<br>` +
+                `The emf grows linearly with B, rod length L, and the component of velocity that actually cuts magnetic field lines.`;
+
+            noteBox.innerHTML =
+                `This is the clean classroom geometry: vertical rod, horizontal motion, field out of the screen.<br>` +
+                `When the motion becomes less perpendicular to the rod, the charge separation weakens because the Lorentz force along the rod becomes smaller.`;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const params = getParams();
+            const emf = params.B * params.L * params.v * Math.sin(params.alpha);
+            const rod = rodState(params);
+
+            drawField(params.B);
+            drawRod(rod);
+            drawCharges(rod, emf);
+            drawVectors(params, rod, emf);
+            drawVoltageBar(emf);
+            updateText(params, emf);
+        }
+
+        function update(dt) {
+            const params = getParams();
+            state.t += dt * params.speed;
+        }
+
+        function tick(timestamp) {
+            if (!state.running) {
+                state.lastFrame = null;
+                return;
+            }
+            if (state.lastFrame === null) {
+                state.lastFrame = timestamp;
+            }
+            const dt = Math.min((timestamp - state.lastFrame) / 1000, 0.03);
+            state.lastFrame = timestamp;
+            update(dt);
+            draw();
+            requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (!state.running) {
+                state.running = true;
+                requestAnimationFrame(tick);
+            }
+        }
+
+        function pause() {
+            state.running = false;
+        }
+
+        [lSlider, vSlider, alphaSlider, bSlider, speedSlider].forEach((slider) => {
+            slider.addEventListener('input', () => {
+                updateLabels();
+                draw();
+            });
+        });
+
+        btnStart.addEventListener('click', start);
+        btnPause.addEventListener('click', pause);
+        btnReset.addEventListener('click', () => {
+            updateLabels();
+            resetState();
+        });
+
+        updateLabels();
+        resetState();
+    })();
+    </script>
+</div>
+</body>
+</html>
