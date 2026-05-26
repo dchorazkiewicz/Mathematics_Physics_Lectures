@@ -59,6 +59,8 @@ nav:
   - Probabilistic methods:
     - 🎓 Lecture Notes:
       - Introduction to Probability: Probabilistic_methods/introduction.md
+  - PDFs:
+    - Lecture Notes PDF: pdfs.md
 
 
 theme:
