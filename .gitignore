@@ -3,6 +3,9 @@
 *.aux
 *.out
 *.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 *.pyc
 .idea/
 sandbox/Circuite_files/*
