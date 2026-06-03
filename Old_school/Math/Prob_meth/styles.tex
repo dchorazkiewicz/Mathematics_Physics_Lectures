@@ -1,0 +1,45 @@
+% Theorem-like environments
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[chapter]
+
+% Colored boxes
+\newtcolorbox{definitionbox}{
+    breakable,
+    colback=blue!3,
+    colframe=blue!60!black,
+    title=Definition,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{examplebox}{
+    breakable,
+    colback=green!3,
+    colframe=green!50!black,
+    title=Example,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{remarkbox}{
+    breakable,
+    colback=yellow!8,
+    colframe=yellow!50!black,
+    title=Remark,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{summarybox}{
+    breakable,
+    colback=gray!5,
+    colframe=gray!60!black,
+    title=Summary,
+    fonttitle=\bfseries
+}
