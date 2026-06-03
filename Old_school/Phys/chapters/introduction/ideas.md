@@ -1,0 +1,1 @@
+* we wstępie musimy umotywować to co chcemy przekazać tym skryptem na skrypt ma wiele funkcji jedna jest oczywiście przechowywanie minimalnej ilości wiedzy która będzie potrzebna do zaliczenia danego wykładu
