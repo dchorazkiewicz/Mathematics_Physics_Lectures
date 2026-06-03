@@ -1,5 +1,8 @@
 /site/
 *.log
+*.aux
+*.out
+*.toc
 *.pyc
 .idea/
 sandbox/Circuite_files/*
